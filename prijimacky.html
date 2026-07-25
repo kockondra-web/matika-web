@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Přijímačky | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A;
+    --ink-soft: #3A4A6B;
+    --paper: #FAF9F6;
+    --paper-dim: #F0EEE7;
+    --gold: #D4A24E;
+    --brick: #B85C4A;
+    --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+  header .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 100px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  nav.toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .toc-search {
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .toc-search:focus { outline: none; border-color: var(--gold); }
+  .toc-search::placeholder { color: var(--ink-soft); }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block;
+    padding: 9px 0;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14.5px;
+    border-left: 2px solid transparent;
+    padding-left: 14px;
+    margin-left: -14px;
+    transition: all 0.15s ease;
+  }
+  nav.toc li a.active,
+  nav.toc li a:hover {
+    color: var(--ink);
+    border-left-color: var(--gold);
+    font-weight: 500;
+  }
+  nav.toc li a.disabled { opacity: 0.4; cursor: default; }
+
+  main { min-width: 0; }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .section-lead {
+    color: var(--ink-soft);
+    font-size: 17px;
+    max-width: 640px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+
+  .topic {
+    padding-top: 30px;
+    margin-bottom: 90px;
+    scroll-margin-top: 90px;
+  }
+  .topic-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .topic h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .topic .theory {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 680px;
+  }
+  .topic .theory p { margin-bottom: 16px; }
+  .topic .theory strong { color: var(--ink); }
+
+  .rule-box {
+    background: var(--paper-dim);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .warn-box {
+    background: #FBF0EE;
+    border-left: 3px solid var(--brick);
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--brick);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  /* --- gamifikace: horní lišta se levelem/XP --- */
+  .stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .stat-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .level-badge {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .xp-track {
+    width: 90px; height: 6px;
+    background: var(--paper-dim);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .xp-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .streak-chip { color: var(--brick); }
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .reset-btn:hover { border-color: var(--brick); color: var(--brick); }
+
+  .toast {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 22px;
+    border-radius: 6px;
+    font-size: 14.5px;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.35);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 200;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast .toast-title { font-weight: 700; color: var(--gold); margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;}
+
+  /* --- obtížnostní záložky --- */
+  .diff-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 4px;
+    max-width: 680px;
+  }
+  .diff-tab {
+    flex: 1;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .diff-tab .dt-name {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .diff-tab .dt-count {
+    font-size: 12px; color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 2px;
+  }
+  .diff-tab.active { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  .diff-tab.locked { opacity: 0.45; cursor: not-allowed; }
+  .diff-tab .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .diff-tab.easy .dot { background: #6B9B7A; }
+  .diff-tab.medium .dot { background: var(--gold); }
+  .diff-tab.hard .dot { background: var(--brick); }
+
+  .example-set { display: none; }
+  .example-set.active { display: block; }
+
+  .answer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+  }
+  .answer-input {
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14.5px;
+    width: 200px;
+  }
+  .answer-input:focus { outline: none; border-color: var(--gold); }
+  .check-btn {
+    padding: 9px 16px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+  .check-btn:hover { background: var(--ink-soft); }
+  .answer-feedback { font-size: 13.5px; font-weight: 600; }
+  .answer-feedback.correct { color: #4C7259; }
+  .answer-feedback.wrong { color: var(--brick); }
+  .example-steps.hidden-steps { display: none; }
+  .example.solved .example-steps.hidden-steps { display: block; }
+  .example.solved .answer-row { opacity: 0.6; }
+  .example.solved .answer-input, .example.solved .check-btn { pointer-events: none; }
+  .reveal-link {
+    display: block;
+    margin: 0 24px 20px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .reveal-link:hover { color: var(--ink); }
+  .example.solved .reveal-link { display: none; }
+
+  .example-done-btn {
+    margin: 12px 24px 20px;
+    padding: 9px 16px;
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s ease;
+  }
+  .example-done-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
+  .example-done-btn.done {
+    background: #EAF2EC; color: #4C7259; border-color: #C9DED0;
+    cursor: default;
+  }
+
+  /* --- výběr teorie / procvičování po otevření tématu --- */
+  .progress-summary {
+    display: flex;
+    gap: 0;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-bottom: 56px;
+    overflow: hidden;
+  }
+  .ps-item {
+    flex: 1;
+    padding: 20px 22px;
+    border-right: 1px solid var(--line);
+  }
+  .ps-item:last-child { border-right: none; }
+  .ps-num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .ps-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 600px) {
+    .progress-summary { flex-wrap: wrap; }
+    .ps-item { flex: 1 1 50%; border-bottom: 1px solid var(--line); }
+  }
+
+  .topic-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 28px 0 10px;
+    max-width: 680px;
+  }
+  .topic-menu-card {
+    flex: 1 1 300px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 26px 24px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+  }
+  .topic-menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px -16px rgba(27,42,74,0.25);
+    border-color: var(--ink);
+  }
+  .topic-menu-card .tmc-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .topic-menu-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .topic-menu-card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .topic-content-block { display: none; }
+  .topic-content-block.active { display: block; }
+  .topic-back-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .topic-back-link:hover { color: var(--ink); }
+
+  .pure-example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 14px;
+    max-width: 680px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  .examples-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin: 44px 0 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 680px;
+  }
+
+  .example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 22px;
+    max-width: 680px;
+    overflow: hidden;
+  }
+  .example-q {
+    padding: 20px 24px;
+    font-size: 15.5px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 14px;
+  }
+  .example-q .qmark {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .example-steps { padding: 6px 24px 20px; }
+  .step {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: baseline;
+  }
+  .step:last-child { border-bottom: none; }
+  .step .snum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    width: 18px;
+  }
+  .step .stext { font-size: 15px; line-height: 1.6; }
+  .step .math {
+    background: var(--paper-dim);
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 15px;
+    display: inline-block;
+  }
+  .step.result {
+    background: #FCF7EC;
+    margin: 8px -24px -20px;
+    padding: 16px 24px;
+    border-bottom: none;
+  }
+  .step.result .stext { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <div class="stats-bar">
+      <div class="stat-chip streak-chip" id="streak-chip">🔥 <span id="streak-num">0</span> dní</div>
+      <div class="stat-chip">
+        <div class="level-badge" id="level-badge">1</div>
+        <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      </div>
+      <button class="reset-btn" id="reset-progress" title="Vynulovat postup, XP a odznaky">↺ reset</button>
+    </div>
+    <a href="index.html" class="back">← zpět na přehled</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Přijímačky · témata</div>
+    <input type="text" class="toc-search" id="toc-search" placeholder="Hledat téma…">
+    <ul id="toc-list">
+      <li><a href="#zlomky" class="active">1. Zlomky</a></li>
+      <li><a href="#" class="disabled">2. Desetinná čísla</a></li>
+      <li><a href="#" class="disabled">3. Procenta</a></li>
+      <li><a href="#" class="disabled">4. Poměr a úměra</a></li>
+      <li><a href="#" class="disabled">5. Mocniny a odmocniny</a></li>
+      <li><a href="#" class="disabled">6. Výrazy</a></li>
+      <li><a href="#" class="disabled">7. Rovnice a nerovnice</a></li>
+      <li><a href="#" class="disabled">8. Obvod a obsah</a></li>
+      <li><a href="#" class="disabled">9. Objem a povrch těles</a></li>
+      <li><a href="#" class="disabled">10. Pythagorova věta</a></li>
+      <li><a href="#" class="disabled">11. Slovní úlohy</a></li>
+      <li><a href="#" class="disabled">12. Grafy a diagramy</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Přijímačky na SŠ</div>
+    <p class="section-lead">Průřez celým učivem 2. stupně (6.–9. ročník), seřazený podle toho, co skutečně zkouší jednotná přijímací zkouška. Stejná témata najdeš i v sekci <a href="rocniky.html" style="color:var(--ink); font-weight:600;">Podle ročníku</a>, tady jsou jen seřazená jinak. Zatím je hotové první téma — zbytek postupně přibývá.</p>
+
+    <div class="progress-summary" id="progress-summary">
+      <div class="ps-item">
+        <div class="ps-num" id="ps-topics">0/12</div>
+        <div class="ps-label">témat rozjeto</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-examples">0/6</div>
+        <div class="ps-label">příkladů zvládnuto</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-level">1</div>
+        <div class="ps-label">tvůj level</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-xp">0</div>
+        <div class="ps-label">celkem XP</div>
+      </div>
+    </div>
+
+    <div class="topic" id="zlomky">
+      <div class="topic-label">téma 01</div>
+      <h2>Zlomky</h2>
+
+      <div class="topic-menu" id="zlomky-menu">
+        <div class="topic-menu-card" data-open="theory">
+          <div class="tmc-icon">01 · vysvětlení</div>
+          <h3>Teorie</h3>
+          <p>Co zlomek znamená, pravidla pro sčítání i násobení a nejčastější chyba, které se vyhnout.</p>
+        </div>
+        <div class="topic-menu-card" data-open="solutions">
+          <div class="tmc-icon">02 · jen řešení</div>
+          <h3>Příklady s řešením</h3>
+          <p>Všechny příklady najednou, postup krok za krokem. Bez levelů, bez zamykání — jen si to projdeš.</p>
+        </div>
+        <div class="topic-menu-card" data-open="practice">
+          <div class="tmc-icon">03 · procvičování</div>
+          <h3>Procvičuj s levely</h3>
+          <p>Stejné příklady rozdělené na lehké/střední/těžké, které se postupně odemykají. Sbíráš XP.</p>
+        </div>
+        <div class="topic-menu-card" data-open="pure">
+          <div class="tmc-icon">04 · jen zadání</div>
+          <h3>Čisté příklady</h3>
+          <p>Jen zadání a výsledek, žádný postup. Pro rychlé procvičení nebo ověření, že to umíš.</p>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="theory">
+        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+
+        <div class="theory">
+        <p>Zlomek je jiný zápis dělení. <strong>3/4</strong> znamená totéž jako <strong>3 : 4</strong> — jen si tři celky rozdělíme na čtvrtiny. Číslo nahoře (<strong>čitatel</strong>) říká, kolik dílů máme, číslo dole (<strong>jmenovatel</strong>) říká, na kolik dílů je celek rozdělený.</p>
+        <p>Většina chyb u zlomků nevzniká z neznalosti pravidel, ale z toho, že se pravidla pro sčítání a násobení pletou dohromady. Jsou to dvě zcela odlišné operace, každá s jinými pravidly:</p>
+      </div>
+
+      <div class="rule-box">
+        <div class="rb-label">Násobení zlomků</div>
+        Násobí se čitatel s čitatelem a jmenovatel se jmenovatelem. Není potřeba stejný jmenovatel.<br>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:14px;">a/b · c/d = (a·c)/(b·d)</span>
+      </div>
+
+      <div class="rule-box">
+        <div class="rb-label">Sčítání a odčítání zlomků</div>
+        Tady naopak stejný jmenovatel <strong>musí být</strong> — pokud není, oba zlomky na něj nejdřív rozšíříme.<br>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:14px;">a/b + c/b = (a+c)/b</span>
+      </div>
+
+      <div class="warn-box">
+        <div class="wb-label">Nejčastější chyba</div>
+        Sčítání čitatelů i jmenovatelů zvlášť, jako by šlo o násobení: 1/2 + 1/3 ≠ 2/5. Zlomky nejdřív musí mít <strong>společný jmenovatel</strong> (zde 6): 3/6 + 2/6 = 5/6.
+      </div>
+      </div>
+
+      <div class="topic-content-block" data-block="solutions">
+        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+        <div class="examples-heading">Všechny příklady s řešením</div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">1.</span> Vypočítej: 2/3 + 1/4</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Najdeme společný jmenovatel obou zlomků — nejmenší číslo dělitelné 3 i 4 je <span class="math">\(12\)</span>.</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Rozšíříme první zlomek čtyřmi: <span class="math">\(\frac{2}{3} = \frac{8}{12}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Rozšíříme druhý zlomek třemi: <span class="math">\(\frac{1}{4} = \frac{3}{12}\)</span></div></div>
+            <div class="step"><div class="snum">4</div><div class="stext">Sečteme čitatele, jmenovatel necháme: <span class="math">\(\frac{8}{12} + \frac{3}{12} = \frac{11}{12}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{11}{12}\)</span> — dál se už krátit nedá.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">2.</span> Vypočítej: 5/8 − 1/4</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Společný jmenovatel pro 8 a 4 je <span class="math">\(8\)</span> (4 je dělitelem 8, netřeba nic hledat).</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Rozšíříme druhý zlomek dvěma: <span class="math">\(\frac{1}{4} = \frac{2}{8}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Odečteme čitatele: <span class="math">\(\frac{5}{8} − \frac{2}{8} = \frac{3}{8}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{3}{8}\)</span></div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">3.</span> Vypočítej: 3/5 · 10/9</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Násobíme přímo čitatele s čitatelem a jmenovatele se jmenovatelem: <span class="math">\(\frac{3\cdot10}{5\cdot9} = \frac{30}{45}\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Než násobíme, je často jednodušší <strong>krátit křížem</strong> — 3 a 9 mají společného dělitele 3, 10 a 5 mají společného dělitele 5.</div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Po zkrácení: <span class="math">\(\frac{3}{5} \to 1\)</span> (děleno 3 s devítkou), <span class="math">\(\frac{10}{9} \to \frac{2}{3}\)</span> (děleno 5 s pětkou)</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1 · \frac{2}{3} = \frac{2}{3}\)</span></div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">4.</span> Vypočítej: 2 1/3 + 1 3/4 (smíšená čísla)</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Převedeme smíšená čísla na zlomky: <span class="math">\(2 \frac{1}{3} = \frac{7}{3}\)</span>, <span class="math">\(1 \frac{3}{4} = \frac{7}{4}\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Společný jmenovatel je <span class="math">\(12\)</span>: <span class="math">\(\frac{7}{3} = \frac{28}{12}\)</span>, <span class="math">\(\frac{7}{4} = \frac{21}{12}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(\frac{28}{12} + \frac{21}{12} = \frac{49}{12}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{49}{12} = 4 \frac{1}{12}\)</span></div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">5.</span> Slovní úloha: Z nádrže se odčerpaly 2/5 vody, pak přiteklo 1/4 z toho, co zbylo. Kolik vody je nyní v nádrži oproti původnímu množství?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Po odčerpání 2/5 zbývá <span class="math">\(1 − \frac{2}{5} = \frac{3}{5}\)</span> původního množství.</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Přiteklo 1/4 z toho, co <strong>zbylo</strong> (ne z celku!) — tedy 1/4 z 3/5: <span class="math">\(\frac{1}{4} · \frac{3}{5} = \frac{3}{20}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Celkové množství teď je zbytek plus přítok: <span class="math">\(\frac{3}{5} + \frac{3}{20}\)</span>. Společný jmenovatel je 20: <span class="math">\(\frac{12}{20} + \frac{3}{20} = \frac{15}{20}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Po zkrácení: <span class="math">\(\frac{15}{20} = \frac{3}{4}\)</span> původního množství vody.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">6.</span> Vyřeš: x/6 + 2/3 = 5/6 − x/2</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Vynásobíme celou rovnici společným jmenovatelem <span class="math">\(6\)</span>, ať se zbavíme zlomků: <span class="math">\(x + 4 = 5 − 3x\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Převedeme x na jednu stranu: <span class="math">\(x + 3x = 5 − 4\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(4x = 1\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(x = \frac{1}{4}\)</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="pure">
+        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+        <div class="examples-heading">Čisté příklady — zadání a výsledek</div>
+
+        <div class="pure-example"><div class="pe-q">1. \(\frac{2}{3} + \frac{1}{4}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{11}{12}\)</div></div>
+        <div class="pure-example"><div class="pe-q">2. \(\frac{5}{8} - \frac{1}{4}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{3}{8}\)</div></div>
+        <div class="pure-example"><div class="pe-q">3. \(\frac{3}{5} \cdot \frac{10}{9}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{2}{3}\)</div></div>
+        <div class="pure-example"><div class="pe-q">4. \(2\frac{1}{3} + 1\frac{3}{4}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(4\frac{1}{12}\)</div></div>
+        <div class="pure-example"><div class="pe-q">5. Z nádrže odčerpali 2/5, pak přiteklo 1/4 zbytku. Kolik je teď oproti původnímu množství?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{3}{4}\)</div></div>
+        <div class="pure-example"><div class="pe-q">6. Vyřeš: \(\frac{x}{6} + \frac{2}{3} = \frac{5}{6} - \frac{x}{2}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = \frac{1}{4}\)</div></div>
+      </div>
+
+      <div class="topic-content-block" data-block="practice">
+        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+
+        <div class="examples-heading">Řešené příklady podle obtížnosti</div>
+
+      <div class="diff-tabs" data-topic="zlomky">
+        <div class="diff-tab easy active" data-diff="easy">
+          <div class="dt-name"><span class="dot"></span> Lehké</div>
+          <div class="dt-count">2 příklady</div>
+        </div>
+        <div class="diff-tab medium" data-diff="medium">
+          <div class="dt-name"><span class="dot"></span> Střední</div>
+          <div class="dt-count">2 příklady</div>
+        </div>
+        <div class="diff-tab hard" data-diff="hard">
+          <div class="dt-name"><span class="dot"></span> Těžké <span class="lock-icon"></span></div>
+          <div class="dt-count">2 příklady</div>
+        </div>
+      </div>
+
+      <div class="example-set active" data-diff="easy" data-topic="zlomky">
+        <div class="example" data-id="zlomky-easy-1" data-answers="[&quot;11/12&quot;]" data-xp="10">
+          <div class="example-q"><span class="qmark">1.</span> Vypočítej: 2/3 + 1/4</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej výsledek, např. 5/6">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Najdeme společný jmenovatel obou zlomků — nejmenší číslo dělitelné 3 i 4 je <span class="math">\(12\)</span>.</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Rozšíříme první zlomek čtyřmi: <span class="math">\(\frac{2}{3} = \frac{8}{12}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Rozšíříme druhý zlomek třemi: <span class="math">\(\frac{1}{4} = \frac{3}{12}\)</span></div></div>
+            <div class="step"><div class="snum">4</div><div class="stext">Sečteme čitatele, jmenovatel necháme: <span class="math">\(\frac{8}{12} + \frac{3}{12} = \frac{11}{12}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{11}{12}\)</span> — dál se už krátit nedá.</div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+
+        <div class="example" data-id="zlomky-easy-2" data-answers="[&quot;3/8&quot;]" data-xp="10">
+          <div class="example-q"><span class="qmark">2.</span> Vypočítej: 5/8 − 1/4</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej výsledek">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Společný jmenovatel pro 8 a 4 je <span class="math">\(8\)</span> (4 je dělitelem 8, netřeba nic hledat).</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Rozšíříme druhý zlomek dvěma: <span class="math">\(\frac{1}{4} = \frac{2}{8}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Odečteme čitatele: <span class="math">\(\frac{5}{8} − \frac{2}{8} = \frac{3}{8}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{3}{8}\)</span></div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+      </div>
+
+      <div class="example-set" data-diff="medium" data-topic="zlomky">
+        <div class="example" data-id="zlomky-medium-1" data-answers="[&quot;2/3&quot;]" data-xp="20">
+          <div class="example-q"><span class="qmark">1.</span> Vypočítej: 3/5 · 10/9</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej výsledek">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Násobíme přímo čitatele s čitatelem a jmenovatele se jmenovatelem: <span class="math">\(\frac{3\cdot10}{5\cdot9} = \frac{30}{45}\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Než násobíme, je často jednodušší <strong>krátit křížem</strong> — 3 a 9 mají společného dělitele 3, 10 a 5 mají společného dělitele 5.</div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Po zkrácení: <span class="math">\(\frac{3}{5} \to 1\)</span> (děleno 3 s devítkou), <span class="math">\(\frac{10}{9} \to \frac{2}{3}\)</span> (děleno 5 s pětkou)</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1 · \frac{2}{3} = \frac{2}{3}\)</span></div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+
+        <div class="example" data-id="zlomky-medium-2" data-answers="[&quot;4 1/12&quot;,&quot;49/12&quot;]" data-xp="20">
+          <div class="example-q"><span class="qmark">2.</span> Vypočítej: 2 1/3 + 1 3/4 (smíšená čísla)</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej výsledek, např. 4 1/12">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Převedeme smíšená čísla na zlomky: <span class="math">\(2 \frac{1}{3} = \frac{7}{3}\)</span>, <span class="math">\(1 \frac{3}{4} = \frac{7}{4}\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Společný jmenovatel je <span class="math">\(12\)</span>: <span class="math">\(\frac{7}{3} = \frac{28}{12}\)</span>, <span class="math">\(\frac{7}{4} = \frac{21}{12}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(\frac{28}{12} + \frac{21}{12} = \frac{49}{12}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{49}{12} = 4 \frac{1}{12}\)</span></div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+      </div>
+
+      <div class="example-set" data-diff="hard" data-topic="zlomky">
+        <div class="example" data-id="zlomky-hard-1" data-answers="[&quot;3/4&quot;]" data-xp="30">
+          <div class="example-q"><span class="qmark">1.</span> Slovní úloha: Z nádrže se odčerpaly 2/5 vody, pak přiteklo 1/4 z toho, co zbylo. Kolik vody je nyní v nádrži oproti původnímu množství?</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej výsledek jako zlomek">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Po odčerpání 2/5 zbývá <span class="math">\(1 − \frac{2}{5} = \frac{3}{5}\)</span> původního množství.</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Přiteklo 1/4 z toho, co <strong>zbylo</strong> (ne z celku!) — tedy 1/4 z 3/5: <span class="math">\(\frac{1}{4} · \frac{3}{5} = \frac{3}{20}\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Celkové množství teď je zbytek plus přítok: <span class="math">\(\frac{3}{5} + \frac{3}{20}\)</span>. Společný jmenovatel je 20: <span class="math">\(\frac{12}{20} + \frac{3}{20} = \frac{15}{20}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Po zkrácení: <span class="math">\(\frac{15}{20} = \frac{3}{4}\)</span> původního množství vody.</div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+
+        <div class="example" data-id="zlomky-hard-2" data-answers="[&quot;1/4&quot;]" data-xp="30">
+          <div class="example-q"><span class="qmark">2.</span> Vyřeš: x/6 + 2/3 = 5/6 − x/2</div>
+          <div class="answer-row">
+            <input type="text" class="answer-input" placeholder="Zadej hodnotu x, např. 1/2">
+            <button class="check-btn">Zkontrolovat</button>
+            <span class="answer-feedback"></span>
+          </div>
+          <div class="example-steps hidden-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Vynásobíme celou rovnici společným jmenovatelem <span class="math">\(6\)</span>, ať se zbavíme zlomků: <span class="math">\(x + 4 = 5 − 3x\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Převedeme x na jednu stranu: <span class="math">\(x + 3x = 5 − 4\)</span></div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(4x = 1\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(x = \frac{1}{4}\)</span></div></div>
+          </div>
+          <a class="reveal-link">Nevím, ukázat řešení</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast">
+  <div class="toast-title" id="toast-title">Level up!</div>
+  <div id="toast-body">Postoupil jsi na level 2.</div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'mj_progress_v1';
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return { xp: 0, done: {}, lastVisit: null, streak: 0 };
+  }
+  function saveState(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  let state = loadState();
+
+  // streak: velmi jednoduchá verze — počítá po sobě jdoucí kalendářní dny s návštěvou
+  (function updateStreak() {
+    const today = new Date().toDateString();
+    if (state.lastVisit !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      state.streak = (state.lastVisit === yesterday) ? (state.streak + 1) : 1;
+      state.lastVisit = today;
+      saveState(state);
+    }
+  })();
+
+  function levelForXp(xp) {
+    // level roste jako 100 XP na první level, pak o 50 víc na každý další (jednoduchá křivka)
+    let level = 1, need = 100, remaining = xp;
+    while (remaining >= need) {
+      remaining -= need;
+      level++;
+      need += 50;
+    }
+    return { level, into: remaining, need };
+  }
+
+  function showToast(title, body) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-title').textContent = title;
+    document.getElementById('toast-body').textContent = body;
+    t.classList.add('show');
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function renderProgressSummary() {
+    const allExampleIds = Array.from(document.querySelectorAll('.example[data-id]')).map(el => el.getAttribute('data-id'));
+    const totalExamples = allExampleIds.length;
+    const doneExamples = allExampleIds.filter(id => state.done[id]).length;
+
+    // téma je "rozjeté", pokud má aspoň jeden hotový příklad
+    const topicsWithIds = {};
+    allExampleIds.forEach(id => {
+      const topic = id.split('-')[0];
+      topicsWithIds[topic] = topicsWithIds[topic] || [];
+      topicsWithIds[topic].push(id);
+    });
+    const totalTopicsBuilt = Object.keys(topicsWithIds).length; // kolik témat je zatím na webu hotovo (má obsah)
+    const topicsStarted = Object.keys(topicsWithIds).filter(t => topicsWithIds[t].some(id => state.done[id])).length;
+
+    const { level } = levelForXp(state.xp);
+
+    const psTopics = document.getElementById('ps-topics');
+    const psExamples = document.getElementById('ps-examples');
+    const psLevel = document.getElementById('ps-level');
+    const psXp = document.getElementById('ps-xp');
+    if (psTopics) psTopics.textContent = `${topicsStarted}/${totalTopicsBuilt}`;
+    if (psExamples) psExamples.textContent = `${doneExamples}/${totalExamples}`;
+    if (psLevel) psLevel.textContent = level;
+    if (psXp) psXp.textContent = state.xp;
+  }
+
+  function render() {
+    const { level, into, need } = levelForXp(state.xp);
+    document.getElementById('level-badge').textContent = level;
+    document.getElementById('xp-fill').style.width = Math.round((into / need) * 100) + '%';
+    document.getElementById('streak-num').textContent = state.streak;
+    renderProgressSummary();
+
+    // vyznač hotové příklady
+    document.querySelectorAll('.example-done-btn').forEach(btn => {
+      const id = btn.getAttribute('data-id');
+      if (state.done[id]) {
+        btn.classList.add('done');
+        btn.textContent = '✓ Umíš to';
+      }
+    });
+
+    // odemkni/zamkni obtížnosti podle postupu (lehké musí být hotové, aby šlo na střední atd.)
+    document.querySelectorAll('.diff-tabs').forEach(tabsEl => {
+      const topic = tabsEl.getAttribute('data-topic');
+      const easyIds = getIdsForDiff(topic, 'easy');
+      const mediumIds = getIdsForDiff(topic, 'medium');
+      const easyDone = easyIds.every(id => state.done[id]);
+      const mediumDone = mediumIds.every(id => state.done[id]);
+
+      const mediumTab = tabsEl.querySelector('.diff-tab.medium');
+      const hardTab = tabsEl.querySelector('.diff-tab.hard');
+      mediumTab.classList.toggle('locked', !easyDone);
+      hardTab.classList.toggle('locked', !mediumDone);
+    });
+  }
+
+  function getIdsForDiff(topic, diff) {
+    const set = document.querySelector(`.example-set[data-topic="${topic}"][data-diff="${diff}"]`);
+    if (!set) return [];
+    return Array.from(set.querySelectorAll('.example')).map(el => el.getAttribute('data-id'));
+  }
+
+  // přepínání obtížnostních záložek
+  document.querySelectorAll('.diff-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('locked')) {
+        showToast('Ještě zamčeno', 'Nejdřív dokonči všechny příklady v předchozí obtížnosti.');
+        return;
+      }
+      const tabsEl = tab.closest('.diff-tabs');
+      const topic = tabsEl.getAttribute('data-topic');
+      const diff = tab.getAttribute('data-diff');
+      tabsEl.querySelectorAll('.diff-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll(`.example-set[data-topic="${topic}"]`).forEach(s => s.classList.remove('active'));
+      document.querySelector(`.example-set[data-topic="${topic}"][data-diff="${diff}"]`).classList.add('active');
+    });
+  });
+
+  // normalizace zadané odpovědi pro porovnání (zlomky, mezery, "x=" prefix)
+  function normalizeAnswer(str) {
+    return str.trim().toLowerCase()
+      .replace(/^x\s*=\s*/, '')
+      .replace(/\s+/g, ' ')
+      .replace(/,/g, '.');
+  }
+
+  // kontrola odpovědi u příkladů s vlastním zadáním výsledku
+  document.querySelectorAll('.example[data-answers]').forEach(ex => {
+    const id = ex.getAttribute('data-id');
+    const accepted = JSON.parse(ex.getAttribute('data-answers')).map(normalizeAnswer);
+    const xp = parseInt(ex.getAttribute('data-xp'), 10) || 10;
+    const input = ex.querySelector('.answer-input');
+    const checkBtn = ex.querySelector('.check-btn');
+    const feedback = ex.querySelector('.answer-feedback');
+    const revealLink = ex.querySelector('.reveal-link');
+
+    function markSolved(awardXp) {
+      ex.classList.add('solved');
+      if (awardXp && !state.done[id]) {
+        const before = levelForXp(state.xp).level;
+        state.done[id] = true;
+        state.xp += xp;
+        const after = levelForXp(state.xp).level;
+        saveState(state);
+        render();
+        if (after > before) showToast('Level up! 🎉', `Postoupil jsi na level ${after}.`);
+        else showToast('+' + xp + ' XP', 'Správně!');
+      }
+      if (window.renderMathInElement) {
+        renderMathInElement(ex, { delimiters: [{ left: "\\(", right: "\\)", display: false }], throwOnError: false });
+      }
+    }
+
+    function checkAnswer() {
+      if (!input.value.trim()) return;
+      const val = normalizeAnswer(input.value);
+      if (accepted.includes(val)) {
+        feedback.textContent = '✓ Správně!';
+        feedback.className = 'answer-feedback correct';
+        markSolved(true);
+      } else {
+        feedback.textContent = 'Zkus to znovu';
+        feedback.className = 'answer-feedback wrong';
+      }
+    }
+
+    if (checkBtn) checkBtn.addEventListener('click', checkAnswer);
+    if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
+    if (revealLink) revealLink.addEventListener('click', () => markSolved(false));
+
+    // pokud byl příklad už dřív vyřešen (uloženo v localStorage), rovnou ukázat jako hotový
+    if (state.done[id]) {
+      ex.classList.add('solved');
+      if (feedback) { feedback.textContent = '✓ Správně!'; feedback.className = 'answer-feedback correct'; }
+    }
+  });
+
+  // --- výběr teorie / procvičování v rámci tématu ---
+  function showTopicMenu(topicId) {
+    document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => b.classList.remove('active'));
+    const menu = document.getElementById(topicId + '-menu');
+    if (menu) menu.style.display = 'flex';
+  }
+  function showTopicBlock(topicId, block) {
+    const menu = document.getElementById(topicId + '-menu');
+    if (menu) menu.style.display = 'none';
+    document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-block') === block);
+    });
+  }
+
+  document.querySelectorAll('.topic-menu-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const topicId = card.closest('.topic').id;
+      showTopicBlock(topicId, card.getAttribute('data-open'));
+    });
+  });
+  document.querySelectorAll('.topic-back-link').forEach(link => {
+    link.addEventListener('click', () => {
+      showTopicMenu(link.getAttribute('data-back'));
+    });
+  });
+  // při vstupu na stránku (nebo kliku v postranním menu) se vždy nejdřív ukáže výběr tématu
+  document.querySelectorAll('.topic').forEach(t => showTopicMenu(t.id));
+
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.pure-example').classList.add('revealed');
+    });
+  });
+
+  // vyhledávání v seznamu témat
+  const tocSearch = document.getElementById('toc-search');
+  if (tocSearch) {
+    tocSearch.addEventListener('input', () => {
+      const q = tocSearch.value.trim().toLowerCase();
+      document.querySelectorAll('#toc-list li').forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+  }
+
+  const resetBtn = document.getElementById('reset-progress');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Opravdu chceš vynulovat celý postup, XP a odemčené obtížnosti? Tohle nejde vzít zpět.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = { xp: 0, done: {}, lastVisit: new Date().toDateString(), streak: 1 };
+        saveState(state);
+        document.querySelectorAll('.example.solved').forEach(ex => {
+          ex.classList.remove('solved');
+          const fb = ex.querySelector('.answer-feedback');
+          if (fb) { fb.textContent = ''; fb.className = 'answer-feedback'; }
+          const inp = ex.querySelector('.answer-input');
+          if (inp) inp.value = '';
+        });
+        render();
+        showToast('Hotovo', 'Postup byl vynulován.');
+      }
+    });
+  }
+
+  render();
+
+  // vykreslení LaTeX matematiky přes KaTeX
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematika jasně | Přehled k přijímačkám a maturitě</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2A4A;
+    --ink-soft: #3A4A6B;
+    --paper: #FAF9F6;
+    --paper-dim: #F0EEE7;
+    --gold: #D4A24E;
+    --brick: #B85C4A;
+    --line: rgba(27, 42, 74, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  header {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .header-search {
+    width: 240px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .header-search:focus { outline: none; border-color: var(--gold); background: white; }
+  .header-search::placeholder { color: var(--ink-soft); }
+  @media (max-width: 600px) { .header-search { width: 140px; } }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--gold); }
+
+  .hero {
+    padding: 110px 0 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .wrap { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 68px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 850px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero p.lead {
+    margin-top: 28px;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  /* the "chalk step" signature motif faintly in the hero background */
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -80px; right: -120px;
+    width: 520px; height: 520px;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 38px, var(--line) 38px 39px);
+    border-radius: 50%;
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  .gates {
+    padding: 20px 0 120px;
+  }
+  .gates .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 980px) {
+    .gates .wrap { grid-template-columns: 1fr; }
+  }
+
+  .gate.featured {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+  .featured-tag {
+    position: absolute;
+    top: -12px; left: 32px;
+    background: var(--gold);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  .gate {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px 28px;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .gate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(27,42,74,0.25);
+  }
+  .gate .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .gate h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin: 14px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .gate p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+    font-size: 15.5px;
+    margin-bottom: 20px;
+  }
+  .gate .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gate .topics span {
+    font-size: 12.5px;
+    padding: 5px 10px;
+    background: var(--paper-dim);
+    border-radius: 3px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .gate .enter {
+    margin-top: 26px;
+    font-weight: 600;
+    font-size: 14.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gate.prijimacky .enter { color: var(--ink); }
+  .gate.maturita .enter { color: var(--brick); }
+  .gate .enter .arrow { transition: transform 0.2s ease; }
+  .gate:hover .enter .arrow { transform: translateX(4px); }
+
+  .why {
+    padding: 0 0 130px;
+  }
+  .why .wrap {
+    border-top: 1px solid var(--line);
+    padding-top: 60px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 60px;
+  }
+  @media (max-width: 760px) {
+    .why .wrap { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .why h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .why-points { display: flex; flex-direction: column; gap: 28px; }
+  .why-point { display: flex; gap: 20px; }
+  .why-point .mark {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .why-point p {
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-size: 15.5px;
+  }
+  .why-point strong { color: var(--ink); }
+
+  .about { padding: 0 0 100px; }
+  .about-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 44px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  @media (max-width: 700px) { .about-card { flex-direction: column; } }
+  .about-photo {
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .about-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .about-text h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+  .about-text p { color: var(--ink-soft); line-height: 1.65; font-size: 15px; margin-bottom: 12px; max-width: 560px; }
+  .about-cta {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .about-cta:hover { color: var(--gold); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 30px 0;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <div class="logo">matematika<span>.</span>jasně</div>
+    <input type="text" class="header-search" id="header-search" placeholder="Hledat téma… (Enter)">
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">přehled · postupy · řešené příklady</div>
+    <h1>Matematika, která <em>konečně</em> dává smysl.</h1>
+    <p class="lead">Žádné strohé vzorečky bez kontextu. Přehled teorie a stovky řešených příkladů — tak, jak to funguje na doučování, jen zdarma a pro každého.</p>
+  </div>
+</section>
+
+<section class="gates">
+  <div class="wrap">
+    <a href="prijimacky.html" class="gate prijimacky featured">
+      <div class="featured-tag">★ doporučeno</div>
+      <div class="step-num">/ 6.–9. ROČNÍK</div>
+      <h2>Přijímačky na SŠ</h2>
+      <p>Průřez celým učivem 2. stupně seřazený podle toho, co skutečně zkouší Cermat — od zlomků po slovní úlohy.</p>
+      <div class="topics">
+        <span>zlomky</span><span>rovnice</span><span>procenta</span><span>geometrie</span><span>slovní úlohy</span>
+      </div>
+      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+    </a>
+    <a href="rocniky.html" class="gate rocniky">
+      <div class="step-num">/ 6.–9. ROČNÍK</div>
+      <h2>Podle ročníku</h2>
+      <p>Stejné učivo jako ve škole — projdi si ho postupně ročník po ročníku, tak jak ho probíráš na hodinách.</p>
+      <div class="topics">
+        <span>6. ročník</span><span>7. ročník</span><span>8. ročník</span><span>9. ročník</span>
+      </div>
+      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+    </a>
+    <a href="maturita.html" class="gate maturita">
+      <div class="step-num">/ SŠ</div>
+      <h2>Maturita</h2>
+      <p>Kompletní středoškolská látka pro didaktický test — funkce, goniometrie, kombinatorika, analytická geometrie a další.</p>
+      <div class="topics">
+        <span>funkce</span><span>goniometrie</span><span>komb. + pravděpodobnost</span><span>planimetrie</span><span>analytická geometrie</span>
+      </div>
+      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+    </a>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h3>Proč tenhle web vznikl</h3>
+    <div class="why-points">
+      <div class="why-point">
+        <div class="mark">01</div>
+        <p><strong>4 roky doučování matematiky</strong> ukázaly stejná místa, kde se žáci zasekávají — pořád dokola ty samé chyby, ty samé nejasnosti. Tenhle web je jejich lékem.</p>
+      </div>
+      <div class="why-point">
+        <div class="mark">02</div>
+        <p>Každé téma má <strong>teorii vysvětlenou lidsky</strong> a hned za ní <strong>řešené příklady krok za krokem</strong> — ne jen výsledek, ale celý myšlenkový postup.</p>
+      </div>
+      <div class="why-point">
+        <div class="mark">03</div>
+        <p>Zdarma a bez háčků. Cílem není prodat kurz, ale udělat matematiku <strong>srozumitelnou pro každého</strong>, kdo se ji snaží pochopit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <div class="about-card">
+      <div class="about-photo">TJ</div>
+      <div class="about-text">
+        <div class="about-eyebrow">Kdo za tím stojí</div>
+        <h3>Tvoje Jméno</h3>
+        <p>Doučuji matematiku už 4 roky — hlavně žáky 2. stupně, co se připravují na přijímačky nebo si chtějí srovnat základy. Tenhle web je shrnutí toho, co na doučování opakuju pořád dokola.</p>
+        <p>Pokud by ti individuální doučování sedělo víc než samostudium, ozvi se — ať už na přijímačky, na doučení základů, nebo na zlepšení známek.</p>
+        <a href="mailto:tvuj@email.cz" class="about-cta">Napsat kvůli doučování →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">matematika.jasně — přehled pro přijímačky a maturitu</div>
+</footer>
+
+<script>
+  const headerSearch = document.getElementById('header-search');
+  if (headerSearch) {
+    headerSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && headerSearch.value.trim() !== '') {
+        window.location.href = 'rocniky.html?q=' + encodeURIComponent(headerSearch.value.trim());
+      }
+    });
+  }
+</script>
+</body>
+</html>
