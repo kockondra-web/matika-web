@@ -97,7 +97,18 @@
     border-left-color: var(--gold);
     font-weight: 500;
   }
-  nav.toc li a.disabled { opacity: 0.4; cursor: default; }
+  nav.toc li a.disabled { opacity: 0.38; cursor: default; font-style: italic; }
+  nav.toc li a:not(.disabled) { color: var(--ink); font-weight: 500; }
+  nav.toc li a:not(.disabled)::after {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #6B9B7A;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  nav.toc li a.disabled .tnum { background: transparent; }
 
   main { min-width: 0; }
 
@@ -386,6 +397,43 @@
     .ps-item { flex: 1 1 50%; border-bottom: 1px solid var(--line); }
   }
 
+  .tnum {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--paper-dim);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 7px;
+    min-width: 52px;
+    text-align: center;
+  }
+  nav.toc li a.disabled .tnum { color: var(--ink-soft); }
+
+  .exam-info {
+    background: #FCF7EC;
+    border: 1px solid rgba(212,162,78,0.4);
+    border-radius: 6px;
+    padding: 14px 18px;
+    max-width: 680px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .exam-info .ei-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .exam-info strong { color: var(--ink); }
+
   .topic-menu {
     display: flex;
     flex-wrap: wrap;
@@ -560,28 +608,33 @@
     <div class="eyebrow">Přijímačky · témata</div>
     <input type="text" class="toc-search" id="toc-search" placeholder="Hledat téma…">
     <ul id="toc-list">
-      <li><a href="#zlomky" class="active">1. Zlomky</a></li>
-      <li><a href="#" class="disabled">2. Desetinná čísla</a></li>
-      <li><a href="#" class="disabled">3. Procenta</a></li>
-      <li><a href="#" class="disabled">4. Poměr a úměra</a></li>
-      <li><a href="#" class="disabled">5. Mocniny a odmocniny</a></li>
-      <li><a href="#" class="disabled">6. Výrazy</a></li>
-      <li><a href="#" class="disabled">7. Rovnice a nerovnice</a></li>
-      <li><a href="#" class="disabled">8. Obvod a obsah</a></li>
-      <li><a href="#" class="disabled">9. Objem a povrch těles</a></li>
-      <li><a href="#" class="disabled">10. Pythagorova věta</a></li>
-      <li><a href="#" class="disabled">11. Slovní úlohy</a></li>
-      <li><a href="#" class="disabled">12. Grafy a diagramy</a></li>
-    </ul>
+      <li><a href="slovni-ulohy.html"><span class="tnum">ú. 1</span> Rozehřívací úloha</a></li>
+      <li><a href="#zlomky" class="active"><span class="tnum">ú. 2–3</span> Zlomky a odmocniny</a></li>
+      <li><a href="vyrazy.html"><span class="tnum">ú. 3–4</span> Algebraické výrazy</a></li>
+      <li><a href="rovnice.html"><span class="tnum">ú. 4–5</span> Lineární rovnice</a></li>
+      <li><a href="geometrie.html"><span class="tnum">ú. 5–8</span> Obsahy a obvody</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 5–8</span> Objemy těles</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 5–8</span> Úhly</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 5–8</span> Měřítko a poměr</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 9–10</span> Konstrukční úlohy</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 11</span> Úlohy ano/ne</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 12–14</span> Uzavřené úlohy (A–E)</a></li>
+      <li><a href="#procenta"><span class="tnum">ú. 15</span> Procenta a fin. matematika</a></li>
+      <li><a href="#" class="disabled"><span class="tnum">ú. 16</span> Netradiční logická úloha</a></li>
+</ul>
+    <div style="margin-top:14px; font-size:11.5px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; line-height:1.7;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#6B9B7A;vertical-align:middle;margin-right:5px;"></span>hotové téma<br>
+      <span style="opacity:0.38; font-style:italic;">kurzívou</span> = připravuje se
+    </div>
   </nav>
 
   <main>
     <div class="section-title">Přijímačky na SŠ</div>
-    <p class="section-lead">Průřez celým učivem 2. stupně (6.–9. ročník), seřazený podle toho, co skutečně zkouší jednotná přijímací zkouška. Stejná témata najdeš i v sekci <a href="rocniky.html" style="color:var(--ink); font-weight:600;">Podle ročníku</a>, tady jsou jen seřazená jinak. Zatím je hotové první téma — zbytek postupně přibývá.</p>
+    <p class="section-lead">Témata jsou seřazená <strong>podle čísla úlohy</strong>, tak jak jdou v testu za sebou — u každého vidíš, kde se v testu objeví. Struktura je ověřená na testech 2024 a 2025, ale pořadí se rok od roku může mírně přehodit. Chceš si projít celý test najednou? <a href="jpz-2024-test1.html" style="color:var(--gold); font-weight:600;">→ JPZ 2024 celý test</a></p>
 
     <div class="progress-summary" id="progress-summary">
       <div class="ps-item">
-        <div class="ps-num" id="ps-topics">0/12</div>
+        <div class="ps-num" id="ps-topics">0/13</div>
         <div class="ps-label">témat rozjeto</div>
       </div>
       <div class="ps-item">
@@ -599,8 +652,13 @@
     </div>
 
     <div class="topic" id="zlomky">
-      <div class="topic-label">téma 01</div>
-      <h2>Zlomky</h2>
+      <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
+      <h2>Zlomky a odmocniny</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Obvykle <strong>úloha 2 nebo 3</strong>, max. 3–4 body. Výsledek se skoro vždy zapisuje <strong>zlomkem v základním tvaru</strong> — když ho nezkrátíš, přijdeš o bod. Často jde o složený výraz se zlomky a desetinnými čísly dohromady.
+      </div>
 
       <div class="topic-menu" id="zlomky-menu">
         <div class="topic-menu-card" data-open="theory">
@@ -727,6 +785,8 @@
         <div class="pure-example"><div class="pe-q">4. \(2\frac{1}{3} + 1\frac{3}{4}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(4\frac{1}{12}\)</div></div>
         <div class="pure-example"><div class="pe-q">5. Z nádrže odčerpali 2/5, pak přiteklo 1/4 zbytku. Kolik je teď oproti původnímu množství?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{3}{4}\)</div></div>
         <div class="pure-example"><div class="pe-q">6. Vyřeš: \(\frac{x}{6} + \frac{2}{3} = \frac{5}{6} - \frac{x}{2}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = \frac{1}{4}\)</div></div>
+        <div class="pure-example"><div class="pe-q">7. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[ostré zadání JPZ 2024]</span> Vypočítej: \(\left(\frac{13}{10} - 1{,}4\right) : \left(\frac{2}{15}+\frac{1}{6}\right)\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-\frac{1}{3}\)</div></div>
+        <div class="pure-example"><div class="pe-q">8. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[JPZ 2024 B]</span> Vypočítej: \(\left(\frac{3}{4}+\frac{4}{3}\right) \cdot \left(\frac{2}{3}-\frac{6}{5}\right)\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-\frac{10}{9}\)</div></div>
       </div>
 
       <div class="topic-content-block" data-block="practice">
@@ -851,6 +911,258 @@
           <a class="reveal-link">Nevím, ukázat řešení</a>
         </div>
       </div>
+      </div>
+    </div>
+
+    <div class="topic" id="procenta">
+      <div class="topic-label">úloha 15 · max. 6 bodů</div>
+      <h2>Procenta a finanční matematika</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Nejčastěji <strong>přiřazovací úloha na konci testu</strong> (úloha 15 nebo 16), tři podúlohy, <strong>max. 6 bodů</strong> — nejvíc bodovaná úloha celého testu. Skoro vždy jde o <strong>finanční matematiku</strong>: úroky, půjčky, slevy a zdražení. Pozor na řetězené slevy/zdražení — počítá se vždy z nové ceny, ne z původní.
+      </div>
+
+      <div class="topic-menu" id="procenta-menu">
+        <div class="topic-menu-card" data-open="theory">
+          <div class="tmc-icon">01 · vysvětlení</div>
+          <h3>Teorie</h3>
+          <p>Co procento znamená, tři základní typy úloh a jak je od sebe rozeznat.</p>
+        </div>
+        <div class="topic-menu-card" data-open="solutions">
+          <div class="tmc-icon">02 · jen řešení</div>
+          <h3>Příklady s řešením</h3>
+          <p>Všech 6 příkladů najednou s postupem. Bez levelů, bez zamykání.</p>
+        </div>
+        <div class="topic-menu-card" data-open="practice">
+          <div class="tmc-icon">03 · procvičování</div>
+          <h3>Procvičuj s levely</h3>
+          <p>Zadáš vlastní výsledek. Lehké/střední/těžké se postupně odemykají, sbíráš XP.</p>
+        </div>
+        <div class="topic-menu-card" data-open="pure">
+          <div class="tmc-icon">04 · jen zadání</div>
+          <h3>Čisté příklady</h3>
+          <p>Jen zadání a výsledek, žádný postup.</p>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="theory">
+        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <div class="theory">
+          <p>Procento je jiný způsob zápisu zlomku se jmenovatelem 100. <strong>1 % = 1/100 = 0,01</strong>. Když řekneš "20 % ze 150", myslíš tím totéž jako <strong>0,2 · 150</strong>.</p>
+          <p>U procent se řeší vždy jeden ze tří vztahů mezi třemi čísly: <strong>základ</strong> (celek, ze kterého počítáš), <strong>počet procent</strong> a <strong>procentová část</strong> (výsledná hodnota). Klíčové je poznat, co je v úloze zadané a co se ptá.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Výpočet procentové části</div>
+          Základ krát počet procent děleno 100.<br>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:14px;">část = (základ · procenta) / 100</span>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Výpočet základu</div>
+          Když znáš procentovou část a víš, kolik % představuje, základ dopočítáš obráceně.<br>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:14px;">základ = (část · 100) / procenta</span>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Výpočet počtu procent</div>
+          Když znáš základ i část a chceš vědět, kolik procent část představuje.<br>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:14px;">procenta = (část · 100) / základ</span>
+        </div>
+
+        <div class="warn-box">
+          <div class="wb-label">Nejčastější chyba</div>
+          Plést si, co je "základ", u úloh typu "cena po zdražení o 15 % je 2760 Kč". Základ je <strong>původní</strong> cena (100 %), ne ta po zdražení (115 %) — proto se dělí, ne násobí zpět stejným číslem.
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="solutions">
+        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <div class="examples-heading">Všechny příklady s řešením</div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">1.</span> Kolik je 20 % z 150?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Používáme vzorec pro procentovou část: <span class="math">\(\frac{150 \cdot 20}{100}\)</span></div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Vypočítáme: <span class="math">\(\frac{3000}{100} = 30\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(30\)</span></div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">2.</span> Vypočítej 45 % z 80.</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext"><span class="math">\(\frac{80 \cdot 45}{100} = \frac{3600}{100}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(36\)</span></div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">3.</span> Cena kola byla zvýšena o 15 % a nyní stojí 2760 Kč. Jaká byla cena před zdražením?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">2760 Kč představuje <strong>115 %</strong> původní ceny (100 % + 15 % navýšení), ne 15 %.</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Použijeme vzorec pro základ: <span class="math">\(\frac{2760 \cdot 100}{115}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(2400\)</span> Kč</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">4.</span> Do třídy s 25 žáky přibyli noví žáci a jejich počet vzrostl o 12 %. Kolik žáků je teď ve třídě?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">25 žáků je 100 %, chceme 112 % (100 % + 12 % nárůst).</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{25 \cdot 112}{100} = \frac{2800}{100}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(28\)</span> žáků</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">5.</span> Vklad 8000 Kč byl uložen na 2 roky s ročním úrokem 3 % (jednoduché úrokování). Kolik korun bude na účtu po 2 letech?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Úrok za jeden rok: <span class="math">\(\frac{8000 \cdot 3}{100} = 240\)</span> Kč</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Za 2 roky (jednoduché úrokování se nepřipisuje k jistině): <span class="math">\(240 \cdot 2 = 480\)</span> Kč</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(8000 + 480 = 8480\)</span> Kč</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">6.</span> Cena výrobku po slevě 20 % je 960 Kč. Jaká byla původní cena?</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">960 Kč je <strong>80 %</strong> původní ceny (100 % − 20 % sleva).</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{960 \cdot 100}{80}\)</span></div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1200\)</span> Kč</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="practice">
+        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <div class="examples-heading">Řešené příklady podle obtížnosti</div>
+
+        <div class="diff-tabs" data-topic="procenta">
+          <div class="diff-tab easy active" data-diff="easy">
+            <div class="dt-name"><span class="dot"></span> Lehké</div>
+            <div class="dt-count">2 příklady</div>
+          </div>
+          <div class="diff-tab medium" data-diff="medium">
+            <div class="dt-name"><span class="dot"></span> Střední</div>
+            <div class="dt-count">2 příklady</div>
+          </div>
+          <div class="diff-tab hard" data-diff="hard">
+            <div class="dt-name"><span class="dot"></span> Těžké <span class="lock-icon"></span></div>
+            <div class="dt-count">2 příklady</div>
+          </div>
+        </div>
+
+        <div class="example-set active" data-diff="easy" data-topic="procenta">
+          <div class="example" data-id="procenta-easy-1" data-answers="[&quot;30&quot;]" data-xp="10">
+            <div class="example-q"><span class="qmark">1.</span> Kolik je 20 % z 150?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej číslo">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">Používáme vzorec pro procentovou část: <span class="math">\(\frac{150 \cdot 20}{100}\)</span></div></div>
+              <div class="step"><div class="snum">2</div><div class="stext">Vypočítáme: <span class="math">\(\frac{3000}{100} = 30\)</span></div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(30\)</span></div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="procenta-easy-2" data-answers="[&quot;36&quot;]" data-xp="10">
+            <div class="example-q"><span class="qmark">2.</span> Vypočítej 45 % z 80.</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej číslo">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext"><span class="math">\(\frac{80 \cdot 45}{100} = \frac{3600}{100}\)</span></div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(36\)</span></div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+        </div>
+
+        <div class="example-set" data-diff="medium" data-topic="procenta">
+          <div class="example" data-id="procenta-medium-1" data-answers="[&quot;2400&quot;]" data-xp="20">
+            <div class="example-q"><span class="qmark">1.</span> Cena kola byla zvýšena o 15 % a nyní stojí 2760 Kč. Jaká byla cena před zdražením?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej cenu v Kč">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">2760 Kč představuje <strong>115 %</strong> původní ceny, ne 15 %.</div></div>
+              <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{2760 \cdot 100}{115}\)</span></div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(2400\)</span> Kč</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="procenta-medium-2" data-answers="[&quot;28&quot;]" data-xp="20">
+            <div class="example-q"><span class="qmark">2.</span> Do třídy s 25 žáky přibyli noví žáci a jejich počet vzrostl o 12 %. Kolik žáků je teď ve třídě?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej počet žáků">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">25 žáků je 100 %, chceme 112 %.</div></div>
+              <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{25 \cdot 112}{100} = \frac{2800}{100}\)</span></div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(28\)</span> žáků</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+        </div>
+
+        <div class="example-set" data-diff="hard" data-topic="procenta">
+          <div class="example" data-id="procenta-hard-1" data-answers="[&quot;8480&quot;]" data-xp="30">
+            <div class="example-q"><span class="qmark">1.</span> Vklad 8000 Kč byl uložen na 2 roky s ročním úrokem 3 % (jednoduché úrokování). Kolik korun bude na účtu po 2 letech?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej částku v Kč">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">Úrok za jeden rok: <span class="math">\(\frac{8000 \cdot 3}{100} = 240\)</span> Kč</div></div>
+              <div class="step"><div class="snum">2</div><div class="stext">Za 2 roky: <span class="math">\(240 \cdot 2 = 480\)</span> Kč</div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(8000 + 480 = 8480\)</span> Kč</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="procenta-hard-2" data-answers="[&quot;1200&quot;]" data-xp="30">
+            <div class="example-q"><span class="qmark">2.</span> Cena výrobku po slevě 20 % je 960 Kč. Jaká byla původní cena?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="Zadej cenu v Kč">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">960 Kč je <strong>80 %</strong> původní ceny.</div></div>
+              <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{960 \cdot 100}{80}\)</span></div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1200\)</span> Kč</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="pure">
+        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <div class="examples-heading">Čisté příklady — zadání a výsledek</div>
+
+        <div class="pure-example"><div class="pe-q">1. Kolik je 20 % z 150?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">30</div></div>
+        <div class="pure-example"><div class="pe-q">2. Vypočítej 45 % z 80.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">36</div></div>
+        <div class="pure-example"><div class="pe-q">3. Cena po zdražení o 15 % je 2760 Kč. Jaká byla původní cena?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">2400 Kč</div></div>
+        <div class="pure-example"><div class="pe-q">4. Třída s 25 žáky vzrostla o 12 %. Kolik žáků je teď?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">28 žáků</div></div>
+        <div class="pure-example"><div class="pe-q">5. Vklad 8000 Kč, roční úrok 3 %, 2 roky (jednoduché úročení). Kolik bude na účtu?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">8480 Kč</div></div>
+        <div class="pure-example"><div class="pe-q">6. Cena po slevě 20 % je 960 Kč. Jaká byla původní cena?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">1200 Kč</div></div>
+        <div class="pure-example"><div class="pe-q">7. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[ostré zadání JPZ 2024]</span> Půjčka 20 000 Kč na rok, úrok 13,5 % z vypůjčené částky. Kolik korun celkem vrátíte?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">22 700 Kč</div></div>
+        <div class="pure-example"><div class="pe-q">8. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[ostré zadání JPZ 2024]</span> Vklad 1 000 000 Kč, roční úrok 2,5 %. Kolik korun získáte navíc po zdanění úroku srážkovou daní 15 %?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">21 250 Kč</div></div>
+        <div class="pure-example"><div class="pe-q">9. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[ostré zadání JPZ 2024]</span> Kolo za 20 000 Kč bylo zlevněno o 10 % z původní ceny, po měsíci zdraženo o 10 % z nové ceny. Jaká je výsledná cena?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">19 800 Kč</div></div>
       </div>
     </div>
   </main>

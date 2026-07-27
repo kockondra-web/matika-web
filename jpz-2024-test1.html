@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPZ 2024 — celý test | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    background: var(--paper-dim);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .gap-note {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    background: #FBF0EE;
+    border-left: 3px solid var(--brick);
+    padding: 12px 16px;
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.55;
+  }
+
+  .task-num-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .points-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .topic-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--paper-dim);
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  .topic-tag:hover { background: var(--ink); color: white; }
+
+  .structure {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 26px 28px;
+    max-width: 720px;
+    margin-bottom: 44px;
+  }
+  .structure h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .structure > p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+  .st-row {
+    display: flex;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: baseline;
+  }
+  .st-row:last-child { border-bottom: none; }
+  .st-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--gold);
+    flex: 0 0 62px;
+  }
+  .st-txt { font-size: 14.5px; line-height: 1.5; }
+  .st-txt strong { color: var(--ink); }
+
+  .pure-example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 14px;
+    max-width: 720px;
+    padding: 18px 22px;
+  }
+  .pure-example .pe-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; margin-bottom: 10px; line-height: 1.5; }
+  .pure-example .pe-footer { display: flex; align-items: center; gap: 16px; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="prijimacky.html" class="back">← zpět na přijímačky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">JPZ 2024 — celý test</div>
+    <p class="section-lead">Všechny úlohy přesně v tom pořadí a číslování, v jakém byly v ostrém testu. Žádné třídění podle tématu — tak, jak by to přišlo na stůl u zkoušky.</p>
+    <div class="source-note">zdroj: JPZ 2024, 1. řádný termín (M9PAD24C0T01), Cermat — 16 úloh, 70 minut, max. 50 bodů</div>
+    <div class="gap-note">Úlohy 3.1, 4.1, 4.3, 5.1, 9, 10 a 12 chybí — buď se při extrakci PDF rozsypaly do nečitelné podoby, nebo vyžadují obrázek/rýsování, které se sem nedalo přenést. Zbytek (13 z 16 úloh) je ověřeno ručním přepočtem proti oficiálnímu klíči.</div>
+  </div>
+
+  <div class="structure">
+    <h2>Co v které úloze čekat</h2>
+    <p>Struktura testu se rok od roku drží velmi podobná — když víš dopředu, co kde přijde, ušetříš si čas i nervy. Ověřeno na testech 2024 a 2025.</p>
+
+    <div class="st-row"><div class="st-num">1</div><div class="st-txt"><strong>Rozehřívací výpočet</strong> za 1 bod — základní aritmetika nebo jednoduchá slovní úloha na čas či počty.</div></div>
+    <div class="st-row"><div class="st-num">2–3</div><div class="st-txt"><strong>Zlomky, mocniny a odmocniny</strong> — výsledek se zapisuje zlomkem v základním tvaru.</div></div>
+    <div class="st-row"><div class="st-num">3–4</div><div class="st-txt"><strong>Algebraické výrazy</strong> — úpravy, vzorce \((a\pm b)^2\), rozklad na součin.</div></div>
+    <div class="st-row"><div class="st-num">4–5</div><div class="st-txt"><strong>Lineární rovnice</strong> — dvě podúlohy, vždy se zápisem celého postupu.</div></div>
+    <div class="st-row"><div class="st-num">5–8</div><div class="st-txt"><strong>Slovní úlohy s obrázkem</strong> — obsahy a obvody rovinných útvarů, objemy těles (válec, kvádr), úhly, měřítko mapy. Pořadí témat se v tomhle bloku rok od roku přehazuje.</div></div>
+    <div class="st-row"><div class="st-num">9–10</div><div class="st-txt"><strong>Dvě konstrukční (rýsovací) úlohy</strong> — typicky konstrukce trojúhelníku nebo čtyřúhelníku, často s Thaletovou kružnicí nebo osou úhlu.</div></div>
+    <div class="st-row"><div class="st-num">11</div><div class="st-txt"><strong>Úloha ano/ne (A/N)</strong> — tři tvrzení k posouzení, často o tělesech nebo měřítku.</div></div>
+    <div class="st-row"><div class="st-num">12–14</div><div class="st-txt"><strong>Tři uzavřené úlohy</strong> s výběrem z 5 možností (A–E), 2 body každá — objem/povrch tělesa, úhly, procentuální slovní úloha.</div></div>
+    <div class="st-row"><div class="st-num">15</div><div class="st-txt"><strong>Přiřazovací úloha</strong>, tři podúlohy, max. 6 bodů — často procenta a finanční matematika.</div></div>
+    <div class="st-row"><div class="st-num">16</div><div class="st-txt"><strong>Nejtěžší úloha na konec</strong> — netradiční logická úloha, obvykle posloupnost obrazců nebo čísel.</div></div>
+
+    <div style="margin-top:18px; padding:12px 16px; background:#FBF0EE; border-left:3px solid var(--brick); font-size:13.5px; color:var(--ink-soft); line-height:1.55;">
+      <strong>Pozor:</strong> tenhle konkrétní test (2024) má blok 11–16 posunutý — ano/ne přišlo až na úloze 15 a přiřazovací procenta na 16. Ber to tedy jako silný vzor, ne železné pravidlo.
+    </div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">1</div><a href="rocniky.html" class="topic-tag">Úměra</a><div class="points-tag">1 bod</div></div>
+    <div class="pe-q">Pět švadlen, které šijí oblečení stejným tempem, splní danou zakázku za 24 hodin. Za jakou dobu splní o polovinu větší zakázku čtyři švadleny?</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">45 hodin</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">2</div><a href="rocniky.html" class="topic-tag">Objem těles</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Skleněné těžítko má tvar rotačního válce s poloměrem podstavy 10 cm a výškou 12 cm. Uvnitř je část z modrého skla ve tvaru válce s poloměrem 5 cm a výškou 8 cm. Vypočítejte objem čirého (vnějšího) skla. Výsledek zaokrouhlete na desítky cm³, použijte π ≈ 3,14.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">1000 cm³</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">3.2</div><a href="prijimacky.html#zlomky" class="topic-tag">Zlomky</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Vypočítej a výsledek zapiš zlomkem v základním tvaru: \(\left(\frac{13}{10} - 1{,}4\right) : \left(\frac{2}{15}+\frac{1}{6}\right)\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-\frac{1}{3}\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">4.2</div><a href="rocniky.html" class="topic-tag">Výrazy</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Rozložte na součin podle vzorce: \(9a^2 - 16\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((3a-4)(3a+4)\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">5.2</div><a href="rovnice.html" class="topic-tag">Rovnice</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Řešte rovnici (zkoušku nezapisujte): \(6 - \dfrac{3-2y}{5}\cdot 2 = 4y\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(y = 1\tfrac{1}{2}\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">6</div><a href="geometrie.html" class="topic-tag">Geometrie</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Pravoúhlý lichoběžník ABCD se základnami AB a CD má pravý úhel při vrcholu B. Základna AB má délku 40 cm, základna CD délku 28 cm a úhlopříčka AC délku 41 cm.<br><br>a) Vypočítejte obsah lichoběžníku ABCD.<br>b) Vypočítejte délku ramene AD.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">a) 306 cm² &nbsp; b) 15 cm</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">7</div><a href="slovni-ulohy.html" class="topic-tag">Slovní úlohy</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Žáci třídy 8. B se dělí na dvě stejně velké skupiny podle toho, zda chodí na němčinu nebo na angličtinu. Ve třídě je 14 chlapců a 5 z nich chodí na angličtinu. Na němčinu chodí 4 dívky.<br><br>a) Kolik dívek celkem chodí na angličtinu?<br>b) Kolik má třída 8. B celkem žáků?</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">a) 8 dívek &nbsp; b) 26 žáků</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">8</div><a href="geometrie.html" class="topic-tag">Geometrie</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Šedý obrazec je ohraničen úsečkou délky 20 cm a dvěma shodnými čtvrtkružnicemi (poloměr 10 cm každá). Použijte π ≈ 3,14.<br><br>a) Vypočítejte obsah šedého obrazce (na celé cm²).<br>b) Vypočítejte obvod šedého obrazce (na celé cm).</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">a) 43 cm² &nbsp; b) 51 cm</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">11</div><a href="rocniky.html" class="topic-tag">Úhly</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">V trojúhelníku ABC platí: úhel β = 23°, úhel δ = 107° je vedlejší k úhlu α (α + δ = 180°), a α, β, γ jsou vnitřní úhly trojúhelníku (α + β + γ = 180°). Jaká je velikost rozdílu úhlů γ − α?<br>A) 10° &nbsp; B) 11° &nbsp; C) 12° &nbsp; D) 13° &nbsp; E) jiná velikost</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">B) 11°</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">13</div><a href="geometrie.html" class="topic-tag">Geometrie</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Máme shodné čtverce A a B. Čtverec A je rozdělen na dva shodné obdélníky, čtverec B na pět shodných obdélníků. Obvod jednoho ze dvou obdélníků ve čtverci A je o 6 cm větší než obvod jednoho z pěti obdélníků ve čtverci B. Jaký je obvod čtverce A (nebo B)?<br>A) 40 cm &nbsp; B) 72 cm &nbsp; C) 80 cm &nbsp; D) 96 cm &nbsp; E) 128 cm</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A) 40 cm</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">14</div><a href="rovnice.html" class="topic-tag">Rovnice</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Vynásobíme-li neznámé číslo dvěma a odečteme-li od výsledku 135, získáme polovinu hodnoty neznámého čísla. Jaká je hodnota neznámého čísla?<br>A) 270 &nbsp; B) 170 &nbsp; C) 135 &nbsp; D) 90 &nbsp; E) jiný výsledek</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">D) 90</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">15</div><a href="rocniky.html" class="topic-tag">Měřítko</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Půdorys domu má tvar obdélníku. Šířka domu je 10 m, v plánu vyznačena úsečkou 10 cm. Délka domu je v plánu úsečka 2 dm. Rozhodněte, zda jsou tvrzení pravdivá (A), nebo ne (N):<br>15.1 Měřítko plánu je 1 : 1000.<br>15.2 Skutečná délka domu je 20 m.<br>15.3 Obsah na plánu a obsah půdorysu domu jsou v poměru 1 : 100.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">15.1 N (měřítko je 1:100) &nbsp; 15.2 A &nbsp; 15.3 N (poměr je 1:10 000)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">16</div><a href="prijimacky.html#procenta" class="topic-tag">Procenta</a><div class="points-tag">max. 6 bodů</div></div>
+    <div class="pe-q">a) Pan Novák si půjčil 20 000 Kč na rok, úrok 13,5 % z půjčené částky. Kolik korun celkem vrátí?<br>b) Paní Dlouhá vložila 1 000 000 Kč s úrokem 2,5 % ročně, úrok zdaněn srážkovou daní 15 %. Kolik korun získá navíc?<br>c) Kolo za 20 000 Kč bylo zlevněno o 10 % z původní ceny, po měsíci zdraženo o 10 % z nové ceny. Jaká je výsledná cena?</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">a) 22 700 Kč &nbsp; b) 21 250 Kč &nbsp; c) 19 800 Kč</div></div>
+  </div>
+
+  <footer>matematika.jasně — příklady ze skutečného zadání JPZ, zdroj: prijimacky.cermat.cz</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
+  });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

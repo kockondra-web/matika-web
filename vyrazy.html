@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algebraické výrazy | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    background: var(--paper-dim);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+  }
+
+  .examples-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin: 36px 0 16px;
+  }
+
+  .pure-example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 14px;
+    max-width: 700px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="prijimacky.html" class="back">← zpět na přijímačky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">Algebraické výrazy</div>
+    <p class="section-lead">Čisté příklady bez teorie — přímo ze skutečných zadání jednotné přijímací zkoušky. Klikni na "Zobrazit výsledek", až budeš mít svůj vlastní.</p>
+    <div class="source-note">úloha 3–4 v testu · max. 4 body · zdroj: JPZ 2024, Cermat</div>
+  </div>
+
+  <div class="examples-heading">Příklady</div>
+
+  <div class="pure-example"><div class="pe-q">1. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[JPZ 2024 B]</span> Umocněte: \((-3-2x)^2\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(4x^2+12x+9\)</div></div>
+
+  <div class="pure-example"><div class="pe-q">2. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[JPZ 2024 B]</span> Zjednodušte (výsledek nesmí obsahovat závorky): \((3x+1)^2 - 7x^2 - (2x-5)(x+4)\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(3x+21\)</div></div>
+
+  <div class="pure-example"><div class="pe-q">3. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[JPZ 2024 A]</span> Rozložte na součin podle vzorce: \(9a^2-16\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((3a-4)(3a+4)\)</div></div>
+
+  <footer>matematika.jasně — příklady ze skutečných zadání JPZ, zdroj: prijimacky.cermat.cz</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
+  });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

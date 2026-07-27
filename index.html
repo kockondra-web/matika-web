@@ -104,10 +104,25 @@
   .gates {
     padding: 20px 0 120px;
   }
-  .gates .wrap {
+  .gates-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .gates-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
+  }
+  @media (max-width: 700px) { .gates-row { grid-template-columns: 1fr; } }
+
+  .gates .wrap {
+    display: block;
   }
   @media (max-width: 980px) {
     .gates .wrap { grid-template-columns: 1fr; }
@@ -147,7 +162,7 @@
   }
   .gate .step-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 11px;
     color: var(--gold);
     letter-spacing: 0.05em;
   }
@@ -297,34 +312,50 @@
 
 <section class="gates">
   <div class="wrap">
-    <a href="prijimacky.html" class="gate prijimacky featured">
-      <div class="featured-tag">★ doporučeno</div>
-      <div class="step-num">/ 6.–9. ROČNÍK</div>
-      <h2>Přijímačky na SŠ</h2>
-      <p>Průřez celým učivem 2. stupně seřazený podle toho, co skutečně zkouší Cermat — od zlomků po slovní úlohy.</p>
-      <div class="topics">
-        <span>zlomky</span><span>rovnice</span><span>procenta</span><span>geometrie</span><span>slovní úlohy</span>
-      </div>
-      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
-    </a>
-    <a href="rocniky.html" class="gate rocniky">
-      <div class="step-num">/ 6.–9. ROČNÍK</div>
-      <h2>Podle ročníku</h2>
-      <p>Stejné učivo jako ve škole — projdi si ho postupně ročník po ročníku, tak jak ho probíráš na hodinách.</p>
-      <div class="topics">
-        <span>6. ročník</span><span>7. ročník</span><span>8. ročník</span><span>9. ročník</span>
-      </div>
-      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
-    </a>
-    <a href="maturita.html" class="gate maturita">
-      <div class="step-num">/ SŠ</div>
-      <h2>Maturita</h2>
-      <p>Kompletní středoškolská látka pro didaktický test — funkce, goniometrie, kombinatorika, analytická geometrie a další.</p>
-      <div class="topics">
-        <span>funkce</span><span>goniometrie</span><span>komb. + pravděpodobnost</span><span>planimetrie</span><span>analytická geometrie</span>
-      </div>
-      <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
-    </a>
+    <div class="gates-group-label">Základní škola</div>
+    <div class="gates-row">
+      <a href="prijimacky.html" class="gate prijimacky featured">
+        <div class="featured-tag">★ doporučeno</div>
+        <div class="step-num">ZÁKLADNÍ ŠKOLA · PŘIJÍMAČKY</div>
+        <h2>Přijímačky na SŠ</h2>
+        <p>Průřez celým učivem 2. stupně seřazený podle toho, co skutečně zkouší Cermat — od zlomků po slovní úlohy.</p>
+        <div class="topics">
+          <span>zlomky</span><span>rovnice</span><span>procenta</span><span>geometrie</span><span>slovní úlohy</span>
+        </div>
+        <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+      </a>
+      <a href="rocniky.html" class="gate rocniky">
+        <div class="step-num">ZÁKLADNÍ ŠKOLA · PODLE ROČNÍKU</div>
+        <h2>Podle ročníku</h2>
+        <p>Stejné učivo jako ve škole — projdi si ho postupně ročník po ročníku, tak jak ho probíráš na hodinách.</p>
+        <div class="topics">
+          <span>6. ročník</span><span>7. ročník</span><span>8. ročník</span><span>9. ročník</span>
+        </div>
+        <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+      </a>
+    </div>
+
+    <div class="gates-group-label" style="margin-top:48px;">Střední škola</div>
+    <div class="gates-row">
+      <a href="maturita.html" class="gate maturita">
+        <div class="step-num">STŘEDNÍ ŠKOLA · MATURITA</div>
+        <h2>Maturita</h2>
+        <p>Průřez učivem SŠ podle Katalogu požadavků Cermat — 9 tematických okruhů didaktického testu.</p>
+        <div class="topics">
+          <span>funkce</span><span>goniometrie</span><span>komb. + pravděpodobnost</span><span>planimetrie</span><span>analytická geometrie</span>
+        </div>
+        <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+      </a>
+      <a href="ss-rocniky.html" class="gate ss-rocniky">
+        <div class="step-num">STŘEDNÍ ŠKOLA · PODLE ROČNÍKU</div>
+        <h2>Podle ročníku (SŠ)</h2>
+        <p>Stejné učivo jako na hodinách SŠ matematiky — postupně ročník po ročníku, včetně semináře.</p>
+        <div class="topics">
+          <span>1. ročník</span><span>2. ročník</span><span>3. ročník</span><span>4. ročník</span>
+        </div>
+        <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
+      </a>
+    </div>
   </div>
 </section>
 

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podle ročníku SŠ | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  .page-head { padding: 60px 0 20px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 17px; max-width: 640px; line-height: 1.6; margin-bottom: 20px; }
+
+  .page-search {
+    width: 100%;
+    max-width: 420px;
+    padding: 11px 16px;
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: block;
+  }
+  .page-search:focus { outline: none; border-color: var(--gold); }
+  .page-search::placeholder { color: var(--ink-soft); }
+
+  .grade-nav {
+    display: flex; gap: 10px; margin-bottom: 60px; flex-wrap: wrap;
+  }
+  .grade-nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+  .grade-nav a:hover { border-color: var(--ink); color: var(--ink); }
+
+  .grade-block { padding: 50px 0 30px; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
+  .grade-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .grade-num {
+    font-family: 'Fraunces', serif; font-size: 46px; font-weight: 700; color: var(--gold);
+  }
+  .grade-head h2 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; }
+  .grade-sub { color: var(--ink-soft); font-size: 14.5px; margin-bottom: 28px; }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  .topic-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 18px 20px;
+    position: relative;
+  }
+  .topic-card h3 { font-size: 15.5px; font-weight: 600; margin-bottom: 6px; }
+  .topic-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .topic-card .prijimacky-star {
+    position: absolute; top: 14px; right: 14px;
+    font-size: 12px; color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .topic-card.linked { cursor: pointer; }
+  .topic-card.linked:hover { border-color: var(--ink); }
+  .topic-card a.card-link { text-decoration: none; color: inherit; display: block; }
+
+  .legend {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--ink-soft);
+    margin-bottom: 32px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="index.html" class="back">← zpět na přehled</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">Podle ročníku (SŠ)</div>
+    <p class="section-lead">Kompletní učivo matematiky pro střední školu (1.–4. ročník), sestavené podle tematických celků. Témata označená ★ se zároveň testují u společné části maturitní zkoušky — najdeš je i v sekci Maturita, seřazená podle důležitosti v testu.</p>
+    <div class="legend">★ <span>= téma je souČástí Katalogu požadavků k maturitě</span></div>
+    <input type="text" class="page-search" id="page-search" placeholder="Hledat téma napříč všemi ročníky…">
+    <div class="grade-nav">
+      <a href="#r1">1. ročník</a>
+      <a href="#r2">2. ročník</a>
+      <a href="#r3">3. ročník</a>
+      <a href="#r4">4. ročník</a>
+      <a href="#seminar">Seminář</a>
+      <a href="maturita.html" style="color:var(--gold); border-color:var(--gold);">→ přejít rovnou na maturitu</a>
+    </div>
+  </div>
+
+  <div class="grade-block" id="r1">
+    <div class="grade-head"><div class="grade-num">1.</div><h2>ročník</h2></div>
+    <div class="grade-sub">4 hodiny týdně (132 hodin ročně)</div>
+    <div class="topic-grid">
+      <div class="topic-card linked"><a class="card-link" href="logika-mnoziny.html"><span class="prijimacky-star">★</span><h3>Základní poznatky, číselné obory</h3><p>Množiny, výroky, důkazy, obor N/Z/Q/R, mocniny a odmocniny →</p></a></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Algebra</h3><p>Výrazy, mnohočleny, vzorce, lineární a kvadratické rovnice</p></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Planimetrie (1. část)</h3><p>Základní pojmy — přímka, úhel, trojúhelník</p></div>
+    </div>
+  </div>
+
+  <div class="grade-block" id="r2">
+    <div class="grade-head"><div class="grade-num">2.</div><h2>ročník</h2></div>
+    <div class="grade-sub">4 hodiny týdně (132 hodin ročně)</div>
+    <div class="topic-grid">
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Planimetrie (dokončení)</h3><p>Kružnice, podobnost, Pythagorova věta, shodná zobrazení</p></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Funkce</h3><p>Lineární, kvadratická, mocninné, exponenciální a logaritmické funkce</p></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Goniometrie a trigonometrie</h3><p>Sinus, kosinus, tangens, sinová a kosinová věta</p></div>
+    </div>
+  </div>
+
+  <div class="grade-block" id="r3">
+    <div class="grade-head"><div class="grade-num">3.</div><h2>ročník</h2></div>
+    <div class="grade-sub">3 hodiny týdně (96 hodin ročně)</div>
+    <div class="topic-grid">
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Stereometrie</h3><p>Vzájemná poloha v prostoru, objemy a povrchy těles</p></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Analytická geometrie</h3><p>Vektory, přímka, kuželosečky v rovině i prostoru</p></div>
+    </div>
+  </div>
+
+  <div class="grade-block" id="r4">
+    <div class="grade-head"><div class="grade-num">4.</div><h2>ročník</h2></div>
+    <div class="grade-sub">3 hodiny týdně (90 hodin ročně)</div>
+    <div class="topic-grid">
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Kombinatorika, pravděpodobnost, statistika</h3><p>Variace, kombinace, permutace, náhodné jevy, statistické charakteristiky</p></div>
+      <div class="topic-card"><span class="prijimacky-star">★</span><h3>Posloupnosti</h3><p>Aritmetická a geometrická posloupnost, limita posloupnosti</p></div>
+      <div class="topic-card"><h3>Komplexní čísla</h3><p>Algebraický a goniometrický tvar, Moivreova věta</p></div>
+    </div>
+  </div>
+
+  <div class="grade-block" id="seminar">
+    <div class="grade-head"><div class="grade-num">S.</div><h2>Seminář (3.–4. ročník)</h2></div>
+    <div class="grade-sub">2 hodiny týdně — nepovinné rozšíření, mimo běžnou maturitní látku</div>
+    <div class="topic-grid">
+      <div class="topic-card linked"><a class="card-link" href="derivace.html"><h3>Diferenciální a integrální počet</h3><p>Limity, derivace, primitivní funkce, určitý integrál →</p></a></div>
+      <div class="topic-card"><h3>Systematizace a rozšíření</h3><p>Prohloubení předchozích tematických celků</p></div>
+    </div>
+  </div>
+
+  <footer>matematika.jasně — učivo sestaveno podle tematických celků pro SŠ a Katalogu požadavků Cermat</footer>
+</div>
+<script>
+  const pageSearch = document.getElementById('page-search');
+
+  function runSearch(q) {
+    q = q.trim().toLowerCase();
+    document.querySelectorAll('.grade-block').forEach(block => {
+      let anyVisible = false;
+      block.querySelectorAll('.topic-card').forEach(card => {
+        const match = card.textContent.toLowerCase().includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) anyVisible = true;
+      });
+      block.style.display = (q === '' || anyVisible) ? '' : 'none';
+    });
+  }
+
+  if (pageSearch) {
+    pageSearch.addEventListener('input', () => runSearch(pageSearch.value));
+
+    // předvyplnění z URL (?q=...), když sem člověk přijde z vyhledávání na homepage
+    const params = new URLSearchParams(window.location.search);
+    const qParam = params.get('q');
+    if (qParam) {
+      pageSearch.value = qParam;
+      runSearch(qParam);
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logika a množiny | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A;
+    --ink-soft: #3A4A6B;
+    --paper: #FAF9F6;
+    --paper-dim: #F0EEE7;
+    --gold: #D4A24E;
+    --brick: #B85C4A;
+    --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+  header .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 100px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  nav.toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .toc-search {
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .toc-search:focus { outline: none; border-color: var(--gold); }
+  .toc-search::placeholder { color: var(--ink-soft); }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block;
+    padding: 9px 0;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14.5px;
+    border-left: 2px solid transparent;
+    padding-left: 14px;
+    margin-left: -14px;
+    transition: all 0.15s ease;
+  }
+  nav.toc li a.active,
+  nav.toc li a:hover {
+    color: var(--ink);
+    border-left-color: var(--gold);
+    font-weight: 500;
+  }
+  nav.toc li a.disabled { opacity: 0.4; cursor: default; }
+
+  main { min-width: 0; }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .section-lead {
+    color: var(--ink-soft);
+    font-size: 17px;
+    max-width: 640px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+
+  .topic {
+    padding-top: 30px;
+    margin-bottom: 90px;
+    scroll-margin-top: 90px;
+  }
+  .topic-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .topic h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .topic .theory {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 680px;
+  }
+  .topic .theory p { margin-bottom: 16px; }
+  .topic .theory strong { color: var(--ink); }
+
+  .rule-box {
+    background: var(--paper-dim);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .warn-box {
+    background: #FBF0EE;
+    border-left: 3px solid var(--brick);
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--brick);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  /* --- gamifikace: horní lišta se levelem/XP --- */
+  .stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .stat-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .level-badge {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .xp-track {
+    width: 90px; height: 6px;
+    background: var(--paper-dim);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .xp-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .streak-chip { color: var(--brick); }
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .reset-btn:hover { border-color: var(--brick); color: var(--brick); }
+
+  .toast {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 22px;
+    border-radius: 6px;
+    font-size: 14.5px;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.35);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 200;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast .toast-title { font-weight: 700; color: var(--gold); margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;}
+
+  /* --- obtížnostní záložky --- */
+  .diff-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 4px;
+    max-width: 680px;
+  }
+  .diff-tab {
+    flex: 1;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .diff-tab .dt-name {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .diff-tab .dt-count {
+    font-size: 12px; color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 2px;
+  }
+  .diff-tab.active { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  .diff-tab.locked { opacity: 0.45; cursor: not-allowed; }
+  .diff-tab .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .diff-tab.easy .dot { background: #6B9B7A; }
+  .diff-tab.medium .dot { background: var(--gold); }
+  .diff-tab.hard .dot { background: var(--brick); }
+
+  .example-set { display: none; }
+  .example-set.active { display: block; }
+
+  .answer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+  }
+  .answer-input {
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14.5px;
+    width: 200px;
+  }
+  .answer-input:focus { outline: none; border-color: var(--gold); }
+  .check-btn {
+    padding: 9px 16px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+  .check-btn:hover { background: var(--ink-soft); }
+  .answer-feedback { font-size: 13.5px; font-weight: 600; }
+  .answer-feedback.correct { color: #4C7259; }
+  .answer-feedback.wrong { color: var(--brick); }
+  .example-steps.hidden-steps { display: none; }
+  .example.solved .example-steps.hidden-steps { display: block; }
+  .example.solved .answer-row { opacity: 0.6; }
+  .example.solved .answer-input, .example.solved .check-btn { pointer-events: none; }
+  .reveal-link {
+    display: block;
+    margin: 0 24px 20px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .reveal-link:hover { color: var(--ink); }
+  .example.solved .reveal-link { display: none; }
+
+  .example-done-btn {
+    margin: 12px 24px 20px;
+    padding: 9px 16px;
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s ease;
+  }
+  .example-done-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
+  .example-done-btn.done {
+    background: #EAF2EC; color: #4C7259; border-color: #C9DED0;
+    cursor: default;
+  }
+
+  /* --- výběr teorie / procvičování po otevření tématu --- */
+  .empty-state {
+    background: white;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 560px;
+    margin: 20px 0 40px;
+  }
+  .empty-state-icon { font-size: 32px; color: var(--gold); margin-bottom: 14px; }
+  .empty-state h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+  .empty-state p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; }
+
+  .progress-summary {
+    display: flex;
+    gap: 0;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-bottom: 56px;
+    overflow: hidden;
+  }
+  .ps-item {
+    flex: 1;
+    padding: 20px 22px;
+    border-right: 1px solid var(--line);
+  }
+  .ps-item:last-child { border-right: none; }
+  .ps-num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .ps-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 600px) {
+    .progress-summary { flex-wrap: wrap; }
+    .ps-item { flex: 1 1 50%; border-bottom: 1px solid var(--line); }
+  }
+
+  .topic-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 28px 0 10px;
+    max-width: 680px;
+  }
+  .topic-menu-card {
+    flex: 1 1 300px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 26px 24px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+  }
+  .topic-menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px -16px rgba(27,42,74,0.25);
+    border-color: var(--ink);
+  }
+  .topic-menu-card .tmc-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .topic-menu-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .topic-menu-card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .topic-content-block { display: none; }
+  .topic-content-block.active { display: block; }
+  .topic-back-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .topic-back-link:hover { color: var(--ink); }
+
+  .pure-example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 14px;
+    max-width: 680px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  .examples-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin: 44px 0 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 680px;
+  }
+
+  .example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 22px;
+    max-width: 680px;
+    overflow: hidden;
+  }
+  .example-q {
+    padding: 20px 24px;
+    font-size: 15.5px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 14px;
+  }
+  .example-q .qmark {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .example-steps { padding: 6px 24px 20px; }
+  .step {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: baseline;
+  }
+  .step:last-child { border-bottom: none; }
+  .step .snum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    width: 18px;
+  }
+  .step .stext { font-size: 15px; line-height: 1.6; }
+  .step .math {
+    background: var(--paper-dim);
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 15px;
+    display: inline-block;
+  }
+  .step.result {
+    background: #FCF7EC;
+    margin: 8px -24px -20px;
+    padding: 16px 24px;
+    border-bottom: none;
+  }
+  .step.result .stext { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <div class="stats-bar">
+      <div class="stat-chip streak-chip" id="streak-chip">🔥 <span id="streak-num">0</span> dní</div>
+      <div class="stat-chip">
+        <div class="level-badge" id="level-badge">1</div>
+        <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      </div>
+      <button class="reset-btn" id="reset-progress" title="Vynulovat postup, XP a odznaky">↺ reset</button>
+    </div>
+    <a href="index.html" class="back">← zpět na přehled</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">1. ročník · základní poznatky</div>
+    <input type="text" class="toc-search" id="toc-search" placeholder="Hledat téma…">
+    <ul id="toc-list">
+      <li><a href="#logika-mnoziny" class="active">1. Logika a množiny</a></li>
+      <li><a href="#" class="disabled">2. Číselné obory, mocniny a odmocniny</a></li>
+      <li><a href="#" class="disabled">3. Algebra — výrazy a rovnice</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Logika a množiny</div>
+    <p class="section-lead">Základ z 1. ročníku SŠ (téma "Základní poznatky z matematiky, číselné obory") — výroková logika, množiny a číselné obory. Nutný základ pro pochopení všeho, co přijde potom.</p>
+
+    <div class="progress-summary" id="progress-summary">
+      <div class="ps-item">
+        <div class="ps-num" id="ps-topics">0/1</div>
+        <div class="ps-label">témat rozjeto</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-examples">0/5</div>
+        <div class="ps-label">příkladů zvládnuto</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-level">1</div>
+        <div class="ps-label">tvůj level</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-num" id="ps-xp">0</div>
+        <div class="ps-label">celkem XP</div>
+      </div>
+    </div>
+
+    <div class="topic" id="logika-mnoziny">
+      <div class="topic-label">1. ročník</div>
+      <h2>Logika a množiny</h2>
+
+      <div class="topic-menu" id="logika-mnoziny-menu">
+        <div class="topic-menu-card" data-open="theory">
+          <div class="tmc-icon">01 · vysvětlení</div>
+          <h3>Teorie</h3>
+          <p>Výroková logika, číselné obory, operace s množinami, pravdivostní tabulky, De Morganova pravidla.</p>
+        </div>
+        <div class="topic-menu-card" data-open="solutions">
+          <div class="tmc-icon">02 · jen řešení</div>
+          <h3>Příklady s řešením</h3>
+          <p>10 příkladů (5 lehkých + 5 těžkých) s postupem krok za krokem.</p>
+        </div>
+        <div class="topic-menu-card" data-open="practice">
+          <div class="tmc-icon">03 · procvičování</div>
+          <h3>Procvičuj s levely</h3>
+          <p>Zadáš vlastní výsledek. Lehké a těžké se postupně odemykají.</p>
+        </div>
+        <div class="topic-menu-card" data-open="pure">
+          <div class="tmc-icon">04 · jen zadání</div>
+          <h3>Čisté příklady</h3>
+          <p>Jen zadání a výsledek, žádný postup.</p>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="theory">
+        <a class="topic-back-link" data-back="logika-mnoziny">← zpět na výběr tématu</a>
+        <div class="theory">
+          <p><strong>Výrok</strong> je tvrzení, o kterém má smysl říct, že je pravdivé nebo nepravdivé (má právě jednu pravdivostní hodnotu: 1 = pravda, 0 = nepravda).</p>
+          <p>Ze základních výroků \(a\), \(b\) lze tvořit <strong>složené výroky</strong>: negace \(a'\) (není pravda, že \(a\)), konjunkce \(a \land b\) („a a zároveň b"), disjunkce \(a \lor b\) („a nebo b"), implikace \(a \Rightarrow b\) („z a vyplývá b"), ekvivalence \(a \Leftrightarrow b\) („a právě tehdy, když b").</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Obrácená a obměněná implikace</div>
+          Ke každé implikaci \(a \Rightarrow b\) patří obrácená implikace \(b \Rightarrow a\) a obměněná implikace \(b' \Rightarrow a'\) — ta má <strong>vždy stejnou pravdivostní hodnotu</strong> jako původní implikace, a proto se používá jako základ nepřímého důkazu.
+        </div>
+
+        <div class="theory">
+          <p><strong>Množina</strong> je souhrn navzájem různých objektů (prvků). Základní číselné obory tvoří řetězec vnořených množin: $$\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$$</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Číselné obory</div>
+          <div style="line-height:2;">
+            \(\mathbb{N}\) — přirozená čísla: 1, 2, 3, 100, 1000… (nula do N nepatří)<br>
+            \(\mathbb{Z}\) — celá čísla: …, −10, −3, −1, 0, 1, 10…<br>
+            \(\mathbb{Q}\) — racionální čísla: lze zapsat jako zlomek, např. \(\frac{1}{10}\), 0,2<br>
+            \(\mathbb{R}\) — reálná čísla: navíc iracionální jako \(\pi\), \(e\), \(\sqrt{2}\)<br>
+            \(\mathbb{C}\) — komplexní čísla: navíc čísla s imaginární jednotkou, např. \(\sqrt{-50}\), \(i\)
+          </div>
+        </div>
+
+        <div class="theory">
+          <p>Množina \(M\) je <strong>prázdná</strong> právě tehdy, když nemá žádný prvek: \(M = \emptyset \iff |M|=0\).</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Operace s množinami</div>
+          <div style="line-height:2;">
+            <strong>Sjednocení</strong> \(A \cup B\) — prvky, které patří do A nebo do B (nebo do obou)<br>
+            <strong>Průnik</strong> \(A \cap B\) — prvky společné oběma množinám<br>
+            <strong>Rozdíl</strong> \(A \setminus B\) — prvky, které patří do A, ale nepatří do B<br>
+            <strong>Doplněk</strong> \(A' = U \setminus A\), kde U je univerzum — nadřazený prostor všem uvažovaným množinám
+          </div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">Pravdivostní tabulky</div>
+          <div style="overflow-x:auto;">
+          <table style="width:100%; max-width:320px; border-collapse:collapse; font-size:14.5px; margin-top:8px; text-align:center;">
+            <tr style="border-bottom:1px solid var(--line); font-weight:600;"><td style="padding:6px 10px;">a</td><td>b</td><td>a'</td><td>a∧b</td><td>a∨b</td><td>a⇒b</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 10px;">1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 10px;">1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 10px;">0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td style="padding:6px 10px;">0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          </table>
+          </div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rb-label">De Morganova pravidla</div>
+          $$(a \land b)' = a' \lor b'$$
+          $$(a \lor b)' = a' \land b'$$
+        </div>
+
+        <div class="warn-box">
+          <div class="wb-label">Nejčastější chyba</div>
+          Plést si negaci konjunkce s "negujeme každý zvlášť a necháme spojku stejnou" — De Morgan říká, že se <strong>spojka otočí</strong>: negace „a a zároveň b" není „a' a zároveň b'", ale „a' nebo b'".
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="solutions">
+        <a class="topic-back-link" data-back="logika-mnoziny">← zpět na výběr tématu</a>
+        <div class="examples-heading">Lehké příklady</div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">1.</span> Rozhodněte, zda je věta výrokem: "Praha je hlavní město České republiky."</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Věta má jednoznačně určitelnou pravdivostní hodnotu (je pravdivá).</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Je to výrok s pravdivostní hodnotou 1.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">2.</span> Utvořte negaci výroku a: "Dnes prší."</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Negace popírá tvrzení výroku.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">a' = "Dnes neprší."</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">3.</span> Sestavte pravdivostní tabulku pro a∧b (konjunkci) a a∨b (disjunkci).</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Konjunkce je pravdivá jen tehdy, když jsou pravdivé oba výroky.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Disjunkce je pravdivá, když je pravdivý alespoň jeden z nich — viz tabulka v Teorii.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">4.</span> Určete, do kterých číselných oborů patří číslo \(-\frac{1}{2}\).</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Číslo lze zapsat jako zlomek celých čísel, ale není to celé číslo.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Patří do \(\mathbb{Q}, \mathbb{R}, \mathbb{C}\), ale ne do \(\mathbb{Z}\) ani \(\mathbb{N}\).</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">5.</span> Pro A={1,2,3,4} a B={3,4,5,6} určete A∪B, A∩B a A\B.</div>
+          <div class="example-steps">
+            <div class="step result"><div class="snum">✓</div><div class="stext">A∪B = {1,2,3,4,5,6}, A∩B = {3,4}, A\B = {1,2}</div></div>
+          </div>
+        </div>
+
+        <div class="examples-heading">Těžké příklady</div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">6.</span> Užitím De Morganových pravidel zjednodušte negaci výroku (a∧b)∨c.</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Negace disjunkce dvou částí: \([(a \land b) \lor c]' = (a\land b)' \land c'\)</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Rozvedeme \((a\land b)' = a' \lor b'\) pomocí De Morgana.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">$$[(a \land b) \lor c]' = (a' \lor b') \land c'$$</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">7.</span> Dokažte platnost obměněné implikace (a⇒b) ≡ (b'⇒a') pomocí pravdivostní tabulky.</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Sestavíme tabulku pro obě strany a porovnáme sloupce a⇒b a b'⇒a'.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Sloupce jsou shodné pro všechny kombinace — výroky jsou logicky ekvivalentní.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">8.</span> Pro U={1,…,10}, A={2,4,6,8,10}, B={1,2,3,5,7} určete (A∪B)' a ověřte De Morgana pro množiny.</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Sjednocení: A∪B = {1,2,3,4,5,6,7,8,10}</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">Doplněk sjednocení: (A∪B)' = U\(A∪B) = {9}</div></div>
+            <div class="step"><div class="snum">3</div><div class="stext">Doplňky jednotlivě: A' = {1,3,5,7,9}, B' = {4,6,8,9,10}, jejich průnik A'∩B' = {9}</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">(A∪B)' = A'∩B' = {9} — De Morgan pro množiny potvrzen.</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">9.</span> Rozhodněte, zda je výrok [(a⇒b)∧a]⇒b tautologie.</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Sestavíme celou tabulku krok po kroku pro všechny kombinace a, b.</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">Poslední sloupec obsahuje pouze jedničky — je to tautologie (zákon modus ponens).</div></div>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-q"><span class="qmark">10.</span> Zjednodušte množinový výraz (A∪B)∩(A∪B').</div>
+          <div class="example-steps">
+            <div class="step"><div class="snum">1</div><div class="stext">Vytkneme A (distributivní zákon, analogie k \((x+y)(x+z)=x+yz\)): \((A\cup B)\cap(A\cup B') = A \cup (B\cap B')\)</div></div>
+            <div class="step"><div class="snum">2</div><div class="stext">\(B \cap B' = \emptyset\) (množina a její doplněk nemají společné prvky).</div></div>
+            <div class="step result"><div class="snum">✓</div><div class="stext">$$(A \cup B) \cap (A \cup B') = A$$</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="practice">
+        <a class="topic-back-link" data-back="logika-mnoziny">← zpět na výběr tématu</a>
+        <div class="examples-heading">Procvičuj podle obtížnosti</div>
+
+        <div class="diff-tabs" data-topic="logika-mnoziny">
+          <div class="diff-tab easy active" data-diff="easy">
+            <div class="dt-name"><span class="dot"></span> Lehké</div>
+            <div class="dt-count">3 příklady</div>
+          </div>
+          <div class="diff-tab hard" data-diff="hard">
+            <div class="dt-name"><span class="dot"></span> Těžké <span class="lock-icon"></span></div>
+            <div class="dt-count">2 příklady</div>
+          </div>
+        </div>
+
+        <div class="example-set active" data-diff="easy" data-topic="logika-mnoziny">
+          <div class="example" data-id="logika-easy-1" data-answers="[&quot;1&quot;]" data-xp="10">
+            <div class="example-q"><span class="qmark">1.</span> Je výrok "Praha je hlavní město ČR" pravdivý? Zadej 1 (ano) nebo 0 (ne).</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="1 nebo 0">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step result"><div class="snum">✓</div><div class="stext">Praha skutečně je hlavní město ČR, výrok je pravdivý → hodnota 1.</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="logika-easy-2" data-answers="[&quot;dnes neprsi&quot;,&quot;dnes neprší&quot;]" data-xp="10">
+            <div class="example-q"><span class="qmark">2.</span> Utvořte negaci výroku "Dnes prší."</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="napiš celou větu">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step result"><div class="snum">✓</div><div class="stext">Negace: "Dnes neprší."</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="logika-easy-3" data-answers="[&quot;6&quot;]" data-xp="10">
+            <div class="example-q"><span class="qmark">3.</span> Pro A={1,2,3,4}, B={3,4,5,6} — kolik prvků má A∪B?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="počet prvků">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step result"><div class="snum">✓</div><div class="stext">A∪B = {1,2,3,4,5,6} → 6 prvků</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+        </div>
+
+        <div class="example-set" data-diff="hard" data-topic="logika-mnoziny">
+          <div class="example" data-id="logika-hard-1" data-answers="[&quot;1&quot;]" data-xp="30">
+            <div class="example-q"><span class="qmark">1.</span> Pro U={1,…,10}, A={2,4,6,8,10}, B={1,2,3,5,7} — kolik prvků má (A∪B)'?</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="počet prvků">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">A∪B = {1,2,3,4,5,6,7,8,10}</div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">(A∪B)' = U\(A∪B) = {9} → 1 prvek</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+
+          <div class="example" data-id="logika-hard-2" data-answers="[&quot;a&quot;]" data-xp="30">
+            <div class="example-q"><span class="qmark">2.</span> Zjednodušte (A∪B)∩(A∪B'). Zadej výsledek jako jedno písmeno.</div>
+            <div class="answer-row">
+              <input type="text" class="answer-input" placeholder="např. A">
+              <button class="check-btn">Zkontrolovat</button>
+              <span class="answer-feedback"></span>
+            </div>
+            <div class="example-steps hidden-steps">
+              <div class="step"><div class="snum">1</div><div class="stext">Vytkneme A: \(A \cup (B\cap B')\)</div></div>
+              <div class="step result"><div class="snum">✓</div><div class="stext">\(B\cap B' = \emptyset\), takže výsledek je A</div></div>
+            </div>
+            <a class="reveal-link">Nevím, ukázat řešení</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic-content-block" data-block="pure">
+        <a class="topic-back-link" data-back="logika-mnoziny">← zpět na výběr tématu</a>
+        <div class="examples-heading">Čisté příklady — zadání a výsledek</div>
+
+        <div class="pure-example"><div class="pe-q">1. Je "Praha je hlavní město ČR" výrok?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Ano, pravdivostní hodnota 1</div></div>
+        <div class="pure-example"><div class="pe-q">2. Negace "Dnes prší."</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">"Dnes neprší."</div></div>
+        <div class="pure-example"><div class="pe-q">3. Do kterých oborů patří \(-\frac{1}{2}\)?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Q, R, C (ne Z, N)</div></div>
+        <div class="pure-example"><div class="pe-q">4. A={1,2,3,4}, B={3,4,5,6}: A∪B, A∩B, A\B</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">{1,2,3,4,5,6}; {3,4}; {1,2}</div></div>
+        <div class="pure-example"><div class="pe-q">5. Negujte (a∧b)∨c pomocí De Morgana</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((a' \lor b') \land c'\)</div></div>
+        <div class="pure-example"><div class="pe-q">6. U={1..10}, A={2,4,6,8,10}, B={1,2,3,5,7}: (A∪B)'</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">{9}</div></div>
+        <div class="pure-example"><div class="pe-q">7. Je [(a⇒b)∧a]⇒b tautologie?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Ano (modus ponens)</div></div>
+        <div class="pure-example"><div class="pe-q">8. Zjednodušte (A∪B)∩(A∪B')</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A</div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast">
+  <div class="toast-title" id="toast-title">Level up!</div>
+  <div id="toast-body">Postoupil jsi na level 2.</div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'mj_progress_logika_v1';
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return { xp: 0, done: {}, lastVisit: null, streak: 0 };
+  }
+  function saveState(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  let state = loadState();
+
+  // streak: velmi jednoduchá verze — počítá po sobě jdoucí kalendářní dny s návštěvou
+  (function updateStreak() {
+    const today = new Date().toDateString();
+    if (state.lastVisit !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      state.streak = (state.lastVisit === yesterday) ? (state.streak + 1) : 1;
+      state.lastVisit = today;
+      saveState(state);
+    }
+  })();
+
+  function levelForXp(xp) {
+    // level roste jako 100 XP na první level, pak o 50 víc na každý další (jednoduchá křivka)
+    let level = 1, need = 100, remaining = xp;
+    while (remaining >= need) {
+      remaining -= need;
+      level++;
+      need += 50;
+    }
+    return { level, into: remaining, need };
+  }
+
+  function showToast(title, body) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-title').textContent = title;
+    document.getElementById('toast-body').textContent = body;
+    t.classList.add('show');
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function renderProgressSummary() {
+    const allExampleIds = Array.from(document.querySelectorAll('.example[data-id]')).map(el => el.getAttribute('data-id'));
+    const totalExamples = allExampleIds.length;
+    const doneExamples = allExampleIds.filter(id => state.done[id]).length;
+
+    // téma je "rozjeté", pokud má aspoň jeden hotový příklad
+    const topicsWithIds = {};
+    allExampleIds.forEach(id => {
+      const topic = id.split('-')[0];
+      topicsWithIds[topic] = topicsWithIds[topic] || [];
+      topicsWithIds[topic].push(id);
+    });
+    const totalTopicsBuilt = Object.keys(topicsWithIds).length; // kolik témat je zatím na webu hotovo (má obsah)
+    const topicsStarted = Object.keys(topicsWithIds).filter(t => topicsWithIds[t].some(id => state.done[id])).length;
+
+    const { level } = levelForXp(state.xp);
+
+    const psTopics = document.getElementById('ps-topics');
+    const psExamples = document.getElementById('ps-examples');
+    const psLevel = document.getElementById('ps-level');
+    const psXp = document.getElementById('ps-xp');
+    if (psTopics) psTopics.textContent = `${topicsStarted}/${totalTopicsBuilt}`;
+    if (psExamples) psExamples.textContent = `${doneExamples}/${totalExamples}`;
+    if (psLevel) psLevel.textContent = level;
+    if (psXp) psXp.textContent = state.xp;
+  }
+
+  function render() {
+    const { level, into, need } = levelForXp(state.xp);
+    document.getElementById('level-badge').textContent = level;
+    document.getElementById('xp-fill').style.width = Math.round((into / need) * 100) + '%';
+    document.getElementById('streak-num').textContent = state.streak;
+    renderProgressSummary();
+
+    // vyznač hotové příklady
+    document.querySelectorAll('.example-done-btn').forEach(btn => {
+      const id = btn.getAttribute('data-id');
+      if (state.done[id]) {
+        btn.classList.add('done');
+        btn.textContent = '✓ Umíš to';
+      }
+    });
+
+    // odemkni/zamkni obtížnosti podle postupu (lehké musí být hotové, aby šlo na střední atd.)
+    document.querySelectorAll('.diff-tabs').forEach(tabsEl => {
+      const topic = tabsEl.getAttribute('data-topic');
+      const easyIds = getIdsForDiff(topic, 'easy');
+      const mediumIds = getIdsForDiff(topic, 'medium');
+      const easyDone = easyIds.every(id => state.done[id]);
+      const mediumDone = mediumIds.every(id => state.done[id]);
+
+      const mediumTab = tabsEl.querySelector('.diff-tab.medium');
+      const hardTab = tabsEl.querySelector('.diff-tab.hard');
+      mediumTab.classList.toggle('locked', !easyDone);
+      hardTab.classList.toggle('locked', !mediumDone);
+    });
+  }
+
+  function getIdsForDiff(topic, diff) {
+    const set = document.querySelector(`.example-set[data-topic="${topic}"][data-diff="${diff}"]`);
+    if (!set) return [];
+    return Array.from(set.querySelectorAll('.example')).map(el => el.getAttribute('data-id'));
+  }
+
+  // přepínání obtížnostních záložek
+  document.querySelectorAll('.diff-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('locked')) {
+        showToast('Ještě zamčeno', 'Nejdřív dokonči všechny příklady v předchozí obtížnosti.');
+        return;
+      }
+      const tabsEl = tab.closest('.diff-tabs');
+      const topic = tabsEl.getAttribute('data-topic');
+      const diff = tab.getAttribute('data-diff');
+      tabsEl.querySelectorAll('.diff-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll(`.example-set[data-topic="${topic}"]`).forEach(s => s.classList.remove('active'));
+      document.querySelector(`.example-set[data-topic="${topic}"][data-diff="${diff}"]`).classList.add('active');
+    });
+  });
+
+  // normalizace zadané odpovědi pro porovnání (zlomky, mezery, "x=" prefix)
+  function normalizeAnswer(str) {
+    return str.trim().toLowerCase()
+      .replace(/^x\s*=\s*/, '')
+      .replace(/\s+/g, ' ')
+      .replace(/,/g, '.');
+  }
+
+  // kontrola odpovědi u příkladů s vlastním zadáním výsledku
+  document.querySelectorAll('.example[data-answers]').forEach(ex => {
+    const id = ex.getAttribute('data-id');
+    const accepted = JSON.parse(ex.getAttribute('data-answers')).map(normalizeAnswer);
+    const xp = parseInt(ex.getAttribute('data-xp'), 10) || 10;
+    const input = ex.querySelector('.answer-input');
+    const checkBtn = ex.querySelector('.check-btn');
+    const feedback = ex.querySelector('.answer-feedback');
+    const revealLink = ex.querySelector('.reveal-link');
+
+    function markSolved(awardXp) {
+      ex.classList.add('solved');
+      if (awardXp && !state.done[id]) {
+        const before = levelForXp(state.xp).level;
+        state.done[id] = true;
+        state.xp += xp;
+        const after = levelForXp(state.xp).level;
+        saveState(state);
+        render();
+        if (after > before) showToast('Level up! 🎉', `Postoupil jsi na level ${after}.`);
+        else showToast('+' + xp + ' XP', 'Správně!');
+      }
+      if (window.renderMathInElement) {
+        renderMathInElement(ex, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "\\(", right: "\\)", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function checkAnswer() {
+      if (!input.value.trim()) return;
+      const val = normalizeAnswer(input.value);
+      if (accepted.includes(val)) {
+        feedback.textContent = '✓ Správně!';
+        feedback.className = 'answer-feedback correct';
+        markSolved(true);
+      } else {
+        feedback.textContent = 'Zkus to znovu';
+        feedback.className = 'answer-feedback wrong';
+      }
+    }
+
+    if (checkBtn) checkBtn.addEventListener('click', checkAnswer);
+    if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
+    if (revealLink) revealLink.addEventListener('click', () => markSolved(false));
+
+    // pokud byl příklad už dřív vyřešen (uloženo v localStorage), rovnou ukázat jako hotový
+    if (state.done[id]) {
+      ex.classList.add('solved');
+      if (feedback) { feedback.textContent = '✓ Správně!'; feedback.className = 'answer-feedback correct'; }
+    }
+  });
+
+  // --- výběr teorie / procvičování v rámci tématu ---
+  function showTopicMenu(topicId) {
+    document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => b.classList.remove('active'));
+    const menu = document.getElementById(topicId + '-menu');
+    if (menu) menu.style.display = 'flex';
+  }
+  function showTopicBlock(topicId, block) {
+    const menu = document.getElementById(topicId + '-menu');
+    if (menu) menu.style.display = 'none';
+    document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-block') === block);
+    });
+  }
+
+  document.querySelectorAll('.topic-menu-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const topicId = card.closest('.topic').id;
+      showTopicBlock(topicId, card.getAttribute('data-open'));
+    });
+  });
+  document.querySelectorAll('.topic-back-link').forEach(link => {
+    link.addEventListener('click', () => {
+      showTopicMenu(link.getAttribute('data-back'));
+    });
+  });
+  // při vstupu na stránku (nebo kliku v postranním menu) se vždy nejdřív ukáže výběr tématu
+  document.querySelectorAll('.topic').forEach(t => showTopicMenu(t.id));
+
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.pure-example').classList.add('revealed');
+    });
+  });
+
+  // vyhledávání v seznamu témat
+  const tocSearch = document.getElementById('toc-search');
+  if (tocSearch) {
+    tocSearch.addEventListener('input', () => {
+      const q = tocSearch.value.trim().toLowerCase();
+      document.querySelectorAll('#toc-list li').forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+  }
+
+  const resetBtn = document.getElementById('reset-progress');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Opravdu chceš vynulovat celý postup, XP a odemčené obtížnosti? Tohle nejde vzít zpět.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = { xp: 0, done: {}, lastVisit: new Date().toDateString(), streak: 1 };
+        saveState(state);
+        document.querySelectorAll('.example.solved').forEach(ex => {
+          ex.classList.remove('solved');
+          const fb = ex.querySelector('.answer-feedback');
+          if (fb) { fb.textContent = ''; fb.className = 'answer-feedback'; }
+          const inp = ex.querySelector('.answer-input');
+          if (inp) inp.value = '';
+        });
+        render();
+        showToast('Hotovo', 'Postup byl vynulován.');
+      }
+    });
+  }
+
+  render();
+
+  // vykreslení LaTeX matematiky přes KaTeX
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
