@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kvadratické funkce, rovnice a nerovnice | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Kvadratická · obsah</div>
+    <ul>
+      <li><a href="#predpis">Předpis a vrcholový tvar</a></li>
+      <li><a href="#koeficienty">Význam koeficientů</a></li>
+      <li><a href="#ctverec">Úprava na čtverec</a></li>
+      <li><a href="#pr-ctverec">Příklady — čtverec</a></li>
+      <li><a href="#rovnice">Kvadratické rovnice</a></li>
+      <li><a href="#diskriminant">Diskriminant</a></li>
+      <li><a href="#pr-rovnice">Příklady — rovnice</a></li>
+      <li><a href="#nerovnice">Kvadratické nerovnice</a></li>
+      <li><a href="#pr-nerovnice">Příklady — nerovnice</a></li>
+      <li><a href="#podil">Nerovnice v podílovém tvaru</a></li>
+      <li><a href="#pr-podil">Příklady — podíl</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Kvadratické funkce, rovnice a nerovnice</div>
+    <p class="section-lead">Graf paraboly a význam koeficientů, úprava na čtverec, řešení kvadratických rovnic pomocí diskriminantu, kvadratické nerovnice graficky i tabulkou.</p>
+    <div class="source-note">maturitní okruh 3 a 4 · Rovnice a nerovnice + Funkce</div>
+
+    <h2 class="blok" id="predpis">Předpis a vrcholový tvar</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dva tvary téže funkce</div>
+      <strong>Obecný tvar:</strong> $$f: y = ax^2 + bx + c$$
+      <strong>Vrcholový tvar:</strong> $$f: y = a(x+m)^2 + n$$
+      Z vrcholového tvaru rovnou vyčteš <strong>vrchol paraboly</strong> \(V[-m;\ n]\).
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor na znaménko posunu</div>
+      Posun po ose \(y\) je <strong>o \(n\)</strong> — tak, jak je napsané. Posun po ose \(x\) je ale <strong>o \(-m\)</strong>, tedy opačně! U \(y = (x+3)^2\) se parabola posune o 3 doleva, ne doprava.
+    </div>
+
+    <h2 class="blok" id="koeficienty">Význam koeficientu \(a\)</h2>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="88" x2="125" y2="88"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="100"/>
+          <path class="curve" d="M35 20 Q 71 124, 107 20"/>
+        </svg>
+        <div class="gc-title">\(a > 0\)</div>
+        <div class="gc-note"><strong>konvexní</strong> — otevřená nahoru, vrchol je minimum</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="26" x2="125" y2="26"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="100"/>
+          <path class="curve" d="M35 94 Q 71 -10, 107 94"/>
+        </svg>
+        <div class="gc-title">\(a < 0\)</div>
+        <div class="gc-note"><strong>konkávní</strong> — otevřená dolů, vrchol je maximum</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="88" x2="125" y2="88"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="100"/>
+          <path class="curve" d="M52 18 Q 71 130, 90 18"/>
+          <path class="curve2" d="M28 22 Q 71 118, 114 22"/>
+        </svg>
+        <div class="gc-title">Velikost \(|a|\)</div>
+        <div class="gc-note">větší \(|a|\) = <strong>užší, strmější</strong> parabola</div>
+      </div>
+    </div>
+
+    <h2 class="blok" id="ctverec">Úprava na čtverec</h2>
+    <p class="txt">Převod z obecného tvaru na vrcholový. Základní myšlenka: doplníme výraz tak, aby vznikl <strong>vzorec \((x \pm k)^2\)</strong>, a to, co jsme přidali navíc, zase odečteme.</p>
+    <div class="rule-box">
+      <div class="rb-label">Postup ve třech krocích</div>
+      <strong>1.</strong> Vytkneme \(a\) z prvních dvou členů (třetí necháme být).<br>
+      <strong>2.</strong> V závorce doplníme na čtverec — přidáme \(\left(\frac{\text{koeficient u }x}{2}\right)^2\).<br>
+      <strong>3.</strong> To, co jsme přidali (po vynásobení \(a\)), zase odečteme před závorkou.
+    </div>
+
+    <h2 class="blok" id="pr-ctverec">Příklady — úprava na čtverec</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · nejjednodušší případ (\(a = 1\))</div>
+      <div class="zadani">Uprav na čtverec: \(x^2 - 2x + 12\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x^2 - 2x + 12\)</div><div class="vp">/ půlka z \(-2\) je \(-1\)</div></div>
+        <div class="vr odsad"><div class="vl">\((x-1)^2 = x^2-2x+1\)</div><div class="vp">/ přidali jsme \(+1\)</div></div>
+        <div class="vr odsad"><div class="vl">\((x-1)^2 + 12 - 1\)</div><div class="vp">/ jedničku odečteme</div></div>
+        <div class="vr odsad"><div class="vl">\((x-1)^2 + 11\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\((x-1)^2 + 11\), vrchol \(V[1;\ 11]\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · s vytýkáním</div>
+      <div class="zadani">Uprav na čtverec: \(2x^2 - 12x + 31\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2(x^2 - 6x) + 31\)</div><div class="vp">/ vytknout 2</div></div>
+        <div class="vr odsad"><div class="vl">\(2(x^2-6x+9) + 31\)</div><div class="vp">/ doplnit \(\left(\frac{-6}{2}\right)^2 = 9\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2(x-3)^2 + 31 - 18\)</div><div class="vp">/ přidali jsme \(2 \cdot 9 = 18\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2(x-3)^2 + 13\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Klíčové: odečítáme <strong>18</strong>, ne 9 — devítka byla uvnitř závorky násobené dvojkou.</div>
+      <div class="vysl">\(2(x-3)^2 + 13\), vrchol \(V[3;\ 13]\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · se zlomky</div>
+      <div class="zadani">Uprav na čtverec: \(5x^2 - 2x + 3\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(5\left(x^2 - \frac{2}{5}x\right) + 3\)</div><div class="vp">/ vytknout 5</div></div>
+        <div class="vr odsad"><div class="vl">\(5\left(x^2 - \frac{2}{5}x + \frac{1}{25}\right) + 3\)</div><div class="vp">/ doplnit \(\left(\frac{1}{5}\right)^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(5\left(x - \frac{1}{5}\right)^2 + 3 - \frac{1}{5}\)</div><div class="vp">/ přidali jsme \(5 \cdot \frac{1}{25} = \frac{1}{5}\)</div></div>
+        <div class="vr odsad"><div class="vl">\(5\left(x - \frac{1}{5}\right)^2 + \frac{14}{5}\)</div><div class="vp">/ \(3 - \frac{1}{5} = \frac{14}{5}\)</div></div>
+      </div>
+      <div class="vysl">\(5\left(x-\frac{1}{5}\right)^2 + \frac{14}{5}\), vrchol \(V\left[\frac{1}{5};\ \frac{14}{5}\right]\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · s určením oboru hodnot</div>
+      <div class="zadani">Uprav na čtverec a urči \(D(f)\), \(H(f)\): \(f: y = 2x^2 - 8x + 13\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2(x^2-4x) + 13\)</div><div class="vp">/ vytknout 2</div></div>
+        <div class="vr odsad"><div class="vl">\(2(x^2-4x+4) + 13 - 8\)</div><div class="vp">/ doplnit 4, odečíst \(2\cdot4\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2(x-2)^2 + 5\)</div><div class="vp"></div></div>
+      </div>
+      <div class="graf-wide">
+        <svg viewBox="0 0 400 210" width="100%" height="210" preserveAspectRatio="xMidYMid meet">
+          <line class="ax" x1="30" y1="180" x2="380" y2="180"/>
+          <line class="ax" x1="130" y1="20" x2="130" y2="196"/>
+          <path class="curve" d="M155 25 Q 215 215, 275 25"  transform="scale(1,-1) translate(0,-235)"/>
+          <line class="dash" x1="130" y1="130" x2="215" y2="130"/>
+          <line class="dash" x1="215" y1="130" x2="215" y2="180"/>
+          <circle class="dot" cx="215" cy="130" r="4"/>
+          <text class="lbl" x="112" y="127">5</text>
+          <text class="lbl" x="211" y="194">2</text>
+          <text class="lbl" x="370" y="196">x</text>
+          <text class="lbl" x="138" y="30">y</text>
+        </svg>
+        <div class="gw-caption">Vrchol \(V[2;\ 5]\) — parabola je konvexní (\(a=2>0\)), takže 5 je nejmenší hodnota</div>
+      </div>
+      <div class="vysl">\(2(x-2)^2+5\) &nbsp;·&nbsp; \(D(f) = \mathbb{R}\), \(H(f) = \langle 5;\ +\infty)\)</div>
+    </div>
+
+    <h2 class="blok" id="rovnice">Kvadratické rovnice — typy</h2>
+    <div class="rule-box">
+      <div class="rb-label">Podle toho, které členy chybí</div>
+      <strong>Bez lineárního členu</strong> (\(ax^2 + c = 0\)) → osamostatníme \(x^2\) a odmocníme<br><br>
+      <strong>Bez absolutního členu</strong> (\(ax^2 + bx = 0\)) → vytkneme \(x\), součin je nula když je nula jeden činitel<br><br>
+      <strong>Úplná</strong> (\(ax^2+bx+c=0\)) → diskriminant
+    </div>
+
+    <h2 class="blok" id="diskriminant">Diskriminant</h2>
+    <div class="rule-box">
+      <div class="rb-label">Vzorec</div>
+      $$D = b^2 - 4ac \qquad x_{1,2} = \frac{-b \pm \sqrt{D}}{2a}$$
+    </div>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>diskriminant</th><th>počet řešení</th><th>graf paraboly</th></tr>
+      <tr><td class="rowlbl">\(D > 0\)</td><td class="plus">dvě různá řešení</td><td>protne osu \(x\) ve dvou bodech</td></tr>
+      <tr><td class="rowlbl">\(D = 0\)</td><td>jedno (dvojnásobné)</td><td>dotýká se osy \(x\) ve vrcholu</td></tr>
+      <tr><td class="rowlbl">\(D < 0\)</td><td class="minus">žádné reálné řešení</td><td>osu \(x\) vůbec neprotne</td></tr>
+    </table>
+    </div>
+
+    <h2 class="blok" id="pr-rovnice">Příklady — rovnice</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · bez lineárního členu</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2x^2 - 32 = 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2x^2 = 32\)</div><div class="vp">/ \(+32\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x^2 = 16\)</div><div class="vp">/ \(:2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \pm 4\)</div><div class="vp">/ odmocnit — <strong>obě znaménka!</strong></div></div>
+      </div>
+      <div class="vysl">\(P = \{-4;\ 4\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · bez absolutního členu</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2x^2 - 7x = 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x(2x-7) = 0\)</div><div class="vp">/ vytknout \(x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = 0\) &nbsp;nebo&nbsp; \(2x-7 = 0\)</div><div class="vp">/ součin = 0</div></div>
+        <div class="vr odsad"><div class="vl">\(x_2 = \frac{7}{2}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Nikdy nedělte rovnici \(x\)! Přišli byste o řešení \(x = 0\).</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \left\{0;\ \frac{7}{2}\right\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 7 · úplná rovnice, hledání průsečíků</div>
+      <div class="zadani">Najdi průsečíky grafu \(f: y = 6x^2 - 13x - 5\) s osami.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y = -5\)</div><div class="vp">/ osa \(y\): dosadíme \(x=0\)</div></div>
+        <div class="vr odsad"><div class="vl">\(6x^2-13x-5 = 0\)</div><div class="vp">/ osa \(x\): dosadíme \(y=0\)</div></div>
+        <div class="vr odsad"><div class="vl">\(D = 169 + 120 = 289\)</div><div class="vp">/ \(D = b^2-4ac\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{13 \pm 17}{12}\)</div><div class="vp">/ \(\sqrt{289} = 17\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = \dfrac{30}{12} = \dfrac{5}{2}\), \(\quad x_2 = \dfrac{-4}{12} = -\dfrac{1}{3}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(P_y[0;\ -5]\), \(\quad P_{x_1}\left[\frac{5}{2};\ 0\right]\), \(\quad P_{x_2}\left[-\frac{1}{3};\ 0\right]\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 8 · rovnice se závorkami</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \((2x-1)(x-3)-(x-1) = (x+3)-(4+x)(x-3)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2x^2-7x+3-x+1 = x+3-(x^2+x-12)\)</div><div class="vp">/ roznásobit obě strany</div></div>
+        <div class="vr odsad"><div class="vl">\(2x^2-8x+4 = -x^2+15\)</div><div class="vp">/ sečíst</div></div>
+        <div class="vr odsad"><div class="vl">\(3x^2-8x-11 = 0\)</div><div class="vp">/ \(+x^2-15\)</div></div>
+        <div class="vr odsad"><div class="vl">\(D = 64+132 = 196\)</div><div class="vp">/ \(\sqrt{196} = 14\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{8 \pm 14}{6}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = \dfrac{22}{6} = \dfrac{11}{3}\), \(\quad x_2 = -1\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(O = \mathbb{R} = D\), \(P = \left\{\frac{11}{3};\ -1\right\}\)</div>
+    </div>
+
+    <h2 class="blok" id="nerovnice">Kvadratické nerovnice</h2>
+    <p class="txt">Nejrychlejší cesta je <strong>načrtnout parabolu</strong>: najdeme kořeny (nebo zjistíme, že žádné nejsou), podíváme se, jestli je konvexní nebo konkávní, a z náčrtku vyčteme, kde je nad osou a kde pod ní.</p>
+    <div class="rule-box">
+      <div class="rb-label">Když \(D < 0\)</div>
+      Parabola vůbec neprotne osu \(x\) — leží celá nad ní (pro \(a>0\)) nebo celá pod ní (pro \(a<0\)). Výsledek je pak vždy buď <strong>\(P = \mathbb{R}\)</strong>, nebo <strong>\(P = \emptyset\)</strong>, nic mezi tím.
+    </div>
+
+    <h2 class="blok" id="pr-nerovnice">Příklady — nerovnice</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 9 · záporný diskriminant</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(0{,}5x^2 - x + 1{,}5 < 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\frac{1}{2}x^2 - x + \frac{3}{2} < 0\)</div><div class="vp">/ desetinná na zlomky</div></div>
+        <div class="vr odsad"><div class="vl">\(x^2 - 2x + 3 < 0\)</div><div class="vp">/ \(\cdot\,2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(D = 4 - 12 = -8\)</div><div class="vp">/ \(D < 0\)</div></div>
+      </div>
+      <div class="pozn">Parabola je konvexní (\(a>0\)) a osu \(x\) neprotne — leží tedy <strong>celá nad osou</strong>. Nikdy nemůže být záporná.</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \emptyset\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 10 · rozklad na součin</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(x^2 + 2x - 8 \leq 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((x-2)(x+4) \leq 0\)</div><div class="vp">/ rozložit</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = 2\), \(\quad x_2 = -4\)</div><div class="vp">/ kořeny</div></div>
+      </div>
+      <div class="graf-wide">
+        <svg viewBox="0 0 400 170" width="100%" height="170" preserveAspectRatio="xMidYMid meet">
+          <line class="ax" x1="30" y1="90" x2="380" y2="90"/>
+          <line class="ax" x1="230" y1="20" x2="230" y2="150"/>
+          <path class="curve" d="M120 40 Q 190 190, 260 40"/>
+          <path d="M140 90 Q 190 152, 240 90 Z" fill="var(--brick)" opacity="0.15"/>
+          <circle class="dot" cx="140" cy="90" r="4"/>
+          <circle class="dot" cx="240" cy="90" r="4"/>
+          <text class="lbl" x="132" y="106">-4</text>
+          <text class="lbl" x="237" y="106">2</text>
+          <text class="lbl" x="370" y="106">x</text>
+        </svg>
+        <div class="gw-caption">Hledáme, kde je parabola <strong>pod osou</strong> (nebo na ní) — to je mezi kořeny</div>
+      </div>
+      <div class="vysl">\(O = \mathbb{R} = D\), \(P = \langle -4;\ 2 \rangle\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 11 · záporný diskriminant, opačný případ</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(x^2 - x + 4 > 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = 1 - 16 = -15\)</div><div class="vp">/ \(D < 0\) → neprotne osu \(x\)</div></div>
+      </div>
+      <div class="pozn">Konvexní parabola, která neprotne osu \(x\), leží celá nad ní — je tedy <strong>vždy kladná</strong>, pro každé \(x\).</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \mathbb{R}\)</div>
+    </div>
+
+    <h2 class="blok" id="podil">Nerovnice v podílovém tvaru</h2>
+    <p class="txt">Kombinace kvadratické nerovnice a tabulkové metody. Kvadratické výrazy nejdřív rozložíme na součin (nebo zjistíme, že mají záporný diskriminant a znaménko se tedy nemění), pak sestavíme znaménkovou tabulku.</p>
+
+    <h2 class="blok" id="pr-podil">Příklady — podílový tvar</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 12 · čitatel se záporným diskriminantem</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(\dfrac{-3x^2+x-4}{2x-5} \leq 0\) &nbsp; podmínka \(x \neq \frac{5}{2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = 1 - 4\cdot(-3)\cdot(-4) = -47\)</div><div class="vp">/ diskriminant čitatele</div></div>
+        <div class="vr odsad"><div class="vl">\(a = -3 < 0\) a \(D < 0\)</div><div class="vp">/ konkávní, neprotne osu</div></div>
+        <div class="vr odsad"><div class="vl">čitatel je <strong>vždy záporný</strong></div><div class="vp"></div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\(\left(-\infty;\frac{5}{2}\right)\)</th><th>\(\left(\frac{5}{2};\infty\right)\)</th></tr>
+        <tr><td class="rowlbl">\(-3x^2+x-4\)</td><td class="minus">−</td><td class="minus">−</td></tr>
+        <tr><td class="rowlbl">\(2x-5\)</td><td class="minus">−</td><td class="plus">+</td></tr>
+        <tr class="vysledek"><td class="rowlbl">podíl</td><td class="plus">+</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Když má kvadratický výraz záporný diskriminant, <strong>nemění znaménko</strong> — do tabulky jde jako jeden blok.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\left\{\frac{5}{2}\right\}\), \(P = \left(\frac{5}{2};\ +\infty\right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 13 · kvadratický čitatel i jmenovatel</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(\dfrac{-4x^2+21x-5}{2x^2+5x+2} \geq 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D_1 = 441 - 80 = 361\)</div><div class="vp">/ čitatel, \(\sqrt{361}=19\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{-21 \pm 19}{-8} \Rightarrow \dfrac{1}{4};\ 5\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(-4x^2+21x-5 = -(4x-1)(x-5)\)</div><div class="vp">/ rozklad čitatele</div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl">\(D_2 = 25-16 = 9\)</div><div class="vp">/ jmenovatel, \(\sqrt{9}=3\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{3,4} = \dfrac{-5 \pm 3}{4} \Rightarrow -\dfrac{1}{2};\ -2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2x^2+5x+2 = (2x+1)(x+2)\)</div><div class="vp">/ podmínka \(x \neq -\frac{1}{2};\ -2\)</div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\((-\infty;-2)\)</th><th>\(\left(-2;-\frac{1}{2}\right)\)</th><th>\(\left(-\frac{1}{2};\frac{1}{4}\right)\)</th><th>\(\left(\frac{1}{4};5\right)\)</th><th>\((5;\infty)\)</th></tr>
+        <tr><td class="rowlbl">\(-4x^2+21x-5\)</td><td class="minus">−</td><td class="minus">−</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td></tr>
+        <tr><td class="rowlbl">\(2x^2+5x+2\)</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr class="vysledek"><td class="rowlbl">podíl</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Kořeny čitatele (\(\frac{1}{4}\) a \(5\)) <strong>zahrnujeme</strong>, kořeny jmenovatele (\(-2\) a \(-\frac{1}{2}\)) <strong>ne</strong>.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\left\{-2;\ -\frac{1}{2}\right\}\), \(P = \left(-2;\ -\frac{1}{2}\right) \cup \left\langle \frac{1}{4};\ 5 \right\rangle\)</div>
+    </div>
+
+    <footer>matematika.jasně — kvadratické funkce, rovnice a nerovnice</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

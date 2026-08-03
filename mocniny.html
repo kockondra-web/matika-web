@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mocniny a odmocniny | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Mocniny · obsah</div>
+    <ul>
+      <li><a href="#zaklad">Základní pojmy</a></li>
+      <li><a href="#vety">Věty pro počítání</a></li>
+      <li><a href="#vzorce">Vzorce</a></li>
+      <li><a href="#pr-mocniny">Příklady — mocniny</a></li>
+      <li><a href="#odmocniny">Odmocniny</a></li>
+      <li><a href="#castecne">Částečné odmocňování</a></li>
+      <li><a href="#usmernovani">Usměrňování zlomků</a></li>
+      <li><a href="#pr-odmocniny">Příklady — odmocniny</a></li>
+      <li><a href="#nta">n-tá odmocnina</a></li>
+      <li><a href="#racionalni">Racionální exponent</a></li>
+      <li><a href="#pr-nta">Příklady — n-tá odmocnina</a></li>
+      <li><a href="#funkce-graf">Mocninné funkce</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Mocniny a odmocniny</div>
+    <p class="section-lead">Mocniny s exponenty z \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}\), n-tá odmocnina, pravidla pro počítání, usměrňování zlomků a částečné odmocňování. Na konci grafy mocninných funkcí.</p>
+    <div class="source-note">maturitní okruh 1 · Číselné obory · 4–12 % didaktického testu</div>
+
+    <h2 class="blok" id="zaklad">Základní pojmy</h2>
+    <div class="rule-box">
+      <div class="rb-label">Zápis mocniny</div>
+      $$a^n = \underbrace{a \cdot a \cdot \ldots \cdot a}_{n\text{-krát}}$$
+      \(a\) — <strong>základ</strong> &nbsp;·&nbsp; \(n\) — <strong>exponent</strong> &nbsp;·&nbsp; \(a^n\) — <strong>mocnina</strong>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Speciální případy — nutno znát zpaměti</div>
+      <div style="line-height:2.2;">
+        \(a^1 = a\) &nbsp;&nbsp;·&nbsp;&nbsp; \(a^0 = 1\) &nbsp;&nbsp;·&nbsp;&nbsp; \(1^n = 1\) &nbsp;&nbsp;·&nbsp;&nbsp; \(0^n = 0\) (pro \(n \neq 0\))<br>
+        \(a^{-n} = \dfrac{1}{a^n}\) &nbsp;&nbsp;·&nbsp;&nbsp; \(\left(\dfrac{a}{b}\right)^{-n} = \left(\dfrac{b}{a}\right)^{n}\)
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Záporný exponent = převrácená hodnota</div>
+      Záporný exponent <strong>neznamená záporné číslo</strong>. \(2^{-3} = \frac{1}{8}\), ne \(-8\). Zlomek se prostě „převrátí".
+    </div>
+
+    <h2 class="blok" id="vety">Věty pro počítání s mocninami</h2>
+    <div class="rule-box">
+      <div class="rb-label">Pět základních pravidel</div>
+      <div style="line-height:2.4;">
+        \(a^r \cdot a^s = a^{r+s}\) &nbsp;— stejný základ, exponenty <strong>sečíst</strong><br>
+        \(\dfrac{a^r}{a^s} = a^{r-s}\) &nbsp;— stejný základ, exponenty <strong>odečíst</strong><br>
+        \(\left(a^r\right)^s = a^{r \cdot s}\) &nbsp;— mocnina mocniny, exponenty <strong>vynásobit</strong><br>
+        \((a \cdot b)^r = a^r \cdot b^r\) &nbsp;— součin umocníme po částech<br>
+        \(\left(\dfrac{a}{b}\right)^s = \dfrac{a^s}{b^s}\) &nbsp;— podíl umocníme po částech
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor</div>
+      Sčítat exponenty lze <strong>jen u stejného základu</strong>. \(2^3 \cdot 5^3\) se nedá zjednodušit na \(10^6\) — správně je \((2\cdot5)^3 = 10^3\).
+    </div>
+
+    <h2 class="blok" id="vzorce">Vzorce, které se pořád hodí</h2>
+    <div class="rule-box">
+      <div class="rb-label">Tři nejdůležitější</div>
+      $$(A+B)^2 = A^2 + 2AB + B^2$$
+      $$(A-B)^2 = A^2 - 2AB + B^2$$
+      $$(A+B)(A-B) = A^2 - B^2$$
+    </div>
+    <p class="txt">Třetí vzorec (rozdíl čtverců) je klíč k <strong>usměrňování zlomků</strong> — díky němu se z jmenovatele ztratí odmocnina.</p>
+
+    <h2 class="blok" id="pr-mocniny">Příklady — mocniny</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · převod na společný základ</div>
+      <div class="zadani">Zjednodušte: \(\dfrac{3^7 \cdot 81^2}{9^3 \cdot 27^5}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{3^7 \cdot 81^2}{9^3 \cdot 27^5}\)</div><div class="vp">/ vše na základ 3</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{3^7 \cdot (3^4)^2}{(3^2)^3 \cdot (3^3)^5}\)</div><div class="vp">/ mocnina mocniny</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{3^7 \cdot 3^8}{3^6 \cdot 3^{15}}\)</div><div class="vp">/ sečíst exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{3^{15}}{3^{21}}\)</div><div class="vp">/ odečíst exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(3^{-6}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Celý trik je převést všechna čísla na <strong>stejný základ</strong> — pak už jen sčítáme a odečítáme exponenty.</div>
+      <div class="vysl">\(3^{-6} = \dfrac{1}{729}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · záporné exponenty a rozdíl čtverců</div>
+      <div class="zadani">Zjednodušte: \(\left(\dfrac{3x^{-1}-6}{4x-x^{-1}}\right)^2\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \left(\frac{3\left(\frac{1}{x}-2\right)}{4x-\frac{1}{x}}\right)^2\)</div><div class="vp">/ \(x^{-1} = \frac{1}{x}\), vytknout 3</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{3(1-2x)}{4x^2-1}\right)^2\)</div><div class="vp">/ \(\cdot\,x\) nahoře i dole</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{3(1-2x)}{(2x-1)(2x+1)}\right)^2\)</div><div class="vp">/ rozdíl čtverců ve jmenovateli</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{-3}{2x+1}\right)^2\)</div><div class="vp">/ \(1-2x = -(2x-1)\), zkrátit</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{9}{4x^2+4x+1}\)</div><div class="vp">/ umocnit</div></div>
+      </div>
+      <div class="vysl">\(\dfrac{9}{4x^2+4x+1}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · složený zlomek se zápornými exponenty</div>
+      <div class="zadani">Zjednodušte: \(\left(\dfrac{4^{-1}-x^{-2}}{\left(\frac{1}{2}x\right)^{-2}+2x^{-1}}\right)^{-2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \left(\frac{\frac{1}{4}-\frac{1}{x^2}}{\frac{4}{x^2}+\frac{2}{x}}\right)^{-2}\)</div><div class="vp">/ rozepsat záporné exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{x^2-4}{16+8x}\right)^{-2}\)</div><div class="vp">/ \(\cdot\,4x^2\) nahoře i dole</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{(x-2)(x+2)}{8(2+x)}\right)^{-2}\)</div><div class="vp">/ rozložit</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{x-2}{8}\right)^{-2}\)</div><div class="vp">/ zkrátit \((x+2)\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{64}{(x-2)^2} = \frac{64}{x^2-4x+4}\)</div><div class="vp">/ převrátit a umocnit</div></div>
+      </div>
+      <div class="pozn">Pozor na \(\left(\frac{1}{2}x\right)^{-2}\): to je \(\left(\frac{x}{2}\right)^{-2} = \frac{2^2}{x^2} = \frac{4}{x^2}\).</div>
+      <div class="vysl">\(\dfrac{64}{x^2-4x+4}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · složený zlomek</div>
+      <div class="zadani">Zjednodušte: \(\left(\dfrac{5-10x^{-1}}{4x^{-1}-x}\right)^{-2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \left(\frac{5\left(1-\frac{2}{x}\right)}{\frac{4}{x}-x}\right)^{-2}\)</div><div class="vp">/ vytknout 5</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{5(x-2)}{4-x^2}\right)^{-2}\)</div><div class="vp">/ \(\cdot\,x\) nahoře i dole</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{5(x-2)}{(2+x)(2-x)}\right)^{-2}\)</div><div class="vp">/ rozdíl čtverců</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \left(\frac{-5}{2+x}\right)^{-2}\)</div><div class="vp">/ \(x-2 = -(2-x)\), zkrátit</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{(2+x)^2}{25} = \frac{x^2+4x+4}{25}\)</div><div class="vp">/ převrátit a umocnit</div></div>
+      </div>
+      <div class="vysl">\(\dfrac{x^2+4x+4}{25}\)</div>
+    </div>
+
+    <h2 class="blok" id="odmocniny">Odmocniny</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$\sqrt{a} = \sqrt[2]{a}, \qquad a \in \mathbb{R}_0^+$$
+      Druhá odmocnina je definovaná jen pro <strong>nezáporná</strong> čísla a její výsledek je vždy nezáporný.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Pravidla</div>
+      <div style="line-height:2.4;">
+        \(\sqrt{a \cdot b} = \sqrt{a} \cdot \sqrt{b}\)<br>
+        \(\sqrt{\dfrac{a}{b}} = \dfrac{\sqrt{a}}{\sqrt{b}}\)<br>
+        \(\sqrt{a^2 b} = \sqrt{a^2} \cdot \sqrt{b} = a\sqrt{b}\)
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Co neplatí</div>
+      \(\sqrt{a+b} \neq \sqrt{a} + \sqrt{b}\). Odmocnina se „roztrhne" jen přes <strong>součin a podíl</strong>, nikdy přes součet nebo rozdíl.
+    </div>
+
+    <h2 class="blok" id="castecne">Částečné odmocňování</h2>
+    <p class="txt">Číslo pod odmocninou rozložíme na součin, ve kterém najdeme <strong>druhé mocniny</strong> — ty se dají vytknout ven.</p>
+    <div class="priklad">
+      <div class="p-label">Ukázka postupu</div>
+      <div class="zadani">Částečně odmocněte: \(\sqrt{260\,a^2b^3c^5}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(260 = 2^2 \cdot 5 \cdot 13\)</div><div class="vp">/ rozklad na prvočinitele</div></div>
+        <div class="vr odsad"><div class="vl">\(b^3 = b^2 \cdot b\), \(\quad c^5 = c^4 \cdot c\)</div><div class="vp">/ oddělit sudé mocniny</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt{2^2 \cdot a^2 \cdot b^2 \cdot c^4 \cdot 65bc}\)</div><div class="vp">/ přeskupit</div></div>
+        <div class="vr odsad"><div class="vl">\(2abc^2\sqrt{65bc}\)</div><div class="vp">/ vytknout ven</div></div>
+      </div>
+      <div class="vysl">\(2abc^2\sqrt{65bc}\)</div>
+    </div>
+
+    <h2 class="blok" id="usmernovani">Usměrňování zlomků</h2>
+    <p class="txt">Ve jmenovateli nemá zůstat odmocnina. Zbavíme se jí rozšířením zlomku:</p>
+    <div class="rule-box">
+      <div class="rb-label">Dva případy</div>
+      <strong>Jednočlenný jmenovatel</strong> \(\sqrt{a}\) → rozšíříme \(\sqrt{a}\)<br><br>
+      <strong>Dvojčlenný jmenovatel</strong> \(\sqrt{a}+b\) → rozšíříme <strong>opačným dvojčlenem</strong> \(\sqrt{a}-b\), využijeme \((A+B)(A-B) = A^2-B^2\)
+    </div>
+
+    <h2 class="blok" id="pr-odmocniny">Příklady — odmocniny</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · jednoduché usměrnění</div>
+      <div class="zadani">Usměrněte: \(\dfrac{105}{\sqrt{40}}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{105}{\sqrt{40}} = \frac{105}{2\sqrt{10}}\)</div><div class="vp">/ částečně odmocnit \(\sqrt{40}\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{105\sqrt{10}}{2 \cdot 10}\)</div><div class="vp">/ rozšířit \(\sqrt{10}\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{105\sqrt{10}}{20} = \frac{21\sqrt{10}}{4}\)</div><div class="vp">/ zkrátit 5</div></div>
+      </div>
+      <div class="vysl">\(\dfrac{21\sqrt{10}}{4}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · usměrnění dvojčlenu</div>
+      <div class="zadani">Usměrněte: \(\left(\sqrt{7}+1\right)^{-2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{1}{\left(\sqrt{7}+1\right)^2}\)</div><div class="vp">/ záporný exponent</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{1}{7+2\sqrt{7}+1} = \frac{1}{8+2\sqrt{7}}\)</div><div class="vp">/ umocnit dvojčlen</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{8-2\sqrt{7}}{(8+2\sqrt{7})(8-2\sqrt{7})}\)</div><div class="vp">/ rozšířit \((8-2\sqrt{7})\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{8-2\sqrt{7}}{64-28} = \frac{8-2\sqrt{7}}{36}\)</div><div class="vp">/ \(A^2-B^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{4-\sqrt{7}}{18}\)</div><div class="vp">/ zkrátit 2</div></div>
+      </div>
+      <div class="vysl">\(\dfrac{4-\sqrt{7}}{18}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 7 · trojčlenný jmenovatel (těžší)</div>
+      <div class="zadani">Usměrněte: \(\dfrac{12}{\sqrt{6}-\sqrt{3}+\sqrt{2}}\)</div>
+      <div class="pozn" style="padding-left:0;">Trik: trojčlen si rozdělíme na dvojčlen \(A = \sqrt{6}-\sqrt{3}\) a \(B = \sqrt{2}\), pak použijeme \((A+B)(A-B)\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{12\left(\sqrt{6}-\sqrt{3}-\sqrt{2}\right)}{\left(\sqrt{6}-\sqrt{3}\right)^2-\left(\sqrt{2}\right)^2}\)</div><div class="vp">/ rozšířit \((A-B)\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{12\left(\sqrt{6}-\sqrt{3}-\sqrt{2}\right)}{6-2\sqrt{18}+3-2}\)</div><div class="vp">/ umocnit</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{12\left(\sqrt{6}-\sqrt{3}-\sqrt{2}\right)}{7-6\sqrt{2}}\)</div><div class="vp">/ \(2\sqrt{18} = 6\sqrt{2}\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{12\left(\sqrt{6}-\sqrt{3}-\sqrt{2}\right)\left(7+6\sqrt{2}\right)}{49-72}\)</div><div class="vp">/ rozšířit znovu</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{12\left(\sqrt{6}+5\sqrt{3}-7\sqrt{2}-12\right)}{-23}\)</div><div class="vp">/ roznásobit</div></div>
+      </div>
+      <div class="vysl">\(-\dfrac{12\left(\sqrt{6}+5\sqrt{3}-7\sqrt{2}-12\right)}{23}\)</div>
+    </div>
+
+    <h2 class="blok" id="nta">n-tá odmocnina</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$\sqrt[n]{a} = b \iff b^n = a$$
+      Na rozdíl od druhé odmocniny může být <strong>lichá odmocnina i ze záporného čísla</strong>: \(\sqrt[3]{-8} = -2\), protože \((-2)(-2)(-2) = -8\).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Šest pravidel</div>
+      <div style="line-height:2.4;">
+        \(\sqrt[n]{a} \cdot \sqrt[n]{b} = \sqrt[n]{ab}\)<br>
+        \(\dfrac{\sqrt[n]{a}}{\sqrt[n]{b}} = \sqrt[n]{\dfrac{a}{b}}\)<br>
+        \(\sqrt[n]{a^n \cdot b} = a\sqrt[n]{b}\)<br>
+        \(\left(\sqrt[n]{a}\right)^m = \sqrt[n]{a^m} = a^{\frac{m}{n}}\)<br>
+        \(\sqrt[n]{\sqrt[m]{a}} = \sqrt[nm]{a}\)<br>
+        \(\sqrt[np]{a^{mp}} = \sqrt[n]{a^m} = a^{\frac{m}{n}}\)
+      </div>
+    </div>
+
+    <h2 class="blok" id="racionalni">Mocnina s racionálním exponentem</h2>
+    <div class="rule-box">
+      <div class="rb-label">Klíčový převod</div>
+      $$a^{\frac{m}{n}} = \sqrt[n]{a^m}$$
+      <strong>Jmenovatel</strong> exponentu = odmocnitel &nbsp;·&nbsp; <strong>čitatel</strong> = mocnitel
+    </div>
+    <p class="txt">Díky tomuhle převodu můžeme na odmocniny použít <strong>všechna pravidla pro mocniny</strong> — sčítat exponenty místo složitého odmocňování. To je nejrychlejší cesta u příkladů s víc odmocninami.</p>
+
+    <h2 class="blok" id="pr-nta">Příklady — n-tá odmocnina</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 8 · usměrnění s třetí odmocninou</div>
+      <div class="zadani">Usměrněte: \(\dfrac{15}{\sqrt[3]{180}}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(180 = 2^2 \cdot 3^2 \cdot 5\)</div><div class="vp">/ rozklad</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{15 \cdot \sqrt[3]{2 \cdot 3 \cdot 5^2}}{\sqrt[3]{180} \cdot \sqrt[3]{2 \cdot 3 \cdot 5^2}}\)</div><div class="vp">/ doplnit na třetí mocninu</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{15 \cdot \sqrt[3]{150}}{\sqrt[3]{27000}} = \frac{15\sqrt[3]{150}}{30}\)</div><div class="vp">/ \(\sqrt[3]{30^3} = 30\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{\sqrt[3]{150}}{2}\)</div><div class="vp">/ zkrátit 15</div></div>
+      </div>
+      <div class="pozn">U třetí odmocniny musíme doplnit exponenty na <strong>násobek tří</strong>, ne na sudá čísla jako u druhé odmocniny.</div>
+      <div class="vysl">\(\dfrac{\sqrt[3]{150}}{2}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 9 · převod na racionální exponent</div>
+      <div class="zadani">Zjednodušte: \(\sqrt[3]{a} \cdot \sqrt[4]{a}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(a^{\frac{1}{3}} \cdot a^{\frac{1}{4}}\)</div><div class="vp">/ na racionální exponent</div></div>
+        <div class="vr odsad"><div class="vl">\(a^{\frac{1}{3}+\frac{1}{4}} = a^{\frac{7}{12}}\)</div><div class="vp">/ sečíst exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt[12]{a^7}\)</div><div class="vp">/ zpět na odmocninu</div></div>
+      </div>
+      <div class="vysl">\(\sqrt[12]{a^7}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 10 · čtyři odmocniny najednou</div>
+      <div class="zadani">Zjednodušte: \(\sqrt[3]{2} \cdot \sqrt[4]{4} \cdot \sqrt[5]{8} \cdot \sqrt[6]{16}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2^{\frac{1}{3}} \cdot 2^{\frac{2}{4}} \cdot 2^{\frac{3}{5}} \cdot 2^{\frac{4}{6}}\)</div><div class="vp">/ vše na základ 2</div></div>
+        <div class="vr odsad"><div class="vl">\(2^{\frac{1}{3}+\frac{1}{2}+\frac{3}{5}+\frac{2}{3}}\)</div><div class="vp">/ sečíst exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(2^{\frac{10+15+18+20}{30}} = 2^{\frac{63}{30}} = 2^{\frac{21}{10}}\)</div><div class="vp">/ společný jmenovatel 30</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt[10]{2^{21}} = \sqrt[10]{2^{20} \cdot 2}\)</div><div class="vp">/ oddělit celou mocninu</div></div>
+        <div class="vr odsad"><div class="vl">\(4\sqrt[10]{2}\)</div><div class="vp">/ \(\sqrt[10]{2^{20}} = 2^2 = 4\)</div></div>
+      </div>
+      <div class="pozn">Bez převodu na racionální exponenty by tenhle příklad byl skoro neřešitelný — takhle je to jen sčítání zlomků.</div>
+      <div class="vysl">\(4\sqrt[10]{2}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 11 · složený zlomek s racionálními exponenty</div>
+      <div class="zadani">Zjednodušte: \(\dfrac{\ \dfrac{a^{\frac{3}{2}} \cdot a^{\frac{1}{4}}}{a^{\frac{5}{6}} \cdot a^{\frac{3}{20}}}\ }{\ \dfrac{a^{\frac{3}{4}} \cdot a^{-2}}{a^{\frac{1}{2}}}\ }\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{a^{\frac{3}{2}} \cdot a^{\frac{1}{4}} \cdot a^{\frac{1}{2}}}{a^{\frac{5}{6}} \cdot a^{\frac{3}{20}} \cdot a^{\frac{3}{4}} \cdot a^{-2}}\)</div><div class="vp">/ převrátit spodní zlomek</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{a^{\frac{9}{4}}}{a^{-\frac{16}{60}}}\)</div><div class="vp">/ sečíst nahoře i dole</div></div>
+        <div class="vr odsad"><div class="vl">\(a^{\frac{9}{4}+\frac{16}{60}} = a^{\frac{135+16}{60}}\)</div><div class="vp">/ odečíst exponenty</div></div>
+        <div class="vr odsad"><div class="vl">\(a^{\frac{151}{60}} = a^{2} \cdot a^{\frac{31}{60}}\)</div><div class="vp">/ oddělit celou část</div></div>
+        <div class="vr odsad"><div class="vl">\(a^2 \cdot \sqrt[60]{a^{31}}\)</div><div class="vp">/ zpět na odmocninu</div></div>
+      </div>
+      <div class="vysl">\(a^2\sqrt[60]{a^{31}}\)</div>
+    </div>
+
+    <h2 class="blok" id="funkce-graf">Mocninné funkce</h2>
+    <p class="txt">Funkce tvaru \(y = x^n\). Její graf i vlastnosti závisí hlavně na tom, jestli je exponent <strong>sudý, lichý, nebo záporný</strong>.</p>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 115" width="140" height="115">
+          <line class="ax" x1="18" y1="90" x2="125" y2="90"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="104"/>
+          <path class="curve" d="M33 20 Q 71 128, 109 20"/>
+        </svg>
+        <div class="gc-title">\(y = x^2\) (sudý exponent)</div>
+        <div class="gc-note">\(D = \mathbb{R}\), \(H = \langle 0;\infty)\)<br>sudá, zdola omezená</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 115" width="140" height="115">
+          <line class="ax" x1="18" y1="58" x2="125" y2="58"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="104"/>
+          <path class="curve" d="M30 100 C 58 96, 62 60, 71 58 C 80 56, 84 20, 112 16"/>
+        </svg>
+        <div class="gc-title">\(y = x^3\) (lichý exponent)</div>
+        <div class="gc-note">\(D = \mathbb{R}\), \(H = \mathbb{R}\)<br>lichá, rostoucí, prostá</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 115" width="140" height="115">
+          <line class="ax" x1="18" y1="58" x2="125" y2="58"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="104"/>
+          <path class="curve" d="M78 18 C 90 46, 100 54, 122 56"/>
+          <path class="curve" d="M20 60 C 42 62, 52 70, 64 98"/>
+        </svg>
+        <div class="gc-title">\(y = x^{-1}\) (záporný exponent)</div>
+        <div class="gc-note">\(D = H = \mathbb{R}\setminus\{0\}\)<br>lichá, hyperbola</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 115" width="140" height="115">
+          <line class="ax" x1="18" y1="90" x2="125" y2="90"/>
+          <line class="ax" x1="71" y1="14" x2="71" y2="104"/>
+          <path class="curve" d="M71 90 C 88 62, 100 52, 122 44"/>
+        </svg>
+        <div class="gc-title">\(y = \sqrt{x} = x^{\frac{1}{2}}\)</div>
+        <div class="gc-note">\(D = H = \langle 0;\infty)\)<br>rostoucí, prostá</div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Jak rychle určit definiční obor</div>
+      <strong>Kladný celý exponent</strong> → \(D = \mathbb{R}\)<br>
+      <strong>Záporný exponent</strong> → \(D = \mathbb{R}\setminus\{0\}\) (nedělíme nulou)<br>
+      <strong>Sudá odmocnina</strong> (\(x^{\frac{1}{2}}, x^{\frac{1}{4}}\dots\)) → \(D = \langle 0;+\infty)\)<br>
+      <strong>Lichá odmocnina</strong> (\(x^{\frac{1}{3}}\dots\)) → \(D = \mathbb{R}\)
+    </div>
+
+    <footer>matematika.jasně — maturitní okruh Mocniny a odmocniny</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>
