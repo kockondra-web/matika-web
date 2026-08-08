@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Řešení rovnic v oboru komplexních čísel | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Řešení rovnic v ℂ</div>
+    <ul>
+      <li><a href="#linearni">Lineární rovnice v ℂ</a></li>
+      <li><a href="#kvadr-realne">Kvadratická rce, reálné koeficienty</a></li>
+      <li><a href="#kvadr-d-realne">Komplexní kořeny, D reálné</a></li>
+      <li><a href="#kvadr-d-komplexni">Komplexní kořeny, D∉ℝ</a></li>
+      <li><a href="#binomicke">Binomické rovnice</a></li>
+      <li><a href="#n-ta-odmocnina">N-tá komplexní odmocnina</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Řešení rovnic v oboru komplexních čísel</div>
+    <p class="section-lead">Lineární a kvadratické rovnice v ℂ, práce s číslem komplexně sdruženým a absolutní hodnotou, kvadratické rovnice s komplexními kořeny, binomické rovnice a n-tá komplexní odmocnina.</p>
+    <div class="source-note">maturitní téma 10 · řešení rovnic v oboru komplexních čísel</div>
+
+    <h2 class="blok" id="linearni">Lineární rovnice v ℂ</h2>
+    <p class="txt">Lineární rovnice v ℂ se řeší stejně jako v ℝ — jen počítáš s komplexními čísly a výsledek nekontroluješ na číselné ose, ale zapisuješ jako <span></span>\(D=\mathbb{C}\) (definiční obor) a \(P=\{\ldots\}\) (množina řešení).</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · lineární rovnice s mocninami i</div>
+      <div class="zadani">Vyřeš v ℂ: \((2-i)(3+2i)z + 4 - 2i^{127} = (5+i)z - i^{118} - 4i\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(i^{127}=i^{4\cdot31+3}=-i, \quad i^{118}=i^{4\cdot29+2}=-1\)</div><div class="vp">/ mocniny i</div></div>
+        <div class="vr odsad"><div class="vl">\((8+i)z + 4+2i = (5+i)z + 1 - 4i\)</div><div class="vp">/ dosadit, \((2-i)(3+2i)=8+i\)</div></div>
+        <div class="vr odsad"><div class="vl">\((8+i)z - (5+i)z = 1-4i-4-2i\)</div><div class="vp">/ z na jednu stranu</div></div>
+        <div class="vr odsad"><div class="vl">\(z(8+i-5-i) = -3-6i\)</div><div class="vp">/ vytknout, \(i\) se odečte</div></div>
+        <div class="vr odsad"><div class="vl">\(3z = -3-6i\)</div><div class="vp">/ : 3</div></div>
+        <div class="vr odsad"><div class="vl">\(z = -1-2i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Mocniny \(i\) se dají do rovnice schválně — nejdřív je spočítáš (zbytek po dělení 4), teprve pak řešíš rovnici jako obyčejnou lineární.</div>
+      <div class="vysl">\(D=\mathbb{C}, \quad P=\{-1-2i\}\)</div>
+    </div>
+
+    <h3 class="pod">Rovnice s \(\overline{z}\)</h3>
+    <p class="txt">Když se v rovnici objeví \(\overline{z}\) (komplexně sdružené k neznámé), máš dvě možnosti: buď dosadíš \(z=a+bi\) a porovnáš reálné a imaginární části zvlášť, nebo — pokud se \(\overline{z}\) chová v rovnici jako samostatná proměnná — vyřešíš rovnici pro \(\overline{z}\) a na konci ji zkonjuguješ zpět na \(z\).</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · rovnice s \(\overline{z}\) (řešení pro \(\overline{z}\))</div>
+      <div class="zadani">Vyřeš v ℂ: \(\dfrac{2+3i}{\overline{z}-i} = \dfrac{1-6i}{\overline{z}+3}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((2+3i)(\overline{z}+3) = (1-6i)(\overline{z}-i)\)</div><div class="vp">/ vynásobit křížem</div></div>
+        <div class="vr odsad"><div class="vl">\(2\overline{z}+3i\overline{z}+6+9i = \overline{z}-6i\overline{z}-i-6\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(\overline{z}+9i\overline{z} = -12-10i\)</div><div class="vp">/ \(\overline{z}\) na jednu stranu</div></div>
+        <div class="vr odsad"><div class="vl">\(\overline{z}(1+9i)=-12-10i\)</div><div class="vp">/ vytknout</div></div>
+        <div class="vr odsad"><div class="vl">\(\overline{z} = \dfrac{-12-10i}{1+9i}\cdot\dfrac{1-9i}{1-9i} = \dfrac{-102+98i}{82}\)</div><div class="vp">/ rozšířit sdruženým</div></div>
+        <div class="vr odsad"><div class="vl">\(\overline{z} = -\dfrac{51}{41}+\dfrac{49}{41}i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Vyšlo nám \(\overline{z}\), ne \(z\) — hledaná hodnota je proto komplexně sdružené k tomuto výsledku.</div>
+      <div class="vysl">\(z = -\dfrac{51}{41}-\dfrac{49}{41}i\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · rovnice s \(\overline{z}\) i \(z\) zároveň</div>
+      <div class="zadani">Vyřeš v ℂ: \(2\overline{z}+1+i = z\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z=a+bi \Rightarrow \overline{z}=a-bi\)</div><div class="vp">/ dosadit obecný tvar</div></div>
+        <div class="vr odsad"><div class="vl">\(2(a-bi)+1+i = a+bi\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2a-2bi-a-bi = -1-i\)</div><div class="vp">/ vše na jednu stranu</div></div>
+        <div class="vr odsad"><div class="vl">\(a - 3bi = -1-i\)</div><div class="vp">/ porovnat re a im část</div></div>
+        <div class="vr odsad"><div class="vl">\(a=-1, \quad -3b=-1 \Rightarrow b=\dfrac13\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Když se v rovnici objeví \(z\) i \(\overline{z}\) zároveň, nejde řešit jako u jedné proměnné — musíš dosadit \(a+bi\) a porovnat reálné a imaginární části zvlášť.</div>
+      <div class="vysl">\(z = -1+\dfrac13 i\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · rovnice s \(|z|\)</div>
+      <div class="zadani">Vyřeš v ℂ: \(z + |z+1| = 3-2i\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z=a+bi \Rightarrow a+bi + |(a+1)+bi| = 3-2i\)</div><div class="vp">/ dosadit</div></div>
+        <div class="vr odsad"><div class="vl">\(|z+1|\in\mathbb{R}\), takže porovnáním imaginárních částí: \(b=-2\)</div><div class="vp">/ klíčový krok!</div></div>
+        <div class="vr odsad"><div class="vl">\(a + \sqrt{(a+1)^2+4} = 3\)</div><div class="vp">/ dosadit \(b=-2\), reálná část</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt{(a+1)^2+4} = 3-a\)</div><div class="vp">/ umocnit na druhou</div></div>
+        <div class="vr odsad"><div class="vl">\((a+1)^2+4 = 9-6a+a^2\)</div><div class="vp">/ roznásobit, zjednodušit</div></div>
+        <div class="vr odsad"><div class="vl">\(8a=4 \Rightarrow a=\dfrac12\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Klíčový trik: \(|z+1|\) je vždy reálné nezáporné číslo. Porovnáním imaginárních částí obou stran získáš \(b\) rovnou, bez počítání s odmocninou.</div>
+      <div class="vysl">\(z = \dfrac12 - 2i\)</div>
+    </div>
+
+    <h2 class="blok" id="kvadr-realne">Kvadratická rovnice s reálnými koeficienty</h2>
+    <p class="txt">Klasický vzorec \(x_{1,2}=\dfrac{-b\pm\sqrt D}{2a}\) funguje i pro \(D<0\) — jen \(\sqrt D\) není reálné číslo, ale ryze imaginární.</p>
+    <div class="rule-box">
+      <div class="rb-label">Když je D záporné</div>
+      Pro \(a,b,c\in\mathbb{R}\) a \(D<0\) je \(\sqrt D = \sqrt{|D|}\,i\), a kořeny vyjdou jako <strong>komplexně sdružená dvojice</strong>:
+      $$x_{1,2} = \frac{-b}{2a} \pm \frac{\sqrt{|D|}}{2a}\,i$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(x^2+4x+5=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = 16-4\cdot5 = -4 \Rightarrow \sqrt D = 2i\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{-4\pm2i}{2} = -2\pm i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x_{1,2} = -2\pm i\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(-5x^2+8x-5=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = 64-100=-36 \Rightarrow \sqrt D = 6i\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{-8\pm6i}{-10} = \dfrac45 \pm \dfrac35 i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x_{1,2} = \dfrac45 \pm \dfrac35 i\)</div>
+    </div>
+
+    <h3 class="pod">Vztah mezi kořeny (Vietovy vzorce)</h3>
+    <div class="rule-box">
+      <div class="rb-label">Součet a součin kořenů</div>
+      $$z_1+z_2 = -\frac{b}{a} \qquad z_1\cdot z_2 = \frac{c}{a}$$
+      Platí to obecně — i pro komplexní koeficienty. Naopak: máš-li kořeny, rovnici poskládáš zpátky přes
+      $$a(z-z_1)(z-z_2)=0$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · sestavení rovnice z kořenů</div>
+      <div class="zadani">Sestav kvadratickou rovnici s kořeny \(z_1=3+i,\ z_2=2-i\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z_1+z_2 = 5, \qquad z_1\cdot z_2 = (3+i)(2-i) = 7-i\)</div><div class="vp">/ součet, součin</div></div>
+        <div class="vr odsad"><div class="vl">\(a\big(z^2-5z+(7-i)\big)=0\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Koeficient \(a\) je volný — stačí, aby byl nenulový. Volbou \(a=1\) dostaneš nejjednodušší (monický) tvar; jindy může být \(a\) zadané jinak, třeba \(a=1-3i\), pokud rovnice má mít konkrétní vedoucí koeficient.</div>
+      <div class="vysl">např. \(z^2-5z+7-i=0\) &nbsp; (pro \(a=1\))</div>
+    </div>
+
+    <h2 class="blok" id="kvadr-d-realne">Kvadratická rovnice s komplexními kořeny a reálným D</h2>
+    <p class="txt">Pokud jsou koeficienty \(a,b,c\) samy komplexní, diskriminant \(D=b^2-4ac\) může náhodou vyjít reálný. Pak se \(\sqrt D\) počítá úplně stejně jako u reálné rovnice.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(z^2+5iz+2i = 2-iz^2\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z^2(1+i)+5iz+(2i-2)=0\)</div><div class="vp">/ vše na jednu stranu</div></div>
+        <div class="vr odsad"><div class="vl">\(D = (5i)^2-4(1+i)(2i-2) = -25-4(-4) = -9\)</div><div class="vp">/ \(D\) vyšlo reálné</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt D = 3i\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(z_{1,2} = \dfrac{-5i\pm3i}{2+2i}\)</div><div class="vp">/ dosadit do vzorce</div></div>
+        <div class="vr odsad"><div class="vl">\(z_1 = \dfrac{-2i}{2+2i} = -\dfrac12-\dfrac12 i, \qquad z_2 = \dfrac{-8i}{2+2i} = -2-2i\)</div><div class="vp">/ rozšířit sdruženým</div></div>
+      </div>
+      <div class="pozn">Zkouška Vietou: \(z_1+z_2 = -\frac52-\frac52 i\)... ověř si dosazením do \(-b/a=-5i/(1+i)\) — sedí. I s komplexními koeficienty platí Vietovy vzorce beze změny.</div>
+      <div class="vysl">\(z_1=-\dfrac12-\dfrac12 i, \quad z_2=-2-2i\)</div>
+    </div>
+
+    <h2 class="blok" id="kvadr-d-komplexni">Kvadratická rovnice s komplexními kořeny a D∉ℝ</h2>
+    <p class="txt">Nejobecnější případ: diskriminant \(D\) vyjde <strong>ryze komplexní</strong> (ani reálný, ani ryze imaginární). Odmocninu \(\sqrt D\) pak nelze jen tak "vidět" — musíš ji dopočítat. Dvě cesty:</p>
+
+    <h3 class="pod">Postup 1 — algebraicky, přes \(a+bi\)</h3>
+    <div class="rule-box">
+      <div class="rb-label">Princip</div>
+      Hledáš \(\sqrt D = a+bi\), tedy číslo, pro které \((a+bi)^2=D\). Roznásobením a porovnáním reálné a imaginární části dostaneš soustavu pro \(a,b\) — ta vede na kvadratickou rovnici v \(t=b^2\).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(z^2+(-4+2i)z+11-10i=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = (-4+2i)^2-4(11-10i) = -32+24i\)</div><div class="vp">/ diskriminant</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt D = a+bi: \quad -32+24i = (a^2-b^2)+2abi\)</div><div class="vp">/ hledáme odmocninu</div></div>
+        <div class="vr odsad"><div class="vl">\(a^2-b^2=-32, \qquad 2ab=24 \Rightarrow a=\dfrac{12}{b}\)</div><div class="vp">/ porovnat re, im část</div></div>
+        <div class="vr odsad"><div class="vl">\(\left(\dfrac{12}{b}\right)^2-b^2=-32 \ \Rightarrow\ b^4-32b^2-144=0\)</div><div class="vp">/ dosadit, vynásobit \(b^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(t=b^2: \quad t^2-32t-144=0 \ \Rightarrow\ (t+4)(t-36)=0\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(t=-4\) nevyhovuje (\(b\in\mathbb{R}\Rightarrow b^2\geq0\)), zbývá \(t=36\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(b=\pm6 \Rightarrow a=\pm2 \Rightarrow \sqrt D = \pm(2+6i)\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(z_{1,2} = \dfrac{4-2i\pm(2+6i)}{2}\)</div><div class="vp">/ dosadit do vzorce</div></div>
+        <div class="vr odsad"><div class="vl">\(z_1 = \dfrac{6+4i}{2}=3+2i, \qquad z_2 = \dfrac{2-8i}{2}=1-4i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Zkouška Vietou: \(z_1+z_2=4-2i=-b/a\) ✓, &nbsp; \(z_1z_2=(3+2i)(1-4i)=11-10i=c/a\) ✓.</div>
+      <div class="vysl">\(z_1=3+2i, \quad z_2=1-4i\)</div>
+    </div>
+
+    <h3 class="pod">Postup 2 — pomocí Moivreovy věty (goniometricky)</h3>
+    <div class="rule-box">
+      <div class="rb-label">Princip</div>
+      Převedeš \(D\) na goniometrický/exponenciální tvar a odmocninu vezmeš jako poloviční modul a poloviční úhel:
+      $$\sqrt{|D|\,e^{i\varphi}} = \sqrt{|D|}\;e^{i\varphi/2}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \((1-i)z^2+(i-5)z+10=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(D = (i-5)^2-4(1-i)\cdot10 = 24-10i-40+40i = -16+30i\)</div><div class="vp">/ diskriminant</div></div>
+        <div class="vr odsad"><div class="vl">\(|D|=\sqrt{16^2+30^2}=34, \qquad \varphi = 118° \approx 2{,}06\ \text{rad}\)</div><div class="vp">/ modul, úhel (2. kvadrant)</div></div>
+        <div class="vr odsad"><div class="vl">\(\sqrt D = \sqrt{34}\cdot e^{1{,}03i} = 3+5i\)</div><div class="vp">/ odmocnit modul, půlit úhel</div></div>
+        <div class="vr odsad"><div class="vl">\(z_{1,2} = \dfrac{5-i\pm(3+5i)}{2-2i}\)</div><div class="vp">/ dosadit do vzorce</div></div>
+        <div class="vr odsad"><div class="vl">\(z_1 = \dfrac{8+4i}{2-2i} = 1+3i, \qquad z_2 = \dfrac{2-6i}{2-2i} = 2-i\)</div><div class="vp">/ rozšířit sdruženým</div></div>
+      </div>
+      <div class="pozn">Kontrola: \((3+5i)^2 = 9+30i-25 = -16+30i = D\) ✓ — odmocnina sedí přesně.</div>
+      <div class="vysl">\(z_1=1+3i, \quad z_2=2-i\)</div>
+    </div>
+
+    <h2 class="blok" id="binomicke">Binomické rovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Tvar a princip</div>
+      $$ax^n+b=0, \quad a,b\in\mathbb{C},\ a\neq0,\ x\in\mathbb{C},\ n\in\mathbb{N} \qquad\Rightarrow\qquad x^n = -\frac{b}{a}$$
+      Hledáš kořen ve tvaru \(u=|u|(\cos\varphi+i\sin\varphi)\). Podle Moivreovy věty \(u^n=|u|^n(\cos n\varphi+i\sin n\varphi)\) — porovnáním s pravou stranou dostaneš modul i úhel, a rovnice má vždy přesně <strong>n různých kořenů</strong> pravidelně rozmístěných po kružnici.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(z^3=-8\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(|z|^3=8 \Rightarrow |z|=2\)</div><div class="vp">/ modul</div></div>
+        <div class="vr odsad"><div class="vl">\(-8 = 8(\cos3\varphi+i\sin3\varphi) \Rightarrow 3\varphi=\pi+2k\pi\)</div><div class="vp">/ úhel</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi = \dfrac{\pi}{3}+k\cdot\dfrac{2}{3}\pi, \qquad k=0,1,2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(z_1=2e^{\frac{\pi}{3}i}=1{+}\sqrt3i, \quad z_2=2e^{\pi i}=-2, \quad z_3=2e^{\frac{5}{3}\pi i}=1{-}\sqrt3i\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(32z^5-1=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z^5 = \dfrac{1}{32} \Rightarrow r=\sqrt[5]{\dfrac{1}{32}}=\dfrac12\)</div><div class="vp">/ modul (1/32 je kladné reálné)</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi_0 = \dfrac{2\pi}{5}\ \text{(rozestup mezi kořeny)}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="graf-wide">
+        <svg viewBox="0 0 300 200" width="300" height="200">
+          <line class="ax" x1="20" y1="100" x2="280" y2="100"/>
+          <line class="ax" x1="150" y1="20" x2="150" y2="180"/>
+          <circle cx="150" cy="100" r="70" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+          <g fill="var(--brick)">
+            <circle cx="220" cy="100" r="4"/>
+            <circle cx="171.6" cy="33.4" r="4"/>
+            <circle cx="93.4" cy="58.4" r="4"/>
+            <circle cx="93.4" cy="141.6" r="4"/>
+            <circle cx="171.6" cy="166.6" r="4"/>
+          </g>
+          <text class="lbl" x="224" y="96">\(z_1\)</text>
+          <text class="lbl" x="174" y="28">\(z_2\)</text>
+          <text class="lbl" x="60" y="56">\(z_3\)</text>
+          <text class="lbl" x="60" y="148">\(z_4\)</text>
+          <text class="lbl" x="174" y="180">\(z_5\)</text>
+        </svg>
+        <div class="gw-caption">Pět kořenů tvoří pravidelný pětiúhelník na kružnici o poloměru \(r=\frac12\)</div>
+      </div>
+      <div class="vysl">
+        \(z_k = \dfrac12\left(\cos\dfrac{2k\pi}{5}+i\sin\dfrac{2k\pi}{5}\right), \quad k=0,1,2,3,4\)
+      </div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(z^4=81\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(r = \sqrt[4]{81}=3\)</div><div class="vp">/ modul</div></div>
+        <div class="vr odsad"><div class="vl">81 je kladné reálné číslo &rArr; \(\arg(81)=0\)</div><div class="vp">/ úhel — pozor, ne \(\pi\)!</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi_0 = 0 + k\cdot\dfrac{\pi}{2}, \quad k=0,1,2,3\)</div><div class="vp"></div></div>
+      </div>
+      <div class="graf-wide">
+        <svg viewBox="0 0 300 200" width="300" height="200">
+          <line class="ax" x1="20" y1="100" x2="280" y2="100"/>
+          <line class="ax" x1="150" y1="20" x2="150" y2="180"/>
+          <circle cx="150" cy="100" r="70" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+          <g fill="var(--brick)">
+            <circle cx="220" cy="100" r="4"/>
+            <circle cx="150" cy="30" r="4"/>
+            <circle cx="80" cy="100" r="4"/>
+            <circle cx="150" cy="170" r="4"/>
+          </g>
+          <text class="lbl" x="224" y="96">3</text>
+          <text class="lbl" x="156" y="26">3i</text>
+          <text class="lbl" x="52" y="104">-3</text>
+          <text class="lbl" x="156" y="184">-3i</text>
+        </svg>
+        <div class="gw-caption">Čtyři kořeny leží přímo na osách — vrcholy čtverce vepsaného v kružnici o poloměru 3</div>
+      </div>
+      <div class="pozn">Snadná past: kdyby bylo zadání \(z^4=-81\), pak by \(\arg(-81)=\pi\) a základní úhel kořenů by vyšel \(\frac{\pi}{4}\) (čtverec pootočený o 45°). Pro kladné 81 je ale výchozí úhel 0.</div>
+      <div class="vysl">\(z_1=3, \quad z_2=3i, \quad z_3=-3, \quad z_4=-3i\)</div>
+    </div>
+
+    <h2 class="blok" id="n-ta-odmocnina">N-tá komplexní odmocnina</h2>
+    <p class="txt">Obecný postup pro \(\sqrt[n]{u}\), kde \(u\) je libovolné komplexní číslo: převeď \(u\) na goniometrický tvar, odmocni modul a úhel děl počtem kořenů — s rozestupem \(\frac{2\pi}{n}\) mezi sousedními kořeny.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(2z^3+125\sqrt3 = 125i\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z^3 = u = -\dfrac{125\sqrt3}{2}+\dfrac{125}{2}i\)</div><div class="vp">/ osamostatnit</div></div>
+        <div class="vr odsad"><div class="vl">\(|u| = 125, \qquad \arg(u) = 150°\)</div><div class="vp">/ modul, úhel (2. kvadrant)</div></div>
+        <div class="vr odsad"><div class="vl">\(r = \sqrt[3]{125} = 5\)</div><div class="vp">/ modul kořenů</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi_k = \dfrac{150°}{3}+k\cdot120° = 50°+k\cdot120°\)</div><div class="vp">/ úhel kořenů, \(k=0,1,2\)</div></div>
+      </div>
+      <div class="vysl">
+        \(z_1=5(\cos50°{+}i\sin50°), \ z_2=5(\cos170°{+}i\sin170°), \ z_3=5(\cos290°{+}i\sin290°)\)
+      </div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vyřeš v ℂ: \(2z^4+81+81\sqrt3\,i=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z^4 = u = -\dfrac{81}{2}-\dfrac{81\sqrt3}{2}i\)</div><div class="vp">/ osamostatnit</div></div>
+        <div class="vr odsad"><div class="vl">\(|u| = 81, \qquad \arg(u) = 240°\)</div><div class="vp">/ modul, úhel (3. kvadrant)</div></div>
+        <div class="vr odsad"><div class="vl">\(r = \sqrt[4]{81} = 3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi_k = \dfrac{240°}{4}+k\cdot90° = 60°+k\cdot90°\)</div><div class="vp">/ \(k=0,1,2,3\)</div></div>
+      </div>
+      <div class="vysl">
+        \(z_k = 3\big(\cos(60°{+}k{\cdot}90°)+i\sin(60°{+}k{\cdot}90°)\big), \quad k=0,1,2,3\)
+      </div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · zlomek pod odmocninou</div>
+      <div class="zadani">Vyřeš v ℂ: \(z^3 = \dfrac{2-11i}{2-i}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dfrac{2-11i}{2-i}\cdot\dfrac{2+i}{2+i} = \dfrac{15-20i}{5} = 3-4i\)</div><div class="vp">/ rozšířit sdruženým</div></div>
+        <div class="vr odsad"><div class="vl">\(|3-4i| = 5 \Rightarrow r = \sqrt[3]{5} \approx 1{,}7\)</div><div class="vp">/ modul kořenů</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi = \arg(3-4i) \approx 5{,}356\ \text{rad (4. kvadrant)}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi_k = \dfrac{5{,}356}{3}+k\cdot\dfrac{2\pi}{3} \approx 1{,}78+k\cdot2{,}09\)</div><div class="vp">/ \(k=0,1,2\)</div></div>
+      </div>
+      <div class="pozn">Pozor na rozestup — pro tři kořeny je to \(\frac{2\pi}{3}\) (120°), ne \(\frac{\pi}{3}\). Stejný princip jako u \(z^3=-8\) na začátku kapitoly.</div>
+      <div class="vysl">
+        \(z_1 = \sqrt[3]{5}\left[\cos(1{,}78)+i\sin(1{,}78)\right]\), a další dva kořeny po \(2\pi/3\)
+      </div>
+    </div>
+
+    <footer>matematika.jasně — řešení rovnic v oboru komplexních čísel</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

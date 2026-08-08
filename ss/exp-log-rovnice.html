@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exponenciální a logaritmické rovnice a nerovnice | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Exp. a log. rovnice</div>
+    <ul>
+      <li><a href="#exp-rovnice">Exponenciální rovnice</a></li>
+      <li><a href="#logaritmus">Logaritmus a jeho vlastnosti</a></li>
+      <li><a href="#rozklad">Rozklad a sloučení logaritmů</a></li>
+      <li><a href="#log-rovnice">Logaritmické rovnice</a></li>
+      <li><a href="#smisene">Smíšená exp.-log. rovnice</a></li>
+      <li><a href="#nerovnice">Nerovnice</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Exponenciální a logaritmické rovnice a nerovnice</div>
+    <p class="section-lead">Řešení exponenciálních rovnic srovnáním základů i substitucí, definice logaritmu a práce s logaritmickými výrazy, řešení logaritmických rovnic a nerovnic.</p>
+    <div class="source-note">maturitní téma 12 · exponenciální a logaritmické rovnice a nerovnice</div>
+
+    <h2 class="blok" id="exp-rovnice">Exponenciální rovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Základní věta</div>
+      $$\forall a\in\mathbb{R}^+\setminus\{1\}\ \ \forall x,y\in\mathbb{R}: \qquad a^x=a^y \iff x=y$$
+      Když se ti povede obě strany rovnice převést na <strong>stejný základ</strong>, stačí porovnat exponenty.
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(3^x=9\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(3^x=3^2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=2\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(4^{2-3x} = \sqrt[5]{0{,}125}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(0{,}125 = \dfrac18 \Rightarrow 2^{4-6x} = 2^{-3/5}\)</div><div class="vp">/ převést na základ 2</div></div>
+        <div class="vr odsad"><div class="vl">\(4-6x = -\dfrac35\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=\dfrac{23}{30}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(3^{6x+4} = 3^{1-5x}\cdot 3^{\frac{3x-12}{5}}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(6x+4 = 1-5x+\dfrac{3x-12}{5}\)</div><div class="vp">/ srovnat exponenty</div></div>
+      </div>
+      <div class="vysl">\(x=-\dfrac{27}{52}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(3^{x-1}-2(\sqrt3)^{2x+2}+51=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(3^x\cdot\dfrac13 - 2\cdot3^{x+1}+51=0\)</div><div class="vp">/ \((\sqrt3)^{2x+2}=3^{x+1}\)</div></div>
+        <div class="vr odsad"><div class="vl">\(3^x\left(\dfrac13-6\right) = -51\)</div><div class="vp">/ vytknout</div></div>
+        <div class="vr odsad"><div class="vl">\(3^x = 9\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=2\)</div>
+    </div>
+
+    <h3 class="pod">Rovnice řešené substitucí</h3>
+    <p class="txt">Když se v rovnici objeví stejný výraz s exponentem \(x\) i \(2x\) (nebo \(x\) v různých členech se stejným základem), pomůže substituce \(t=a^x\) — rovnice se změní na kvadratickou v \(t\).</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(2^{2x-1}+4^{x-5}=513\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(4^x\cdot\dfrac12 + 4^x\cdot\dfrac{1}{1024} = 513\)</div><div class="vp">/ vše na základ 4</div></div>
+        <div class="vr odsad"><div class="vl">\(4^x\left(\dfrac12+\dfrac1{1024}\right)=513\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(4^x = 513\cdot\dfrac{1024}{513} = 1024 = 2^{10}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2x=10\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=5\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(3\cdot2^{x-\frac32}+5\cdot2^{x+\frac12}=46\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(3\sqrt{\dfrac18}\cdot2^x + 5\sqrt2\cdot2^x = 46\)</div><div class="vp">/ rozepsat mocniny</div></div>
+        <div class="vr odsad"><div class="vl">\(2^x\left(\dfrac{3\sqrt2}{4}+5\sqrt2\right)=46 \Rightarrow 2^x\cdot\dfrac{23\sqrt2}{4}=46\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2^x = \dfrac{46\cdot4}{23\sqrt2} = \dfrac{8}{\sqrt2}=4\sqrt2=2^{5/2}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=\dfrac52\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · substituce</div>
+      <div class="zadani">\(16^x-50\cdot2^{2x}=896\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(t=2^{2x}: \qquad t^2-50t-896=0\)</div><div class="vp">/ \(16^x=(2^{2x})^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(t_{1,2}=64,\ -14\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2^{2x}=64=2^6 \Rightarrow x=3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2^{2x}=-14\)</div><div class="vp">nemá řešení</div></div>
+      </div>
+      <div class="vysl">\(x=3\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · substituce</div>
+      <div class="zadani">\(\dfrac83\cdot3^{x-1}+1=9^{x-1}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(t=3^x: \qquad -t^2+8t+9=0 \Rightarrow t^2-8t-9=0\)</div><div class="vp">/ vynásobit 9, upravit</div></div>
+        <div class="vr odsad"><div class="vl">\(t_{1,2}=9,\ -1\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3^x=9\Rightarrow x=2, \qquad 3^x=-1\)</div><div class="vp">nemá řešení</div></div>
+      </div>
+      <div class="vysl">\(D=\mathbb{R},\quad P=\{2\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · substituce</div>
+      <div class="zadani">\(4^{x+1}+3\cdot2^{2x+4}=30\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(4\cdot2^{2x} + 48\cdot2^{2x} = 30\)</div><div class="vp">/ vše na základ 2</div></div>
+        <div class="vr odsad"><div class="vl">\(2^{2x}\cdot52=30 \Rightarrow 2^{2x}=\dfrac{15}{26}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2x=\log_2\dfrac{15}{26}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=\dfrac12\log_2\dfrac{15}{26}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · substituce</div>
+      <div class="zadani">\(2^{2x+3}+9=9\cdot2^{x+1}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(8\cdot2^{2x} + 9 = 18\cdot2^x\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(t=2^x: \qquad 8t^2-18t+9=0\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(t_{1,2}=\dfrac34,\ \dfrac32\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x_1=\log_2\dfrac34, \qquad x_2=\log_2\dfrac32\)</div>
+    </div>
+
+    <h2 class="blok" id="logaritmus">Logaritmus a jeho vlastnosti</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$\log_a x = y \iff a^y=x, \qquad \forall a\in\mathbb{R}^+\setminus\{1\},\ \forall x\in\mathbb{R}^+,\ \forall y\in\mathbb{R}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Věty pro počítání s mocninami (připomenutí)</div>
+      $$a^r\cdot a^s = a^{r+s} \qquad a^r:a^s=a^{r-s} \qquad (a^r)^s=a^{r\cdot s}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Věty pro logaritmy</div>
+      \(\forall x,y\in\mathbb{R}^+,\ \forall a\in\mathbb{R}^+\setminus\{1\}\):
+      $$\log_a x + \log_a y = \log_a(x\cdot y) \qquad \log_a x - \log_a y = \log_a\left(\frac{x}{y}\right)$$
+      $$\log_a x^r = r\log_a x\ \ (\forall r\in\mathbb{R}) \qquad \log_a\sqrt[r]{x} = \frac1r\log_a x\ \ (\forall r\in\mathbb{R}^+)$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Věta pro změnu základu</div>
+      $$\log_a c = \frac{\log_b c}{\log_b a}$$
+      Hodí se, když chceš logaritmus spočítat na kalkulačce, která umí jen \(\log\) (základ 10) nebo \(\ln\) (základ \(e\)), ale potřebuješ jiný základ.
+    </div>
+
+    <h2 class="blok" id="rozklad">Rozklad a sloučení logaritmů</h2>
+    <div class="priklad">
+      <div class="p-label">Příklad · číselný</div>
+      <div class="zadani">\(\log20+\log50\)</div>
+      <div class="vysl">\(=\log(20\cdot50)=\log1000=3\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · rozklad výrazu</div>
+      <div class="zadani">\(\log\left(5a\cdot\sqrt[3]{b^2}\right)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\log(5a)+\log\left(b^{2/3}\right)\)</div><div class="vp">/ log součinu</div></div>
+      </div>
+      <div class="vysl">\(=\log5+\log a+\dfrac23\log b\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · rozklad výrazu</div>
+      <div class="zadani">\(\log\left(\dfrac{5x^4y^3}{\sqrt[3]{a^2b}}\right)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\log(5x^4y^3) - \log\sqrt[3]{a^2b}\)</div><div class="vp">/ log podílu</div></div>
+      </div>
+      <div class="vysl">\(=\log5+4\log x+3\log y-\dfrac23\log a-\dfrac13\log b\)</div>
+    </div>
+
+    <h3 class="pod">Odlogaritmování (sloučení do jednoho logaritmu)</h3>
+    <p class="txt">Opačný postup: máš součet/rozdíl logaritmů (i s číselnou konstantou) a chceš je sloučit do jednoho výrazu pod jedním logaritmem. Konstantu převedeš na \(\log_a(a^k)\) se stejným základem, a pak použiješ věty pro součet/rozdíl obráceně.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Sluč do jednoho logaritmu: \(4\log_{1/2}x^3 - 3+\log_{1/2}\sqrt z\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(-3 = -\log_{1/2}\dfrac18\)</div><div class="vp">/ protože \((1/2)^3=1/8\)</div></div>
+        <div class="vr odsad"><div class="vl">\(=\log_{1/2}x^{12} - \log_{1/2}\dfrac18+\log_{1/2}\sqrt z\)</div><div class="vp">/ \(4\log x^3=\log x^{12}\)</div></div>
+      </div>
+      <div class="vysl">\(=\log_{1/2}\left(8x^{12}\sqrt z\right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Sluč do jednoho logaritmu: \(\dfrac34\log_3(m-1) - \dfrac16\log_3(m-1) - 4+\log_32\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\log_3\dfrac{(m-1)^{3/4}\cdot2}{(m-1)^{1/6}\cdot81}\)</div><div class="vp">/ \(-4=\log_3(3^{-4})=\log_3\frac1{81}\)</div></div>
+      </div>
+      <div class="pozn">Stejný zlomek jde zapsat i pomocí odmocnin: \(\dfrac{2\sqrt[4]{(m-1)^3}}{81\sqrt[6]{m-1}}\).</div>
+      <div class="vysl">\(=\log_3\left(\dfrac{2(m-1)^{7/12}}{81}\right)\)</div>
+    </div>
+
+    <h2 class="blok" id="log-rovnice">Logaritmické rovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Základní věta</div>
+      $$\forall x,y\in\mathbb{R}^+\ \ \forall a\in\mathbb{R}^+\setminus\{1\}: \qquad \log_a x=\log_a y \iff x=y$$
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\log_3(2-x) = -\log_3(3x+1)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Podmínky: \(2-x>0\) a \(3x+1>0 \Rightarrow x\in\left(-\dfrac13,2\right)\)</div><div class="vp">/ definiční obor</div></div>
+        <div class="vr odsad"><div class="vl">\(2-x = (3x+1)^{-1}\)</div><div class="vp">/ \(-\log_3 A=\log_3 A^{-1}\)</div></div>
+        <div class="vr odsad"><div class="vl">\((2-x)(3x+1)=1\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3x^2-5x-1=0\)</div><div class="vp">/ upravit na kvadratickou</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2}=\dfrac{5\pm\sqrt{37}}{6}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Oba kořeny (\(\approx1{,}85\) a \(\approx-0{,}18\)) leží v definičním oboru \(\left(-\frac13,2\right)\), takže jsou oba platné.</div>
+      <div class="vysl">\(x_{1,2}=\dfrac{5\pm\sqrt{37}}{6}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\log x^2+\log\sqrt x+\log x=10\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2\log x+\dfrac12\log x+\log x=10\)</div><div class="vp">/ \(\log x^r=r\log x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(3{,}5\log x=10\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\log x=\dfrac{20}{7}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x=10^{20/7}\)</div>
+    </div>
+
+    <h2 class="blok" id="smisene">Smíšená exponenciálně-logaritmická rovnice</h2>
+    <p class="txt">Když se v rovnici mocní i logaritmuje zároveň a základy se nedají snadno srovnat, pomůže zlogaritmovat obě strany a využít \(\log a^r=r\log a\), čímž se z exponentů stanou obyčejné koeficienty.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\dfrac{\sqrt[3]{4^{2x-5}}}{9^{1-x}} = 3^{5x+1}\cdot8^{x-5}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\log\sqrt[3]{4^{2x-5}} - \log9^{1-x} = \log3^{5x+1}+\log8^{x-5}\)</div><div class="vp">/ zlogaritmovat obě strany</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2x-5}{3}\log4 - (1-x)\log9 = (5x+1)\log3+(x-5)\log8\)</div><div class="vp">/ \(\log a^r=r\log a\)</div></div>
+        <div class="vr odsad"><div class="vl">\((4x-10)\log2-(6-6x)\log3 = (15x+3)\log3+(9x-45)\log2\)</div><div class="vp">/ \(\log4{=}2\log2,\log9{=}2\log3,\log8{=}3\log2\), krát 3</div></div>
+        <div class="vr odsad"><div class="vl">\(-5x\log2-9x\log3 = -35\log2+9\log3\)</div><div class="vp">/ sloučit členy s \(x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \dfrac{35\log2-9\log3}{5\log2+9\log3}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x\approx1{,}076\)</div>
+    </div>
+
+    <h2 class="blok" id="nerovnice">Nerovnice</h2>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\dfrac{1}{27} < \left(\dfrac13\right)^{3x-1} \leq 3\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(3^{-3} < 3^{1-3x} \leq 3^1\)</div><div class="vp">/ vše na základ 3</div></div>
+        <div class="vr odsad"><div class="vl">\(-3 < 1-3x \leq 1\)</div><div class="vp">/ základ &gt;1, znaménko zůstává</div></div>
+        <div class="vr odsad"><div class="vl">\(-4 < -3x \leq 0 \ \ /:(-3)\)</div><div class="vp">/ dělení záporným číslem otáčí nerovnost</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac43 > x \geq 0\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(D=\mathbb{R}, \qquad P=\left\langle0,\dfrac43\right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(|x|^{x^2-x-2} \leq 1\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\ln|x|^{x^2-x-2} \leq \ln1 = 0\)</div><div class="vp">/ zlogaritmovat (podmínka \(x\neq0\))</div></div>
+        <div class="vr odsad"><div class="vl">\((x^2-x-2)\ln|x| \leq 0\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\((x-2)(x+1)\cdot\ln|x| \leq 0\)</div><div class="vp">/ rozložit, znaménková tabulka</div></div>
+      </div>
+      <div class="pozn">Kritické body: \(x=-1\) (kde \(x+1=0\)), \(x=0\) (vyloučeno definičním oborem), \(x=1\) (kde \(\ln|x|=0\)) a \(x=2\) (kde \(x-2=0\)). Znaménková tabulka na těchto čtyřech bodech dá výsledný interval.</div>
+      <div class="vysl">\(D=\mathbb{R}\setminus\{0\}, \qquad P=\{-1\}\cup\langle1,2\rangle\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(2^{x+2} \leq 12\sqrt2+2^x\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(4\cdot2^x - 2^x \leq 12\sqrt2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3\cdot2^x\leq12\sqrt2 \ \ /:3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(2^x\leq4\sqrt2=2^{5/2}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(x\leq\dfrac52\)</div>
+    </div>
+
+    <footer>matematika.jasně — exponenciální a logaritmické rovnice a nerovnice</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

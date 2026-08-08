@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytická geometrie lineárních útvarů v prostoru | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Anal. geometrie v prostoru</div>
+    <ul>
+      <li><a href="#primka">Přímka v prostoru</a></li>
+      <li><a href="#poloha-primek">Poloha dvou přímek</a></li>
+      <li><a href="#rovina">Rovina v prostoru</a></li>
+      <li><a href="#specialni">Speciální případy roviny</a></li>
+      <li><a href="#poloha-rovin">Poloha dvou rovin</a></li>
+      <li><a href="#poloha-primka-rovina">Poloha přímky a roviny</a></li>
+      <li><a href="#odchylky">Odchylky v prostoru</a></li>
+      <li><a href="#vzdalenosti">Vzdálenosti v prostoru</a></li>
+      <li><a href="#prusecnice">Průsečnice dvou rovin</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Analytická geometrie lineárních útvarů v prostoru</div>
+    <p class="section-lead">Přímka a rovina v prostoru a jejich vyjádření, vzájemná poloha přímek, roviny a jejich kombinací, odchylky a vzdálenosti, průsečnice dvou rovin.</p>
+    <div class="source-note">maturitní téma 15 · analytická geometrie lineárních útvarů v prostoru</div>
+
+    <h2 class="blok" id="primka">Přímka v prostoru</h2>
+    <div class="warn-box">
+      <div class="wb-label">Rozdíl oproti rovině</div>
+      Ve 3D lze přímku zadat <strong>pouze parametricky</strong> (příp. kanonicky) — obecná rovnice přímky v prostoru neexistuje (ta popisuje rovinu).
+    </div>
+    <div class="rule-box">
+      Směrový vektor \(\vec s_p=(s_1;s_2;s_3)\), bod \(A[x_A;y_A;z_A]\):
+      $$p: X = A+t\cdot\vec s_p, \qquad t\in\mathbb{R}$$
+      $$p: x=x_A+t\,s_1, \qquad y=y_A+t\,s_2, \qquad z=z_A+t\,s_3$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(A[4;-2;-5]\), \(B[1;6;-2]\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec s_p = \overrightarrow{AB} = (-3;8;3)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(p: x=4-3t,\quad y=-2+8t,\quad z=-5+3t\)</div>
+    </div>
+
+    <h2 class="blok" id="poloha-primek">Poloha dvou přímek</h2>
+    <p class="txt">V prostoru mohou být dvě přímky rovnoběžné, různoběžné (protínají se v bodě), totožné, nebo <strong>mimoběžné</strong> (nerovnoběžné a bez společného bodu — ve 3D možné, v rovině ne).</p>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th></th><th>počet spol. bodů</th><th>\(\vec s_p,\vec s_q\)</th><th>\(\vec s_p,\vec s_q,\overrightarrow{PQ}\)</th></tr>
+      <tr><td class="rowlbl">\(p\equiv q\) (totožné)</td><td>∞ (celá přímka)</td><td>LZ</td><td>LZ</td></tr>
+      <tr><td class="rowlbl">\(p\parallel q\)</td><td>0</td><td>LZ</td><td>LZ</td></tr>
+      <tr><td class="rowlbl">\(p\times q\) (různoběžné)</td><td>1</td><td>LN</td><td>LZ</td></tr>
+      <tr><td class="rowlbl">mimoběžné</td><td>0</td><td>LN</td><td>LN</td></tr>
+    </table>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      Nejdřív porovnáme \(\vec s_p\) a \(\vec s_q\) (jsou LZ, nebo LN?).<br><br>
+      <strong>LN</strong> → sestav determinant z \(\vec s_p,\vec s_q,\overrightarrow{PQ}\) (kde \(P\in p, Q\in q\)): je-li roven 0, přímky jsou <strong>různoběžné</strong>; je-li nenulový, jsou <strong>mimoběžné</strong>.<br><br>
+      <strong>LZ</strong> → zkontroluj, jestli mají společný bod: pokud ano, jsou <strong>totožné</strong>; pokud ne, jsou <strong>rovnoběžné</strong>.
+    </div>
+
+    <h2 class="blok" id="rovina">Rovina v prostoru</h2>
+    <h3 class="pod">Parametrické vyjádření</h3>
+    <div class="rule-box">
+      Bod \(A\) a dva lineárně nezávislé směrové vektory \(\vec u,\vec v\):
+      $$\rho: X = A+t\,\vec u+s\,\vec v$$
+      $$\rho: x=x_A+t\,u_1+s\,v_1, \quad y=y_A+t\,u_2+s\,v_2, \quad z=z_A+t\,u_3+s\,v_3$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">6 způsobů zadání roviny</div>
+      <strong>1.</strong> 3 body (nekolineární) &nbsp; <strong>2.</strong> 1 bod a 2 LN vektory &nbsp; <strong>3.</strong> přímka a bod mimo ni<br>
+      <strong>4.</strong> 2 různoběžky &nbsp; <strong>5.</strong> bod a normálový vektor &nbsp; <strong>6.</strong> bod a kolmá přímka
+    </div>
+    <div class="pozn" style="padding-left:0;">Ze 3 bodů: vytvoř 2 vektory (např. \(\overrightarrow{AB},\overrightarrow{AC}\)) a dosaď jeden bod a oba vektory do parametrického vyjádření — pro parametrické vyjádření vždy stačí <strong>1 bod a 2 (LN) vektory</strong>.</div>
+
+    <h3 class="pod">Vektorový součin</h3>
+    <div class="rule-box">
+      <div class="rb-label">Definice a geometrický význam</div>
+      Na rozdíl od skalárního součinu funguje <strong>pouze ve 3D</strong> a výsledkem je vektor:
+      $$\vec n = \vec u\times\vec v \iff \vec n\perp\vec u \ \land\ \vec n\perp\vec v$$
+      $$|\vec n| = |\vec u|\cdot|\vec v|\cdot\sin\alpha \quad\Rightarrow\quad \text{obsah rovnoběžníku daného } \vec u,\vec v$$
+      Vektory \(\vec u,\vec v,\vec n\) tvoří pravotočivou bázi (pravidlo pravé ruky).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\vec u=(-5;-2;8)\), \(\vec v=(4;5;-2)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec u\times\vec v = \big((-2)(-2)-8\cdot5;\ \ 8\cdot4-(-5)(-2);\ \ (-5)\cdot5-(-2)\cdot4\big)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(\vec u\times\vec v = (-36;\ 22;\ -17)\)</div>
+    </div>
+    <p class="txt">Vektorový součin dvou z normálového/směrových vektorů se hodí i k rychlému nalezení normálového vektoru roviny ze dvou jejích směrových vektorů, nebo směrového vektoru přímky, která je průsečnicí dvou rovin (viz níže).</p>
+
+    <h2 class="blok" id="specialni">Speciální případy obecné rovnice roviny</h2>
+    <div class="rule-box">
+      $$\rho: ax+by+cz+d=0, \qquad \vec n_\rho=(a;b;c)$$
+      Z parametrického tvaru: buď určíme kolmý (normálový) vektor a dosazením bodu dopočítáme \(d\), nebo ze 3 parametrických rovnic vyloučíme oba parametry.
+    </div>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>podmínka</th><th>důsledek</th></tr>
+      <tr><td class="rowlbl">\(d=0\)</td><td>rovina prochází počátkem</td></tr>
+      <tr><td class="rowlbl">\(a=0\)</td><td>osa x rovnoběžná s \(\rho\)</td></tr>
+      <tr><td class="rowlbl">\(b=0\)</td><td>osa y rovnoběžná s \(\rho\)</td></tr>
+      <tr><td class="rowlbl">\(c=0\)</td><td>osa z rovnoběžná s \(\rho\)</td></tr>
+      <tr><td class="rowlbl">\(a=0, d=0\)</td><td>osa x leží v \(\rho\)</td></tr>
+      <tr><td class="rowlbl">\(a=0, b=0\)</td><td>\(\rho\) rovnoběžná s rovinou xy</td></tr>
+      <tr><td class="rowlbl">\(a=0,b=0,d=0\)</td><td>\(\rho\) je přímo rovina xy</td></tr>
+    </table>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · ověření, jestli bod leží v rovině</div>
+      <div class="zadani">Leží \(A[-4;7;-11]\) v rovině \(\rho: x=1-5k+l,\ y=2+7k+2l,\ z=7-3k+3l\)?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(-4=1-5k+l \ \Rightarrow\ l=5k-5\)</div><div class="vp">/ z první rovnice</div></div>
+        <div class="vr odsad"><div class="vl">\(7=2+7k+2(5k-5) \ \Rightarrow\ k=\dfrac{15}{17}\)</div><div class="vp">/ dosadit do druhé</div></div>
+        <div class="vr odsad"><div class="vl">\(-11=7-3k+3(5k-5) \ \Rightarrow\ k=-\dfrac14\)</div><div class="vp">/ dosadit do třetí</div></div>
+      </div>
+      <div class="pozn">Ze druhé a třetí rovnice vyšlo pro \(k\) různé hodnoty — soustava je sporná.</div>
+      <div class="vysl">\(A\notin\rho\)</div>
+    </div>
+
+    <h2 class="blok" id="poloha-rovin">Poloha dvou rovin</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th></th><th>společné body</th><th>\(\vec n_\alpha,\vec n_\beta\)</th></tr>
+      <tr><td class="rowlbl">\(\alpha\equiv\beta\) (totožné)</td><td>∞ (celá rovina)</td><td>LZ</td></tr>
+      <tr><td class="rowlbl">\(\alpha\parallel\beta\)</td><td>0</td><td>LZ</td></tr>
+      <tr><td class="rowlbl">\(\alpha\times\beta\) (různoběžné)</td><td>∞ (přímka)</td><td>LN</td></tr>
+    </table>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      Porovnáme \(\vec n_\alpha\) a \(\vec n_\beta\): jsou-li <strong>LN</strong>, roviny jsou různoběžné (protínají se v přímce — viz průsečnice níže). Jsou-li <strong>LZ</strong>, zkontrolujeme společný bod: existuje-li, roviny jsou totožné; neexistuje-li, jsou rovnoběžné.
+    </div>
+
+    <h2 class="blok" id="poloha-primka-rovina">Poloha přímky a roviny</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th></th><th>společné body</th><th>\(\vec s_p,\vec n_\alpha\)</th></tr>
+      <tr><td class="rowlbl">\(p\subset\alpha\)</td><td>∞ (celá přímka)</td><td>\(\vec s_p\perp\vec n_\alpha\) &nbsp;(\(\vec s_p\cdot\vec n_\alpha=0\))</td></tr>
+      <tr><td class="rowlbl">\(p\parallel\alpha\)</td><td>0</td><td>\(\vec s_p\perp\vec n_\alpha\) &nbsp;(\(\vec s_p\cdot\vec n_\alpha=0\))</td></tr>
+      <tr><td class="rowlbl">\(p\times\alpha\)</td><td>1</td><td>\(\vec s_p\not\perp\vec n_\alpha\) &nbsp;(\(\vec s_p\cdot\vec n_\alpha\neq0\))</td></tr>
+    </table>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      Spočítáme \(\vec n_\alpha\cdot\vec s_p\): je-li <strong>nenulový</strong>, přímka a rovina jsou různoběžné. Je-li <strong>roven 0</strong>, zbývá ověřit, jestli libovolný bod přímky leží v rovině — pokud ano, \(p\subset\alpha\); pokud ne, \(p\parallel\alpha\).
+    </div>
+
+    <h2 class="blok" id="odchylky">Odchylky v prostoru</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dvě přímky</div>
+      $$\cos\varphi = \frac{|\vec s_p\cdot\vec s_q|}{|\vec s_p|\,|\vec s_q|}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Dvě roviny</div>
+      $$\cos\varphi = \frac{|\vec n_\alpha\cdot\vec n_\beta|}{|\vec n_\alpha|\,|\vec n_\beta|}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Přímka a rovina</div>
+      $$\sin\varphi = \frac{|\vec s_p\cdot\vec n_\rho|}{|\vec s_p|\,|\vec n_\rho|}$$
+      Pozor — u odchylky přímky od roviny se používá <strong>sinus</strong>, ne kosinus (odchylka přímky od roviny je doplňkem úhlu přímky od normály).
+    </div>
+
+    <h2 class="blok" id="vzdalenosti">Vzdálenosti v prostoru</h2>
+    <div class="rule-box">
+      <div class="rb-label">Bod od přímky nebo roviny</div>
+      $$|M\rho| = \frac{|a\,x_M+b\,y_M+c\,z_M+d|}{\sqrt{a^2+b^2+c^2}}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Ostatní případy — převedeme na vzdálenost bodu</div>
+      <strong>Přímka od roviny</strong> (jen když \(p\parallel\rho\)): zvolíme libovolný bod na přímce.<br>
+      <strong>Dvě rovnoběžné roviny</strong>: v jedné zvolíme libovolný bod, nebo (mají-li stejné \(a,b,c\)) rovnou \(|\alpha\beta|=\dfrac{|d_1-d_2|}{\sqrt{a^2+b^2+c^2}}\).<br>
+      <strong>Dvě rovnoběžky</strong>: zvolíme bod na jedné, počítáme vzdálenost od druhé.<br>
+      <strong>Dvě mimoběžky</strong>: sestrojíme rovinu \(\alpha\) obsahující jednu přímku a rovnoběžnou s druhou, pak spočítáme vzdálenost libovolného bodu druhé přímky od \(\alpha\).
+    </div>
+
+    <h2 class="blok" id="prusecnice">Průsečnice dvou rovin</h2>
+    <p class="txt">Dvě různoběžné roviny se protínají v přímce. Její směrový vektor je kolmý na oba normálové vektory, takže ho lze získat vektorovým součinem: \(\vec s_p = \vec n_\alpha\times\vec n_\beta\). Praktičtější je ale často eliminace jedné proměnné z obou rovnic.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\alpha: 2x-y-6z-7=0\), \quad \(\beta: 3x+2y+z-4=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2\alpha+\beta: \quad 7x-11z-18=0\)</div><div class="vp">/ vynásobit α dvěma, sečíst — vyloučit y</div></div>
+        <div class="vr odsad"><div class="vl">volím \(x=1 \Rightarrow z=-1 \Rightarrow y=1\)</div><div class="vp">/ dosadit do α</div></div>
+        <div class="vr odsad"><div class="vl">\(P=[1;1;-1]\)</div><div class="vp">/ první bod průsečnice</div></div>
+        <div class="vr odsad"><div class="vl">volím \(z=0 \Rightarrow x=\dfrac{18}{7} \Rightarrow y=-\dfrac{13}{7}\)</div><div class="vp">/ druhý bod</div></div>
+        <div class="vr odsad"><div class="vl">\(Q=\left[\dfrac{18}{7};-\dfrac{13}{7};0\right]\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\overrightarrow{PQ} = \left(\dfrac{11}{7};-\dfrac{20}{7};1\right) \ \sim\ (11;-20;7)\)</div><div class="vp">/ vynásobit 7 pro hezčí tvar</div></div>
+      </div>
+      <div class="pozn">Zvolíme dvě různé hodnoty jedné souřadnice (zde \(x=1\) a \(z=0\)), z redukované rovnice a jedné z původních dopočítáme zbylé souřadnice — dostaneme dva body průsečnice, ze kterých už jde spočítat směrový vektor.</div>
+      <div class="vysl">\(p: x=1+11t,\quad y=1-20t,\quad z=-1+7t,\quad t\in\mathbb{R}\)</div>
+    </div>
+
+    <footer>matematika.jasně — analytická geometrie lineárních útvarů v prostoru</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

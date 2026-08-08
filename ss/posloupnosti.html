@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posloupnosti a řady | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .dot { fill: var(--brick); }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Posloupnosti a řady</div>
+    <ul>
+      <li><a href="#definice">Definice posloupnosti</a></li>
+      <li><a href="#monotonnost">Monotónnost</a></li>
+      <li><a href="#omezenost">Omezenost</a></li>
+      <li><a href="#limita">Limita posloupnosti</a></li>
+      <li><a href="#aritmeticka">Aritmetická posloupnost</a></li>
+      <li><a href="#geometricka">Geometrická posloupnost</a></li>
+      <li><a href="#financni">Finanční matematika</a></li>
+      <li><a href="#nga">Nekonečná geometrická řada</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Posloupnosti a řady</div>
+    <p class="section-lead">Definice posloupnosti a jejích vlastností (monotónnost, omezenost, limita), aritmetická a geometrická posloupnost a jejich vzorce, finanční matematika, nekonečná geometrická řada.</p>
+    <div class="source-note">maturitní téma 24 · posloupnosti a řady</div>
+
+    <h2 class="blok" id="definice">Definice posloupnosti</h2>
+    <div class="rule-box">
+      Nekonečná posloupnost: \(D(f)=\mathbb{N}\)<br>
+      Konečná posloupnost: \(n\leq n_0,\ n_0\in\mathbb{N}\)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Druhy zadání</div>
+      <strong>Výčtem prvků</strong> — vypsáním prvních členů<br>
+      <strong>Vzorcem pro n-tý člen</strong> — např. \((a_n)_{n=1}^\infty,\ a_n=4-5n\)<br>
+      <strong>Rekurentně</strong> — např. \(a_{n+1}=a_n+5,\ a_1=22\)
+    </div>
+
+    <h2 class="blok" id="monotonnost">Monotónnost</h2>
+    <div class="rule-box">
+      Posloupnost \((a_n)_{n=1}^\infty\)<br>
+      je <strong>rostoucí</strong> \(\iff a_n<a_{n+1}\ \forall n\in\mathbb{N}\)<br>
+      je <strong>klesající</strong> \(\iff a_n>a_{n+1}\ \forall n\in\mathbb{N}\)<br>
+      je <strong>nerostoucí</strong> \(\iff a_n\geq a_{n+1}\ \forall n\in\mathbb{N}\)<br>
+      je <strong>neklesající</strong> \(\iff a_n\leq a_{n+1}\ \forall n\in\mathbb{N}\)
+    </div>
+    <p class="txt">Postup: <strong>zvol si hypotézu</strong> (odhad, jestli je rostoucí/klesající), ověř ji nerovnicí a dotáhni do konce — výsledek tě může překvapit.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\((c_n)_{n=1}^\infty,\ c_n=n^2-20n\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Hypotéza: posloupnost je klesající, tj. \(c_n>c_{n+1}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(n^2-20n > (n+1)^2-20(n+1)\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\Leftrightarrow n<9{,}5\)</div><div class="vp">/ upravit</div></div>
+      </div>
+      <div class="pozn">Nerovnost platí jen pro \(n<9{,}5\), ne pro všechna \(n\in\mathbb{N}\) — hypotéza o klesající posloupnosti neplatí. Je to parabola s vrcholem u \(n=10\): posloupnost nejdřív klesá, pak roste.</div>
+      <div class="vysl">Posloupnost <strong>není</strong> (všude) klesající</div>
+    </div>
+
+    <h2 class="blok" id="omezenost">Omezenost</h2>
+    <div class="rule-box">
+      Posloupnost \((a_n)_{n=1}^\infty\) je<br>
+      <strong>shora omezená</strong> \(\iff \exists h\in\mathbb{R}: a_n\leq h\ \forall n\in\mathbb{N}\)<br>
+      <strong>zdola omezená</strong> \(\iff \exists d\in\mathbb{R}: a_n\geq d\ \forall n\in\mathbb{N}\)<br>
+      <strong>omezená</strong> \(\iff\) je omezená shora i zdola
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\((b_n)_{n=1}^\infty,\ b_n=\dfrac{n^2}{2}-6\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Hypotéza: shora není omezená, zdola je (zkusíme \(d=-10\))</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Kdyby \(b_n\leq-10\), pak \(\dfrac{n^2}{2}-6\leq-10 \Rightarrow n^2\leq-8\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Nerovnost \(n^2\leq-8\) nemá pro reálné \(n\) žádné řešení (\(n^2\geq0>-8\) vždy) — takže \(b_n\leq-10\) nikdy nenastane, a \(d=-10\) je platná (byť ne nejtěsnější) dolní mez.</div>
+      <div class="vysl">Zdola omezená (např. \(d=-10\)), shora omezená není</div>
+    </div>
+
+    <h2 class="blok" id="limita">Limita posloupnosti</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Posloupnost \((a_n)_{n=1}^\infty\) je <strong>konvergentní</strong>, právě když existuje \(a\in\mathbb{R}\) takové, že
+      $$\forall\varepsilon>0\ \exists n_0\in\mathbb{N}: |a_n-a|<\varepsilon\ \text{pro}\ \forall n>n_0$$
+      Číslo \(a\) se nazývá <strong>limita</strong> posloupnosti. Posloupnost, která není konvergentní, je <strong>divergentní</strong>.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\((a_n)_{n=1}^\infty,\ a_n=\dfrac{n}{n+1}\)</div>
+      <div class="vysl">\(\displaystyle\lim_{n\to\infty}\frac{n}{n+1}=1\)</div>
+    </div>
+
+    <h2 class="blok" id="aritmeticka">Aritmetická posloupnost</h2>
+    <div class="rule-box">
+      $$\exists d\in\mathbb{R}: \forall n\in\mathbb{N}\ \text{platí}\ a_{n+1}=a_n+d$$
+      $$a_n = a_1+(n-1)d \qquad a_r = a_s+(r-s)d \qquad S_n = \frac{(a_1+a_n)\cdot n}{2}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · soustava ze dvou podmínek</div>
+      <div class="zadani">\(2a_4+3a_7=5\), \quad \(4a_6-3a_9=23\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2(a_1+3d)+3(a_1+6d)=5 \Rightarrow 5a_1+24d=5\)</div><div class="vp">/ dosadit \(a_4,a_7\)</div></div>
+        <div class="vr odsad"><div class="vl">\(4(a_1+5d)-3(a_1+8d)=23 \Rightarrow a_1-4d=23\)</div><div class="vp">/ dosadit \(a_6,a_9\)</div></div>
+      </div>
+      <div class="vysl">\(a_1=13,\quad d=-2{,}5, \quad a_n=\dfrac{31-5n}{2}\)</div>
+      <div class="pozn">Posloupnost je klesající (protože \(d<0\)) a omezená shora. Např. \(a_{13}=-17\).</div>
+    </div>
+
+    <h2 class="blok" id="geometricka">Geometrická posloupnost</h2>
+    <div class="rule-box">
+      $$\exists q\in\mathbb{R}: \forall n\in\mathbb{N}\ \text{platí}\ a_{n+1}=a_n\cdot q$$
+      $$a_n = a_1\cdot q^{n-1} \qquad a_r = a_s\cdot q^{r-s} \qquad S_n = a_1\cdot\frac{1-q^n}{1-q}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · soustava ze dvou podmínek</div>
+      <div class="zadani">\(a_1-a_2+a_3=9\), \quad \(a_4-a_5+a_6=72\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(a_1(1-q+q^2)=9\)</div><div class="vp">/ vytknout \(a_1\)</div></div>
+        <div class="vr odsad"><div class="vl">\(a_1q^3(1-q+q^2)=72\)</div><div class="vp">/ druhá rovnice, stejný výraz v závorce</div></div>
+        <div class="vr odsad"><div class="vl">\(q^3=\dfrac{72}{9}=8 \Rightarrow q=2\)</div><div class="vp">/ podílem obou rovnic se závorka vykrátí</div></div>
+      </div>
+      <div class="vysl">\(q=2, \quad a_1=3\)</div>
+    </div>
+
+    <h2 class="blok" id="financni">Finanční matematika</h2>
+    <p class="txt">Úročení a spoření jsou přímo aplikace aritmetické a geometrické posloupnosti na peníze.</p>
+    <div class="rule-box">
+      <div class="rb-label">Jednoduché úročení</div>
+      Úrok se počítá pokaždé znovu jen z <strong>původní jistiny</strong> — narůstá lineárně (aritmetická posloupnost):
+      $$K_n = K_0(1+n\cdot i)$$
+      \(K_0\) — počáteční jistina, \(i\) — úroková míra (des. číslo, např. 8 % = 0,08), \(n\) — počet období.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Složené úročení</div>
+      Úrok se přičítá k jistině a v dalším období se úročí <strong>už i on sám</strong> — geometrická posloupnost s kvocientem \(q=1+i\):
+      $$K_n = K_0(1+i)^n$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Uložím 100 000 Kč na 4 roky při roční úrokové míře 8 %, složeně úročované. Kolik budu mít na konci?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(K_4 = 100\,000\cdot(1+0{,}08)^4\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Pro srovnání: při <strong>jednoduchém</strong> úročení by to bylo jen \(100\,000(1+4\cdot0{,}08)=132\,000\) Kč — složené úročení dává víc, protože úročuje i předchozí úroky.</div>
+      <div class="vysl">\(K_4 \approx 136\,049\) Kč — tedy o \(36{,}05\,\%\) víc než na začátku</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Pravidelné spoření (budoucí hodnota)</div>
+      Když na konci každého období přibude stejná částka \(a\), která se pak taky úročí, celková naspořená částka je součet geometrické posloupnosti (tzv. anuita):
+      $$FV = a\cdot\frac{q^n-1}{q-1}, \qquad q=1+i$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Každý rok ukládám na konci roku 10 000 Kč při úrokové míře 3 %. Kolik budu mít po 5 letech?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(FV = 10\,000\cdot\dfrac{1{,}03^5-1}{1{,}03-1}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(FV \approx 53\,091\) Kč</div>
+    </div>
+
+    <h2 class="blok" id="nga">Nekonečná geometrická řada</h2>
+    <div class="rule-box">
+      Pro \(|q|<1\) konverguje součet nekonečné geometrické řady k
+      $$S_\infty = \lim_{n\to\infty}a_1\cdot\frac{1-q^n}{1-q} = \frac{a_1}{1-q}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\((a_n)_{n=1}^\infty,\ a_n=\dfrac{1}{2^{n-1}}\), tedy \(a_1=1,\ q=\dfrac12\)</div>
+      <div class="vysl">\(S_\infty = \dfrac{1}{1-1/2}=2\)</div>
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Co v těchto poznámkách chybí</div>
+      Zdrojové strany pokrývaly jen výše uvedené. Body osnovy <strong>„typy důkazů (přímý, nepřímý, sporem)"</strong> a <strong>„důkaz matematickou indukcí"</strong> na zdrojových stranách rozpracované nejsou — pokud k nim máš další poznámky, doplním je zvlášť.
+    </div>
+
+<footer>matematika.jasně — posloupnosti a řady</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

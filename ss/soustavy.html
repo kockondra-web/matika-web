@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soustavy rovnic | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Soustavy · obsah</div>
+    <ul>
+      <li><a href="#obory">Obory O, D, P</a></li>
+      <li><a href="#metody">Metody řešení</a></li>
+      <li><a href="#pocet">Kolik má soustava řešení</a></li>
+      <li><a href="#pr-lin">Lineární soustavy</a></li>
+      <li><a href="#pr-zlomky">Soustavy se zlomky</a></li>
+      <li><a href="#kvadr">Lineární + kvadratická</a></li>
+      <li><a href="#pr-kvadr">Příklady</a></li>
+      <li><a href="#dve-kvadr">Dvě kvadratické</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Soustavy rovnic</div>
+    <p class="section-lead">Soustavy lineárních rovnic o dvou a více neznámých, metody řešení, počet řešení a jeho geometrický význam, soustava lineární a kvadratické rovnice, soustava dvou kvadratických rovnic.</p>
+    <div class="source-note">maturitní téma 6 · Cermat okruh 3 — Rovnice a nerovnice</div>
+
+    <h2 class="blok" id="obory">Obory O, D, P</h2>
+    <div class="rule-box">
+      <div class="rb-label">Stejné jako u rovnic, jen s dvojicemi</div>
+      <strong>\(O\) — obor řešitelnosti:</strong> kde řešení hledáme. U dvou neznámých je to \(\mathbb{R}^2\), u tří \(\mathbb{R}^3\).<br><br>
+      <strong>\(D\) — definiční obor:</strong> co smíme dosadit (podmínky). U zlomků třeba \(\left(\mathbb{R}\setminus\{0\}\right)^3\).<br><br>
+      <strong>\(P\) — obor pravdivosti:</strong> výsledek, tedy množina <strong>uspořádaných dvojic či trojic</strong>.
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor na zápis</div>
+      Řešením není jedno číslo, ale <strong>uspořádaná n-tice</strong> — píše se do hranatých závorek v pořadí \([x;\ y]\), případně \([x;\ y;\ z]\). Prohození pořadí je jiné řešení!
+    </div>
+
+    <h2 class="blok" id="metody">Metody řešení</h2>
+    <div class="rule-box">
+      <div class="rb-label">Tři základní</div>
+      <strong>Dosazovací</strong> — z jedné rovnice vyjádříme neznámou a dosadíme do druhé. Nejlepší, když už je někde neznámá osamocená.<br><br>
+      <strong>Sčítací</strong> — rovnice vynásobíme tak, aby se po sečtení jedna neznámá vyrušila. Nejrychlejší u soustav s více neznámými.<br><br>
+      <strong>Srovnávací</strong> — z obou rovnic vyjádříme tutéž neznámou a výrazy položíme rovny.
+    </div>
+
+    <h2 class="blok" id="pocet">Kolik má soustava řešení</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>výsledek úprav</th><th>počet řešení</th><th>geometricky (2 neznámé)</th></tr>
+      <tr><td class="rowlbl">vyjde \(x = a\), \(y = b\)</td><td class="plus">právě jedno</td><td>přímky se protínají v bodě</td></tr>
+      <tr><td class="rowlbl">vyjde \(0 = 0\)</td><td>nekonečně mnoho</td><td>přímky splývají</td></tr>
+      <tr><td class="rowlbl">vyjde nesmysl (\(0 = 5\))</td><td class="minus">žádné, \(P = \emptyset\)</td><td>přímky jsou rovnoběžné</td></tr>
+    </table>
+    </div>
+
+    <h2 class="blok" id="pr-lin">Příklady — lineární soustavy</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · nekonečně mnoho řešení</div>
+      <div class="zadani">Řeš soustavu: \(y + \frac{1}{3}x = 2\) &nbsp;a&nbsp; \(\frac{1}{2}y + \frac{1}{6}x = 1\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\frac{1}{2}y + \frac{1}{6}x = 1\)</div><div class="vp">/ \(\cdot(-2)\)</div></div>
+        <div class="vr odsad"><div class="vl">\(-y - \frac{1}{3}x = -2\)</div><div class="vp">/ přičíst k první rovnici</div></div>
+        <div class="vr odsad"><div class="vl">\(0 = 0\)</div><div class="vp">/ vždy pravda</div></div>
+      </div>
+      <div class="pozn">Druhá rovnice je jen <strong>polovinou první</strong> — nepřináší žádnou novou informaci. Řešením je celá přímka, kterou zapíšeme parametricky.</div>
+      <div class="vysl">\(O = D = \mathbb{R}^2\), \(P = \left\{\left[t;\ 2-\frac{1}{3}t\right],\ t \in \mathbb{R}\right\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · tři rovnice o třech neznámých (sčítací metoda)</div>
+      <div class="zadani">Řeš soustavu: \(2x+3y-5z = 8\), &nbsp; \(x+y+3z = 5\), &nbsp; \(-3x-4y+3z = -10\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Sečteme rovnice tak, aby se vyrušilo \(y\)</div><div class="vp">/ postupná eliminace</div></div>
+        <div class="vr odsad"><div class="vl">\(x + 15z = 10\)</div><div class="vp">/ zbyla rovnice o dvou neznámých</div></div>
+        <div class="vr odsad"><div class="vl">\(z = 3\)</div><div class="vp">/ z další kombinace</div></div>
+        <div class="vr odsad"><div class="vl">\(x + 45 = 10 \Rightarrow x = -35\)</div><div class="vp">/ dosadit \(z\)</div></div>
+        <div class="vr odsad"><div class="vl">\(-70 + 3y - 15 = 8 \Rightarrow 3y = 93\)</div><div class="vp">/ dosadit do první</div></div>
+        <div class="vr odsad"><div class="vl">\(y = 31\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Zkouška: \(-35 + 31 + 9 = 5\) ✓ &nbsp;·&nbsp; \(105 - 124 + 9 = -10\) ✓</div>
+      <div class="vysl">\(O = \mathbb{R}^3\), \(D = \mathbb{R}^3\), \(P = \{[-35;\ 31;\ 3]\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · symetrická soustava</div>
+      <div class="zadani">Řeš soustavu: \(x+y-z = 11\), &nbsp; \(x-y+z = 1\), &nbsp; \(-x+y+z = 5\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">1. + 2. rovnice: \(2x = 12\)</div><div class="vp">/ \(y\) i \(z\) se vyruší</div></div>
+        <div class="vr odsad"><div class="vl">\(x = 6\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:12px;"><div class="vl">2. + 3. rovnice: \(2z = 6\)</div><div class="vp">/ \(x\) i \(y\) se vyruší</div></div>
+        <div class="vr odsad"><div class="vl">\(z = 3\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:12px;"><div class="vl">\(6 + y - 3 = 11\)</div><div class="vp">/ dosadit do první</div></div>
+        <div class="vr odsad"><div class="vl">\(y = 8\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Když má soustava <strong>symetrickou strukturu</strong> (stejné koeficienty s různými znaménky), vyplatí se hledat dvojice, které se sečtením vyruší — ušetří to spoustu práce.</div>
+      <div class="vysl">\(O = \mathbb{R}^3\), \(D = \mathbb{R}^3\), \(P = \{[6;\ 8;\ 3]\}\)</div>
+    </div>
+
+    <h2 class="blok" id="pr-zlomky">Soustavy se zlomky</h2>
+    <p class="txt">Když jsou neznámé ve jmenovateli, nejjednodušší je <strong>zavést substituci</strong> — počítat s \(\frac{1}{x}\) jako s jednou proměnnou. Nezapomeň na podmínky!</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · neznámé ve jmenovateli</div>
+      <div class="zadani">Řeš soustavu: \(\frac{4}{x} - \frac{3}{y} = 1\), &nbsp; \(\frac{2}{x} + \frac{3}{z} = 4\), &nbsp; \(\frac{3}{y} - \frac{1}{z} = 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">podmínky: \(x \neq 0\), \(y \neq 0\), \(z \neq 0\)</div><div class="vp">/ nulou se nedělí</div></div>
+        <div class="vr odsad"><div class="vl">Sečtením 1. a 3. rovnice: \(\frac{4}{x} - \frac{1}{z} = 1\)</div><div class="vp">/ \(\frac{3}{y}\) se vyruší</div></div>
+        <div class="vr odsad"><div class="vl">\(\frac{3}{z} = 3 \Rightarrow z = 1\)</div><div class="vp">/ kombinací s 2. rovnicí</div></div>
+        <div class="vr odsad"><div class="vl">\(\frac{3}{y} = 1 \Rightarrow y = 3\)</div><div class="vp">/ dosadit do 3. rovnice</div></div>
+        <div class="vr odsad"><div class="vl">\(\frac{14}{x} = 7 \Rightarrow x = 2\)</div><div class="vp">/ dosadit</div></div>
+      </div>
+      <div class="pozn">Zkouška: \(\frac{4}{2} - \frac{3}{3} = 1\) ✓ &nbsp;·&nbsp; \(\frac{2}{2} + \frac{3}{1} = 4\) ✓ &nbsp;·&nbsp; \(\frac{3}{3} - \frac{1}{1} = 0\) ✓</div>
+      <div class="vysl">\(O = \mathbb{R}^3\), \(D = \left(\mathbb{R}\setminus\{0\}\right)^3\), \(P = \{[2;\ 3;\ 1]\}\)</div>
+    </div>
+
+    <h2 class="blok" id="kvadr">Soustava lineární a kvadratické rovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      Vždy z <strong>lineární</strong> rovnice vyjádříme jednu neznámou a dosadíme do kvadratické. Vznikne kvadratická rovnice o jedné neznámé.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Geometrický význam</div>
+      Lineární rovnice je <strong>přímka</strong>, kvadratická třeba <strong>kružnice</strong> nebo <strong>parabola</strong>. Počet řešení odpovídá počtu průsečíků:<br><br>
+      <strong>2 řešení</strong> — přímka útvar protíná (sečna)<br>
+      <strong>1 řešení</strong> — přímka se dotýká (tečna)<br>
+      <strong>0 řešení</strong> — přímka útvar míjí
+    </div>
+
+    <h2 class="blok" id="pr-kvadr">Příklady — lineární a kvadratická</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · přímka jako tečna kružnice</div>
+      <div class="zadani">Řeš soustavu: \(x^2+y^2 = 100\), &nbsp; \(3x+4y = 50\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x = \dfrac{50-4y}{3}\)</div><div class="vp">/ vyjádřit z lineární</div></div>
+        <div class="vr odsad"><div class="vl">\(\left(\dfrac{50-4y}{3}\right)^2 + y^2 = 100\)</div><div class="vp">/ dosadit</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2500-400y+16y^2}{9} + y^2 = 100\)</div><div class="vp">/ \(\cdot\,9\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2500 - 400y + 25y^2 = 900\)</div><div class="vp">/ \(:25\)</div></div>
+        <div class="vr odsad"><div class="vl">\(y^2 - 16y + 64 = 0\)</div><div class="vp">/ vzorec \((y-8)^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(y = 8\) (dvojnásobný kořen)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3x = 50 - 32 = 18 \Rightarrow x = 6\)</div><div class="vp">/ dopočítat \(x\)</div></div>
+      </div>
+      <div class="pozn">Vyšel <strong>dvojnásobný kořen</strong> — přímka se kružnice jen dotýká, je to <strong>tečna</strong>. Proto jediné řešení, ne dvě.</div>
+      <div class="vysl">\(O = D = \mathbb{R}^2\), \(P = \{[6;\ 8]\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · dvě řešení</div>
+      <div class="zadani">Řeš soustavu: \(15x^2 - 34xy + 15y^2 = 0\), &nbsp; \(x+y = 4\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y = 4 - x\)</div><div class="vp">/ vyjádřit z lineární</div></div>
+        <div class="vr odsad"><div class="vl">\(15x^2 - 34x(4-x) + 15(4-x)^2 = 0\)</div><div class="vp">/ dosadit</div></div>
+        <div class="vr odsad"><div class="vl">\(15x^2 - 136x + 34x^2 + 240 - 120x + 15x^2 = 0\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(64x^2 - 256x + 240 = 0\)</div><div class="vp">/ \(:16\)</div></div>
+        <div class="vr odsad"><div class="vl">\(4x^2 - 16x + 15 = 0\)</div><div class="vp">/ \(D = 256-240 = 16\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_{1,2} = \dfrac{16 \pm 4}{8} \Rightarrow \dfrac{5}{2};\ \dfrac{3}{2}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(x = \frac{5}{2} \Rightarrow y = \frac{3}{2}\); &nbsp; \(x = \frac{3}{2} \Rightarrow y = \frac{5}{2}\)</div><div class="vp">/ dopočítat</div></div>
+      </div>
+      <div class="pozn">Ke <strong>každému</strong> kořenu musíme dopočítat druhou neznámou — výsledkem jsou dvě různé dvojice, ne čtyři čísla.</div>
+      <div class="vysl">\(O = D = \mathbb{R}^2\), \(P = \left\{\left[\frac{5}{2};\ \frac{3}{2}\right];\ \left[\frac{3}{2};\ \frac{5}{2}\right]\right\}\)</div>
+    </div>
+
+    <h2 class="blok" id="dve-kvadr">Soustava dvou kvadratických rovnic</h2>
+    <p class="txt">Když jsou obě rovnice kvadratické, často pomůže <strong>substituce</strong> — třeba položit \(t = y^2\) a získat tak obyčejnou kvadratickou rovnici.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 7 · substituce a čtyři řešení</div>
+      <div class="zadani">Řeš soustavu: \(x^2 + 4y^2 = 20\), &nbsp; \(xy = -4\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x = -\dfrac{4}{y}\)</div><div class="vp">/ vyjádřit z druhé (\(y \neq 0\))</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{16}{y^2} + 4y^2 = 20\)</div><div class="vp">/ dosadit, \(\cdot\,y^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(4y^4 - 20y^2 + 16 = 0\)</div><div class="vp">/ \(:4\)</div></div>
+        <div class="vr odsad"><div class="vl">\(y^4 - 5y^2 + 4 = 0\)</div><div class="vp">/ substituce \(t = y^2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(t^2 - 5t + 4 = 0 \Rightarrow t = 1;\ 4\)</div><div class="vp">/ zpět dosadit</div></div>
+        <div class="vr odsad"><div class="vl">\(y^2 = 1 \Rightarrow y = \pm1\); &nbsp; \(y^2 = 4 \Rightarrow y = \pm2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(y\)</th><th>\(1\)</th><th>\(-1\)</th><th>\(2\)</th><th>\(-2\)</th></tr>
+        <tr><td class="rowlbl">\(x = -\frac{4}{y}\)</td><td>\(-4\)</td><td>\(4\)</td><td>\(-2\)</td><td>\(2\)</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Substituce \(t = y^2\) změní rovnici čtvrtého stupně na obyčejnou kvadratickou. Pozor — po vyřešení se musí <strong>vrátit zpět</strong> k \(y\), a každé kladné \(t\) dá <strong>dvě</strong> hodnoty \(y\).</div>
+      <div class="vysl">\(O = \mathbb{R}^2\), \(D = \mathbb{R}^2\), \(P = \{[-4;1];\ [4;-1];\ [-2;2];\ [2;-2]\}\)</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Sčítací metoda i u kvadratických</div>
+      Když mají obě rovnice tvar \(ax^2 + by^2 = c\), dá se použít <strong>sčítací metoda</strong> úplně stejně jako u lineárních — jen místo \(x\) a \(y\) eliminujeme \(x^2\) a \(y^2\). Výsledné hodnoty se pak musí odmocnit (a nezapomenout na obě znaménka).
+    </div>
+
+    <footer>matematika.jasně — soustavy rovnic</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

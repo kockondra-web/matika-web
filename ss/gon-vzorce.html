@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goniometrické vzorce a rovnice | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Vzorce a rovnice</div>
+    <ul>
+      <li><a href="#zakladni">Základní vzorce</a></li>
+      <li><a href="#soucet">Součtové vzorce</a></li>
+      <li><a href="#dvojnasobny">Dvojnásobný a poloviční úhel</a></li>
+      <li><a href="#dopocet">Dopočet ostatních funkcí</a></li>
+      <li><a href="#rovnice">Goniometrické rovnice</a></li>
+      <li><a href="#pr-zakladni">Základní typy</a></li>
+      <li><a href="#pr-substituce">Se substitucí</a></li>
+      <li><a href="#nerovnice">Nerovnice</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Goniometrické vzorce, rovnice a nerovnice</div>
+    <p class="section-lead">Přehled všech vzorců, které se hodí znát, dopočítávání zbylých funkcí z jedné známé hodnoty a metody řešení goniometrických rovnic — od základních po ty se substitucí.</p>
+    <div class="source-note">maturitní téma 8 · navazuje na téma 7</div>
+
+    <h2 class="blok" id="zakladni">Základní vzorce</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definiční a jednotkové</div>
+      <div style="line-height:2.6;">
+        \(\operatorname{tg} x = \dfrac{\sin x}{\cos x}\), &nbsp; \(x \neq \frac{\pi}{2}+k\pi\) &nbsp;&nbsp;·&nbsp;&nbsp; \(\operatorname{cotg} x = \dfrac{\cos x}{\sin x}\), &nbsp; \(x \neq k\pi\)<br>
+        \(\sin^2 x + \cos^2 x = 1\) &nbsp;&nbsp;·&nbsp;&nbsp; \(\operatorname{tg} x \cdot \operatorname{cotg} x = 1\)
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Nejdůležitější vzorec vůbec</div>
+      \(\sin^2 x + \cos^2 x = 1\) se používá skoro v každém příkladu — a to <strong>v obou směrech</strong>: jako \(1 - \cos^2x = \sin^2x\) i naopak. Když si v úpravě nevíš rady, zkus ho jako první.
+    </div>
+
+    <h2 class="blok" id="soucet">Součtové vzorce</h2>
+    <div class="rule-box">
+      <div class="rb-label">Sinus a kosinus součtu a rozdílu</div>
+      $$\sin(x \pm y) = \sin x \cos y \pm \sin y \cos x$$
+      $$\cos(x \pm y) = \cos x \cos y \mp \sin x \sin y$$
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor na znaménka u kosinu</div>
+      U \(\cos\) se znaménko <strong>obrací</strong>: \(\cos(x+y) = \cos x\cos y - \sin x\sin y\). U \(\sin\) zůstává stejné jako v zadání.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Vzájemný převod</div>
+      $$\sin x = \cos\left(x - \frac{\pi}{2}\right) \qquad \cos x = \sin\left(x + \frac{\pi}{2}\right)$$
+    </div>
+
+    <h2 class="blok" id="dvojnasobny">Dvojnásobný a poloviční úhel</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dvojnásobný úhel</div>
+      $$\sin 2x = 2\sin x\cos x$$
+      $$\cos 2x = \cos^2 x - \sin^2 x$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Poloviční úhel</div>
+      $$\sin\frac{x}{2} = \sqrt{\frac{1-\cos x}{2}} \qquad \cos\frac{x}{2} = \sqrt{\frac{1+\cos x}{2}}$$
+      Znaménko před odmocninou se určí podle <strong>kvadrantu</strong>, ve kterém leží \(\frac{x}{2}\).
+    </div>
+
+    <h2 class="blok" id="dopocet">Dopočet ostatních funkcí</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · z jedné hodnoty dopočítat zbytek</div>
+      <div class="zadani">Je dáno \(\sin x = \frac{2}{3}\), &nbsp; \(x \in \left(\frac{\pi}{2};\ \pi\right)\). Urči \(\cos x\), \(\operatorname{tg} x\), \(\operatorname{cotg} x\), \(\sin 2x\), \(\cos 2x\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\cos^2 x = 1 - \sin^2 x = 1 - \dfrac{4}{9} = \dfrac{5}{9}\)</div><div class="vp">/ ze základního vzorce</div></div>
+        <div class="vr odsad"><div class="vl">\(\cos x = -\dfrac{\sqrt{5}}{3}\)</div><div class="vp">/ <strong>2. kvadrant → záporný!</strong></div></div>
+        <div class="vr odsad"><div class="vl">\(\operatorname{tg} x = \dfrac{2/3}{-\sqrt{5}/3} = -\dfrac{2\sqrt{5}}{5}\)</div><div class="vp">/ usměrnit</div></div>
+        <div class="vr odsad"><div class="vl">\(\operatorname{cotg} x = -\dfrac{\sqrt{5}}{2}\)</div><div class="vp">/ převrácená hodnota</div></div>
+        <div class="vr odsad"><div class="vl">\(\sin 2x = 2 \cdot \frac{2}{3} \cdot \left(-\frac{\sqrt{5}}{3}\right) = -\dfrac{4\sqrt{5}}{9}\)</div><div class="vp">/ dvojnásobný úhel</div></div>
+        <div class="vr odsad"><div class="vl">\(\cos 2x = \dfrac{5}{9} - \dfrac{4}{9} = \dfrac{1}{9}\)</div><div class="vp">/ \(\cos^2x - \sin^2x\)</div></div>
+      </div>
+      <div class="pozn">Nejdůležitější krok je <strong>určit znaménko podle kvadrantu</strong>. Ve druhém kvadrantu je \(\sin\) kladný, ale \(\cos\) záporný — proto ta záporná odmocnina. Pomůže si načrtnout jednotkovou kružnici.</div>
+      <div class="vysl">\(\cos x = -\frac{\sqrt{5}}{3}\), \(\operatorname{tg} x = -\frac{2\sqrt{5}}{5}\), \(\operatorname{cotg} x = -\frac{\sqrt{5}}{2}\), \(\sin 2x = -\frac{4\sqrt{5}}{9}\), \(\cos 2x = \frac{1}{9}\)</div>
+    </div>
+
+    <h2 class="blok" id="rovnice">Goniometrické rovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Základní princip</div>
+      Goniometrické funkce jsou <strong>periodické</strong>, takže rovnice má nekonečně mnoho řešení. Vždy se proto zapisuje <strong>obecné řešení</strong> s \(k \in \mathbb{Z}\).<br><br>
+      \(\sin\) a \(\cos\) mají periodu \(2\pi\) → přičítá se \(+2k\pi\)<br>
+      \(\operatorname{tg}\) a \(\operatorname{cotg}\) mají periodu \(\pi\) → přičítá se \(+k\pi\)
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Sinus a kosinus mají dvě řady řešení</div>
+      Když vyjde \(\sin x = a\), existují v každé otáčce <strong>dvě</strong> hodnoty — nestačí jen jedna. Vyplatí se to ověřit na jednotkové kružnici.
+    </div>
+
+    <h2 class="blok" id="pr-zakladni">Příklady — základní typy</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · rovnice s kotangentou</div>
+      <div class="zadani">Řeš: \(\operatorname{cotg} x + 1 = 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\operatorname{cotg} x = -1\)</div><div class="vp">/ osamostatnit</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \dfrac{3}{4}\pi + k\pi\)</div><div class="vp">/ perioda \(\pi\)</div></div>
+      </div>
+      <div class="pozn">U \(\operatorname{tg}\) a \(\operatorname{cotg}\) stačí <strong>jedna řada řešení</strong> — perioda je \(\pi\), takže se obě „větve" pokryjí automaticky.</div>
+      <div class="vysl">\(x = \frac{3}{4}\pi + k\pi\), \(k \in \mathbb{Z}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · nehezká hodnota (nutná kalkulačka)</div>
+      <div class="zadani">Řeš: \(\sqrt{3}\sin x = 4 - 3\sqrt{2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\sin x = \dfrac{4-3\sqrt{2}}{\sqrt{3}} \doteq -0{,}1401\)</div><div class="vp">/ osamostatnit</div></div>
+        <div class="vr odsad"><div class="vl">\(\arcsin(-0{,}1401) \doteq -0{,}1406\)</div><div class="vp">/ kalkulačka</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = \pi + 0{,}1406 \doteq 3{,}282 + 2k\pi\)</div><div class="vp">/ 3. kvadrant</div></div>
+        <div class="vr odsad"><div class="vl">\(x_2 = 2\pi - 0{,}1406 \doteq 6{,}143 + 2k\pi\)</div><div class="vp">/ 4. kvadrant</div></div>
+      </div>
+      <div class="pozn">Sinus je <strong>záporný</strong> → řešení leží ve 3. a 4. kvadrantu. Kalkulačka dá jen jednu hodnotu, druhou si musíš dopočítat z kružnice.</div>
+      <div class="vysl">\(x_1 \doteq 3{,}28 + 2k\pi\), &nbsp; \(x_2 \doteq 6{,}14 + 2k\pi\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · substituce za celý argument</div>
+      <div class="zadani">Řeš: \(\sin\left(x - \frac{11}{6}\pi\right) = -\frac{\sqrt{3}}{2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">substituce \(t = x - \frac{11}{6}\pi\)</div><div class="vp">/ zjednodušit zápis</div></div>
+        <div class="vr odsad"><div class="vl">\(\sin t = -\dfrac{\sqrt{3}}{2}\)</div><div class="vp">/ tabulková hodnota</div></div>
+        <div class="vr odsad"><div class="vl">\(t_1 = \dfrac{4}{3}\pi + 2k\pi\), &nbsp; \(t_2 = \dfrac{5}{3}\pi + 2k\pi\)</div><div class="vp">/ 3. a 4. kvadrant</div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl">\(x_1 = \dfrac{4}{3}\pi + \dfrac{11}{6}\pi = \dfrac{19}{6}\pi + 2k\pi\)</div><div class="vp">/ vrátit substituci</div></div>
+        <div class="vr odsad"><div class="vl">\(x_2 = \dfrac{5}{3}\pi + \dfrac{11}{6}\pi = \dfrac{7}{2}\pi = \dfrac{3}{2}\pi + 2k\pi\)</div><div class="vp">/ upravit do \(\langle 0; 2\pi)\)</div></div>
+      </div>
+      <div class="pozn">Když je v argumentu složitější výraz, <strong>substituce</strong> ho zjednoduší. Nesmí se pak zapomenout vrátit zpět k původní neznámé!</div>
+      <div class="vysl">\(x_1 = \frac{19}{6}\pi + 2k\pi\), &nbsp; \(x_2 = \frac{3}{2}\pi + 2k\pi\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · tangenta se složeným argumentem</div>
+      <div class="zadani">Řeš: \(3\operatorname{tg}\left(5 - \frac{3}{4}x\right) + 1 = 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\operatorname{tg}\left(5-\frac{3}{4}x\right) = -\dfrac{1}{3}\)</div><div class="vp">/ osamostatnit</div></div>
+        <div class="vr odsad"><div class="vl">\(\operatorname{tg}\left(\frac{3}{4}x - 5\right) = \dfrac{1}{3}\)</div><div class="vp">/ \(\operatorname{tg}\) je lichá</div></div>
+        <div class="vr odsad"><div class="vl">\(\frac{3}{4}x - 5 = \arctan\frac{1}{3} \doteq 0{,}3218 + k\pi\)</div><div class="vp">/ kalkulačka</div></div>
+        <div class="vr odsad"><div class="vl">\(\frac{3}{4}x \doteq 5{,}322 + k\pi\)</div><div class="vp">/ \(+5\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x \doteq 7{,}096 + \frac{4}{3}k\pi\)</div><div class="vp">/ \(\cdot\frac{4}{3}\)</div></div>
+      </div>
+      <div class="pozn">Využili jsme, že \(\operatorname{tg}\) je <strong>lichá funkce</strong>: \(\operatorname{tg}(-u) = -\operatorname{tg}(u)\). Tím se zbavíme mínusu před závorkou. Pozor — perioda se na konci taky násobí \(\frac{4}{3}\)!</div>
+      <div class="vysl">\(x \doteq 7{,}10 + \frac{4}{3}k\pi\), \(k \in \mathbb{Z}\)</div>
+    </div>
+
+    <h2 class="blok" id="pr-substituce">Rovnice se substitucí</h2>
+    <p class="txt">Když se v rovnici objeví <strong>druhé mocniny</strong> goniometrických funkcí, dá se často převést na obyčejnou kvadratickou rovnici.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · převod na kvadratickou rovnici</div>
+      <div class="zadani">Řeš: \(\operatorname{cotg}^2 x + 4\cos^2 x = 3\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\operatorname{cotg}^2 x = \dfrac{\cos^2 x}{\sin^2 x} = \dfrac{\cos^2 x}{1-\cos^2 x}\)</div><div class="vp">/ vše na \(\cos\)</div></div>
+        <div class="vr odsad"><div class="vl">substituce \(t = \cos^2 x\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{t}{1-t} + 4t = 3\)</div><div class="vp">/ \(\cdot(1-t)\)</div></div>
+        <div class="vr odsad"><div class="vl">\(t + 4t - 4t^2 = 3 - 3t\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(-4t^2 + 8t - 3 = 0\)</div><div class="vp">/ \(D = 64-48 = 16\)</div></div>
+        <div class="vr odsad"><div class="vl">\(t_1 = \dfrac{1}{2}\), &nbsp; \(t_2 = \dfrac{3}{2}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="warn-box" style="margin:14px 0 6px;">
+        <div class="wb-label">Kontrola smysluplnosti</div>
+        \(t = \cos^2 x\) nemůže být větší než 1 — kořen \(t_2 = \frac{3}{2}\) tedy <strong>vypadá</strong>. Zůstává jen \(t_1 = \frac{1}{2}\).
+      </div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\cos^2 x = \dfrac{1}{2} \Rightarrow \cos x = \pm\dfrac{\sqrt{2}}{2}\)</div><div class="vp">/ vrátit substituci</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \dfrac{\pi}{4} + k\dfrac{\pi}{2}\)</div><div class="vp">/ všechny čtyři kvadranty</div></div>
+      </div>
+      <div class="vysl">\(x = \frac{\pi}{4} + k\frac{\pi}{2}\), \(k \in \mathbb{Z}\)</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Postup u rovnic se substitucí</div>
+      <strong>1.</strong> Převést všechno na <strong>jednu</strong> goniometrickou funkci (nejčastěji přes \(\sin^2x + \cos^2x = 1\)).<br>
+      <strong>2.</strong> Zavést substituci a vyřešit kvadratickou rovnici.<br>
+      <strong>3.</strong> <strong>Vyloučit</strong> kořeny mimo obor hodnot (\(\sin\) a \(\cos\) jsou vždy v \(\langle-1;1\rangle\)).<br>
+      <strong>4.</strong> Vrátit substituci a najít <strong>všechna</strong> řešení včetně periody.
+    </div>
+
+    <h2 class="blok" id="nerovnice">Goniometrické nerovnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Řeší se stejně jako rovnice — ale graficky</div>
+      Postup je stejný jako u rovnice, jen místo jednoho bodu hledáme <strong>interval</strong>. Nejspolehlivější je načrtnout si graf nebo jednotkovou kružnici a odečíst, kde je funkce nad (nebo pod) danou hodnotou.
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Nezapomeň na periodu</div>
+      Výsledkem není jeden interval, ale <strong>nekonečně mnoho</strong> — zapisuje se s \(+2k\pi\) (u \(\sin\), \(\cos\)) nebo \(+k\pi\) (u \(\operatorname{tg}\), \(\operatorname{cotg}\)).
+    </div>
+
+    <footer>matematika.jasně — goniometrické vzorce, rovnice a nerovnice</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

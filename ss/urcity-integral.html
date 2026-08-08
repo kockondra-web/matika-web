@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Určitý integrál, užití integrálů | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 12.5px; font-weight: 600; margin-top: 6px; }
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2; fill: none; stroke-linecap: round; }
+  .fillp { fill: var(--gold); opacity: 0.3; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Určitý integrál</div>
+    <ul>
+      <li><a href="#definice">Definice a výpočet</a></li>
+      <li><a href="#vety">Věty pro počítání</a></li>
+      <li><a href="#kvadratura">Kvadratura — obsah obrazce</a></li>
+      <li><a href="#obsah-priklady">Příklady — obsah mezi křivkami</a></li>
+      <li><a href="#objem">Objem rotačního tělesa</a></li>
+      <li><a href="#delka">Délka křivky</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Určitý integrál, užití integrálů</div>
+    <p class="section-lead">Definice určitého integrálu a jeho výpočet přes primitivní funkci, obsah rovinného obrazce, objem rotačního tělesa a délka křivky.</p>
+    <div class="source-note">maturitní téma 23 · určitý integrál, užití integrálů</div>
+
+    <h2 class="blok" id="definice">Definice a výpočet</h2>
+    <div class="rule-box">
+      <div class="rb-label">Newton–Leibnizův vzorec</div>
+      $$\int_a^b f(x)\,dx = \big[F(x)\big]_a^b = F(b)-F(a) = \text{číslo}$$
+      \(a,b\) — dolní a horní mez. Na rozdíl od neurčitého integrálu je výsledkem <strong>konkrétní číslo</strong>, ne funkce.
+    </div>
+    <div class="graf-wide" style="max-width:400px; background:white; border:1px solid var(--line); border-radius:6px; padding:20px; margin:22px 0;">
+      <svg viewBox="0 0 220 130" width="220" height="130">
+        <line class="ax" x1="15" y1="105" x2="205" y2="105"/>
+        <line class="ax" x1="15" y1="15" x2="15" y2="115"/>
+        <path class="curve" d="M20 95 C 60 20, 140 20, 200 45"/>
+        <path class="fillp" d="M70 60 L 70 105 L 140 105 L 140 32 C 110 32 85 40 70 60 Z"/>
+        <line class="ax" x1="70" y1="15" x2="70" y2="105" stroke-dasharray="3 3" opacity="0.5"/>
+        <line class="ax" x1="140" y1="15" x2="140" y2="105" stroke-dasharray="3 3" opacity="0.5"/>
+        <text class="lbl" x="66" y="118">a</text>
+        <text class="lbl" x="136" y="118">b</text>
+        <text class="lbl" x="150" y="35">f(x)</text>
+      </svg>
+      <div style="font-size:13px; color:var(--ink-soft); margin-top:10px; text-align:center;">Geometrický význam: plocha pod křivkou \(f(x)\) mezi \(a\) a \(b\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\displaystyle\int_1^8\sqrt[3]{x}\,dx\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\left[\dfrac{x^{4/3}}{4/3}\right]_1^8 = \dfrac34\cdot16-\dfrac34\cdot1\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(=\dfrac{45}{4}\ \text{j}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="vety">Věty pro počítání s určitým integrálem</h2>
+    <div class="rule-box">
+      $$\text{1)}\quad\int_a^b c\cdot f(x)\,dx = c\int_a^bf(x)\,dx = c\big[F(x)\big]_a^b$$
+      $$\text{2)}\quad\int_a^b\big[f(x)\pm g(x)\big]\,dx = \int_a^bf(x)\,dx\pm\int_a^bg(x)\,dx$$
+      $$\text{3)}\quad\int_a^bf(x)\,dx = -\int_b^af(x)\,dx$$
+      $$\text{4)}\quad\int_a^cf(x)\,dx = \int_a^bf(x)\,dx+\int_b^cf(x)\,dx \qquad (f\text{ spojitá})$$
+    </div>
+
+    <h2 class="blok" id="kvadratura">Kvadratura — obsah rovinného obrazce</h2>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 90" width="140" height="90">
+          <line class="ax" x1="12" y1="70" x2="128" y2="70"/>
+          <line class="ax" x1="12" y1="15" x2="12" y2="80"/>
+          <path class="curve" d="M20 55 C 50 20, 90 20, 120 45"/>
+          <path class="fillp" d="M40 45 L 40 70 L 100 70 L 100 33 C 75 33 55 37 40 45 Z"/>
+        </svg>
+        <div class="gc-title">\(f\) nad osou x: \(S=\int_a^bf(x)dx\)</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 90" width="140" height="90">
+          <line class="ax" x1="12" y1="30" x2="128" y2="30"/>
+          <line class="ax" x1="12" y1="15" x2="12" y2="80"/>
+          <path class="curve" d="M20 40 C 50 75, 90 75, 120 55"/>
+          <path class="fillp" d="M40 55 L 40 30 L 100 30 L 100 65 C 75 65 55 62 40 55 Z"/>
+        </svg>
+        <div class="gc-title">\(f\) pod osou x: \(S=\left|\int_a^bf(x)dx\right|\)</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 90" width="140" height="90">
+          <line class="ax" x1="12" y1="45" x2="128" y2="45"/>
+          <line class="ax" x1="12" y1="15" x2="12" y2="80"/>
+          <path class="curve" d="M20 55 C 45 15, 75 15, 95 45 C 105 60, 115 65, 122 60"/>
+          <text class="lbl" x="18" y="72">a</text>
+          <text class="lbl" x="65" y="72">b</text>
+          <text class="lbl" x="115" y="72">c</text>
+        </svg>
+        <div class="gc-title">protíná osu: \(S=\int_a^bf\,dx-\int_b^cf\,dx\)</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 90" width="140" height="90">
+          <line class="ax" x1="12" y1="70" x2="128" y2="70"/>
+          <line class="ax" x1="12" y1="15" x2="12" y2="80"/>
+          <path class="curve" d="M20 30 C 60 20, 90 25, 120 40"/>
+          <path class="curve" d="M20 55 C 60 60, 90 58, 120 62"/>
+          <path class="fillp" d="M20 30 C 60 20, 90 25, 120 40 L 120 62 C 90 58 60 60 20 55 Z"/>
+        </svg>
+        <div class="gc-title">mezi \(f\) (nahoře), \(g\): \(S=\int_a^b[f(x){-}g(x)]dx\)</div>
+      </div>
+    </div>
+
+    <h2 class="blok" id="obsah-priklady">Příklady — obsah mezi křivkami</h2>
+    <div class="priklad">
+      <div class="p-label">Příklad · plocha pod \(|\ln x|\)</div>
+      <div class="zadani">\(f: y=|\ln x|\), \(x\in\left\langle\dfrac{1}{10};2\right\rangle\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Na \(\left(\frac{1}{10};1\right)\) je \(\ln x<0\), na \((1;2)\) je \(\ln x>0\) — rozdělit na dva integrály</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(S=\displaystyle\int_{1/10}^1(-\ln x)\,dx+\int_1^2\ln x\,dx\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=\Big[-x(\ln x-1)\Big]_{1/10}^1+\Big[x(\ln x-1)\Big]_1^2\)</div><div class="vp">/ primitivní funkce k \(\ln x\) je \(x(\ln x-1)\)</div></div>
+      </div>
+      <div class="vysl">\(S = 2\ln2-\dfrac{1}{10}\ln10-\dfrac{1}{10}\ \approx\ 1{,}056\ \text{j}^2\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · obsah mezi \(\ln x\), \(\frac{1-x}{x}\) a přímkou \(x=4\)</div>
+      <div class="zadani">\(f:y=\ln x\), \(g:y=\dfrac{1-x}{x}=\dfrac1x-1\), \(h: x=4\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Průsečík \(f,g\): \(\ln x=\dfrac1x-1 \Rightarrow x=1\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(S=\displaystyle\int_1^4\left(\ln x-\dfrac1x+1\right)dx = \Big[x(\ln x-1)-\ln x+x\Big]_1^4\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=\Big[(x-1)\ln x\Big]_1^4\)</div><div class="vp">/ zjednodušit primitivní funkci</div></div>
+      </div>
+      <div class="vysl">\(S = 3\ln4-0 = 6\ln2\ \text{j}^2\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · obsah mezi parabolou a odmocninou</div>
+      <div class="zadani">\(f: y=x^2\), \(g: y=3\sqrt x\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Průsečíky: \(x^2=3\sqrt x \Rightarrow x=0\) nebo \(x=\sqrt[3]{9}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(S=\displaystyle\int_0^{\sqrt[3]9}\big(3\sqrt x-x^2\big)dx = \Big[2x^{3/2}-\dfrac{x^3}{3}\Big]_0^{\sqrt[3]9}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(S=3\ \text{j}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="objem">Objem rotačního tělesa</h2>
+    <div class="rule-box">
+      $$V = \pi\int_a^b f^2(x)\,dx$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · kužel</div>
+      <div class="zadani">Kužel s poloměrem podstavy \(r\) a výškou \(v\) vznikne rotací přímky \(p: y=-\dfrac{r}{v}x+r\) na intervalu \(\langle0;v\rangle\) kolem osy x.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V=\pi\displaystyle\int_0^v\left(-\dfrac rv x+r\right)^2dx\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(V=\dfrac13\pi r^2v\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · koule</div>
+      <div class="zadani">Koule s poloměrem \(r\) vznikne rotací horní půlkružnice \(x^2+y^2=r^2\), tj. \(f:y=\sqrt{r^2-x^2}\), kolem osy x.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V=2\pi\displaystyle\int_0^r(r^2-x^2)\,dx = 2\pi\Big[r^2x-\dfrac{x^3}{3}\Big]_0^r\)</div><div class="vp">/ využít symetrii, integrovat jen 0 až r</div></div>
+      </div>
+      <div class="vysl">\(V=\dfrac43\pi r^3\)</div>
+    </div>
+    <div class="pozn" style="padding-left:0;">Stejným postupem (integrací \(\pi f^2(x)\) na kratším intervalu) se počítá i objem <strong>části</strong> tělesa — třeba kulové úseče.</div>
+
+    <h2 class="blok" id="delka">Délka křivky</h2>
+    <div class="rule-box">
+      $$l = \int_a^b\sqrt{1+\big(f'(x)\big)^2}\,dx$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(f: y=\dfrac12(e^x+e^{-x})\), \(x\in\langle0;2\rangle\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y'=\dfrac12(e^x-e^{-x})\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(1+(y')^2 = \left(\dfrac{e^x+e^{-x}}{2}\right)^2\)</div><div class="vp">/ roznásobit a zjednodušit</div></div>
+        <div class="vr odsad"><div class="vl">\(l=\displaystyle\int_0^2\dfrac{e^x+e^{-x}}{2}\,dx = \Big[\dfrac12(e^x-e^{-x})\Big]_0^2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(l\approx3{,}627\)</div>
+    </div>
+
+    <footer>matematika.jasně — určitý integrál, užití integrálů</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

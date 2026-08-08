@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stereometrie | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 20px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Stereometrie</div>
+    <ul>
+      <li><a href="#poloha">Poloha v prostoru</a></li>
+      <li><a href="#hranoly">Hranoly</a></li>
+      <li><a href="#jehlan">Jehlan a komolý jehlan</a></li>
+      <li><a href="#valec-kuzel">Válec a kužel</a></li>
+      <li><a href="#koule">Koule</a></li>
+      <li><a href="#prehled">Přehled vzorců</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Stereometrie</div>
+    <p class="section-lead">Prostorová geometrie — základní polohové vztahy v prostoru, objemy a povrchy hranolů, jehlanů, válců, kuželů a koule.</p>
+    <div class="source-note">okruh 7 didaktického testu · stereometrie</div>
+    <div class="warn-box">
+      <div class="wb-label">Odkud tahle stránka je</div>
+      Stejně jako u planimetrie — <strong>standardní základ</strong> podle Cermat katalogu požadavků, ne z konkrétních poznámek. Příklady jsem sám ověřil. Nahraď/dopl​ň podle svého, až budeš mít vlastní materiál.
+    </div>
+
+    <h2 class="blok" id="poloha">Poloha bodů, přímek a rovin v prostoru</h2>
+    <p class="txt">Podrobný analytický (vektorový) popis vzájemné polohy přímek a rovin — včetně mimoběžek, odchylek a vzdáleností — je na stránkách <a href="analyticka-geometrie-prostor.html">Analytická geometrie v prostoru</a>. Tady jen shrnutí základních pojmů potřebných pro tělesa:</p>
+    <div class="rule-box">
+      Dvě přímky v prostoru mohou být <strong>rovnoběžné</strong>, <strong>různoběžné</strong> (protínají se) nebo <strong>mimoběžné</strong> (nejsou rovnoběžné a neprotínají se — jen v prostoru, v rovině to nejde).<br>
+      Přímka a rovina: přímka <strong>leží v rovině</strong>, je s ní <strong>rovnoběžná</strong>, nebo ji <strong>protíná</strong> v jednom bodě.
+    </div>
+
+    <h2 class="blok" id="hranoly">Hranoly</h2>
+    <div class="rule-box">
+      <div class="rb-label">Obecný hranol</div>
+      $$V = S_{\text{podstava}}\cdot v \qquad S = 2S_{\text{podstava}} + S_{\text{plášť}}$$
+      Objem je vždy obsah podstavy krát výška, ať je podstavou libovolný mnohoúhelník.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · kvádr</div>
+      <div class="zadani">Kvádr má hrany 5 cm, 4 cm, 3 cm. Najdi objem a povrch.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V=5\cdot4\cdot3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(S=2(5\cdot4+4\cdot3+5\cdot3)\)</div><div class="vp">/ součet tří dvojic stěn, krát 2</div></div>
+      </div>
+      <div class="vysl">\(V=60\text{ cm}^3, \qquad S=94\text{ cm}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="jehlan">Jehlan a komolý jehlan</h2>
+    <div class="rule-box">
+      <div class="rb-label">Jehlan</div>
+      $$V = \frac13 S_{\text{podstava}}\cdot v$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · pravidelný čtyřboký jehlan</div>
+      <div class="zadani">Podstava je čtverec o straně 6 cm, výška jehlanu 4 cm. Najdi objem a povrch.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V=\dfrac13\cdot6^2\cdot4\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(v_{\text{stěny}}=\sqrt{v^2+\left(\dfrac{a}{2}\right)^2}=\sqrt{16+9}=5\)</div><div class="vp">/ výška boční stěny (apotéma)</div></div>
+        <div class="vr odsad"><div class="vl">\(S = a^2 + 4\cdot\dfrac12 a\cdot v_{\text{stěny}} = 36+4\cdot\dfrac12\cdot6\cdot5\)</div><div class="vp">/ podstava + 4 boční trojúhelníky</div></div>
+      </div>
+      <div class="vysl">\(V=48\text{ cm}^3, \qquad S=96\text{ cm}^2\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Komolý jehlan/kužel (obecně)</div>
+      Vznikne oříznutím vrcholu jehlanu/kuželu rovinou rovnoběžnou s podstavou. Objem lze spočítat jako rozdíl objemu velkého a odříznutého malého jehlanu/kuželu.
+    </div>
+
+    <h2 class="blok" id="valec-kuzel">Válec a kužel</h2>
+    <div class="rule-box">
+      <div class="rb-label">Rotační válec</div>
+      $$V=\pi r^2 v \qquad S = 2\pi r^2+2\pi r v$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Válec má poloměr podstavy 3 cm, výšku 5 cm.</div>
+      <div class="vysl">\(V=\pi\cdot3^2\cdot5=45\pi\approx141{,}4\text{ cm}^3, \qquad S=2\pi\cdot9+2\pi\cdot3\cdot5=48\pi\approx150{,}8\text{ cm}^2\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Rotační kužel</div>
+      $$V=\frac13\pi r^2 v \qquad s=\sqrt{r^2+v^2}\ \text{(strana kužele)} \qquad S=\pi r^2+\pi r s$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Kužel má poloměr podstavy 3 cm, výšku 4 cm.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(s=\sqrt{3^2+4^2}=5\)</div><div class="vp">/ strana kužele (Pythagoras)</div></div>
+      </div>
+      <div class="vysl">\(V=\dfrac13\pi\cdot9\cdot4=12\pi\approx37{,}7\text{ cm}^3, \qquad S=\pi\cdot9+\pi\cdot3\cdot5=24\pi\approx75{,}4\text{ cm}^2\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · komolý kužel</div>
+      <div class="zadani">Komolý kužel má poloměry podstav 6 cm a 3 cm, výšku 4 cm. Najdi objem.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V=\dfrac13\pi v(r_1^2+r_1r_2+r_2^2) = \dfrac13\pi\cdot4\cdot(36+18+9)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(V=84\pi\approx263{,}9\text{ cm}^3\)</div>
+    </div>
+
+    <h2 class="blok" id="koule">Koule</h2>
+    <div class="rule-box">
+      $$V=\frac43\pi r^3 \qquad S=4\pi r^2$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Koule má poloměr 6 cm.</div>
+      <div class="vysl">\(V=\dfrac43\pi\cdot216=288\pi\approx904{,}8\text{ cm}^3, \qquad S=4\pi\cdot36=144\pi\approx452{,}4\text{ cm}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="prehled">Přehled vzorců</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>Těleso</th><th>Objem</th><th>Povrch</th></tr>
+      <tr><td class="rowlbl">Kvádr/hranol</td><td>\(S_p\cdot v\)</td><td>\(2S_p+S_{pl}\)</td></tr>
+      <tr><td class="rowlbl">Jehlan</td><td>\(\frac13 S_p\cdot v\)</td><td>\(S_p+S_{pl}\)</td></tr>
+      <tr><td class="rowlbl">Válec</td><td>\(\pi r^2 v\)</td><td>\(2\pi r^2+2\pi rv\)</td></tr>
+      <tr><td class="rowlbl">Kužel</td><td>\(\frac13\pi r^2 v\)</td><td>\(\pi r^2+\pi rs\)</td></tr>
+      <tr><td class="rowlbl">Koule</td><td>\(\frac43\pi r^3\)</td><td>\(4\pi r^2\)</td></tr>
+    </table>
+    </div>
+
+    <footer>matematika.jasně — stereometrie</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konstrukční úlohy | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold); background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 36px; }
+  h2.blok { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; margin: 40px 0 14px; }
+  .rule-box { background: var(--paper-dim); border-left: 3px solid var(--gold); padding: 16px 20px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65; }
+  .rule-box .rb-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); margin-bottom: 7px; font-weight: 700; }
+  p.txt { font-size: 15px; line-height: 1.7; max-width: 680px; margin-bottom: 12px; }
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../rocniky.html" class="back">← zpět na ročníky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">Konstrukční úlohy</div>
+    <p class="section-lead">Základní rýsovací konstrukce a množiny bodů dané vlastnosti — nástroje, kterými se řeší většina konstrukčních úloh na ZŠ.</p>
+    <div class="source-note">8. ročník ZŠ</div>
+  </div>
+
+  <h2 class="blok">Základní konstrukce</h2>
+  <div class="rule-box">
+    <strong>Osa úsečky</strong> — kolmice procházející středem úsečky; každý bod na ní je stejně daleko od obou krajních bodů úsečky.<br><br>
+    <strong>Osa úhlu</strong> — přímka půlící úhel; každý bod na ní je stejně daleko od obou ramen úhlu.<br><br>
+    <strong>Kolmice</strong> k dané přímce v daném bodě, <strong>rovnoběžka</strong> s danou přímkou v daném bodě — základní konstrukce pomocí kružítka a pravítka.
+  </div>
+
+  <h2 class="blok">Množiny bodů dané vlastnosti</h2>
+  <p class="txt">Konstrukční úloha se často řeší tak, že si rozmyslíš, jakou "množinu bodů" musí hledaný bod splňovat — a najdeš průsečík dvou takových množin.</p>
+  <div class="rule-box">
+    <div class="rb-label">Nejčastější množiny bodů</div>
+    Body ve vzdálenosti \(r\) od bodu \(S\) &rArr; <strong>kružnice</strong> se středem \(S\) a poloměrem \(r\)<br>
+    Body stejně vzdálené od dvou bodů &rArr; <strong>osa úsečky</strong>, která je spojuje<br>
+    Body stejně vzdálené od dvou přímek &rArr; <strong>osa úhlu</strong> mezi nimi<br>
+    Body, ze kterých je daná úsečka vidět pod pravým úhlem &rArr; <strong>Thaletova kružnice</strong> nad danou úsečkou
+  </div>
+
+  <h2 class="blok">Postup řešení</h2>
+  <div class="rule-box">
+    <strong>1. Rozbor</strong> — načrtni si, jak by mělo řešení vypadat, a rozmysli si, jaké vlastnosti hledaný bod/útvar splňuje.<br>
+    <strong>2. Postup</strong> — napiš kroky konstrukce v pořadí, jak je provedeš.<br>
+    <strong>3. Konstrukce</strong> — proveď rýsování podle postupu.<br>
+    <strong>4. Zkouška</strong> — ověř, že výsledný útvar splňuje zadání.<br>
+    <strong>5. Diskuze</strong> — kolik řešení úloha má (jedno, víc, žádné)?
+  </div>
+
+  <footer>matematika.jasně — konstrukční úlohy</footer>
+</div>
+
+</body>
+</html>

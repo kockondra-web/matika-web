@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logika a množiny | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 14px; max-width: 400px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 10px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Logika a množiny</div>
+    <ul>
+      <li><a href="#vyroky">Výroky</a></li>
+      <li><a href="#implikace">Obrácená a obměněná implikace</a></li>
+      <li><a href="#pravdivostni">Pravdivostní tabulky</a></li>
+      <li><a href="#demorgan">De Morganova pravidla</a></li>
+      <li><a href="#mnoziny">Množiny a číselné obory</a></li>
+      <li><a href="#operace">Operace s množinami</a></li>
+      <li><a href="#priklady">Řešené příklady</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Logika a množiny</div>
+    <p class="section-lead">Výroková logika — výroky, složené výroky a jejich pravdivostní tabulky, De Morganova pravidla. Množiny, základní číselné obory a operace s množinami.</p>
+    <div class="source-note">maturitní téma 1 · základní poznatky z matematické logiky a teorie množin</div>
+
+    <h2 class="blok" id="vyroky">Výroky</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      <strong>Výrok</strong> je tvrzení, o kterém má smysl říct, že je pravdivé nebo nepravdivé — má právě jednu <strong>pravdivostní hodnotu</strong> (1 = pravda, 0 = nepravda).
+    </div>
+    <p class="txt">Ze základních výroků \(a\), \(b\) lze tvořit <strong>složené výroky</strong>:</p>
+    <div class="rule-box">
+      negace \(a'\) — „není pravda, že \(a\)"<br>
+      konjunkce \(a\land b\) — „\(a\) a zároveň \(b\)"<br>
+      disjunkce \(a\lor b\) — „\(a\) nebo \(b\)"<br>
+      implikace \(a\Rightarrow b\) — „z \(a\) vyplývá \(b\)"<br>
+      ekvivalence \(a\Leftrightarrow b\) — „\(a\) právě tehdy, když \(b\)"
+    </div>
+
+    <h2 class="blok" id="implikace">Obrácená a obměněná implikace</h2>
+    <div class="rule-box">
+      Ke každé implikaci \(a\Rightarrow b\) patří:<br>
+      <strong>obrácená</strong> implikace \(b\Rightarrow a\) — nemusí mít stejnou pravdivostní hodnotu jako původní<br>
+      <strong>obměněná</strong> implikace \(b'\Rightarrow a'\) — má <strong>vždy stejnou</strong> pravdivostní hodnotu jako původní implikace
+    </div>
+    <p class="txt">Protože obměněná implikace je vždy logicky rovnocenná původní, je základem <strong>nepřímého důkazu</strong>: místo „\(a\Rightarrow b\)" dokážeme „\(b'\Rightarrow a'\)".</p>
+
+    <h2 class="blok" id="pravdivostni">Pravdivostní tabulky</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>a</th><th>b</th><th>a'</th><th>a∧b</th><th>a∨b</th><th>a⇒b</th></tr>
+      <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+    </table>
+    </div>
+    <div class="pozn" style="padding-left:0;">Implikace je nepravdivá jen v jednom případě — když je předpoklad \(a\) pravdivý, ale závěr \(b\) nepravdivý. Ve všech ostatních případech (včetně nepravdivého předpokladu) je implikace pravdivá.</div>
+
+    <h2 class="blok" id="demorgan">De Morganova pravidla</h2>
+    <div class="rule-box">
+      $$(a\land b)' = a'\lor b'$$
+      $$(a\lor b)' = a'\land b'$$
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Nejčastější chyba</div>
+      Negovat každou část zvlášť a spojku nechat stejnou. De Morgan ale říká, že se <strong>spojka otočí</strong>: negace „\(a\) a zároveň \(b\)" není „\(a'\) a zároveň \(b'\)", ale „\(a'\) nebo \(b'\)".
+    </div>
+
+    <h2 class="blok" id="mnoziny">Množiny a číselné obory</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      <strong>Množina</strong> je souhrn navzájem různých objektů (prvků). Je <strong>prázdná</strong> právě tehdy, když nemá žádný prvek: \(M=\emptyset \iff |M|=0\).
+    </div>
+    <p class="txt">Základní číselné obory tvoří řetězec vnořených množin:</p>
+    <div class="rule-box">
+      $$\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}\subset\mathbb{C}$$
+      \(\mathbb{N}\) — přirozená čísla: 1, 2, 3, 100, 1000… (nula do \(\mathbb{N}\) nepatří)<br>
+      \(\mathbb{Z}\) — celá čísla: …, −10, −3, −1, 0, 1, 10…<br>
+      \(\mathbb{Q}\) — racionální čísla: lze zapsat jako zlomek, např. \(\frac{1}{10}\), 0,2<br>
+      \(\mathbb{R}\) — reálná čísla: navíc iracionální jako \(\pi\), \(e\), \(\sqrt2\)<br>
+      \(\mathbb{C}\) — komplexní čísla: navíc čísla s imaginární jednotkou, např. \(\sqrt{-50}\), \(i\)
+    </div>
+
+    <h2 class="blok" id="operace">Operace s množinami</h2>
+    <div class="rule-box">
+      <strong>Sjednocení</strong> \(A\cup B\) — prvky, které patří do A nebo do B (nebo do obou)<br>
+      <strong>Průnik</strong> \(A\cap B\) — prvky společné oběma množinám<br>
+      <strong>Rozdíl</strong> \(A\setminus B\) — prvky, které patří do A, ale nepatří do B<br>
+      <strong>Doplněk</strong> \(A'=U\setminus A\), kde \(U\) je univerzum — nadřazený prostor všem uvažovaným množinám
+    </div>
+
+    <h2 class="blok" id="priklady">Řešené příklady</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · je to výrok?</div>
+      <div class="zadani">Rozhodni, zda je věta výrokem: „Praha je hlavní město České republiky."</div>
+      <div class="vysl">Ano — má jednoznačně určitelnou pravdivostní hodnotu (je pravdivá, hodnota 1)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · negace výroku</div>
+      <div class="zadani">Utvoř negaci výroku a: „Dnes prší."</div>
+      <div class="vysl">a' = „Dnes neprší."</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · číselné obory</div>
+      <div class="zadani">Do kterých číselných oborů patří číslo \(-\frac12\)?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Lze zapsat jako zlomek celých čísel, ale není to celé číslo</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">Patří do \(\mathbb{Q},\mathbb{R},\mathbb{C}\), ale ne do \(\mathbb{Z}\) ani \(\mathbb{N}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · operace s množinami</div>
+      <div class="zadani">\(A=\{1,2,3,4\}\), \(B=\{3,4,5,6\}\). Urči \(A\cup B\), \(A\cap B\), \(A\setminus B\).</div>
+      <div class="vysl">\(A\cup B=\{1,2,3,4,5,6\}, \quad A\cap B=\{3,4\}, \quad A\setminus B=\{1,2\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · De Morgan na složitější výrok</div>
+      <div class="zadani">Užitím De Morganových pravidel zjednoduš negaci výroku \((a\land b)\lor c\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\([(a\land b)\lor c]' = (a\land b)'\land c'\)</div><div class="vp">/ negace disjunkce</div></div>
+        <div class="vr odsad"><div class="vl">\((a\land b)' = a'\lor b'\)</div><div class="vp">/ negace konjunkce</div></div>
+      </div>
+      <div class="vysl">\([(a\land b)\lor c]' = (a'\lor b')\land c'\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · důkaz pravdivostní tabulkou</div>
+      <div class="zadani">Dokaž platnost obměněné implikace \((a\Rightarrow b)\equiv(b'\Rightarrow a')\) pomocí pravdivostní tabulky.</div>
+      <div class="vysl">Sloupce pro \(a\Rightarrow b\) a \(b'\Rightarrow a'\) vyjdou shodné pro všechny kombinace \(a,b\) — výroky jsou logicky ekvivalentní</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · De Morgan pro množiny</div>
+      <div class="zadani">\(U=\{1,\ldots,10\}\), \(A=\{2,4,6,8,10\}\), \(B=\{1,2,3,5,7\}\). Urči \((A\cup B)'\) a ověř De Morgana pro množiny.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(A\cup B=\{1,2,3,4,5,6,7,8,10\}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\((A\cup B)' = U\setminus(A\cup B)=\{9\}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(A'=\{1,3,5,7,9\}, \quad B'=\{4,6,8,9,10\}\)</div><div class="vp">/ doplňky jednotlivě</div></div>
+        <div class="vr odsad"><div class="vl">\(A'\cap B' = \{9\}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\((A\cup B)' = A'\cap B' = \{9\}\) — De Morgan pro množiny potvrzen</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · tautologie</div>
+      <div class="zadani">Rozhodni, zda je výrok \([(a\Rightarrow b)\land a]\Rightarrow b\) tautologie.</div>
+      <div class="vysl">Ano — poslední sloupec pravdivostní tabulky obsahuje jen jedničky (jde o zákon <em>modus ponens</em>)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · zjednodušení množinového výrazu</div>
+      <div class="zadani">Zjednoduš \((A\cup B)\cap(A\cup B')\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((A\cup B)\cap(A\cup B') = A\cup(B\cap B')\)</div><div class="vp">/ vytknout A (distributivní zákon)</div></div>
+        <div class="vr odsad"><div class="vl">\(B\cap B' = \emptyset\)</div><div class="vp">/ množina a její doplněk nemají společné prvky</div></div>
+      </div>
+      <div class="vysl">\((A\cup B)\cap(A\cup B') = A\)</div>
+    </div>
+
+    <footer>matematika.jasně — logika a množiny</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytická geometrie hyperboly a paraboly | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Hyperbola a parabola</div>
+    <ul>
+      <li><a href="#hyp-definice">Hyperbola — definice</a></li>
+      <li><a href="#hyp-rovnice">Rovnice hyperboly</a></li>
+      <li><a href="#hyp-priklady">Příklady — hyperbola</a></li>
+      <li><a href="#par-definice">Parabola — definice</a></li>
+      <li><a href="#par-rovnice">Rovnice paraboly</a></li>
+      <li><a href="#par-priklady">Příklady — parabola</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Analytická geometrie hyperboly a paraboly</div>
+    <p class="section-lead">Hyperbola a parabola jako množiny bodů dané vlastnosti, jejich základní prvky, vrcholová/středová a obecná rovnice, sestrojení z různých zadání.</p>
+    <div class="source-note">maturitní téma 18 · analytická geometrie hyperboly a paraboly</div>
+
+    <h2 class="blok" id="hyp-definice">Hyperbola — definice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Hyperbola je množina bodů v rovině, kde <strong>absolutní hodnota rozdílu</strong> vzdáleností od dvou ohnisek je konstantní.
+    </div>
+    <div class="graf-wide">
+      <svg viewBox="0 0 320 190" width="320" height="190">
+        <line class="dash" x1="160" y1="15" x2="160" y2="175"/>
+        <line class="ax" x1="20" y1="95" x2="300" y2="95"/>
+        <line x1="100" y1="45" x2="220" y2="145" stroke="var(--ink-soft)" stroke-width="1"/>
+        <line x1="220" y1="45" x2="100" y2="145" stroke="var(--ink-soft)" stroke-width="1"/>
+        <path d="M 190 45 C 165 65, 165 125, 190 145" fill="none" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M 130 45 C 155 65, 155 125, 130 145" fill="none" stroke="var(--ink)" stroke-width="1.8" transform="translate(0,0) scale(-1,1) translate(-320,0)"/>
+        <circle class="dot" cx="80" cy="95" r="3"/>
+        <circle class="dot" cx="240" cy="95" r="3"/>
+        <circle class="dot" cx="160" cy="95" r="3"/>
+        <circle class="dot" cx="145" cy="95" r="3"/>
+        <circle class="dot" cx="175" cy="95" r="3"/>
+        <text class="lbl" x="70" y="112">F₁</text>
+        <text class="lbl" x="244" y="112">F₂</text>
+        <text class="lbl" x="163" y="88">S</text>
+      </svg>
+      <div class="gw-caption">Hyperbola se dvěma větvemi, ohnisky F₁,F₂ a asymptotami (přerušovaně)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Značení</div>
+      \(a=|AS|=|BS|\) — velikost hlavní poloosy · \(b=|CS|=|DS|\) — velikost vedlejší poloosy · \(e=|F_1S|=|F_2S|\) — excentricita
+      $$e^2 = a^2+b^2$$
+      <strong>Pozor</strong> — na rozdíl od elipsy je to \(e^2=a^2+b^2\), ne \(a^2=b^2+e^2\)!
+    </div>
+
+    <h2 class="blok" id="hyp-rovnice">Rovnice hyperboly</h2>
+    <div class="rule-box">
+      <div class="rb-label">Středová rovnice</div>
+      Větve doleva/doprava: &nbsp; \(h:\dfrac{(x-m)^2}{a^2}-\dfrac{(y-n)^2}{b^2}=1\)<br>
+      Větve nahoru/dolů: &nbsp; \(h:-\dfrac{(x-m)^2}{a^2}+\dfrac{(y-n)^2}{b^2}=1\)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Obecná rovnice</div>
+      $$h: Ax^2+By^2+Cx+Dy+E=0$$
+      \(A\) a \(B\) mají <strong>opačná znaménka</strong> (\(A\cdot B<0\)) — tím se hyperbola pozná od elipsy, kde mají stejné znaménko.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Asymptoty</div>
+      Směrnice asymptot: \(k_a=\pm\dfrac{a}{b}\) (větve nahoru/dolů) nebo \(\pm\dfrac{b}{a}\) (větve doleva/doprava) — obecně poměr poloosy podél osy y k poloose podél osy x.
+    </div>
+
+    <h2 class="blok" id="hyp-priklady">Příklady</h2>
+    <div class="priklad">
+      <div class="p-label">Příklad · z ohnisek a vrcholu</div>
+      <div class="zadani">\(E[1;-2]\), \(F[7;-2]\) — ohniska, \(A[3;-2]\) — vrchol. Najdi rovnici hyperboly.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S=\) střed \(EF=[4;-2], \qquad a=|AS|=1, \qquad e=|ES|=3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(e^2=a^2+b^2 \Rightarrow b^2=9-1=8\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(h: \dfrac{(x-4)^2}{1}-\dfrac{(y+2)^2}{8}=1 \quad\Longleftrightarrow\quad 8x^2-y^2-64x-4y+116=0\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · z asymptot a ohniska</div>
+      <div class="zadani">Asymptoty \(a_1: y=\frac34x-1\), \(a_2: y=-\frac34x+5\), ohnisko \(E[4;6]\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S\in a_1\cap a_2: \ \dfrac34x-1=-\dfrac34x+5 \Rightarrow x=4,\ y=2\)</div><div class="vp">/ střed je průsečík asymptot</div></div>
+        <div class="vr odsad"><div class="vl">\(S=[4;2], \qquad e=|SE|=4\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Sklon asymptoty \(=\dfrac{a}{b}=\dfrac34 \Rightarrow a=\dfrac34 b\)</div><div class="vp">/ hyperbola s větvemi nahoru/dolů</div></div>
+        <div class="vr odsad"><div class="vl">\(e^2=a^2+b^2: \ 16=\left(\dfrac34b\right)^2+b^2=\dfrac{25}{16}b^2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(b=\dfrac{16}{5}, \qquad a=\dfrac34\cdot\dfrac{16}{5}=\dfrac{12}{5}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(h: -\dfrac{(x-4)^2}{256/25}+\dfrac{(y-2)^2}{144/25}=1\)</div>
+    </div>
+
+    <h2 class="blok" id="par-definice">Parabola — definice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Parabola je množina bodů v rovině, které mají <strong>stejnou vzdálenost od ohniska a řídicí přímky</strong>.
+    </div>
+    <div class="graf-wide">
+      <svg viewBox="0 0 300 190" width="300" height="190">
+        <line class="dash" x1="150" y1="15" x2="150" y2="90"/>
+        <path d="M 40 30 Q 150 190, 260 30" fill="none" stroke="#7A3A8C" stroke-width="2"/>
+        <line class="ax" x1="30" y1="80" x2="270" y2="80" stroke="var(--brick)"/>
+        <line class="ax" x1="20" y1="115" x2="280" y2="115"/>
+        <circle class="dot" cx="150" cy="80" r="4" fill="#2E7CB8"/>
+        <circle class="dot" cx="150" cy="97" r="3"/>
+        <text class="lbl" x="158" y="75">F</text>
+        <text class="lbl" x="158" y="112">V</text>
+        <text class="lbl" x="230" y="112">d</text>
+        <text class="lbl" x="158" y="30">o</text>
+      </svg>
+      <div class="gw-caption">o — osa · F — ohnisko · V — vrchol · d — řídicí přímka · p — parametr paraboly (vzdálenost F od d)</div>
+    </div>
+
+    <h2 class="blok" id="par-rovnice">Rovnice paraboly</h2>
+    <div class="rule-box">
+      <div class="rb-label">Vrcholová rovnice — \(V[m;n]\)</div>
+      1) \((x-m)^2=2p(y-n)\) — nahoru<br>
+      2) \((x-m)^2=-2p(y-n)\) — dolů<br>
+      3) \((y-n)^2=2p(x-m)\) — doprava<br>
+      4) \((y-n)^2=-2p(x-m)\) — doleva
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Obecná rovnice</div>
+      \(\pi: Ax^2+Bx+Cy+D=0\) — nahoru/dolů<br>
+      \(\pi: Ay^2+By+Cx+D=0\) — doprava/doleva
+    </div>
+
+    <h2 class="blok" id="par-priklady">Příklady</h2>
+    <div class="priklad">
+      <div class="p-label">Příklad · z vrcholu, parametru a směru</div>
+      <div class="zadani">\(V[-8;2]\), \(p=3\), otevřená doleva</div>
+      <div class="vysl">\(\pi: (y-2)^2=-6(x+8) \quad\Longleftrightarrow\quad y^2+6x-4y+52=0\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(V[-4;-2]\), \(|Fd|=2\), otevřená dolů</div>
+      <div class="vysl">\(\pi: (x+4)^2=-4(y+2) \quad\Longleftrightarrow\quad x^2+8x+4y+24=0\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · z vrcholu a bodu na parabole</div>
+      <div class="zadani">\(V[1;6]\), \(A[7;-8]\in\pi\), otevřená doprava</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\pi: (y-6)^2=2p(x-1)\)</div><div class="vp">/ obecný tvar s neznámým p</div></div>
+        <div class="vr odsad"><div class="vl">\(A\in\pi: (-8-6)^2=2p(7-1) \Rightarrow 2p=\dfrac{98}{3}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(\pi: (y-6)^2=\dfrac{98}{3}(x-1)\)</div>
+      <div class="pozn">Stejným postupem (jen s opačnou orientací) by šla najít i druhá možná parabola se stejným vrcholem, otevřená nahoru/dolů.</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · z vrcholu a ohniska</div>
+      <div class="zadani">\(V[4;2]\), \(F[-5;2]\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(p=2|FV|=18\)</div><div class="vp">/ F leží vlevo od V ⇒ otevřená doleva</div></div>
+      </div>
+      <div class="vysl">\(\pi: (y-2)^2=-36(x-4)\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · z ohniska a řídicí přímky</div>
+      <div class="zadani">\(F[1;-3]\), \(d: x+6=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V_x = \dfrac{1+(-6)}{2}=-\dfrac52, \qquad V=\left[-\dfrac52;-3\right]\)</div><div class="vp">/ vrchol je uprostřed F a d</div></div>
+        <div class="vr odsad"><div class="vl">\(p = |1-(-6)|=7\)</div><div class="vp">/ F je vpravo od d ⇒ otevřená doprava</div></div>
+      </div>
+      <div class="vysl">\(\pi: (y+3)^2=14\left(x+\dfrac52\right)\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · převod z obecné na vrcholovou</div>
+      <div class="zadani">\(\pi: y^2-4x+6y-5=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y^2+6y = 4x+5\)</div><div class="vp">/ seskupit</div></div>
+        <div class="vr odsad"><div class="vl">\((y+3)^2 = 4x+5+9\)</div><div class="vp">/ doplnit na čtverec (\(+9\) na obou stranách)</div></div>
+        <div class="vr odsad"><div class="vl">\((y+3)^2=4\left(x+\dfrac72\right)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(V=\left[-\dfrac72;-3\right], \quad p=2, \quad F=\left[-\dfrac52;-3\right], \quad \sigma: y=-3, \quad d: x=-\dfrac92\)</div>
+    </div>
+
+    <footer>matematika.jasně — analytická geometrie hyperboly a paraboly</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

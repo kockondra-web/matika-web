@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goniometrické funkce | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Goniometrie · obsah</div>
+    <ul>
+      <li><a href="#miry">Stupně a radiány</a></li>
+      <li><a href="#prevody">Převody</a></li>
+      <li><a href="#trojuhelnik">Definice v trojúhelníku</a></li>
+      <li><a href="#kruznice">Jednotková kružnice</a></li>
+      <li><a href="#grafy">Grafy sin a cos</a></li>
+      <li><a href="#transformace">Transformace grafů</a></li>
+      <li><a href="#tg">Graf tg a cotg</a></li>
+      <li><a href="#vlastnosti">Vlastnosti funkcí</a></li>
+      <li><a href="#veta">Sinová a kosinová věta</a></li>
+      <li><a href="#priklady">Řešené příklady</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Goniometrické funkce</div>
+    <p class="section-lead">Oblouková a stupňová míra, definice funkcí v pravoúhlém trojúhelníku i na jednotkové kružnici, grafy a jejich transformace, vlastnosti funkcí, sinová a kosinová věta.</p>
+    <div class="source-note">maturitní téma 7 · Cermat okruh 4 — Funkce</div>
+
+    <h2 class="blok" id="miry">Stupňová a oblouková míra</h2>
+    <div class="rule-box">
+      <div class="rb-label">Základní vztah</div>
+      $$\pi \text{ rad} = 180^\circ$$
+      Radián není „jiná jednotka" v pravém smyslu — je to <strong>obyčejné číslo</strong>. Úhel 1 rad odpovídá oblouku o délce poloměru.
+    </div>
+    <div class="vypocet" style="max-width:680px;">
+      <div class="vr"><div class="vl">\(1 \text{ rad} = \dfrac{180^\circ}{\pi} \doteq 57^\circ 17' 45''\)</div><div class="vp">/ hodí se zapamatovat</div></div>
+    </div>
+
+    <h2 class="blok" id="prevody">Převody</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dva vzorce, které stačí</div>
+      <strong>Radiány → stupně:</strong> $$x = \frac{180 \cdot y}{\pi}$$
+      <strong>Stupně → radiány:</strong> $$x = \frac{y}{180} \cdot \pi$$
+    </div>
+
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>radiány</th><th>stupně</th><th>radiány</th><th>stupně</th></tr>
+      <tr><td class="rowlbl">\(\frac{\pi}{9}\)</td><td>\(20^\circ\)</td><td class="rowlbl">\(\frac{4}{3}\pi\)</td><td>\(240^\circ\)</td></tr>
+      <tr><td class="rowlbl">\(\frac{\pi}{3}\)</td><td>\(60^\circ\)</td><td class="rowlbl">\(\frac{7}{4}\pi\)</td><td>\(315^\circ\)</td></tr>
+      <tr><td class="rowlbl">\(\frac{3}{2}\pi\)</td><td>\(270^\circ\)</td><td class="rowlbl">\(\frac{2}{3}\pi\)</td><td>\(120^\circ\)</td></tr>
+      <tr><td class="rowlbl">\(\frac{7}{6}\pi\)</td><td>\(210^\circ\)</td><td class="rowlbl">\(\frac{11}{6}\pi\)</td><td>\(330^\circ\)</td></tr>
+    </table>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · velký úhel v radiánech</div>
+      <div class="zadani">Převeď \(1369{,}47\) rad na stupně (základní velikost úhlu).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(1369{,}47 : 2\pi \doteq 217{,}96\)</div><div class="vp">/ kolikrát se vejde plný úhel</div></div>
+        <div class="vr odsad"><div class="vl">\(217 \cdot 2\pi \doteq 1363{,}45\)</div><div class="vp">/ celé otáčky odečteme</div></div>
+        <div class="vr odsad"><div class="vl">\(1369{,}47 - 1363{,}45 = 6{,}019\) rad</div><div class="vp">/ zbytek</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{180 \cdot 6{,}019}{\pi} \doteq 344{,}85^\circ\)</div><div class="vp">/ převést na stupně</div></div>
+      </div>
+      <div class="pozn">Celé otáčky (násobky \(2\pi\)) nic nemění — zajímá nás jen <strong>zbytek po dělení \(2\pi\)</strong>. Desetinnou část stupňů převedeme na minuty vynásobením 60.</div>
+      <div class="vysl">\(\doteq 344^\circ 51'\)</div>
+    </div>
+
+    <h2 class="blok" id="trojuhelnik">Definice v pravoúhlém trojúhelníku</h2>
+    <div class="graf-wide">
+      <svg viewBox="0 0 400 190" width="100%" height="190" preserveAspectRatio="xMidYMid meet">
+        <path d="M60 150 L 330 150 L 330 40 Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M312 150 L 312 132 L 330 132" fill="none" stroke="var(--ink-soft)" stroke-width="1.4"/>
+        <path d="M60 150 A 34 34 0 0 0 90 133" fill="none" stroke="var(--brick)" stroke-width="1.6"/>
+        <text class="lbl" x="94" y="146" fill="var(--brick)" style="font-size:12px;">α</text>
+        <text class="lbl" x="190" y="166" style="font-size:12px;">b (přilehlá)</text>
+        <text class="lbl" x="338" y="100" style="font-size:12px;">a (protilehlá)</text>
+        <text class="lbl" x="170" y="86" style="font-size:12px;">c (přepona)</text>
+      </svg>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Čtyři definice</div>
+      <div style="line-height:2.4;">
+        \(\sin\alpha = \dfrac{a}{c} = \dfrac{\text{protilehlá}}{\text{přepona}}\) &nbsp;&nbsp;·&nbsp;&nbsp; \(\cos\alpha = \dfrac{b}{c} = \dfrac{\text{přilehlá}}{\text{přepona}}\)<br>
+        \(\operatorname{tg}\alpha = \dfrac{a}{b} = \dfrac{\text{protilehlá}}{\text{přilehlá}}\) &nbsp;&nbsp;·&nbsp;&nbsp; \(\operatorname{cotg}\alpha = \dfrac{b}{a} = \dfrac{1}{\operatorname{tg}\alpha}\)
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Platí jen v pravoúhlém trojúhelníku</div>
+      Tyhle poměry fungují <strong>pouze</strong>, když je v trojúhelníku pravý úhel. U obecného trojúhelníku se musí použít sinová nebo kosinová věta (viz níže).
+    </div>
+
+    <h2 class="blok" id="kruznice">Jednotková kružnice</h2>
+    <p class="txt">Definici rozšíříme na libovolný úhel: na kružnici o poloměru 1 je <strong>\(\cos\alpha\) x-ová souřadnice</strong> bodu a <strong>\(\sin\alpha\) y-ová souřadnice</strong>.</p>
+
+    <div class="graf-wide">
+      <svg viewBox="0 0 340 300" width="100%" height="300" preserveAspectRatio="xMidYMid meet">
+        <line class="ax" x1="20" y1="150" x2="320" y2="150"/>
+        <line class="ax" x1="170" y1="12" x2="170" y2="290"/>
+        <circle cx="170" cy="150" r="115" fill="none" stroke="var(--ink)" stroke-width="1.8"/>
+        <line class="dash" x1="170" y1="150" x2="270" y2="92"/>
+        <circle class="dot" cx="270" cy="92" r="4"/>
+        <path d="M195 150 A 25 25 0 0 0 190 137" fill="none" stroke="var(--brick)" stroke-width="1.6"/>
+        <text class="lbl" x="200" y="143" fill="var(--brick)">α</text>
+        <text class="lbl" x="288" y="156">0, 2π</text>
+        <text class="lbl" x="176" y="28">π/2</text>
+        <text class="lbl" x="26" y="156">π</text>
+        <text class="lbl" x="152" y="284">3π/2</text>
+        <text class="lbl" x="256" y="84">π/6</text>
+        <text class="lbl" x="228" y="52">π/3</text>
+        <text class="lbl" x="96" y="66">2π/3</text>
+        <text class="lbl" x="62" y="98">5π/6</text>
+        <text class="lbl" x="60" y="216">7π/6</text>
+        <text class="lbl" x="94" y="248">4π/3</text>
+        <text class="lbl" x="228" y="252">5π/3</text>
+        <text class="lbl" x="258" y="220">11π/6</text>
+      </svg>
+      <div class="gw-caption">Významné úhly na jednotkové kružnici — po \(\frac{\pi}{6}\) a \(\frac{\pi}{4}\)</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Periodicita</div>
+      Přičtení celé otáčky nic nezmění: $$\sin(\alpha + 2k\pi) = \sin\alpha, \quad k \in \mathbb{Z}$$
+      Proto se u velkých úhlů vždy nejdřív odečtou celé násobky \(2\pi\).
+    </div>
+
+    <h2 class="blok" id="grafy">Grafy funkcí sin a cos</h2>
+    <div class="graf-wide">
+      <svg viewBox="0 0 460 160" width="100%" height="160" preserveAspectRatio="xMidYMid meet">
+        <line class="ax" x1="30" y1="80" x2="440" y2="80"/>
+        <line class="ax" x1="40" y1="14" x2="40" y2="146"/>
+        <line class="dash" x1="30" y1="26" x2="440" y2="26"/>
+        <line class="dash" x1="30" y1="134" x2="440" y2="134"/>
+        <path class="curve" d="M40 80 Q 90 -10, 140 80 T 240 80 Q 290 -10, 340 80 T 440 80" fill="none"/>
+        <path class="curve2" d="M40 26 Q 90 26, 90 80 T 140 134 Q 190 134, 190 80 T 240 26 Q 290 26, 290 80 T 340 134 Q 390 134, 390 80 T 440 26" fill="none"/>
+        <text class="lbl" x="20" y="30">1</text>
+        <text class="lbl" x="14" y="138">−1</text>
+        <text class="lbl" x="136" y="96">π</text>
+        <text class="lbl" x="232" y="96">2π</text>
+        <text class="lbl" x="400" y="44" fill="var(--gold)">cos x</text>
+        <text class="lbl" x="150" y="30" fill="var(--brick)">sin x</text>
+      </svg>
+      <div class="gw-caption">Obě funkce mají periodu \(2\pi\) a obor hodnot \(\langle -1;\ 1\rangle\); \(\cos\) je \(\sin\) posunutý o \(\frac{\pi}{2}\) doleva</div>
+    </div>
+
+    <h2 class="blok" id="transformace">Transformace grafů</h2>
+    <div class="rule-box">
+      <div class="rb-label">Obecný předpis</div>
+      $$f: y = A \cdot \sin B(x+c) + D$$
+      <strong>\(A\)</strong> — amplituda (graf se \(A\)krát natáhne do výšky)<br>
+      <strong>\(B\)</strong> — mění periodu podle \(T = \dfrac{2\pi}{|B|}\)<br>
+      <strong>\(c\)</strong> — posun po ose \(x\) o \(-c\)<br>
+      <strong>\(D\)</strong> — posun po ose \(y\) o \(D\)
+    </div>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 160 110" width="160" height="110">
+          <line class="ax" x1="12" y1="55" x2="150" y2="55"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="100"/>
+          <path class="dash" d="M22 55 Q 47 25, 72 55 T 122 55" fill="none" stroke-width="1.5"/>
+          <path class="curve" d="M22 55 Q 47 5, 72 55 T 122 55" fill="none"/>
+        </svg>
+        <div class="gc-title">Amplituda \(A\)</div>
+        <div class="gc-note">\(y = 3\sin x\) — graf se natáhne do výšky</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 160 110" width="160" height="110">
+          <line class="ax" x1="12" y1="55" x2="150" y2="55"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="100"/>
+          <path class="dash" d="M22 55 Q 47 25, 72 55 T 122 55" fill="none" stroke-width="1.5"/>
+          <path class="curve" d="M22 40 Q 47 10, 72 40 T 122 40" fill="none"/>
+        </svg>
+        <div class="gc-title">Posun \(D\)</div>
+        <div class="gc-note">\(y = \sin x + 1\) — nahoru o 1</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 160 110" width="160" height="110">
+          <line class="ax" x1="12" y1="55" x2="150" y2="55"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="100"/>
+          <path class="dash" d="M22 55 Q 47 25, 72 55 T 122 55" fill="none" stroke-width="1.5"/>
+          <path class="curve" d="M47 55 Q 72 25, 97 55 T 147 55" fill="none"/>
+        </svg>
+        <div class="gc-title">Posun \(c\)</div>
+        <div class="gc-note">\(y = \sin\left(x-\frac{\pi}{2}\right)\) — doprava</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 160 110" width="160" height="110">
+          <line class="ax" x1="12" y1="55" x2="150" y2="55"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="100"/>
+          <path class="dash" d="M22 55 Q 47 25, 72 55 T 122 55" fill="none" stroke-width="1.5"/>
+          <path class="curve" d="M22 55 Q 34 25, 47 55 T 72 55 Q 84 25, 97 55 T 122 55" fill="none"/>
+        </svg>
+        <div class="gc-title">Perioda \(B\)</div>
+        <div class="gc-note">\(y = \sin 2x\), \(T = \pi\) — dvakrát hustší</div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Praktická rada</div>
+      Když graf kreslíš, dělej <strong>jednu změnu po druhé</strong> — nikdy víc než dvě věci najednou. Jinak se v posunech snadno ztratíš.
+    </div>
+
+    <h2 class="blok" id="tg">Grafy tg a cotg</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice pomocí sin a cos</div>
+      $$\operatorname{tg} x = \frac{\sin x}{\cos x}, \qquad \operatorname{cotg} x = \frac{\cos x}{\sin x}$$
+      Perioda obou je <strong>\(\pi\)</strong> (ne \(2\pi\) jako u sin a cos). V bodech, kde je jmenovatel nulový, funkce není definovaná — tam má graf <strong>asymptotu</strong>.
+    </div>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 170 130" width="170" height="130">
+          <line class="ax" x1="10" y1="65" x2="160" y2="65"/>
+          <line class="ax" x1="85" y1="10" x2="85" y2="120"/>
+          <line class="dash" x1="45" y1="10" x2="45" y2="120"/>
+          <line class="dash" x1="125" y1="10" x2="125" y2="120"/>
+          <path class="curve" d="M48 118 C 62 100, 72 80, 85 65 C 98 50, 108 30, 122 12" fill="none"/>
+          <path class="curve" d="M8 100 C 14 88, 20 76, 42 14" fill="none" opacity="0.5"/>
+          <path class="curve" d="M128 118 C 142 100, 152 80, 162 66" fill="none" opacity="0.5"/>
+        </svg>
+        <div class="gc-title">\(y = \operatorname{tg} x\)</div>
+        <div class="gc-note">rostoucí, asymptoty v \(\frac{\pi}{2}+k\pi\)</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 170 130" width="170" height="130">
+          <line class="ax" x1="10" y1="65" x2="160" y2="65"/>
+          <line class="ax" x1="45" y1="10" x2="45" y2="120"/>
+          <line class="dash" x1="85" y1="10" x2="85" y2="120"/>
+          <line class="dash" x1="125" y1="10" x2="125" y2="120"/>
+          <path class="curve" d="M48 12 C 62 30, 72 50, 85 65 C 98 80, 108 100, 122 118" fill="none"/>
+          <path class="curve" d="M128 12 C 142 30, 152 50, 162 64" fill="none" opacity="0.5"/>
+        </svg>
+        <div class="gc-title">\(y = \operatorname{cotg} x\)</div>
+        <div class="gc-note">klesající, asymptoty v \(k\pi\)</div>
+      </div>
+    </div>
+
+    <h2 class="blok" id="vlastnosti">Vlastnosti goniometrických funkcí</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>funkce</th><th>definiční obor \(D\)</th><th>obor hodnot \(H\)</th><th>perioda</th><th>sudost</th></tr>
+      <tr><td class="rowlbl">\(\sin x\)</td><td>\(\mathbb{R}\)</td><td>\(\langle -1;\ 1\rangle\)</td><td>\(2\pi\)</td><td>lichá</td></tr>
+      <tr><td class="rowlbl">\(\cos x\)</td><td>\(\mathbb{R}\)</td><td>\(\langle -1;\ 1\rangle\)</td><td>\(2\pi\)</td><td class="plus">sudá</td></tr>
+      <tr><td class="rowlbl">\(\operatorname{tg} x\)</td><td>\(\mathbb{R}\setminus\left\{\frac{\pi}{2}+k\pi\right\}\)</td><td>\(\mathbb{R}\)</td><td>\(\pi\)</td><td>lichá</td></tr>
+      <tr><td class="rowlbl">\(\operatorname{cotg} x\)</td><td>\(\mathbb{R}\setminus\left\{k\pi\right\}\)</td><td>\(\mathbb{R}\)</td><td>\(\pi\)</td><td>lichá</td></tr>
+    </table>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Sudost a lichost</div>
+      <strong>Lichá</strong> (\(\sin\), \(\operatorname{tg}\), \(\operatorname{cotg}\)): \(f(-x) = -f(x)\) — souměrná podle počátku<br>
+      <strong>Sudá</strong> (jen \(\cos\)): \(f(-x) = f(x)\) — souměrná podle osy \(y\)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Co se čte z grafu</div>
+      <strong>Prostá</strong> — interval, kde funkce nemá dvakrát stejnou hodnotu \(y\)<br>
+      <strong>Monotónnost</strong> — kde roste a kde klesá<br>
+      <strong>Konvexnost/konkávnost</strong> — jak je graf prohnutý
+    </div>
+
+    <h2 class="blok" id="veta">Sinová a kosinová věta</h2>
+    <p class="txt">Pro <strong>obecný</strong> trojúhelník (nemusí být pravoúhlý):</p>
+    <div class="rule-box">
+      <div class="rb-label">Sinová věta</div>
+      $$\frac{a}{\sin\alpha} = \frac{b}{\sin\beta} = \frac{c}{\sin\gamma}$$
+      Použije se, když známe <strong>stranu a protilehlý úhel</strong> plus jeden další údaj.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Kosinová věta</div>
+      $$c^2 = a^2 + b^2 - 2ab\cos\gamma$$
+      Použije se, když známe <strong>dvě strany a úhel mezi nimi</strong>, nebo <strong>všechny tři strany</strong>. Pro \(\gamma = 90^\circ\) je \(\cos 90^\circ = 0\) a vzorec přejde na Pythagorovu větu.
+    </div>
+
+    <h2 class="blok" id="priklady">Řešené příklady — úprava výrazů</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · sečtení dvou zlomků</div>
+      <div class="zadani">Zjednoduš: \(\dfrac{\sin x}{1-\cos x} + \dfrac{\sin x}{1+\cos x}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dfrac{\sin x(1+\cos x) + \sin x(1-\cos x)}{(1-\cos x)(1+\cos x)}\)</div><div class="vp">/ společný jmenovatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2\sin x}{1-\cos^2 x}\)</div><div class="vp">/ rozdíl čtverců, sečíst</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2\sin x}{\sin^2 x}\)</div><div class="vp">/ \(1-\cos^2x = \sin^2x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2}{\sin x}\)</div><div class="vp">/ zkrátit</div></div>
+      </div>
+      <div class="pozn">Základní vzorec \(\sin^2x + \cos^2x = 1\) se používá skoro v každém příkladu — v tomhle tvaru \(1 - \cos^2x = \sin^2x\).</div>
+      <div class="vysl">\(\dfrac{2}{\sin x}\), &nbsp; podmínka \(x \neq k\pi\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · s dvojnásobným úhlem</div>
+      <div class="zadani">Zjednoduš: \(\dfrac{2\cos^2 x - 2\cos 2x}{\cos^2 x \cdot \operatorname{tg} x}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\cos^2x \cdot \operatorname{tg} x = \cos^2 x \cdot \dfrac{\sin x}{\cos x} = \cos x \sin x\)</div><div class="vp">/ upravit jmenovatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2(\cos^2 x - \cos 2x)}{\cos x \sin x}\)</div><div class="vp">/ vytknout 2</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2(\cos^2 x - \cos^2 x + \sin^2 x)}{\cos x \sin x}\)</div><div class="vp">/ \(\cos 2x = \cos^2x - \sin^2x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{2\sin^2 x}{\cos x \sin x} = \dfrac{2\sin x}{\cos x}\)</div><div class="vp">/ zkrátit \(\sin x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2\operatorname{tg} x\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(2\operatorname{tg} x\)</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Tabulky hodnot</div>
+      Hodnoty jako \(\sin 30^\circ = \frac{1}{2}\) nebo \(\cos 45^\circ = \frac{\sqrt{2}}{2}\) není nutné se učit nazpaměť — u maturity je <strong>k dispozici tabulka</strong>. Vyplatí se ale znát ty nejčastější, ať se v testu zbytečně nezdržuješ.
+    </div>
+
+    <footer>matematika.jasně — goniometrické funkce a trigonometrie</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

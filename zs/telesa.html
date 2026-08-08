@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tělesa | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 230px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 25px; font-weight: 600;
+    margin: 50px 0 6px; padding-top: 24px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 660px; margin-bottom: 14px; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 16px 20px; margin: 18px 0; max-width: 660px; font-size: 15px; line-height: 1.65;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 7px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 18px 0; max-width: 660px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 9px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -22px -18px; padding: 13px 22px; font-weight: 600; }
+  .zadani { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 16px; padding: 6px 0; }
+  .vl { font-size: 15px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--brick); white-space: nowrap; flex-shrink: 0; }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13.5px; max-width: 500px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 10px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../rocniky.html" class="back">← zpět na ročníky</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Tělesa</div>
+    <ul>
+      <li><a href="#kvadr-krychle">Kvádr a krychle</a></li>
+      <li><a href="#hranoly">Hranoly</a></li>
+      <li><a href="#valec">Válec</a></li>
+      <li><a href="#jehlan-kuzel-koule">Jehlan, kužel, koule</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Tělesa</div>
+    <p class="section-lead">Objem a povrch základních těles — kvádr, krychle, hranoly, válec, jehlan, kužel a koule.</p>
+    <div class="source-note">6.–9. ročník ZŠ</div>
+
+    <h2 class="blok" id="kvadr-krychle">Kvádr a krychle</h2>
+    <div class="rule-box">
+      <div class="rb-label">Vzorce</div>
+      Kvádr (hrany \(a,b,c\)): &nbsp; \(V = a\cdot b\cdot c\), &nbsp; \(S = 2(ab+bc+ac)\)<br>
+      Krychle (hrana \(a\)): &nbsp; \(V = a^3\), &nbsp; \(S = 6a^2\)
+    </div>
+    <p class="txt">Povrch spočítáš i tak, že si těleso "rozbalíš" do <strong>sítě</strong> a sečteš obsahy všech stěn.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Kvádr má hrany 6 cm, 4 cm, 3 cm. Urči objem a povrch.</div>
+      <div class="vysl">\(V = 6\cdot4\cdot3 = 72\text{ cm}^3, \qquad S = 2(24+12+18) = 108\text{ cm}^2\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Krychle má hranu 5 cm. Urči objem a povrch.</div>
+      <div class="vysl">\(V = 5^3 = 125\text{ cm}^3, \qquad S = 6\cdot5^2 = 150\text{ cm}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="hranoly">Hranoly</h2>
+    <div class="rule-box">
+      <div class="rb-label">Obecný vzorec</div>
+      $$V = S_{\text{podstava}}\cdot v$$
+      Platí pro <strong>jakýkoliv</strong> hranol — podstava nemusí být čtverec ani obdélník, stačí když ji umíš spočítat.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · trojboký hranol</div>
+      <div class="zadani">Podstava je pravoúhlý trojúhelník s odvěsnami 3 cm a 4 cm, výška hranolu je 10 cm. Urči objem.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S_{\text{podstava}} = \dfrac{3\cdot4}{2} = 6\text{ cm}^2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(V = 6\cdot10 = 60\text{ cm}^3\)</div>
+    </div>
+
+    <h2 class="blok" id="valec">Válec</h2>
+    <div class="rule-box">
+      $$V = \pi r^2 v \qquad S = 2\pi r^2+2\pi r v$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Válec má poloměr podstavy 4 cm, výšku 10 cm. Urči objem a povrch (\(\pi\approx3{,}14\)).</div>
+      <div class="vysl">\(V = \pi\cdot16\cdot10 = 160\pi \approx 502{,}7\text{ cm}^3, \qquad S = 112\pi \approx 351{,}9\text{ cm}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="jehlan-kuzel-koule">Jehlan, kužel, koule</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>Těleso</th><th>Objem</th></tr>
+      <tr><td class="rowlbl">Jehlan</td><td>\(V=\dfrac13 S_{\text{podstava}}\cdot v\)</td></tr>
+      <tr><td class="rowlbl">Kužel</td><td>\(V=\dfrac13\pi r^2 v\)</td></tr>
+      <tr><td class="rowlbl">Koule</td><td>\(V=\dfrac43\pi r^3\)</td></tr>
+    </table>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · jehlan</div>
+      <div class="zadani">Pravidelný čtyřboký jehlan má hranu podstavy 6 cm, výšku 8 cm. Urči objem.</div>
+      <div class="vysl">\(V = \dfrac13\cdot6^2\cdot8 = 96\text{ cm}^3\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · kužel</div>
+      <div class="zadani">Kužel má poloměr podstavy 3 cm, výšku 4 cm. Urči objem.</div>
+      <div class="vysl">\(V = \dfrac13\pi\cdot9\cdot4 = 12\pi \approx 37{,}7\text{ cm}^3\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · koule</div>
+      <div class="zadani">Koule má poloměr 6 cm. Urči objem a povrch.</div>
+      <div class="vysl">\(V = \dfrac43\pi\cdot216 = 288\pi \approx 904{,}8\text{ cm}^3, \qquad S = 4\pi\cdot36 = 144\pi \approx 452{,}4\text{ cm}^2\)</div>
+    </div>
+
+    <footer>matematika.jasně — tělesa</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celá a racionální čísla, mocniny | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 230px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 25px; font-weight: 600;
+    margin: 50px 0 6px; padding-top: 24px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 660px; margin-bottom: 14px; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 16px 20px; margin: 18px 0; max-width: 660px; font-size: 15px; line-height: 1.65;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 7px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 18px 0; max-width: 660px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 9px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -22px -18px; padding: 13px 22px; font-weight: 600; }
+  .zadani { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 6px 8px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; }
+  .ztab-wrap { overflow-x: auto; margin: 12px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../rocniky.html" class="back">← zpět na ročníky</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Čísla a mocniny</div>
+    <ul>
+      <li><a href="#cela">Celá čísla</a></li>
+      <li><a href="#racionalni">Racionální čísla</a></li>
+      <li><a href="#odmocniny">Druhá mocnina a odmocnina</a></li>
+      <li><a href="#mocniny">Mocniny s přirozeným exponentem</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Celá a racionální čísla, mocniny</div>
+    <p class="section-lead">Počítání se zápornými čísly, racionální čísla, druhá mocnina a odmocnina, mocniny s přirozeným exponentem.</p>
+    <div class="source-note">7.–8. ročník ZŠ</div>
+
+    <h2 class="blok" id="cela">Celá čísla</h2>
+    <div class="rule-box">
+      <div class="rb-label">Znaménková pravidla</div>
+      Při <strong>násobení a dělení</strong>: stejná znaménka &rArr; výsledek kladný; různá znaménka &rArr; výsledek záporný.<br>
+      Při <strong>sčítání</strong> záporného čísla postupuješ jako při odčítání; při <strong>odčítání</strong> záporného čísla jako při sčítání.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vypočítej: \(-5+3\), \(-5-3\), \(-5\cdot3\), \(-15:3\), \(-5\cdot(-3)\)</div>
+      <div class="vysl">\(-2,\quad -8,\quad -15,\quad -5,\quad 15\)</div>
+    </div>
+
+    <h2 class="blok" id="racionalni">Racionální čísla</h2>
+    <div class="rule-box">
+      Racionální číslo je každé číslo, které lze zapsat jako zlomek \(\frac{p}{q}\), kde \(p,q\) jsou celá čísla a \(q\neq0\). Patří sem tedy <strong>zlomky i desetinná čísla</strong> (i celá čísla, protože \(5=\frac51\)).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Seřaď od nejmenšího: \(-1{,}5;\ \ \frac34;\ \ -2;\ \ 0{,}2\)</div>
+      <div class="vysl">\(-2 < -1{,}5 < 0{,}2 < \dfrac34\)</div>
+    </div>
+
+    <h2 class="blok" id="odmocniny">Druhá mocnina a odmocnina</h2>
+    <div class="rule-box">
+      $$a^2 = a\cdot a \qquad \sqrt{a^2} = a\ (\text{pro }a\geq0)$$
+      Druhá odmocnina je opačná operace k druhé mocnině. Vyplatí se znát nazpaměť mocniny čísel do 20.
+    </div>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>n</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>n²</th><td>1</td><td>4</td><td>9</td><td>16</td><td>25</td><td>36</td><td>49</td><td>64</td><td>81</td><td>100</td></tr>
+    </table>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vypočítej: \(7^2\), pak \(\sqrt{49}\)</div>
+      <div class="vysl">\(7^2=49, \qquad \sqrt{49}=7\)</div>
+    </div>
+
+    <h2 class="blok" id="mocniny">Mocniny s přirozeným exponentem</h2>
+    <div class="rule-box">
+      <div class="rb-label">Zápis</div>
+      $$a^n = \underbrace{a\cdot a\cdots a}_{n\text{-krát}}$$
+      Při násobení mocnin se stejným základem se exponenty <strong>sčítají</strong>: \(a^m\cdot a^n = a^{m+n}\)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Vypočítej: \(2^3\cdot2^4\)</div>
+      <div class="vysl">\(2^3\cdot2^4 = 2^{3+4}=2^7=128\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Zápis pomocí mocnin deseti</div>
+      Velká čísla lze zapsat přehledněji jako číslo mezi 1 a 10, krát mocnina deseti.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Zapiš pomocí mocniny deseti: \(3\,400\)</div>
+      <div class="vysl">\(3\,400 = 3{,}4\times10^3\)</div>
+    </div>
+
+    <footer>matematika.jasně — celá a racionální čísla, mocniny</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

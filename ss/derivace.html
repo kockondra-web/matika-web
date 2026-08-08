@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limity a derivace funkce | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+  .hole { fill: var(--paper); stroke: var(--brick); stroke-width: 2; }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Limity a derivace</div>
+    <ul>
+      <li><a href="#okoli">Okolí bodu</a></li>
+      <li><a href="#limita">Limita funkce</a></li>
+      <li><a href="#jednostranne">Jednostranné limity</a></li>
+      <li><a href="#vypocet-limit">Výpočet limit</a></li>
+      <li><a href="#nevlastni">Limita v nevlastním bodě</a></li>
+      <li><a href="#derivace">Derivace funkce</a></li>
+      <li><a href="#tabulka-derivaci">Tabulka derivací</a></li>
+      <li><a href="#vety-derivace">Věty pro derivace</a></li>
+      <li><a href="#slozena">Derivace složené funkce</a></li>
+      <li><a href="#implicitni">Implicitní funkce</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Limity a derivace funkce</div>
+    <p class="section-lead">Okolí bodu, limita funkce a jednostranné limity, neurčité výrazy, limita v nevlastním bodě, derivace funkce a tabulka vzorců, věty pro počítání s derivacemi, derivace složené a implicitní funkce.</p>
+    <div class="source-note">maturitní téma 20 · limity a derivace funkce</div>
+
+    <h2 class="blok" id="okoli">Okolí bodu</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Okolím bodu \(a\) nazýváme otevřený interval \((a-\delta;\,a+\delta)\), kde \(\delta\in\mathbb{R}^+\) je <strong>poloměr okolí</strong> a \(a\) je jeho <strong>střed</strong>. Značíme \(U_\delta(a)\).
+      Platí: \(x\in(a-\delta;a+\delta) \iff |x-a|<\delta\)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Levé, pravé a ryzí okolí</div>
+      Levé okolí: \((a-\delta;\,a\rangle\) &nbsp;·&nbsp; Pravé okolí bodu \(a\): \(\langle a;\,a+\delta)\)<br>
+      Ryzí (prstencové) okolí: \((a-\delta;\,a+\delta)\setminus\{a\}\) — okolí bez samotného bodu \(a\)
+    </div>
+
+    <h2 class="blok" id="limita">Limita funkce</h2>
+    <p class="txt">Limita popisuje, k jaké hodnotě se funkce <strong>přibližuje</strong>, když se \(x\) blíží k danému bodu — bez ohledu na to, jestli v tom bodě funkce vůbec existuje.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · limita v bodě, kde funkce neexistuje</div>
+      <div class="zadani">\(f: y=\dfrac{x^2-4}{x-2}\), zajímá nás chování v okolí \(x=2\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(f(2)\) neexistuje</div><div class="vp">/ dělení nulou</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{x^2-4}{x-2} = \dfrac{(x-2)(x+2)}{x-2} = x+2\)</div><div class="vp">/ pro \(x\neq2\) lze krátit</div></div>
+      </div>
+      <div class="vysl">\(\displaystyle\lim_{x\to2}\frac{x^2-4}{x-2}=4\)</div>
+    </div>
+    <div class="graf-wide">
+      <svg viewBox="0 0 240 130" width="240" height="130">
+        <line class="ax" x1="15" y1="100" x2="225" y2="100"/>
+        <line class="ax" x1="120" y1="15" x2="120" y2="115"/>
+        <line class="curve" x1="30" y1="105" x2="205" y2="30"/>
+        <line class="dash" x1="120" y1="59" x2="120" y2="100"/>
+        <circle class="hole" cx="120" cy="59" r="4"/>
+        <text class="lbl" x="124" y="52">4</text>
+        <text class="lbl" x="124" y="112">2</text>
+      </svg>
+      <div class="gw-caption">Graf je přímka s "dírou" v bodě \(x=2\) — funkce tam neexistuje, ale limita ano</div>
+    </div>
+
+    <h2 class="blok" id="jednostranne">Jednostranné limity</h2>
+    <p class="txt">Když se hodnoty funkce blíží k <strong>různým</strong> číslům podle toho, jestli se blížíme zleva nebo zprava, dvoustranná limita <strong>neexistuje</strong> — i když obě jednostranné limity existují.</p>
+    <div class="graf-wide">
+      <svg viewBox="0 0 240 120" width="240" height="120">
+        <line class="ax" x1="15" y1="60" x2="225" y2="60"/>
+        <line class="ax" x1="120" y1="15" x2="120" y2="105"/>
+        <line class="curve" x1="30" y1="35" x2="112" y2="35"/>
+        <line class="curve" x1="128" y1="80" x2="210" y2="80"/>
+        <circle class="hole" cx="120" cy="35" r="4"/>
+        <circle class="hole" cx="120" cy="80" r="4"/>
+        <text class="lbl" x="126" y="30">1</text>
+        <text class="lbl" x="126" y="92">-1</text>
+      </svg>
+      <div class="gw-caption">Funkce \(y=\dfrac{|x|}{x}\) (signum) — zleva se blíží k \(-1\), zprava k \(1\), limita v \(0\) neexistuje</div>
+    </div>
+
+    <h2 class="blok" id="vypocet-limit">Výpočet limit</h2>
+    <div class="rule-box">
+      <div class="rb-label">A) Funkce je spojitá — dosadíme</div>
+      Pokud dosazením nevznikne neurčitý výraz, limita se rovná přímo funkční hodnotě.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\displaystyle\lim_{x\to2}\frac{x^2-3}{x+4}\)</div>
+      <div class="vysl">\(=\dfrac{1}{6}\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">B) Dosazením vyjde neurčitý výraz — upravíme</div>
+      Nejčastěji rozložením na součin a pokrácením toho, co dělá výraz neurčitým.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\displaystyle\lim_{x\to0}\frac{3x^2-x}{x}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(= \left[\dfrac00\right]\)</div><div class="vp">/ po dosazení neurčitý výraz</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle=\lim_{x\to0}\frac{x(3x-1)}{x} = \lim_{x\to0}(3x-1)\)</div><div class="vp">/ vytknout a pokrátit x</div></div>
+      </div>
+      <div class="vysl">\(=-1\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · rozklad na součin</div>
+      <div class="zadani">\(\displaystyle\lim_{x\to-1}\frac{x^2+4x+3}{x^3+1}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\left[\dfrac00\right]\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle=\lim_{x\to-1}\frac{(x+1)(x+3)}{(x+1)(x^2-x+1)}=\lim_{x\to-1}\frac{x+3}{x^2-x+1}\)</div><div class="vp">/ rozložit a pokrátit \((x+1)\)</div></div>
+      </div>
+      <div class="vysl">\(=\dfrac23\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Důležitá věta</div>
+      $$\lim_{x\to0}\frac{\sin x}{x}=1$$
+    </div>
+
+    <h2 class="blok" id="nevlastni">Limita v nevlastním bodě a nevlastní limita</h2>
+    <div class="rule-box">
+      \(\displaystyle\lim_{x\to a}f(x)=\infty\) — funkce roste nade všechny meze, když se \(x\) blíží ke konečnému bodu \(a\) (svislá asymptota)<br><br>
+      \(\displaystyle\lim_{x\to\pm\infty}f(x)=L\) — chování funkce, když \(x\) roste (klesá) nade všechny meze; \(L\) může být konečné číslo i \(\pm\infty\)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\displaystyle\lim_{x\to\infty}\left(\frac{1}{x-2}+5\right)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dfrac{1}{x-2}\to0\) při \(x\to\infty\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(=5\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · podíl mnohočlenů</div>
+      <div class="zadani">\(\displaystyle\lim_{x\to\infty}\frac{6x^4-5}{3x^4}\)</div>
+      <div class="vysl">\(=\dfrac63=2\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Zkratka pro podíl mnohočlenů v nekonečnu</div>
+      Vždy rozhoduje <strong>vyšší exponent</strong>:<br>
+      větší exponent nahoře (v čitateli) &rArr; limita je \(\pm\infty\)<br>
+      větší exponent dole (ve jmenovateli) &rArr; limita je \(0\)<br>
+      stejný exponent nahoře i dole &rArr; limita je zlomek vedoucích koeficientů
+    </div>
+
+    <h2 class="blok" id="derivace">Derivace funkce</h2>
+    <p class="txt">Derivace v bodě je <strong>směrnice tečny</strong> ke grafu funkce v tomto bodě.</p>
+    <div class="rule-box">
+      <div class="rb-label">Tečna v bodě — pomocí limit</div>
+      $$k_t = \lim_{x\to x_0}\frac{y-y_0}{x-x_0} = \lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$
+      Směrnice normály (kolmice k tečně v bodě dotyku): \(k_n = -\dfrac{1}{k_t}\)
+    </div>
+
+    <h2 class="blok" id="tabulka-derivaci">Tabulka derivací základních funkcí</h2>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th>funkce</th><th>derivace</th><th>platí pro</th></tr>
+      <tr><td class="rowlbl">\(y=c,\ c\in\mathbb{R}\)</td><td>\(y'=0\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=x^n,\ n\in\mathbb{N}\)</td><td>\(y'=n\cdot x^{n-1}\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=x^n,\ n\in\mathbb{Z}\)</td><td>\(y'=n\cdot x^{n-1}\)</td><td>\(x\in\mathbb{R}\setminus\{0\}\)</td></tr>
+      <tr><td class="rowlbl">\(y=x^n,\ n\in\mathbb{R}\)</td><td>\(y'=n\cdot x^{n-1}\)</td><td>\(x\in(0;\infty)\)</td></tr>
+      <tr><td class="rowlbl">\(y=\sin x\)</td><td>\(y'=\cos x\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=\cos x\)</td><td>\(y'=-\sin x\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=\operatorname{tg}x\)</td><td>\(y'=\dfrac{1}{\cos^2x}\)</td><td>\(x\in\mathbb{R}\setminus\left\{\tfrac{\pi}{2}+k\pi\right\}\)</td></tr>
+      <tr><td class="rowlbl">\(y=\operatorname{cotg}x\)</td><td>\(y'=-\dfrac{1}{\sin^2x}\)</td><td>\(x\in\mathbb{R}\setminus\{k\pi\}\)</td></tr>
+      <tr><td class="rowlbl">\(y=e^x\)</td><td>\(y'=e^x\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=a^x\)</td><td>\(y'=a^x\cdot\ln a\)</td><td>\(x\in\mathbb{R}\)</td></tr>
+      <tr><td class="rowlbl">\(y=\ln x\)</td><td>\(y'=\dfrac1x\)</td><td>\(x\in(0;\infty)\)</td></tr>
+      <tr><td class="rowlbl">\(y=\log_ax\)</td><td>\(y'=\dfrac{1}{x\ln a}\)</td><td>\(x\in(0;\infty)\)</td></tr>
+    </table>
+    </div>
+    <div class="pozn" style="padding-left:0;">U \(y=x^n\) záleží na tom, odkud je \(n\) — mění se to, kde derivace platí (celý \(\mathbb{R}\), bez nuly, nebo jen kladná čísla).</div>
+
+    <h2 class="blok" id="vety-derivace">Věty pro počítání s derivacemi</h2>
+    <div class="rule-box">
+      Jestliže mají funkce \(f(x)\) a \(g(x)\) derivaci v bodě \(x_0\), má tam derivaci i jejich součet, rozdíl, součin a (pro \(g(x)\neq0\)) podíl:
+      $$[k\cdot f(x)]' = k\cdot f'(x) \quad (ku)'=ku'$$
+      $$[f(x)\pm g(x)]' = f'(x)\pm g'(x) \quad (u\pm v)'=u'\pm v'$$
+      $$[f(x)\cdot g(x)]' = f'(x)g(x)+f(x)g'(x) \quad (uv)'=u'v+uv'$$
+      $$\left[\frac{f(x)}{g(x)}\right]' = \frac{f'(x)g(x)-f(x)g'(x)}{g^2(x)} \quad \left(\frac uv\right)'=\frac{u'v-uv'}{v^2}$$
+    </div>
+
+    <h2 class="blok" id="slozena">Derivace složené funkce</h2>
+    <div class="rule-box">
+      <div class="rb-label">Řetězové pravidlo</div>
+      Jestliže má funkce \(z=g(x)\) derivaci v bodě \(x_0\) a funkce \(y=f(z)\) má derivaci v bodě \(z_0=g(x_0)\), má složená funkce \(y=f(g(x))\) derivaci v \(x_0\) a platí
+      $$[f(g(x_0))]' = f'(g(x_0))\cdot g'(x_0)$$
+      Derivujeme <strong>postupně od vnější funkce</strong> k vnitřní.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\((\sin^3 2x)'\)</div>
+      <div class="vysl">\(=3\sin^2(2x)\cdot\cos(2x)\cdot2\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · nejdřív zjednodušit pomocí logaritmů, pak derivovat</div>
+      <div class="zadani">\(\left(\log_5\dfrac{2x^3}{\cos5x}\right)'\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(=\big(\log_52+\log_5x^3-\log_5(\cos5x)\big)'\)</div><div class="vp">/ rozepsat log podílu a součinu</div></div>
+      </div>
+      <div class="vysl">\(=\dfrac{3}{x\ln5}+\dfrac{5\sin5x}{\cos5x\cdot\ln5}\)</div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Vždy lepší nejdřív upravit, pak derivovat</div>
+      Rozklad na součet logaritmů (jako výše) předejde composed zlomku s derivací podílu — méně místa pro chybu.
+    </div>
+
+    <h2 class="blok" id="implicitni">Implicitní funkce</h2>
+    <p class="txt">Implicitně zadaná funkce je vztah, kde \(y\) není vyjádřeno samostatně, ale je "schované" uvnitř rovnice \(F(x,y)=0\) — logicky je \(x\) proměnná a \(y\) je (neznámá) složená funkce \(x\).</p>
+    <div class="rule-box">
+      <div class="rb-label">Vzorec</div>
+      $$y' = -\frac{\dfrac{\partial F}{\partial x}}{\dfrac{\partial F}{\partial y}}$$
+      \(\dfrac{\partial F}{\partial x}\) — derivace \(F\) podle \(x\) (podle \(y\) se chová jako konstanta) &nbsp;·&nbsp; \(\dfrac{\partial F}{\partial y}\) — derivace podle \(y\)
+    </div>
+
+    <footer>matematika.jasně — limity a derivace funkce</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

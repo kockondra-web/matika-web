@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytická geometrie elipsy | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Anal. geometrie elipsy</div>
+    <ul>
+      <li><a href="#definice">Definice a základní prvky</a></li>
+      <li><a href="#stredova">Středová rovnice</a></li>
+      <li><a href="#obecna">Obecná rovnice</a></li>
+      <li><a href="#priklady">Řešené příklady</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Analytická geometrie elipsy</div>
+    <p class="section-lead">Elipsa jako množina bodů dané vlastnosti, její základní prvky, středová a obecná rovnice, sestrojení elipsy z různých zadání.</p>
+    <div class="source-note">maturitní téma 17 · analytická geometrie elipsy</div>
+
+    <h2 class="blok" id="definice">Definice a základní prvky</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Elipsa je množina bodů v rovině, kde <strong>součet vzdáleností od dvou ohnisek je konstantní</strong> (roven \(2a\)).
+    </div>
+
+    <div class="graf-wide">
+      <svg viewBox="0 0 340 190" width="340" height="190">
+        <line class="dash" x1="170" y1="20" x2="170" y2="170"/>
+        <line class="ax" x1="20" y1="95" x2="320" y2="95"/>
+        <ellipse cx="170" cy="95" rx="130" ry="60" fill="none" stroke="var(--ink)" stroke-width="1.8"/>
+        <line x1="100" y1="95" x2="240" y2="95" stroke="var(--gold)" stroke-width="1.5"/>
+        <line x1="170" y1="95" x2="170" y2="35" stroke="var(--brick)" stroke-width="1.5"/>
+        <circle class="dot" cx="100" cy="95" r="3"/>
+        <circle class="dot" cx="240" cy="95" r="3"/>
+        <circle class="dot" cx="170" cy="95" r="3"/>
+        <circle class="dot" cx="170" cy="35" r="3"/>
+        <circle class="dot" cx="170" cy="155" r="3"/>
+        <circle class="dot" cx="40" cy="95" r="3"/>
+        <circle class="dot" cx="300" cy="95" r="3"/>
+        <line x1="170" y1="95" x2="170" y2="35" stroke="var(--ink-soft)" stroke-width="0.8"/>
+        <line x1="170" y1="35" x2="240" y2="95" stroke="#B08AC4" stroke-width="1.5"/>
+        <text class="lbl" x="30" y="88">A</text>
+        <text class="lbl" x="304" y="88">B</text>
+        <text class="lbl" x="90" y="112">F₁</text>
+        <text class="lbl" x="228" y="112">F₂</text>
+        <text class="lbl" x="176" y="30">D</text>
+        <text class="lbl" x="176" y="172">C</text>
+        <text class="lbl" x="176" y="90">S</text>
+      </svg>
+      <div class="gw-caption">A,B — hlavní vrcholy · C,D — vedlejší vrcholy · F₁,F₂ — ohniska · S — střed</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Značení</div>
+      \(a = |AS|=|BS|\) — velikost hlavní poloosy<br>
+      \(b = |CS|=|DS|\) — velikost vedlejší poloosy<br>
+      \(e = |F_1S|=|F_2S|\) — excentricita (vzdálenost ohniska od středu)<br>
+      Trojúhelník \(SCF_1\) je tzv. <strong>charakteristický trojúhelník</strong>, pro který platí
+      $$a^2 = b^2+e^2$$
+    </div>
+
+    <h2 class="blok" id="stredova">Středová rovnice</h2>
+    <div class="rule-box">
+      Hlavní osa <strong>vodorovně</strong>:
+      $$E: \frac{(x-m)^2}{a^2}+\frac{(y-n)^2}{b^2}=1$$
+      Hlavní osa <strong>svisle</strong> (\(a>b\), ale \(a\) je pod \(y\)):
+      $$E: \frac{(x-m)^2}{b^2}+\frac{(y-n)^2}{a^2}=1$$
+    </div>
+
+    <h2 class="blok" id="obecna">Obecná rovnice</h2>
+    <div class="rule-box">
+      $$E: Ax^2+By^2+Cx+Dy+E=0, \qquad A\neq B, \quad A,B>0$$
+      Na středový tvar převedeš stejně jako u kružnice — <strong>úpravou na čtverec</strong>.
+    </div>
+
+    <h2 class="blok" id="priklady">Řešené příklady</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · ze středu a poloos</div>
+      <div class="zadani">Střed \(S[-4;2]\), hlavní poloosa \(a=9\) svisle, vedlejší poloosa \(b=2\). Napiš rovnici elipsy.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Hlavní osa je svislá &rArr; použijeme tvar s \(b^2\) pod x, \(a^2\) pod y</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(E: \dfrac{(x+4)^2}{4}+\dfrac{(y-2)^2}{81}=1\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · z hlavních vrcholů a bodu na elipse</div>
+      <div class="zadani">\(A[-23;1]\), \(B[17;1]\) jsou hlavní vrcholy, \(M[9;9]\) leží na elipse. Najdi rovnici.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S = \) střed \(AB = [-3;1], \qquad a=|AS|=20\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(M\in E: \dfrac{(9+3)^2}{400}+\dfrac{(9-1)^2}{b^2}=1\)</div><div class="vp">/ dosadit M</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{64}{b^2} = 1-\dfrac{144}{400}=\dfrac{16}{25} \ \Rightarrow\ b^2=100\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(E: \dfrac{(x+3)^2}{400}+\dfrac{(y-1)^2}{100}=1\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · z ohnisek a excentricity</div>
+      <div class="zadani">Ohniska \(E[0;2]\), \(F[4;2]\). Na elipse leží bod, ze kterého lze pomocí definiční vlastnosti \(|ME|+|MF|=2a\) dopočítat, že \(a=4\). Najdi rovnici elipsy.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S = \) střed \(EF = [2;2], \qquad e=|ES|=2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(a=4 \ \Rightarrow\ b^2=a^2-e^2=16-4=12\)</div><div class="vp">/ charakteristický trojúhelník</div></div>
+      </div>
+      <div class="pozn">Hlavní osa je vodorovná (ohniska mají stejné y).</div>
+      <div class="vysl">\(E: \dfrac{(x-2)^2}{16}+\dfrac{(y-2)^2}{12}=1 \quad\Longleftrightarrow\quad 3x^2+4y^2-12x-16y-20=0\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · převod z obecné na středovou</div>
+      <div class="zadani">\(25x^2+9y^2+200x-54y+256=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(25(x^2+8x) + 9(y^2-6y) + 256=0\)</div><div class="vp">/ seskupit podle x, y</div></div>
+        <div class="vr odsad"><div class="vl">\(25(x+4)^2+9(y-3)^2 = -256+25\cdot16+9\cdot9\)</div><div class="vp">/ doplnit na čtverec</div></div>
+        <div class="vr odsad"><div class="vl">\(25(x+4)^2+9(y-3)^2 = 225 \ \ /:225\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{(x+4)^2}{9}+\dfrac{(y-3)^2}{25}=1\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">\(25>9\), tedy \(a^2=25\) je pod \(y\) — jde o „stojatou" elipsu (hlavní osa svislá). Střed \(S[-4;3]\), \(a=5\), \(b=3\), \(e=\sqrt{a^2-b^2}=\sqrt{16}=4\).</div>
+      <div class="vysl">\(S[-4;3], \quad a=5,\ b=3,\ e=4\)</div>
+    </div>
+
+    <footer>matematika.jasně — analytická geometrie elipsy</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

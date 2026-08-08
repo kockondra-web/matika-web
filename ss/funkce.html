@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funkce | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Funkce · obsah</div>
+    <ul>
+      <li><a href="#co-je-funkce">Co je funkce</a></li>
+      <li><a href="#obory">Definiční obor a obor hodnot</a></li>
+      <li><a href="#prosta">Prostá funkce</a></li>
+      <li><a href="#monotonnost">Monotónnost</a></li>
+      <li><a href="#sudost">Sudost a lichost</a></li>
+      <li><a href="#periodicka">Periodická funkce</a></li>
+      <li><a href="#omezenost">Omezenost</a></li>
+      <li><a href="#konvexnost">Konvexnost a konkávnost</a></li>
+      <li><a href="#konstantni">Konstantní funkce</a></li>
+      <li><a href="#linearni">Lineární funkce</a></li>
+      <li><a href="#pruseciky">Průsečíky s osami</a></li>
+      <li><a href="#z-bodu">Předpis ze dvou bodů</a></li>
+      <li><a href="#inverzni">Funkce inverzní</a></li>
+      <li><a href="#zakladni-slozene">Základní a složené funkce</a></li>
+      <li><a href="#neprima-umernost">Nepřímá úměrnost</a></li>
+      <li><a href="#linearni-lomena">Lineární lomená funkce</a></li>
+      <li style="margin-top:12px; padding-top:12px; border-top:1px dashed var(--line);"><a href="#obory-rce">Rovnice: O, D, P</a></li>
+      <li><a href="#priklady">Řešené příklady</a></li>
+      <li><a href="#tabulka">Tabulková metoda</a></li>
+      <li><a href="#parametr">Rovnice s parametrem</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Funkce</div>
+    <p class="section-lead">Základní pojmy o funkcích a lineární funkce — co je funkce, jaké má vlastnosti a jak z grafu nebo dvou bodů určit její předpis. Základ pro všechny další typy funkcí (kvadratické, exponenciální, goniometrické).</p>
+    <div class="source-note">maturitní okruh 4 · Funkce · 10–20 % didaktického testu</div>
+
+    <!-- ================= CO JE FUNKCE ================= -->
+    <h2 class="blok" id="co-je-funkce">Co je funkce</h2>
+    <p class="txt"><strong>Funkce</strong> je předpis, který každému číslu \(x\) z definičního oboru přiřadí <strong>právě jedno</strong> číslo \(y\).</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Klíčové slovo: právě jedno</div>
+      Kdyby jednomu \(x\) odpovídala dvě různá \(y\), <strong>nejde o funkci</strong>. Proto se dá funkce poznat i z grafu: svislá přímka smí protnout graf nejvýš v jednom bodě.
+    </div>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="20" y1="90" x2="125" y2="90"/>
+          <line class="ax" x1="70" y1="12" x2="70" y2="100"/>
+          <path class="curve" d="M28 82 C 55 20, 85 20, 112 82"/>
+          <line class="dash" x1="50" y1="12" x2="50" y2="100"/>
+          <circle class="dot" cx="50" cy="55" r="3"/>
+          <circle class="dot" cx="50" cy="55" r="3"/>
+          <text class="lbl" x="116" y="86">x</text>
+        </svg>
+        <div class="gc-title">✓ Je funkce</div>
+        <div class="gc-note">Svislá přímka protne graf jen jednou</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="20" y1="55" x2="125" y2="55"/>
+          <line class="ax" x1="45" y1="12" x2="45" y2="100"/>
+          <path class="curve" d="M50 15 C 100 25, 100 85, 50 95"/>
+          <line class="dash" x1="85" y1="12" x2="85" y2="100"/>
+          <circle class="dot" cx="85" cy="22" r="3"/>
+          <circle class="dot" cx="85" cy="88" r="3"/>
+          <text class="lbl" x="116" y="51">x</text>
+        </svg>
+        <div class="gc-title">✗ Není funkce</div>
+        <div class="gc-note">Jednomu x odpovídají dvě y</div>
+      </div>
+    </div>
+
+    <!-- ================= OBORY ================= -->
+    <h2 class="blok" id="obory">Definiční obor a obor hodnot</h2>
+
+    <div class="rule-box">
+      <div class="rb-label">Dvě různé věci, které se pletou</div>
+      <strong>\(D(f)\) — definiční obor:</strong> čísla, která <strong>můžeme dosadit</strong> za \(x\).<br>
+      <strong>\(H(f)\) — obor hodnot:</strong> čísla, která nám <strong>můžou vyjít</strong> jako \(y\).
+    </div>
+
+    <div class="graf-wide">
+      <svg viewBox="0 0 420 200" width="100%" height="200" preserveAspectRatio="xMidYMid meet">
+        <line class="ax" x1="30" y1="100" x2="390" y2="100"/>
+        <line class="ax" x1="210" y1="20" x2="210" y2="180"/>
+        <path class="curve" d="M225 30 C 245 78, 262 90, 385 96"/>
+        <path class="curve" d="M35 104 C 158 110, 175 122, 195 170"/>
+        <line class="dash" x1="210" y1="20" x2="210" y2="180"/>
+        <line class="dash" x1="30" y1="100" x2="390" y2="100"/>
+        <text class="lbl" x="380" y="116">x</text>
+        <text class="lbl" x="218" y="30">y</text>
+      </svg>
+      <div class="gw-caption">Hyperbola \(f: y = \frac{1}{x}\) — graf se nikdy nedotkne os</div>
+    </div>
+
+    <p class="txt">U funkce \(f: y = \dfrac{1}{x}\) nemůžeme dosadit nulu (nulou se nedělí) a nikdy nám nevyjde nula (zlomek s čitatelem 1 nikdy nedá 0):</p>
+    <div class="rule-box">
+      $$D(f) = \mathbb{R} \setminus \{0\} \qquad H(f) = \mathbb{R} \setminus \{0\}$$
+    </div>
+
+    <!-- ================= PROSTA ================= -->
+    <h2 class="blok" id="prosta">Prostá funkce</h2>
+    <p class="txt">Funkce je <strong>prostá</strong>, když každé hodnotě \(y\) odpovídá nejvýš jedno \(x\) — tedy žádné dvě různé hodnoty \(x\) nedají stejný výsledek.</p>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="20" y1="55" x2="125" y2="55"/>
+          <line class="ax" x1="70" y1="12" x2="70" y2="100"/>
+          <path class="curve" d="M28 92 C 60 88, 80 22, 115 18"/>
+          <line class="dash" x1="20" y1="35" x2="125" y2="35"/>
+          <circle class="dot" cx="93" cy="35" r="3"/>
+        </svg>
+        <div class="gc-title">✓ Prostá</div>
+        <div class="gc-note">Vodorovná přímka protne graf jen jednou</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="20" y1="80" x2="125" y2="80"/>
+          <line class="ax" x1="72" y1="12" x2="72" y2="98"/>
+          <path class="curve" d="M32 20 Q 72 108, 112 20"/>
+          <line class="dash" x1="20" y1="45" x2="125" y2="45"/>
+          <circle class="dot" cx="47" cy="45" r="3"/>
+          <circle class="dot" cx="97" cy="45" r="3"/>
+        </svg>
+        <div class="gc-title">✗ Není prostá</div>
+        <div class="gc-note">Dvě různá x dají stejné y</div>
+      </div>
+    </div>
+
+    <!-- ================= MONOTONNOST ================= -->
+    <h2 class="blok" id="monotonnost">Monotónnost</h2>
+    <p class="txt">Popisuje, jestli funkce jde nahoru, dolů, nebo stojí:</p>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 130 95" width="130" height="95">
+          <line class="ax" x1="15" y1="78" x2="118" y2="78"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="88"/>
+          <path class="curve" d="M28 72 L 110 20"/>
+        </svg>
+        <div class="gc-title">Rostoucí</div>
+        <div class="gc-note">větší x → větší y</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 130 95" width="130" height="95">
+          <line class="ax" x1="15" y1="78" x2="118" y2="78"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="88"/>
+          <path class="curve" d="M28 20 L 110 72"/>
+        </svg>
+        <div class="gc-title">Klesající</div>
+        <div class="gc-note">větší x → menší y</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 130 95" width="130" height="95">
+          <line class="ax" x1="15" y1="78" x2="118" y2="78"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="88"/>
+          <path class="curve" d="M28 66 L 55 66 L 78 34 L 110 34"/>
+        </svg>
+        <div class="gc-title">Neklesající</div>
+        <div class="gc-note">roste nebo stojí, nikdy neklesá</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 130 95" width="130" height="95">
+          <line class="ax" x1="15" y1="78" x2="118" y2="78"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="88"/>
+          <path class="curve" d="M28 30 L 55 30 L 78 62 L 110 62"/>
+        </svg>
+        <div class="gc-title">Nerostoucí</div>
+        <div class="gc-note">klesá nebo stojí, nikdy neroste</div>
+      </div>
+    </div>
+
+    <!-- ================= SUDOST ================= -->
+    <h2 class="blok" id="sudost">Sudost a lichost</h2>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="80" x2="125" y2="80"/>
+          <line class="ax" x1="71" y1="12" x2="71" y2="100"/>
+          <path class="curve" d="M33 20 Q 71 118, 109 20"/>
+          <line class="dash" x1="71" y1="12" x2="71" y2="100"/>
+        </svg>
+        <div class="gc-title">Sudá funkce</div>
+        <div class="gc-note">souměrná podle <strong>osy y</strong><br>\(f(-x) = f(x)\)</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="55" x2="125" y2="55"/>
+          <line class="ax" x1="71" y1="12" x2="71" y2="100"/>
+          <path class="curve" d="M30 92 C 55 88, 60 58, 71 55 C 82 52, 87 22, 112 18"/>
+          <circle class="dot" cx="71" cy="55" r="3"/>
+        </svg>
+        <div class="gc-title">Lichá funkce</div>
+        <div class="gc-note">souměrná podle <strong>počátku</strong><br>\(f(-x) = -f(x)\)</div>
+      </div>
+    </div>
+
+    <!-- ================= PERIODICKA ================= -->
+    <h2 class="blok" id="periodicka">Periodická funkce</h2>
+    <p class="txt">Funkce je <strong>periodická</strong>, když se její graf po pravidelném úseku (periodě) doslova opakuje — stačí znát jeden "kus" grafu a zbytek si domyslíš posunutím.</p>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Funkce \(f\) je periodická s periodou \(p>0\), když pro každé \(x\in D(f)\) platí \(x+p\in D(f)\) a
+      $$f(x+p) = f(x)$$
+      Typický příklad jsou goniometrické funkce (\(\sin x\), \(\cos x\) mají periodu \(2\pi\)).
+    </div>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 160 100" width="160" height="100">
+          <line class="ax" x1="10" y1="55" x2="152" y2="55"/>
+          <path class="curve" d="M14 55 Q 26 25, 38 55 T 62 55 T 86 55 T 110 55 T 134 55"/>
+          <line class="dash" x1="38" y1="20" x2="38" y2="85"/>
+          <line class="dash" x1="86" y1="20" x2="86" y2="85"/>
+          <text class="lbl" x="55" y="96">perioda p</text>
+        </svg>
+        <div class="gc-title">Periodická funkce</div>
+        <div class="gc-note">stejný úsek se opakuje pořád dokola</div>
+      </div>
+    </div>
+
+    <!-- ================= OMEZENOST ================= -->
+    <h2 class="blok" id="omezenost">Omezenost</h2>
+    <p class="txt">Omezenost se týká <strong>oboru hodnot</strong> \(H(f)\) — tedy toho, jestli hodnoty funkce nemůžou přesáhnout nějakou mez.</p>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="88" x2="125" y2="88"/>
+          <line class="ax" x1="71" y1="12" x2="71" y2="100"/>
+          <line class="dash" x1="18" y1="30" x2="125" y2="30"/>
+          <path class="curve" d="M30 95 Q 71 8, 112 95"/>
+          <text class="lbl" x="20" y="26">mez</text>
+        </svg>
+        <div class="gc-title">Shora omezená</div>
+        <div class="gc-note">hodnoty nepřesáhnou horní mez</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="22" x2="125" y2="22"/>
+          <line class="ax" x1="71" y1="12" x2="71" y2="100"/>
+          <line class="dash" x1="18" y1="80" x2="125" y2="80"/>
+          <path class="curve" d="M30 15 Q 71 102, 112 15"/>
+          <text class="lbl" x="20" y="94">mez</text>
+        </svg>
+        <div class="gc-title">Zdola omezená</div>
+        <div class="gc-note">hodnoty neklesnou pod dolní mez</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 140 110" width="140" height="110">
+          <line class="ax" x1="18" y1="55" x2="125" y2="55"/>
+          <line class="ax" x1="71" y1="12" x2="71" y2="100"/>
+          <line class="dash" x1="18" y1="28" x2="125" y2="28"/>
+          <line class="dash" x1="18" y1="82" x2="125" y2="82"/>
+          <path class="curve" d="M25 55 Q 40 28, 55 55 Q 70 82, 85 55 Q 100 28, 118 55"/>
+        </svg>
+        <div class="gc-title">Omezená</div>
+        <div class="gc-note">shora i zdola zároveň</div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Pozor na záměnu</div>
+      Omezenost popisuje <strong>obor hodnot \(H(f)\)</strong>, ne definiční obor \(D(f)\). To, že funkci nesmíme dosadit určité číslo, s omezeností nesouvisí.
+    </div>
+
+    <!-- ================= KONVEXNOST ================= -->
+    <h2 class="blok" id="konvexnost">Konvexnost a konkávnost</h2>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 130 100" width="130" height="100">
+          <line class="ax" x1="15" y1="85" x2="118" y2="85"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="94"/>
+          <path class="curve" d="M32 22 Q 66 100, 108 22"/>
+        </svg>
+        <div class="gc-title">Konvexní</div>
+        <div class="gc-note">prohnutá nahoru („drží vodu")</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 130 100" width="130" height="100">
+          <line class="ax" x1="15" y1="85" x2="118" y2="85"/>
+          <line class="ax" x1="22" y1="12" x2="22" y2="94"/>
+          <path class="curve" d="M32 80 Q 66 2, 108 80"/>
+        </svg>
+        <div class="gc-title">Konkávní</div>
+        <div class="gc-note">prohnutá dolů („voda vyteče")</div>
+      </div>
+    </div>
+
+    <!-- ================= KONSTANTNI ================= -->
+    <h2 class="blok" id="konstantni">Konstantní funkce</h2>
+
+    <div class="rule-box">
+      <div class="rb-label">Předpis</div>
+      $$f: y = c, \qquad c \in \mathbb{R}, \quad x \in \mathbb{R}$$
+      Grafem je <strong>vodorovná přímka</strong> ve výšce \(c\) — ať dosadíme jakékoli \(x\), vyjde vždy stejné \(y\).
+    </div>
+
+    <div class="graf-wide">
+      <svg viewBox="0 0 400 170" width="100%" height="170" preserveAspectRatio="xMidYMid meet">
+        <line class="ax" x1="30" y1="110" x2="370" y2="110"/>
+        <line class="ax" x1="150" y1="20" x2="150" y2="155"/>
+        <line class="curve" x1="40" y1="55" x2="360" y2="55"/>
+        <line class="dash" x1="150" y1="55" x2="40" y2="55"/>
+        <circle class="dot" cx="150" cy="55" r="3.5"/>
+        <text class="lbl" x="132" y="52">5</text>
+        <text class="lbl" x="360" y="126">x</text>
+        <text class="lbl" x="158" y="30">y</text>
+      </svg>
+      <div class="gw-caption">Příklad \(f: y = 5\) — přímka rovnoběžná s osou x</div>
+    </div>
+
+    <!-- ================= LINEARNI ================= -->
+    <h2 class="blok" id="linearni">Lineární funkce</h2>
+
+    <div class="rule-box">
+      <div class="rb-label">Předpis</div>
+      $$f: y = ax + b \qquad \text{(nebo } y = kx + q\text{)}$$
+      kde \(a \in \mathbb{R}\setminus\{0\}\), \(b \in \mathbb{R}\), \(x \in \mathbb{R}\). Grafem je vždy <strong>přímka</strong>.
+    </div>
+
+    <p class="txt">Oba parametry mají jasný význam, který je vidět přímo v grafu:</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Co který parametr dělá</div>
+      <strong>\(a\) (směrnice)</strong> — velikost stoupání nebo klesání. Kladné \(a\) = přímka roste, záporné \(a\) = klesá. Čím větší číslo, tím strmější.<br><br>
+      <strong>\(b\) (posun)</strong> — posun po ose \(y\). Je to zároveň \(y\)-ová souřadnice průsečíku s osou \(y\).
+    </div>
+
+    <div class="graf-wide">
+      <svg viewBox="0 0 420 230" width="100%" height="230" preserveAspectRatio="xMidYMid meet">
+        <!-- mrizka -->
+        <g opacity="0.25">
+          <line class="dash" x1="60" y1="40" x2="380" y2="40"/>
+          <line class="dash" x1="60" y1="80" x2="380" y2="80"/>
+          <line class="dash" x1="60" y1="160" x2="380" y2="160"/>
+          <line class="dash" x1="60" y1="200" x2="380" y2="200"/>
+          <line class="dash" x1="120" y1="25" x2="120" y2="215"/>
+          <line class="dash" x1="260" y1="25" x2="260" y2="215"/>
+          <line class="dash" x1="320" y1="25" x2="320" y2="215"/>
+        </g>
+        <!-- osy -->
+        <line class="ax" x1="45" y1="120" x2="390" y2="120"/>
+        <line class="ax" x1="190" y1="20" x2="190" y2="220"/>
+        <!-- primka y = -3x + 5  (klesa) -->
+        <line class="curve" x1="150" y1="25" x2="300" y2="200"/>
+        <!-- prusecik s osou y -->
+        <circle class="dot" cx="190" cy="72" r="4"/>
+        <text class="lbl" x="196" y="66">b = 5</text>
+        <!-- prusecik s osou x -->
+        <circle class="dot" cx="231" cy="120" r="4"/>
+        <text class="lbl" x="228" y="138">5/3</text>
+        <text class="lbl" x="378" y="136">x</text>
+        <text class="lbl" x="198" y="32">y</text>
+      </svg>
+      <div class="gw-caption">Příklad \(f: y = -3x + 5\) — záporné \(a\) znamená klesající přímku, \(b=5\) je průsečík s osou y</div>
+    </div>
+
+    <!-- ================= PRUSECIKY ================= -->
+    <h2 class="blok" id="pruseciky">Průsečíky s osami</h2>
+
+    <div class="rule-box">
+      <div class="rb-label">Jak je najít</div>
+      <strong>Průsečík s osou y:</strong> dosadíme \(x = 0\) → vyjde bod \([0;\ b]\)<br>
+      <strong>Průsečík s osou x:</strong> dosadíme \(y = 0\) a dopočítáme \(x\)
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Řešený příklad</div>
+      <p class="txt" style="margin-bottom:12px;">Najdi průsečíky funkce \(f: y = -3x+5\) s osami.</p>
+      <div class="step"><div class="snum">1</div><div>S osou \(y\): dosadíme \(x=0\) → \(y = -3\cdot 0 + 5 = 5\), tedy bod \([0;\ 5]\)</div></div>
+      <div class="step"><div class="snum">2</div><div>S osou \(x\): dosadíme \(y=0\) → \(0 = -3x+5\)</div></div>
+      <div class="step"><div class="snum">3</div><div>Vyjádříme \(x\): \(3x = 5 \Rightarrow x = \frac{5}{3}\)</div></div>
+      <div class="step vysl">Průsečíky: \(\left[0;\ 5\right]\) a \(\left[\frac{5}{3};\ 0\right]\)</div>
+    </div>
+
+    <!-- ================= Z BODU ================= -->
+    <h2 class="blok" id="z-bodu">Předpis funkce ze dvou bodů</h2>
+    <p class="txt">Když známe dva body, kterými přímka prochází, dokážeme dopočítat celý předpis \(y = ax+b\).</p>
+
+    <div class="priklad">
+      <div class="p-label">Řešený příklad</div>
+      <p class="txt" style="margin-bottom:12px;">Najdi předpis lineární funkce, jejíž graf prochází body \(A[0;\ 3]\) a \(B[3;\ -2]\).</p>
+      <div class="step"><div class="snum">1</div><div>Bod \(A\) má \(x=0\), takže rovnou dává \(b\): \(b = 3\)</div></div>
+      <div class="step"><div class="snum">2</div><div>Směrnici spočítáme z obou bodů: \(a = \dfrac{y_2-y_1}{x_2-x_1} = \dfrac{-2-3}{3-0} = -\dfrac{5}{3}\)</div></div>
+      <div class="step"><div class="snum">3</div><div>Dosadíme do \(y = ax+b\)</div></div>
+      <div class="step vysl">$$y = -\frac{5}{3}x + 3$$</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Zkouška</div>
+      Dosaď oba body zpátky do předpisu. Pro \(B[3;-2]\): \(-\frac{5}{3}\cdot 3 + 3 = -5+3 = -2\) ✓
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Nejčastější chyba</div>
+      Prohození pořadí bodů v zlomku pro směrnici — v čitateli i jmenovateli musí být <strong>stejné pořadí</strong> (oba „druhý mínus první"). Když se pořadí prohodí jen v jednom, vyjde opačné znaménko.
+    </div>
+
+
+    <!-- ================= INVERZNI ================= -->
+    <h2 class="blok" id="inverzni">Funkce inverzní</h2>
+    <p class="txt">K prosté funkci \(f\) existuje <strong>inverzní funkce</strong> \(f^{-1}\), která dělá přesně opak: kde \(f\) pošle \(x\) na \(y\), tam \(f^{-1}\) pošle \(y\) zpět na \(x\).</p>
+    <div class="rule-box">
+      <div class="rb-label">Podmínka existence</div>
+      Inverzní funkce existuje <strong>pouze k prosté funkci</strong>. Když prostá není, musíme ji nejdřív omezit na část defininího oboru, kde prostá je.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Vlastnosti</div>
+      $$D(f^{-1}) = H(f) \qquad H(f^{-1}) = D(f)$$
+      Ke každému \(y\) z \(D(f^{-1})\) je přiřazeno \(x\) z \(D(f)\) tak, že \(f(x)=y\).<br>
+      Graf \(f^{-1}\) je <strong>osově souměrný</strong> s grafem \(f\) podle přímky \(y=x\).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Postup hledání předpisu</div>
+      <strong>1.</strong> V předpisu \(y=f(x)\) prohodíme \(x\) a \(y\).<br>
+      <strong>2.</strong> Nový vztah upravíme (vyjádříme) zpět na tvar \(y=\ldots\)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Najdi inverzní funkci k \(f: y = \dfrac{x-1}{x+2}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y = \dfrac{x-1}{x+2} = \dfrac{-3}{x+2}+1\)</div><div class="vp">/ vytčnout celá část</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \dfrac{-3}{y+2}+1\)</div><div class="vp">/ prohodit x a y</div></div>
+        <div class="vr odsad"><div class="vl">\(x-1 = \dfrac{-3}{y+2}\)</div><div class="vp">/ vyjádřit y</div></div>
+        <div class="vr odsad"><div class="vl">\(y+2 = \dfrac{-3}{x-1}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(f^{-1}: y = \dfrac{-3}{x-1}-2\)</div>
+    </div>
+
+    <!-- ================= ZAKLADNI SLOZENE ================= -->
+    <h2 class="blok" id="zakladni-slozene">Základní a složené funkce</h2>
+    <p class="txt">Některé funkce jsou „cihly“, ze kterých se staví složitější předpisy.</p>
+    <div class="rule-box">
+      <div class="rb-label">Jednoduché, základní funkce</div>
+      Například \(y=x^2\), \(y=3x+2\), \(y=\sqrt{x}\) — mají jeden jasný předpis, který není složený z jiných funkcí.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Složená funkce</div>
+      $$f(g(x))$$
+      \(g\) je <strong>vnitřní</strong> složka (počítá se jako první), \(f\) je <strong>vnější</strong> složka. Například \(\sqrt{x^3+x^2}\) je složená z vnitřní \(x^3+x^2\) a vnější odmocniny; \(\ln^2 x\) je složená z vnitřní \(\ln x\) a vnější druhé mocniny.
+    </div>
+
+    <!-- ================= NEPRIMA UMERNOST ================= -->
+    <h2 class="blok" id="neprima-umernost">Nepřímá úměrnost</h2>
+    <div class="rule-box">
+      <div class="rb-label">Předpis</div>
+      $$y = \frac{k}{x}, \qquad k\in\mathbb{R}\setminus\{0\}, \quad x\in\mathbb{R}\setminus\{0\}$$
+      Čím víc se \(x\) zvětšuje, tím víc se \(y\) zmenšuje (a naopak) — proto „nepřímá“ úměrnost. Grafem je <strong>hyperbola</strong>.
+    </div>
+    <div class="graf-wide">
+      <svg viewBox="0 0 300 160" width="300" height="160">
+        <line class="ax" x1="20" y1="80" x2="280" y2="80"/>
+        <line class="ax" x1="150" y1="10" x2="150" y2="150"/>
+        <path class="curve" d="M 158 20 C 168 55, 190 72, 270 78"/>
+        <path class="curve" d="M 142 140 C 132 105, 110 88, 30 82"/>
+      </svg>
+      <div class="gw-caption">Graf \(y=\frac{k}{x}\) pro \(k>0\) — větve v 1. a 3. kvadrantu</div>
+    </div>
+
+    <!-- ================= LINEARNI LOMENA ================= -->
+    <h2 class="blok" id="linearni-lomena">Lineární lomená funkce</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dva tvary předpisu</div>
+      $$f: y = \frac{k}{x+l}+m \qquad \text{nebo} \qquad y = \frac{ax+b}{cx+d}$$
+      Oba tvary jdou na sebe navzájem převeden (vytčením celé části u zlomku, stejně jako u příkladu s inverzní funkcí výše). Grafem je vzdy <strong>rovnoosá hyperbola</strong> — posunutá nepřímá úměrnost.
+    </div>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 160 130" width="160" height="130">
+          <line class="ax" x1="14" y1="70" x2="150" y2="70"/>
+          <line class="ax" x1="70" y1="10" x2="70" y2="120"/>
+          <path class="curve" d="M 78 15 C 88 45, 105 60, 145 65"/>
+          <path class="curve" d="M 62 125 C 52 95, 35 80, 15 75"/>
+        </svg>
+        <div class="gc-title">Rovnoosá hyperbola</div>
+        <div class="gc-note">střed posunutý do bodu \([-l,\,m]\)</div>
+      </div>
+    </div>
+    <div class="pozn" style="padding-left:0;">Postup převodu z tvaru \(y=\frac{ax+b}{cx+d}\) na \(y=\frac{k}{x+l}+m\) je stejný jako při hledání inverzní funkce výše — vytěne se celá část zlomku.</div>
+
+    <!-- ================= OBORY U ROVNIC ================= -->
+    <h2 class="blok" id="obory-rce">Rovnice a nerovnice: obory O, D, P</h2>
+    <p class="txt">U rovnic a nerovnic se pracuje se třemi různými množinami. Pletou se snadno, ale každá odpovídá na jinou otázku:</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Tři obory, tři otázky</div>
+      <strong>\(O\) — obor řešitelnosti:</strong> množina, ve které vůbec počítáme. Zadání řekne, jestli hledáme řešení v \(\mathbb{R}\), \(\mathbb{N}\), \(\mathbb{Q}\)…<br><br>
+      <strong>\(D\) — definiční obor:</strong> co je dovoleno dosadit. Tady se vylučují hodnoty, které by rozbily výraz (nula ve jmenovateli, záporné číslo pod odmocninou).<br><br>
+      <strong>\(P\) — obor pravdivosti:</strong> samotný výsledek. Ty hodnoty z \(D\), pro které rovnice nebo nerovnice skutečně platí.
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Nejčastější chyba</div>
+      Zapomenout na \(D\) a nezkontrolovat výsledek. Když vyjde číslo, které bylo z \(D\) vyloučené, <strong>není řešením</strong> — a rovnice pak často nemá řešení vůbec. Viz hned první příklad níže.
+    </div>
+
+    <!-- ================= PRIKLADY ================= -->
+    <h2 class="blok" id="priklady">Řešené příklady</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · rovnice s neznámou ve jmenovateli</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): &nbsp; podmínka \(x \neq 3\), tedy \(D = \mathbb{R}\setminus\{3\}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{3x^2-2x-21}{x-3} = 3x+1\)</div><div class="vp">/ \(\cdot\,(x-3)\)</div></div>
+        <div class="vr"><div class="vl">\(3x^2-2x-21 = (3x+1)(x-3)\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr"><div class="vl">\(3x^2-2x-21 = 3x^2-8x-3\)</div><div class="vp">/ \(-3x^2+8x+21\)</div></div>
+        <div class="vr"><div class="vl">\(6x = 18\)</div><div class="vp">/ \(:6\)</div></div>
+        <div class="vr"><div class="vl">\(x = 3\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Vyšlo \(x = 3\), jenže tuhle hodnotu jsme na začátku vyloučili z \(D\) — nemůže tedy být řešením.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\{3\}\), \(P = \emptyset\) — rovnice nemá řešení</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · nerovnice se zlomkem</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): &nbsp; jmenovatel nemůže být nula, tedy \(D = \mathbb{R}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{-6x^2-x+4}{-3x^2-2} < 2\)</div><div class="vp">/ \(\cdot\,(-1)\) nahoře i dole</div></div>
+        <div class="vr"><div class="vl">\(\displaystyle \frac{6x^2+x-4}{3x^2+2} < 2\)</div><div class="vp">/ \(\cdot\,(3x^2+2)\)</div></div>
+        <div class="vr"><div class="vl">\(6x^2+x-4 < 6x^2+4\)</div><div class="vp">/ \(-6x^2+4\)</div></div>
+        <div class="vr"><div class="vl">\(x < 8\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Jmenovatel \(3x^2+2\) je vždy kladný, proto se při násobení <strong>neotáčí</strong> znaménko nerovnosti.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = (-\infty;\ 8)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · nerovnice se zlomkem</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): &nbsp; \(D = \mathbb{R}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{5x^2+4x}{x^2+1} \geq 5\)</div><div class="vp">/ \(\cdot\,(x^2+1)\)</div></div>
+        <div class="vr"><div class="vl">\(5x^2+4x \geq 5x^2+5\)</div><div class="vp">/ \(-5x^2\)</div></div>
+        <div class="vr"><div class="vl">\(4x \geq 5\)</div><div class="vp">/ \(:4\)</div></div>
+        <div class="vr"><div class="vl">\(x \geq \dfrac{5}{4}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Jmenovatel \(x^2+1\) je vždy kladný — znaménko nerovnosti se nemění.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = \left\langle \frac{5}{4};\ +\infty \right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · nerovnice s odmocninami, řešení v \(\mathbb{N}\)</div>
+      <div class="zadani">Řeš v \(\mathbb{N}\): &nbsp; \(D = \mathbb{N}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x\sqrt{2} + 8 \geq 3x - \sqrt{8}\)</div><div class="vp">/ \(-3x-8\)</div></div>
+        <div class="vr"><div class="vl">\(x\sqrt{2} - 3x \geq -\sqrt{8} - 8\)</div><div class="vp">/ vytknout \(x\)</div></div>
+        <div class="vr"><div class="vl">\(x(\sqrt{2}-3) \geq -\sqrt{8}-8\)</div><div class="vp">/ \(:(\sqrt{2}-3)\) — <strong>otáčí!</strong></div></div>
+        <div class="vr"><div class="vl">\(x \leq \dfrac{-\sqrt{8}-8}{\sqrt{2}-3}\)</div><div class="vp">/ \(\cdot\,(\sqrt{2}+3)\) usměrnit</div></div>
+        <div class="vr"><div class="vl">\(x \leq \dfrac{-28-14\sqrt{2}}{-7}\)</div><div class="vp">/ \(:(-7)\)</div></div>
+        <div class="vr"><div class="vl">\(x \leq 4+2\sqrt{2} \approx 6{,}83\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">\(\sqrt{2}-3 \approx -1{,}59\) je záporné číslo — proto se ve 3. kroku otočilo znaménko nerovnosti. Nakonec bereme jen přirozená čísla menší než 6,83.</div>
+      <div class="vysl">\(O = \mathbb{N}\), \(D = \mathbb{N}\), \(P = \{1;2;3;4;5;6\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · soustava dvou nerovnic</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\) soustavu \(2x-4 > 3(x-4)\) a zároveň \(5x+1 > 2x-3\): &nbsp; \(D = \mathbb{R}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2x-4 > 3(x-4)\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(2x-4 > 3x-12\)</div><div class="vp">/ \(-3x+4\)</div></div>
+        <div class="vr odsad"><div class="vl">\(-x > -8\)</div><div class="vp">/ \(:(-1)\) — <strong>otáčí!</strong></div></div>
+        <div class="vr odsad"><div class="vl">\(x < 8\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:16px;"><div class="vl">\(5x+1 > 2x-3\)</div><div class="vp">/ \(-2x-1\)</div></div>
+        <div class="vr odsad"><div class="vl">\(3x > -4\)</div><div class="vp">/ \(:3\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x > -\dfrac{4}{3}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Obě podmínky musí platit současně — hledáme tedy <strong>průnik</strong>:</div>
+      <svg viewBox="0 0 400 74" width="100%" height="74" style="max-width:420px; margin: 4px 0 8px 26px;">
+        <line class="ax" x1="20" y1="56" x2="380" y2="56"/>
+        <line class="curve" x1="120" y1="26" x2="380" y2="26"/>
+        <circle cx="120" cy="26" r="4.5" fill="var(--paper)" stroke="var(--brick)" stroke-width="2"/>
+        <line class="curve2" x1="20" y1="40" x2="290" y2="40"/>
+        <circle cx="290" cy="40" r="4.5" fill="var(--paper)" stroke="var(--gold)" stroke-width="2"/>
+        <line x1="120" y1="56" x2="120" y2="62" class="ax"/>
+        <line x1="290" y1="56" x2="290" y2="62" class="ax"/>
+        <text class="lbl" x="108" y="72">-4/3</text>
+        <text class="lbl" x="286" y="72">8</text>
+        <text class="lbl" x="330" y="22" fill="var(--brick)">x > -4/3</text>
+        <text class="lbl" x="40" y="36" fill="var(--gold)">x &lt; 8</text>
+      </svg>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = \left(-\frac{4}{3};\ 8\right)\)</div>
+    </div>
+
+    <h3 class="pod" id="tabulka">Součinový a podílový tvar — tabulková metoda</h3>
+    <p class="txt">Když je nerovnice ve tvaru součinu nebo podílu, nedá se prostě „vynásobit" — neznáme totiž znaménko výrazu, kterým bychom násobili. Místo toho zjistíme, kde je každý činitel kladný a kde záporný, a <strong>znaménka mezi sebou vynásobíme</strong>.</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      <strong>1.</strong> Rozložíme na součin (nebo podíl) jednoduchých závorek.<br>
+      <strong>2.</strong> Najdeme <strong>nulové body</strong> každé závorky — ty rozdělí číselnou osu na intervaly.<br>
+      <strong>3.</strong> Do tabulky zapíšeme znaménko každé závorky v každém intervalu.<br>
+      <strong>4.</strong> Znaménka ve sloupci vynásobíme → dostaneme znaménko celého výrazu.<br>
+      <strong>5.</strong> Vybereme intervaly podle zadání (\(<0\) = záporné, \(>0\) = kladné).
+    </div>
+
+    <div class="warn-box">
+      <div class="wb-label">Pozor u podílu</div>
+      Nulový bod ve <strong>jmenovateli</strong> se do výsledku nikdy nezahrnuje (dělení nulou), i když je nerovnost neostrá (\(\leq\), \(\geq\)). U čitatele se naopak při neostré nerovnosti zahrnuje.
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · dvojitá nerovnice</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2x-5 \leq 3x+1 < 5-5x\) &nbsp; \(D = \mathbb{R}\)</div>
+      <div class="pozn" style="padding-left:0;">Rozdělíme na dvě samostatné nerovnice, které musí platit současně:</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(2x-5 \leq 3x+1\)</div><div class="vp">/ \(-3x+5\)</div></div>
+        <div class="vr odsad"><div class="vl">\(-x \leq 6\)</div><div class="vp">/ \(:(-1)\) — <strong>otáčí!</strong></div></div>
+        <div class="vr odsad"><div class="vl">\(x \geq -6\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:16px;"><div class="vl">\(3x+1 < 5-5x\)</div><div class="vp">/ \(+5x-1\)</div></div>
+        <div class="vr odsad"><div class="vl">\(8x < 4\)</div><div class="vp">/ \(:8\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x < \dfrac{1}{2}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Výsledkem je <strong>průnik</strong> obou podmínek.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = \left\langle -6;\ \frac{1}{2} \right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 7 · součinový tvar</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \((5-x)(1-3x) < 0\) &nbsp; \(D = \mathbb{R}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((5-x)(1-3x) < 0\)</div><div class="vp">/ nulové body závorek</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = 5\), \(x_2 = \dfrac{1}{3}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\(\left(-\infty;\frac{1}{3}\right)\)</th><th>\(\frac{1}{3}\)</th><th>\(\left(\frac{1}{3};5\right)\)</th><th>\(5\)</th><th>\((5;\infty)\)</th></tr>
+        <tr><td class="rowlbl">\(5-x\)</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td><td class="nula">0</td><td class="minus">−</td></tr>
+        <tr><td class="rowlbl">\(1-3x\)</td><td class="plus">+</td><td class="nula">0</td><td class="minus">−</td><td class="minus">−</td><td class="minus">−</td></tr>
+        <tr class="vysledek"><td class="rowlbl">součin</td><td class="plus">+</td><td class="nula">0</td><td class="minus">−</td><td class="nula">0</td><td class="plus">+</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Hledáme, kde je součin <strong>záporný</strong> — to je prostřední interval. Krajní body nezahrnujeme, nerovnost je ostrá.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = \left(\frac{1}{3};\ 5\right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 8 · definiční obor funkce s odmocninou</div>
+      <div class="zadani">Urči definiční obor funkce \(f: y = \dfrac{\sqrt{9x-4x^2}}{1-x}\)</div>
+      <div class="pozn" style="padding-left:0;">Dvě podmínky zároveň: pod odmocninou nesmí být záporné číslo a jmenovatel nesmí být nula.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(1-x \neq 0\)</div><div class="vp">/ jmenovatel</div></div>
+        <div class="vr odsad"><div class="vl">\(x \neq 1\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl">\(9x-4x^2 \geq 0\)</div><div class="vp">/ pod odmocninou</div></div>
+        <div class="vr odsad"><div class="vl">\(x(9-4x) \geq 0\)</div><div class="vp">/ vytknout \(x\)</div></div>
+        <div class="vr odsad"><div class="vl">\(x_1 = 0\), \(x_2 = \dfrac{9}{4}\)</div><div class="vp">/ nulové body</div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\((-\infty;0)\)</th><th>\(0\)</th><th>\(\left(0;\frac{9}{4}\right)\)</th><th>\(\frac{9}{4}\)</th><th>\(\left(\frac{9}{4};\infty\right)\)</th></tr>
+        <tr><td class="rowlbl">\(x\)</td><td class="minus">−</td><td class="nula">0</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(9-4x\)</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td><td class="nula">0</td><td class="minus">−</td></tr>
+        <tr class="vysledek"><td class="rowlbl">součin</td><td class="minus">−</td><td class="nula">0</td><td class="plus">+</td><td class="nula">0</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Výraz pod odmocninou je nezáporný na \(\left\langle 0;\frac{9}{4} \right\rangle\). Z toho ještě vyloučíme \(x=1\).</div>
+      <div class="vysl">\(D(f) = \left\langle 0;\ \frac{9}{4} \right\rangle \setminus \{1\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 9 · podílový tvar</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(\dfrac{x^2-1}{3-x} \leq 0\) &nbsp; podmínka \(x \neq 3\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\displaystyle \frac{x^2-1}{3-x} \leq 0\)</div><div class="vp">/ rozložit čitatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\displaystyle \frac{(x-1)(x+1)}{3-x} \leq 0\)</div><div class="vp">/ nulové body \(-1, 1, 3\)</div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\((-\infty;-1)\)</th><th>\((-1;1)\)</th><th>\((1;3)\)</th><th>\((3;\infty)\)</th></tr>
+        <tr><td class="rowlbl">\(x^2-1\)</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(3-x\)</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td><td class="minus">−</td></tr>
+        <tr class="vysledek"><td class="rowlbl">podíl</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Hledáme, kde je podíl záporný nebo nulový. Body \(-1\) a \(1\) <strong>zahrnujeme</strong> (nulují čitatel), bod \(3\) <strong>ne</strong> (nuluje jmenovatel).</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\{3\}\), \(P = \left\langle -1;\ 1 \right\rangle \cup (3;\ +\infty)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 10 · podílový tvar se čtyřmi závorkami</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(\dfrac{3(2x-1)(x+4)}{-x^2+2x+3} \geq 0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(-x^2+2x+3 = -(x-3)(x+1)\)</div><div class="vp">/ rozložit jmenovatel</div></div>
+        <div class="vr odsad"><div class="vl">\(x \neq 3\), \(x \neq -1\)</div><div class="vp">/ podmínky</div></div>
+        <div class="vr odsad"><div class="vl">nulové body: \(-4,\ -1,\ \dfrac{1}{2},\ 3\)</div><div class="vp"></div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\((-\infty;-4)\)</th><th>\((-4;-1)\)</th><th>\(\left(-1;\frac{1}{2}\right)\)</th><th>\(\left(\frac{1}{2};3\right)\)</th><th>\((3;\infty)\)</th></tr>
+        <tr><td class="rowlbl">\(2x-1\)</td><td class="minus">−</td><td class="minus">−</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(x+4\)</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(x-3\)</td><td class="minus">−</td><td class="minus">−</td><td class="minus">−</td><td class="minus">−</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(x+1\)</td><td class="minus">−</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr class="vysledek"><td class="rowlbl">celkem</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Pozor na <strong>mínus před jmenovatelem</strong> — celý zlomek proto mění znaménko oproti pouhému součinu závorek. Hledáme, kde je výsledek kladný nebo nulový; \(-4\) a \(\frac{1}{2}\) zahrnujeme (nulují čitatel), \(-1\) a \(3\) ne.</div>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\{3;-1\}\), \(P = \left\langle -4;\ -1 \right) \cup \left\langle \frac{1}{2};\ 3 \right)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 11 · dvojitá nerovnice se zlomkem</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(-1 < \dfrac{x+2}{3-2x} \leq 3\) &nbsp; podmínka \(x \neq \frac{3}{2}\)</div>
+      <div class="pozn" style="padding-left:0;">Zlomkem nesmíme násobit (neznáme jeho znaménko) — obě části proto převedeme na nulu a řešíme tabulkou.</div>
+
+      <div class="pozn" style="padding-left:0; color:var(--ink); font-weight:600; margin-top:10px;">Levá část</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(-1 < \dfrac{x+2}{3-2x}\)</div><div class="vp">/ \(+1\), převést na nulu</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{x+2}{3-2x} + 1 > 0\)</div><div class="vp">/ na společný jmenovatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{x+2+3-2x}{3-2x} > 0\)</div><div class="vp">/ sečíst čitatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{-x+5}{3-2x} > 0\)</div><div class="vp">/ nulové body \(\frac{3}{2},\ 5\)</div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\(\left(-\infty;\frac{3}{2}\right)\)</th><th>\(\left(\frac{3}{2};5\right)\)</th><th>\((5;\infty)\)</th></tr>
+        <tr><td class="rowlbl">\(-x+5\)</td><td class="plus">+</td><td class="plus">+</td><td class="minus">−</td></tr>
+        <tr><td class="rowlbl">\(3-2x\)</td><td class="plus">+</td><td class="minus">−</td><td class="minus">−</td></tr>
+        <tr class="vysledek"><td class="rowlbl">podíl</td><td class="plus">+</td><td class="minus">−</td><td class="plus">+</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Kladný podíl: \(\left(-\infty;\frac{3}{2}\right) \cup (5;+\infty)\)</div>
+
+      <div class="pozn" style="padding-left:0; color:var(--ink); font-weight:600; margin-top:16px;">Pravá část</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dfrac{x+2}{3-2x} \leq 3\)</div><div class="vp">/ \(-3\), převést na nulu</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{x+2-3(3-2x)}{3-2x} \leq 0\)</div><div class="vp">/ roznásobit čitatel</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{7x-7}{3-2x} \leq 0\)</div><div class="vp">/ vytknout \(7\), \(:7\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{x-1}{3-2x} \leq 0\)</div><div class="vp">/ nulové body \(1,\ \frac{3}{2}\)</div></div>
+      </div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th></th><th>\((-\infty;1)\)</th><th>\(\left(1;\frac{3}{2}\right)\)</th><th>\(\left(\frac{3}{2};\infty\right)\)</th></tr>
+        <tr><td class="rowlbl">\(x-1\)</td><td class="minus">−</td><td class="plus">+</td><td class="plus">+</td></tr>
+        <tr><td class="rowlbl">\(3-2x\)</td><td class="plus">+</td><td class="plus">+</td><td class="minus">−</td></tr>
+        <tr class="vysledek"><td class="rowlbl">podíl</td><td class="minus">−</td><td class="plus">+</td><td class="minus">−</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Záporný nebo nulový podíl: \(\left(-\infty;1\right\rangle \cup \left(\frac{3}{2};+\infty\right)\) — jednička patří dovnitř (nuluje čitatel), \(\frac{3}{2}\) ne.</div>
+
+      <div class="pozn" style="padding-left:0; color:var(--ink); font-weight:600; margin-top:16px;">Průnik obou částí</div>
+      <svg viewBox="0 0 440 108" width="100%" height="108" style="max-width:460px; margin: 6px 0 4px;">
+        <line class="ax" x1="20" y1="86" x2="420" y2="86"/>
+        <!-- leva cast: (-inf;3/2) u (5;inf) -->
+        <line class="curve" x1="20" y1="26" x2="180" y2="26"/>
+        <circle cx="180" cy="26" r="4" fill="var(--paper)" stroke="var(--brick)" stroke-width="2"/>
+        <line class="curve" x1="300" y1="26" x2="420" y2="26"/>
+        <circle cx="300" cy="26" r="4" fill="var(--paper)" stroke="var(--brick)" stroke-width="2"/>
+        <!-- prava cast: (-inf;1> u (3/2;inf) -->
+        <line class="curve2" x1="20" y1="48" x2="120" y2="48"/>
+        <circle cx="120" cy="48" r="4" fill="var(--gold)"/>
+        <line class="curve2" x1="180" y1="48" x2="420" y2="48"/>
+        <circle cx="180" cy="48" r="4" fill="var(--paper)" stroke="var(--gold)" stroke-width="2"/>
+        <!-- prunik -->
+        <line x1="20" y1="70" x2="120" y2="70" stroke="var(--ink)" stroke-width="3.5"/>
+        <circle cx="120" cy="70" r="4" fill="var(--ink)"/>
+        <line x1="300" y1="70" x2="420" y2="70" stroke="var(--ink)" stroke-width="3.5"/>
+        <circle cx="300" cy="70" r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <!-- popisky osy -->
+        <line x1="120" y1="86" x2="120" y2="92" class="ax"/>
+        <line x1="180" y1="86" x2="180" y2="92" class="ax"/>
+        <line x1="300" y1="86" x2="300" y2="92" class="ax"/>
+        <text class="lbl" x="116" y="104">1</text>
+        <text class="lbl" x="172" y="104">3/2</text>
+        <text class="lbl" x="296" y="104">5</text>
+        <text class="lbl" x="330" y="22" fill="var(--brick)">levá</text>
+        <text class="lbl" x="330" y="44" fill="var(--gold)">pravá</text>
+        <text class="lbl" x="200" y="74">průnik</text>
+      </svg>
+      <div class="vysl">\(O = \mathbb{R}\), \(D = \mathbb{R}\setminus\left\{\frac{3}{2}\right\}\), \(P = \left(-\infty;\ 1\right\rangle \cup (5;\ +\infty)\)</div>
+    </div>
+
+    <h3 class="pod" id="parametr">Rovnice s parametrem</h3>
+    <p class="txt">V rovnici vystupuje kromě neznámé \(x\) ještě další písmeno — <strong>parametr</strong> (často \(p\), \(a\), \(m\)). Řešení pak není jedno číslo, ale závisí na hodnotě parametru. Úkolem je <strong>probrat všechny možnosti</strong>.</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Na co si dát pozor</div>
+      Když dojdeme k tvaru \(A \cdot x = B\), musíme rozlišit dva případy:<br><br>
+      <strong>\(A \neq 0\)</strong> → dělíme a dostaneme \(x = \frac{B}{A}\), rovnice má jedno řešení<br>
+      <strong>\(A = 0\)</strong> → dělit nelze; podle \(B\) rovnice buď <strong>nemá řešení</strong> (\(B \neq 0\)), nebo má <strong>nekonečně mnoho řešení</strong> (\(B = 0\))
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 12 · rovnice s parametrem</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\) s parametrem \(p\): \(3px - 2p + 8 = 6\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(3px - 2p + 8 = 6\)</div><div class="vp">/ \(+2p-8\)</div></div>
+        <div class="vr odsad"><div class="vl">\(3px = 2p - 2\)</div><div class="vp">/ \(:3p\) — jen když \(p \neq 0\)!</div></div>
+        <div class="vr odsad"><div class="vl">\(x = \dfrac{2p-2}{3p}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Teď musíme probrat i případ, kdy dělit nelze:</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>případ</th><th>rovnice přejde na</th><th>závěr</th></tr>
+        <tr><td class="rowlbl">\(p = 0\)</td><td>\(0 \cdot x = -2\)</td><td class="minus">nemá řešení, \(P = \emptyset\)</td></tr>
+        <tr><td class="rowlbl">\(p \neq 0\)</td><td>\(3px = 2p-2\)</td><td class="plus">\(P = \left\{\frac{2p-2}{3p}\right\}\)</td></tr>
+      </table>
+      </div>
+      <div class="vysl">Pro \(p = 0\): \(P = \emptyset\) &nbsp;·&nbsp; pro \(p \neq 0\): \(O = \mathbb{R}\), \(D = \mathbb{R}\), \(P = \left\{\dfrac{2p-2}{3p}\right\}\)</div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Shrnutí: kdy se otáčí znaménko nerovnosti</div>
+      Vždy, když nerovnici <strong>násobíme nebo dělíme záporným číslem</strong>. Pozor hlavně na výrazy jako \(\sqrt{2}-3\) — na první pohled to nemusí být vidět, ale je to záporné číslo.
+    </div>
+
+    <footer>matematika.jasně — maturitní okruh Funkce</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

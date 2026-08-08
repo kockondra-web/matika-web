@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vzájemná poloha přímky a kuželosečky | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; max-width: 500px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Poloha přímky a kuž.</div>
+    <ul>
+      <li><a href="#kruznice">Přímka a kružnice</a></li>
+      <li><a href="#tecna-kruznice">Tečna kružnice</a></li>
+      <li><a href="#vnejsi-bod">Tečny z vnějšího bodu</a></li>
+      <li><a href="#elipsa">Přímka a elipsa</a></li>
+      <li><a href="#hyperbola">Přímka a hyperbola</a></li>
+      <li><a href="#parabola">Přímka a parabola</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Vzájemná poloha přímky a kuželosečky</div>
+    <p class="section-lead">Klasifikace vzájemné polohy přímky a kuželosečky (sečna, tečna, vnější přímka), a jak najít tečnu kuželosečky v jejím bodě nebo z vnějšího bodu.</p>
+    <div class="source-note">maturitní téma 19 · vzájemná poloha přímky a kuželosečky</div>
+
+    <h2 class="blok" id="kruznice">Přímka a kružnice</h2>
+    <p class="txt">Polohu poznáš porovnáním vzdálenosti středu od přímky s poloměrem — anebo dosazením přímky do rovnice kružnice a pohledem na diskriminant.</p>
+    <div class="ztab-wrap">
+    <table class="ztab">
+      <tr><th></th><th>vzdálenost středu od přímky</th><th>počet průsečíků</th><th>diskriminant</th></tr>
+      <tr><td class="rowlbl">sečna</td><td>\(<r\)</td><td>2</td><td>\(D>0\)</td></tr>
+      <tr><td class="rowlbl">tečna</td><td>\(=r\)</td><td>1</td><td>\(D=0\)</td></tr>
+      <tr><td class="rowlbl">vnější přímka</td><td>\(>r\)</td><td>0</td><td>\(D<0\)</td></tr>
+    </table>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · určete polohu</div>
+      <div class="zadani">\(k: (x+1)^2+(y-4)^2=25\), \quad \(p: 4x-3y-4=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x=\dfrac34y+1\)</div><div class="vp">/ vyjádřit x z p</div></div>
+        <div class="vr odsad"><div class="vl">\(\left(\dfrac34y+2\right)^2+(y-4)^2=25\)</div><div class="vp">/ dosadit do k</div></div>
+        <div class="vr odsad"><div class="vl">\(5y^2-16y-16=0\)</div><div class="vp">/ upravit (\(D=576\))</div></div>
+      </div>
+      <div class="vysl">2 řešení, 2 společné body &rArr; <strong>sečna</strong></div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · určete polohu</div>
+      <div class="zadani">\(k: x^2+y^2-4x-6y+12=0\), \quad \(p: x=4+2t,\ y=1+t\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((4+2t)^2+(1+t)^2-4(4+2t)-6(1+t)+12=0\)</div><div class="vp">/ dosadit parametrické p do k</div></div>
+        <div class="vr odsad"><div class="vl">\(5t^2+4t+7=0\)</div><div class="vp">/ upravit (\(D=-124\))</div></div>
+      </div>
+      <div class="vysl">\(D<0\), nemá řešení &rArr; <strong>vnější přímka</strong></div>
+    </div>
+
+    <h2 class="blok" id="tecna-kruznice">Rovnice tečny kružnice</h2>
+    <div class="rule-box">
+      <div class="rb-label">Tečna v bodě T na kružnici</div>
+      Pro \(k:(x-m)^2+(y-n)^2=r^2\) a bod \(T[x_T;y_T]\in k\):
+      $$t: (x-m)(x_T-m)+(y-n)(y_T-n)-r^2=0$$
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(k: (x-2)^2+(y+1)^2=25\), bod \(T[6;y_T]\) na kružnici, \(y_T>0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(T\in k: (6-2)^2+(y_T+1)^2=25 \Rightarrow (y_T+1)^2=9\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(y_T=2\) nebo \(y_T=-4\), vybíráme \(y_T=2\)</div><div class="vp">/ podmínka \(y_T>0\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\overrightarrow{ST}=\vec n_t=(4;3)\)</div><div class="vp">/ \(S=[2;-1]\)</div></div>
+      </div>
+      <div class="vysl">\(T[6;2], \qquad t: 4x+3y-30=0\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(k: (x-2)^2+(y-3)^2=25\), bod \(T\) na kružnici</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(t: (x-2)(x_T-2)+(y-3)(y_T-3)=25\)</div><div class="vp">/ dosadit T</div></div>
+      </div>
+      <div class="pozn">Z výpočtu vychází \(T[-1;-1]\) — ověření: \((-1-2)^2+(-1-3)^2=9+16=25\) ✓, přesně na kružnici.</div>
+      <div class="vysl">\(t: 3x+4y+7=0\)</div>
+    </div>
+
+    <h2 class="blok" id="vnejsi-bod">Tečny z vnějšího bodu</h2>
+    <p class="txt">Když bod M leží mimo kružnici, vedou z něj <strong>dvě</strong> tečny. Klasický postup: sestroj kružnici s průměrem \(SM\) (tzv. <strong>Thaletovu kružnici</strong>) — její průsečíky s \(k\) jsou hledané body dotyku \(T_1,T_2\).</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(M[0;-1]\), \(k: (x-2)^2+y^2=1\), \(S=[2;0]\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S_{SM}=\left[1;-\dfrac12\right], \qquad r_{tal}^2=\dfrac{|SM|^2}{4}=\dfrac54\)</div><div class="vp">/ střed a poloměr Thaletovy kružnice</div></div>
+        <div class="vr odsad"><div class="vl">\(k_{tal}: (x-1)^2+\left(y+\dfrac12\right)^2=\dfrac54\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Odečtením rovnic \(k\) a \(k_{tal}\) (obě v obecném tvaru): \(2x+y-3=0\)</div><div class="vp">/ tzv. chordála (přímka \(T_1T_2\))</div></div>
+        <div class="vr odsad"><div class="vl">Dosazením do \(k\): \(5x^2-16x+12=0 \Rightarrow x=2\) nebo \(x=\dfrac65\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(T_1=[2;-1], \qquad T_2=\left[\dfrac65;\dfrac35\right]\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(t_1: y+1=0, \qquad t_2: 4x-3y-3=0\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(M[-3;0]\), \(k: x^2+y^2-2y=0\) &nbsp;(tj. střed \([0;1]\), \(r=1\))</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(t: x\cdot x_T+(y-1)(y_T-1)=1\)</div><div class="vp">/ obecná tečna v neznámém bodě T</div></div>
+        <div class="vr odsad"><div class="vl">\(M\in t: -3x_T-(y_T-1)=1 \Rightarrow y_T=-3x_T\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(T\in k: x_T^2+y_T^2-2y_T=0\)</div><div class="vp">/ dosadit \(y_T=-3x_T\)</div></div>
+        <div class="vr odsad"><div class="vl">\(2x_T(5x_T+3)=0 \Rightarrow x_T=0\) nebo \(x_T=-\dfrac35\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(T_1=[0;0], \qquad T_2=\left[-\dfrac35;\dfrac95\right]\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(t_1: y=0, \qquad t_2: 3x-4y+9=0\)</div>
+    </div>
+
+    <h2 class="blok" id="elipsa">Přímka a elipsa</h2>
+    <p class="txt">Stejný princip jako u kružnice — dosadíš přímku do rovnice elipsy a podíváš se na diskriminant výsledné kvadratické rovnice: \(D>0\) sečna, \(D=0\) tečna, \(D<0\) vnější přímka.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad · určete polohu</div>
+      <div class="zadani">\(E: \dfrac{(x-1)^2}{4}+\dfrac{(y+5)^2}{9}=1\), \quad \(p: x=1-4t,\ y=6+3t\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(45t^2+66t+112=0\)</div><div class="vp">/ dosadit p do E, upravit (\(D=-15\,804\))</div></div>
+      </div>
+      <div class="vysl">\(D<0\) &rArr; <strong>vnější přímka</strong></div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Rovnice tečny elipsy</div>
+      Středový tvar (\(E:\frac{(x-m)^2}{a^2}+\frac{(y-n)^2}{b^2}=1\), bod \(T[x_T;y_T]\in E\)):
+      $$t: \frac{(x-m)(x_T-m)}{a^2}+\frac{(y-n)(y_T-n)}{b^2}=1$$
+      Obecný tvar (\(E: Ax^2+By^2+Cx+Dy+E=0\)):
+      $$t: Ax\,x_T+By\,y_T+\frac{C}{2}(x+x_T)+\frac{D}{2}(y+y_T)+E=0$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · najdi tečnu v bodě s danou souřadnicí x</div>
+      <div class="zadani">\(E: \dfrac{(x+2)^2}{12}+\dfrac{(y-4)^2}{16}=1\), bod \(T[1;y_T]\in E\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(T\in E: \dfrac{9}{12}+\dfrac{(y_T-4)^2}{16}=1 \Rightarrow (y_T-4)^2=4\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(y_T=6\) nebo \(y_T=2\)</div><div class="vp">/ dva možné body, dvě různé tečny</div></div>
+      </div>
+      <div class="pozn">Pro každou z hodnot \(y_T\) dosadíš do vzorce tečny výše a dostaneš jednu ze dvou tečen vedených bodem se souřadnicí \(x=1\) na elipse.</div>
+      <div class="vysl">\(T_1[1;6], \quad T_2[1;2]\)</div>
+    </div>
+
+    <h2 class="blok" id="hyperbola">Přímka a hyperbola</h2>
+    <p class="txt">Klasifikace funguje stejně (diskriminant), s jednou zvláštností: přímka <strong>rovnoběžná s asymptotou</strong> protne hyperbolu v přesně <strong>jednom</strong> bodě, i když není tečnou.</p>
+    <div class="rule-box">
+      <div class="rb-label">Rovnice tečny hyperboly</div>
+      Středový tvar: &nbsp; \(t: \dfrac{(x-m)(x_T-m)}{a^2}-\dfrac{(y-n)(y_T-n)}{b^2}=1\)<br>
+      Obecný tvar (\(h: Ax^2+By^2+Cx+Dy+E=0\)): &nbsp; \(t: Ax\,x_T+By\,y_T+\dfrac C2(x+x_T)+\dfrac D2(y+y_T)+E=0\)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(h: \dfrac{(x+1)^2}{25}-\dfrac{(y-2)^2}{16}=1\), \(T\left[\dfrac{21}{4};-1\right]\in h\)</div>
+      <div class="pozn">Ověření: \(\dfrac{(21/4+1)^2}{25}-\dfrac{(-1-2)^2}{16}=\dfrac{25/16\cdot25}{25}-\dfrac{9}{16}=\dfrac{25}{16}-\dfrac9{16}=1\) ✓</div>
+      <div class="vysl">\(t: 4x+3y-18=0\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · bod se zadanou souřadnicí x</div>
+      <div class="zadani">\(h: 4x^2-5y^2-24x-20y-4=0\), bod \(T[8;y_T]\in h\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(T\in h: 4(64)-5y_T^2-24(8)-20y_T-4=0\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\((y_T-2)(y_T+6)=0\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(y_T=2\) nebo \(y_T=-6\) — dva body, dvě různé tečny</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · tečna kolmá na danou přímku</div>
+      <div class="zadani">\(h: 4x^2-y^2-12=0\), tečna \(t\) kolmá na \(\rho: x-4y+12=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec s_\rho=(1;-4) \Rightarrow \vec n_t=(4;1)\)</div><div class="vp">/ kolmý vektor</div></div>
+        <div class="vr odsad"><div class="vl">\(t: 4x+y+d=0 \Rightarrow y=-4x-d\)</div><div class="vp">/ neznámá konstanta d</div></div>
+        <div class="vr odsad"><div class="vl">\(12x^2+8dx+d^2+12=0\)</div><div class="vp">/ dosadit do h</div></div>
+        <div class="vr odsad"><div class="vl">\(D=16d^2-576=0 \Rightarrow d=\pm6\)</div><div class="vp">/ tečna ⇒ D=0</div></div>
+      </div>
+      <div class="vysl">\(t_1: 4x+y+6=0, \qquad t_2: 4x+y-6=0\)</div>
+    </div>
+
+    <h2 class="blok" id="parabola">Přímka a parabola</h2>
+    <p class="txt">Stejná klasifikace přes diskriminant. Zvláštní případ: přímka <strong>rovnoběžná s osou</strong> paraboly ji protne v jediném bodě, i když není tečnou.</p>
+    <div class="rule-box">
+      <div class="rb-label">Rovnice tečny paraboly</div>
+      Pro \(\pi: (x-m)^2=2p(y-n)\), bod \(T[x_T;y_T]\in\pi\):
+      $$t: (x-m)(x_T-m)=p\big[(y-n)+(y_T-n)\big]$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · určete polohu</div>
+      <div class="zadani">\(\pi: (y-6)^2=-12(x+3)\), \quad \(\rho: 4x-3y+2=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x=\dfrac34y-\dfrac12\)</div><div class="vp">/ vyjádřit x z ρ</div></div>
+        <div class="vr odsad"><div class="vl">\(y^2-3y+66=0\)</div><div class="vp">/ dosadit do π (\(D=-255\))</div></div>
+      </div>
+      <div class="vysl">\(D<0\) &rArr; <strong>vnější přímka</strong></div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · tečna v bodě se zadanou souřadnicí x</div>
+      <div class="zadani">\(\pi: (x+4)^2=-8(y-3)\), bod \(T[4;y_T]\in\pi\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(T\in\pi: 64=-8y_T+24 \Rightarrow y_T=-5\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(t: (x+4)(4+4)=-4\big[(y-3)+(-5-3)\big]\)</div><div class="vp">/ dosadit do vzorce tečny</div></div>
+      </div>
+      <div class="vysl">\(t: 2x+y-3=0\)</div>
+    </div>
+
+    <footer>matematika.jasně — vzájemná poloha přímky a kuželosečky</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

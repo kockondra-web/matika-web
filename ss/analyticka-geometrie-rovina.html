@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytická geometrie lineárních útvarů v rovině | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Anal. geometrie v rovině</div>
+    <ul>
+      <li><a href="#zaklady">Vzdálenost bodů, střed úsečky</a></li>
+      <li><a href="#vektory">Vektory a jejich souřadnice</a></li>
+      <li><a href="#operace">Operace s vektory</a></li>
+      <li><a href="#lk">Lineární kombinace vektorů</a></li>
+      <li><a href="#lz">Lineární (ne)závislost vektorů</a></li>
+      <li><a href="#primka">Přímka v rovině</a></li>
+      <li><a href="#tvary">Tvary rovnice přímky</a></li>
+      <li><a href="#poloha">Poloha a odchylka přímek</a></li>
+      <li><a href="#vzdalenosti">Vzdálenosti v rovině</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Analytická geometrie lineárních útvarů v rovině</div>
+    <p class="section-lead">Vektory a operace s nimi, lineární (ne)závislost, přímka v rovině — parametrické, obecné, směrnicové a kanonické vyjádření, vzájemná poloha a odchylka přímek, vzdálenosti.</p>
+    <div class="source-note">maturitní téma 14 · analytická geometrie lineárních útvarů v rovině</div>
+
+    <h2 class="blok" id="zaklady">Vzdálenost bodů, střed úsečky</h2>
+    <div class="rule-box">
+      <div class="rb-label">Vzdálenost dvou bodů</div>
+      V rovině: &nbsp; \(|AB| = \sqrt{(x_B-x_A)^2+(y_B-y_A)^2}\)<br>
+      Obecně (i v prostoru): &nbsp; \(|AB| = \sqrt{(x_B-x_A)^2+(y_B-y_A)^2+(z_B-z_A)^2}\)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Střed úsečky</div>
+      $$S = \left[\frac{x_A+x_B}{2};\ \frac{y_A+y_B}{2}\right]$$
+    </div>
+
+    <h2 class="blok" id="vektory">Vektory a jejich souřadnice</h2>
+    <p class="txt">Na rozdíl od <strong>skaláru</strong> (má jen velikost) má <strong>vektor</strong> velikost, směr i orientaci. Definuje se jako množina všech stejně velkých, souhlasně orientovaných (rovnoběžných) orientovaných úseček — všechny takové úsečky představují <strong>tentýž</strong> vektor.</p>
+    <div class="graf-wide">
+      <svg viewBox="0 0 260 100" width="260" height="100">
+        <line x1="20" y1="80" x2="80" y2="30" stroke="var(--brick)" stroke-width="2.2"/>
+        <line x1="110" y1="80" x2="170" y2="30" stroke="var(--brick)" stroke-width="2.2"/>
+        <line x1="150" y1="90" x2="210" y2="40" stroke="var(--brick)" stroke-width="2.2"/>
+      </svg>
+      <div class="gw-caption">Tři různě umístěné, ale rovnoběžné a souhlasně orientované úsečky — je to jeden a týž vektor</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · vektor ze dvou bodů</div>
+      <div class="zadani">Urči souřadnice vektoru \(\vec a = \overrightarrow{KL}\), kde \(K[2;-1]\), \(L[-1;4]\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec a = \overrightarrow{KL} = (x_L-x_K;\ y_L-y_K)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(\vec a = (-3;\ 5)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · dopočítání bodu z vektoru</div>
+      <div class="zadani">\(\vec v = (-2;\ 7)\), \(A[-3;-4]\). Najdi bod \(B\), pro který platí \(\vec v = \overrightarrow{AB}\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec v = B - A \ \Rightarrow\ B = A+\vec v\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(B = [-3;-4]+(-2;7)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(B = [-5;\ 3]\)</div>
+    </div>
+
+    <h2 class="blok" id="operace">Operace s vektory</h2>
+    <div class="rule-box">
+      <div class="rb-label">Rovnost</div>
+      $$\vec u = \vec v \iff u_1=v_1 \land u_2=v_2$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Opačný vektor, součet a rozdíl</div>
+      $$-\vec u = (-u_1;-u_2) \qquad \vec u \pm \vec v = (u_1{\pm}v_1;\ u_2{\pm}v_2)$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Velikost vektoru</div>
+      $$|\vec u| = \sqrt{u_1^2+u_2^2}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Součin vektoru a čísla</div>
+      $$k\cdot\vec a = (k a_1;\ k a_2), \qquad k\in\mathbb{R}$$
+      Násobí se každá souřadnice zvlášť; ovlivňuje velikost vektoru (a při záporném \(k\) i orientaci — otočí se).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Skalární součin</div>
+      $$\vec u \cdot \vec v = u_1v_1+u_2v_2$$
+      Výsledkem je <strong>číslo</strong> (skalár), ne vektor. Geometrický význam souvisí s úhlem mezi vektory.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Kolmost</div>
+      $$\vec u \perp \vec v \iff \vec u \cdot \vec v = 0$$
+      Kolmý vektor k \(\vec u=(u_1;u_2)\) dostaneš <strong>prohozením souřadnic a změnou znaménka u jedné z nich</strong>: \(\vec v = (u_2;-u_1)\) (nebo \((-u_2;u_1)\)).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Odchylka vektorů</div>
+      $$\cos\varphi = \frac{\vec u\cdot\vec v}{|\vec u|\,|\vec v|}, \qquad \varphi\in\langle0°;180°\rangle$$
+    </div>
+
+    <h2 class="blok" id="lk">Lineární kombinace vektorů</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      Lineární kombinace (LK) vektorů \(\vec u,\vec v,\vec w\) je vektor
+      $$k\vec u+l\vec v+m\vec w, \qquad k,l,m\in\mathbb{R}$$
+      Je-li \(k=l=m=0\), jde o tzv. <strong>triviální</strong> lineární kombinaci (vždy dá nulový vektor).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(\vec a=(-3;5)\), \(\vec b=(2;1)\). Urči \(6\vec a-4\vec b\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(6\vec a-4\vec b = (-18;30)-(8;4)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\((-26;\ 26)\)</div>
+    </div>
+
+    <h2 class="blok" id="lz">Lineární (ne)závislost vektorů</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dva vektory</div>
+      Vektory \(\vec u,\vec v\) jsou <strong>lineárně závislé</strong> (LZ), právě když
+      $$\exists k\in\mathbb{R}: \vec u = k\vec v \qquad \iff \qquad \exists a,b\ (\text{ne oba nulové}): a\vec u+b\vec v=\vec o$$
+      Geometricky: LZ ⟺ vektory jsou <strong>rovnoběžné</strong>.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Tři vektory</div>
+      <strong>a)</strong> V rovině jsou libovolné 3 vektory <strong>vždy</strong> lineárně závislé.<br><br>
+      <strong>b)</strong> Vektory \(\vec u,\vec v,\vec w\) jsou LZ, právě když jeden z nich lze vyjádřit jako lineární kombinaci ostatních:
+      $$\exists k,l\in\mathbb{R}: \vec w = k\vec u+l\vec v \qquad \iff \qquad \exists k,l,m,\ \text{ne všechna nulová}: k\vec u+l\vec v+m\vec w=\vec o$$
+    </div>
+    <div class="pozn" style="padding-left:0;">V jednodušších příkladech (3 rovnice o 3 neznámých) stačí ověřit, jestli soustava \(k\vec u+l\vec v+m\vec w=\vec o\) má i netriviální řešení. U vektorů zadaných souřadnicemi lze využít i determinant.</div>
+
+    <h2 class="blok" id="primka">Přímka v rovině</h2>
+    <p class="txt">Přímku lze zadat dvěma způsoby: <strong>dvěma body</strong>, nebo <strong>jedním bodem a směrem</strong>.</p>
+    <div class="rule-box">
+      <div class="rb-label">Značení</div>
+      \(\vec s_p\) — <strong>směrový vektor</strong> přímky \(p\) (leží na přímce, resp. je s ní rovnoběžný)<br>
+      \(\vec n_p\) — <strong>normálový vektor</strong> přímky \(p\) (kolmý na přímku)
+    </div>
+
+    <h2 class="blok" id="tvary">Tvary rovnice přímky</h2>
+    <h3 class="pod">Parametrické vyjádření</h3>
+    <div class="rule-box">
+      Bod \(A[x_A;y_A]\), směrový vektor \(\vec s_p=(s_1;s_2)\): &nbsp; \(X = A+t\cdot\vec s_p\) (bodově)
+      $$p: x=x_A+t\,s_1, \qquad y=y_A+t\,s_2, \qquad t\in\mathbb{R}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Bod \(A[-6;4]\), směrový vektor \((3;2)\)</div>
+      <div class="vysl">\(p: x=-6+3t,\quad y=4+2t,\quad t\in\mathbb{R}\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · přímka kolmá na daný vektor</div>
+      <div class="zadani">Bod \(M[1;5]\), přímka kolmá na \(\vec v=(3;2)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec v\) je kolmá k přímce \(\Rightarrow \vec n_p=(3;2) \Rightarrow \vec s_p=(-2;3)\)</div><div class="vp">/ prohodit, změnit znaménko</div></div>
+      </div>
+      <div class="vysl">\(p: x=1-2t,\quad y=5+3t\)</div>
+    </div>
+
+    <h3 class="pod">Obecná rovnice</h3>
+    <div class="rule-box">
+      $$p: ax+by+c=0, \qquad (a;b) = \vec n_p$$
+      Ze 2 parametrického vyjádření: buď určíme normálový vektor a dopočítáme \(c\) dosazením bodu, nebo ze dvou parametrických rovnic vyloučíme parametr \(t\).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(M[-3;5]\), přímka kolmá k \(\vec v=(3;-1)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\vec n_p=(3;-1)\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3(x+3)-1(y-5)=0\)</div><div class="vp">/ dosadit bod M</div></div>
+      </div>
+      <div class="vysl">\(p: 3x-y+14=0\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · ze dvou bodů</div>
+      <div class="zadani">\(M[4;-3]\), \(N[-2;6]\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\overrightarrow{MN}=\vec s_p=(-6;9) \Rightarrow \vec n_p=(9;6)=(3;2)\)</div><div class="vp">/ zjednodušit</div></div>
+        <div class="vr odsad"><div class="vl">\(3(x-4)+2(y+3)=0\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(p: 3x+2y-6=0\)</div>
+    </div>
+
+    <h3 class="pod">Směrnicový tvar</h3>
+    <div class="rule-box">
+      $$p: y=kx+q, \qquad k=\text{tg}\,\varphi\ \text{(směrnice)}, \qquad q = \text{průsečík s osou }y$$
+      Vždy ze 2 obecného zadání \(p\) plyne
+      $$k = \frac{\Delta y}{\Delta x}$$
+      Platí: \(p\perp q \iff k_p\cdot k_q=-1\).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · převod z obecného tvaru</div>
+      <div class="zadani">\(p: 2x+3y-4=0\)</div>
+      <div class="vysl">\(y = -\dfrac23 x+\dfrac43\)</div>
+    </div>
+
+    <h3 class="pod">Kanonický tvar</h3>
+    <p class="txt">Ze dvou parametrických rovnic vyloučíme parametr \(t\) a dáme obě vyjádření do rovnosti.</p>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(p: x=1-4t, \quad y=2+5t\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(t = \dfrac{1-x}{4}, \qquad t=\dfrac{y-2}{5}\)</div><div class="vp">/ vyjádřit t z obou rovnic</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{1-x}{4} = \dfrac{y-2}{5}\)</div><div class="vp">/ dát do rovnosti — kanonický tvar</div></div>
+        <div class="vr odsad"><div class="vl">\(5(1-x) = 4(y-2)\)</div><div class="vp">/ vynásobit křížem, upravit na obecný tvar</div></div>
+      </div>
+      <div class="vysl">\(5x+4y-13=0\)</div>
+    </div>
+
+    <h2 class="blok" id="poloha">Poloha a odchylka přímek</h2>
+    <div class="rule-box">
+      <div class="rb-label">Rovnoběžnost a kolmost</div>
+      <strong>Rovnoběžné</strong> (\(p\parallel q\)): směrové vektory jsou LZ (\(\vec s_p = k\vec s_q\)), stejně tak normálové.<br>
+      <strong>Kolmé</strong> (\(p\perp q\)): \(\vec s_p = \vec n_q\) (nebo rovnou \(\vec s_p\cdot\vec s_q=0\)).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Odchylka dvou přímek</div>
+      $$\cos\varphi = \frac{|\vec s_p\cdot\vec s_q|}{|\vec s_p|\,|\vec s_q|}, \qquad \varphi\in\langle0°;90°\rangle$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · průsečík dvou přímek</div>
+      <div class="zadani">\(p: 2x-y+6=0\), \quad \(q: 3x+4y-7=0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(y=2x+6\)</div><div class="vp">/ z p vyjádřit y</div></div>
+        <div class="vr odsad"><div class="vl">\(3x+4(2x+6)-7=0\)</div><div class="vp">/ dosadit do q</div></div>
+        <div class="vr odsad"><div class="vl">\(11x+17=0 \Rightarrow x=-\dfrac{17}{11}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(y = \dfrac{32}{11}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(P\left[-\dfrac{17}{11};\ \dfrac{32}{11}\right]\)</div>
+    </div>
+
+    <h2 class="blok" id="vzdalenosti">Vzdálenosti v rovině</h2>
+    <div class="rule-box">
+      <div class="rb-label">Vzdálenost bodu od přímky</div>
+      $$|Ap| = \frac{|a\,x_A+b\,y_A+c|}{\sqrt{a^2+b^2}}$$
+    </div>
+    <div class="pozn" style="padding-left:0;">Vzdálenost dvou rovnoběžek se řeší stejným vzorcem — stačí zvolit libovolný bod na jedné z nich a spočítat jeho vzdálenost od druhé přímky.</div>
+
+    <footer>matematika.jasně — analytická geometrie lineárních útvarů v rovině</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

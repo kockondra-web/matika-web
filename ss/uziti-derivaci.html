@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Užití derivací | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Užití derivací</div>
+    <ul>
+      <li><a href="#lhospital">L'Hospitalovo pravidlo</a></li>
+      <li><a href="#tecna">Tečna a normála grafu</a></li>
+      <li><a href="#prubeh">Průběh funkce — monotónnost</a></li>
+      <li><a href="#extremy">Extrémy, konvexnost, inflexe</a></li>
+      <li><a href="#asymptoty">Asymptoty grafu funkce</a></li>
+      <li><a href="#slovni">Slovní úlohy — optimalizace</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Užití derivací</div>
+    <p class="section-lead">L'Hospitalovo pravidlo pro počítání limit, tečna a normála grafu funkce, vyšetřování průběhu funkce (monotónnost, extrémy, konvexnost, inflexní body), asymptoty a slovní úlohy na maximalizaci a minimalizaci.</p>
+    <div class="source-note">maturitní téma 21 · užití derivací</div>
+
+    <h2 class="blok" id="lhospital">L'Hospitalovo pravidlo</h2>
+    <div class="rule-box">
+      <div class="rb-label">Kdy použít</div>
+      Když limita podílu vyjde neurčitý výraz \(\left[\dfrac00\right]\) nebo \(\left[\dfrac{\pm\infty}{\pm\infty}\right]\), limita se rovná <strong>podílu derivací</strong> čitatele a jmenovatele:
+      $$\lim \frac{F_1}{F_2} = \lim\frac{F_1'}{F_2'}$$
+    </div>
+
+    <h2 class="blok" id="tecna">Tečna a normála grafu funkce</h2>
+    <div class="rule-box">
+      Směrnice tečny v bodě \(T=[x_T; f(x_T)]\):
+      $$k_t = f'(x_T) = y'(x_T)$$
+      Normála je kolmá k tečně, takže \(k_n=-\dfrac{1}{k_t}\). Rovnice obou přímek se pak píšou stejně jako u lineární funkce ze směrnice a bodu.
+    </div>
+
+    <h2 class="blok" id="prubeh">Průběh funkce — monotónnost</h2>
+    <div class="rule-box">
+      Když je derivace na intervalu:<br>
+      \(f'(x)>0\) &rArr; funkce je na intervalu <strong>rostoucí</strong><br>
+      \(f'(x)<0\) &rArr; funkce je na intervalu <strong>klesající</strong>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor na definiční obor</div>
+      Znaménkovou tabulku dělej vždy nad <strong>celým definičním oborem</strong> funkce, ne jen nad výrazem derivace — body, kde funkce (nebo derivace) není definovaná, dělí obor na intervaly stejně jako nulové body derivace. Kontrolu proveď v tabulce.
+    </div>
+
+    <h2 class="blok" id="extremy">Extrémy, konvexnost, inflexní body</h2>
+    <p class="txt">Extrémy dělíme na <strong>lokální</strong> (v okolí bodu) a <strong>globální</strong> (na celém definičním oboru).</p>
+    <div class="rule-box">
+      <div class="rb-label">Postup přes druhou derivaci</div>
+      $$f'(x_0)=0 \;\Rightarrow\; x_0 \text{ je podezřelý z extrému (stacionární bod)}$$
+      $$f''(x_0)<0 \;\Rightarrow\; \text{lokální maximum (funkce je tam konkávní)}$$
+      $$f''(x_0)>0 \;\Rightarrow\; \text{lokální minimum (funkce je tam konvexní)}$$
+      $$f''(x_0)=0 \;\Rightarrow\; \text{inflexní bod — mění se konkávnost na konvexnost (nebo naopak)}$$
+    </div>
+
+    <h2 class="blok" id="asymptoty">Asymptoty grafu funkce</h2>
+    <p class="txt">Asymptoty <strong>bez směrnice</strong> (svislé) hledáme jako body, kde funkce míří k \(\pm\infty\). Asymptoty <strong>se směrnicí</strong> (šikmé/vodorovné) hledáme v \(\pm\infty\) pomocí limit.</p>
+    <div class="rule-box">
+      <div class="rb-label">Asymptota se směrnicí</div>
+      $$k = \lim_{x\to\infty}\frac{f(x)}{x} \qquad q = \lim_{x\to\infty}\big[f(x)-kx\big]$$
+      $$a: y = kx+q$$
+    </div>
+
+    <h2 class="blok" id="slovni">Slovní úlohy na maximalizaci a minimalizaci</h2>
+    <p class="txt">Postup: <strong>vytvoř funkci</strong> popisující veličinu, kterou chceš maximalizovat/minimalizovat (často v závislosti na jedné proměnné), pak <strong>najdi její derivaci a extrém</strong>.</p>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · maximální objem krabičky</div>
+      <div class="zadani">Z kartonu 60×28 cm chceme odříznutím čtverců o straně \(a\) z rohů a přehnutím vyrobit krabičku bez víka s co největším objemem. Jak velké čtverce odříznout?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(V(a) = a\cdot(60-2a)(28-2a)\)</div><div class="vp">/ délka × šířka × výška</div></div>
+        <div class="vr odsad"><div class="vl">\(V(a) = 4a^3-176a^2+1680a\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(V'(a) = 12a^2-352a+1680\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(V''(a) = 24a-352\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(V'(a)=0 \Rightarrow a_{1,2}=6\ \text{nebo}\ \dfrac{70}{3}\)</div><div class="vp">/ podezřelé (stacionární) body</div></div>
+        <div class="vr odsad"><div class="vl">\(V''(6)=-208<0 \Rightarrow\) maximum</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(V''\left(\dfrac{70}{3}\right)=208>0 \Rightarrow\) minimum</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Řešení \(a=\frac{70}{3}\approx23{,}3\) navíc ani nedává smysl fyzikálně — šířka kartonu je 28 cm, takže \(a\) musí být menší než 14. Zbývá tedy \(a=6\).</div>
+      <div class="vysl">Odříznout čtverce o straně \(a=6\) cm — krabička bude mít rozměry \(48\times16\times6\) cm.</div>
+    </div>
+
+    <footer>matematika.jasně — užití derivací</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

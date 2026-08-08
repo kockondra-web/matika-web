@@ -6,9 +6,6 @@
 <title>Maturita | matematika.jasně</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
   :root {
     --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
@@ -154,33 +151,49 @@
   footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
 
   .wrap-page { max-width: 900px; margin: 0 auto; padding: 40px 32px 100px; }
-  .prehled { display: flex; gap: 0; background: white; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 44px; overflow: hidden; }
+  .prehled { display: flex; background: white; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 40px; overflow: hidden; }
   .prehled .pi { flex: 1; padding: 18px 20px; border-right: 1px solid var(--line); }
   .prehled .pi:last-child { border-right: none; }
   .prehled .pn { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; }
   .prehled .pl { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px; }
   @media (max-width:600px){ .prehled { flex-wrap: wrap; } .prehled .pi { flex: 1 1 50%; border-bottom: 1px solid var(--line);} }
 
-  .temata { display: flex; flex-direction: column; gap: 7px; margin: 18px 0 10px; }
-  .tema {
-    display: flex; align-items: center; gap: 16px;
-    background: white; border: 1px solid var(--line); border-radius: 5px;
-    padding: 13px 18px; text-decoration: none; color: var(--ink);
+  .okruhy { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 10px; }
+  .okruh { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; }
+  .okruh.hotovy { border-color: rgba(107,155,122,0.55); }
+  .ok-head { display: flex; align-items: baseline; gap: 12px; }
+  .ok-num {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px; color: var(--gold);
+    flex-shrink: 0; width: 20px;
   }
-  .tema.hotovo { border-color: rgba(107,155,122,0.5); }
-  .tema.hotovo:hover { border-color: var(--green); transform: translateX(3px); }
-  .tema { transition: all 0.15s ease; }
-  .t-num {
-    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 700;
-    color: var(--gold); flex-shrink: 0; width: 26px; text-align: right;
+  .ok-nazev { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; flex: 1; }
+  .ok-pct {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); padding: 3px 9px; border-radius: 3px; white-space: nowrap;
   }
-  .t-nazev { flex: 1; font-size: 14.5px; line-height: 1.45; }
-  .t-stav {
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-    color: var(--green); font-weight: 700; flex-shrink: 0; white-space: nowrap;
+  .ok-popis { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 8px 0 0 32px; }
+  .ok-links { margin: 12px 0 0 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .ok-link {
+    font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink);
+    background: #EAF2EC; border: 1px solid #C9DED0; padding: 6px 12px; border-radius: 4px;
   }
-  .t-stav.pripravuje { color: var(--ink-soft); opacity: 0.5; font-weight: 400; }
-  .tema:not(.hotovo) .t-nazev { opacity: 0.55; }
+  .ok-link:hover { background: var(--green); color: white; border-color: var(--green); }
+  .ok-chybi { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); opacity: 0.55; }
+  @media (max-width:560px){ .ok-popis, .ok-links { margin-left: 0; } }
+
+  .t25-list { display: flex; flex-direction: column; gap: 4px; margin: 16px 0; }
+  .t25 {
+    display: flex; align-items: center; gap: 12px; padding: 8px 12px;
+    border-radius: 4px; text-decoration: none; color: var(--ink); font-size: 13.5px;
+  }
+  .t25.hot { background: #EAF2EC; }
+  .t25.hot:hover { background: var(--green); color: white; }
+  .t25:not(.hot) { opacity: 0.5; }
+  .t25 .t-num { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--gold); width: 20px; text-align: right; flex-shrink: 0; }
+  .t25.hot:hover .t-num { color: white; }
+  .t25 .t-nazev { flex: 1; line-height: 1.4; }
+  .t25 .t-ok { font-weight: 700; color: var(--green); flex-shrink: 0; }
+  .t25.hot:hover .t-ok { color: white; }
 </style>
 </head>
 <body>
@@ -194,179 +207,156 @@
 
 <div class="wrap-page">
   <div class="section-title">Maturita</div>
-  <p class="section-lead">Maturita z matematiky má dvě části a každá se učí jinak. <strong>Společná část</strong> je didaktický test od Cermatu — stejný pro všechny školy. <strong>Profilová část</strong> je ústní zkouška, kde si každá škola určuje vlastní seznam témat.</p>
+  <p class="section-lead">Devět tematických okruhů didaktického testu podle Katalogu požadavků Cermat. Procenta ukazují, jakou část testu okruh přibližně zabírá — podle toho se vyplatí rozvrhnout přípravu.</p>
 
   <div class="prehled">
-    <div class="pi"><div class="pn">6/25</div><div class="pl">témat hotovo</div></div>
-    <div class="pi"><div class="pn">5</div><div class="pl">stránek s teorií</div></div>
-    <div class="pi"><div class="pn">50+</div><div class="pl">řešených příkladů</div></div>
+    <div class="pi"><div class="pn">9/9</div><div class="pl">okruhů rozjeto</div></div>
+    <div class="pi"><div class="pn">26</div><div class="pl">stránek s teorií</div></div>
+    <div class="pi"><div class="pn">200+</div><div class="pl">řešených příkladů</div></div>
   </div>
 
-  <h2 class="blok" id="profilova" style="margin-top:10px;">Profilová část — 25 maturitních témat</h2>
-  <p class="txt">Tenhle seznam odpovídá maturitním tématům technického lycea. Na jiné škole se může trochu lišit — <strong>vždy si ověř seznam od své školy</strong>. Struktura je ale u gymnázií a lyceí dost podobná.</p>
-
-  <div class="temata">
-      <a class="tema hotovo" href="logika-mnoziny.html">
-        <div class="t-num">1</div>
-        <div class="t-nazev">Základní poznatky z matematické logiky a teorie množin</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <a class="tema hotovo" href="mocniny.html">
-        <div class="t-num">2</div>
-        <div class="t-nazev">Mocniny a odmocniny, mocninné funkce</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <a class="tema hotovo" href="funkce.html">
-        <div class="t-num">3</div>
-        <div class="t-nazev">Lineární funkce, rovnice a nerovnice</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <a class="tema hotovo" href="kvadraticke.html">
-        <div class="t-num">4</div>
-        <div class="t-nazev">Kvadratické funkce, rovnice a nerovnice</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <div class="tema">
-        <div class="t-num">5</div>
-        <div class="t-nazev">Lineární a kvadratické funkce, rovnice a nerovnice s absolutními hodnotami</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+  <div class="okruhy">
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">1</div>
+          <div class="ok-nazev">Číselné obory</div>
+          <div class="ok-pct">4–12 %</div>
+        </div>
+        <div class="ok-popis">Množiny a logika, číselné obory N/Z/Q/R, mocniny a odmocniny, absolutní hodnota</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/logika-mnoziny.html">Logika a množiny →</a>
+          <a class="ok-link" href="ss/mocniny.html">Mocniny a odmocniny →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">6</div>
-        <div class="t-nazev">Soustavy lineárních rovnic, soustava lineární a kvadratické rovnice, soustava dvou kvadratických rovnic</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">2</div>
+          <div class="ok-nazev">Algebraické výrazy</div>
+          <div class="ok-pct">8–18 %</div>
+        </div>
+        <div class="ok-popis">Úpravy výrazů, mnohočleny, vzorce, rozklad na součin, lomené výrazy</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/mocniny.html">Mocniny a odmocniny →</a>
+          <a class="ok-link" href="ss/kvadraticke.html">Kvadratické výrazy →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">7</div>
-        <div class="t-nazev">Goniometrické funkce, grafy, vlastnosti, trigonometrie</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">3</div>
+          <div class="ok-nazev">Rovnice a nerovnice</div>
+          <div class="ok-pct">12–20 %</div>
+        </div>
+        <div class="ok-popis">Lineární i kvadratické, soustavy, s neznámou ve jmenovateli, s parametrem</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/funkce.html#obory-rce">Lineární rovnice a nerovnice →</a>
+          <a class="ok-link" href="ss/kvadraticke.html#rovnice">Kvadratické →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">8</div>
-        <div class="t-nazev">Goniometrické vzorce, rovnice a nerovnice</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">4</div>
+          <div class="ok-nazev">Funkce</div>
+          <div class="ok-pct">10–20 %</div>
+        </div>
+        <div class="ok-popis">Vlastnosti funkcí, lineární, kvadratická, mocninná, exponenciální, logaritmická, goniometrická</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/funkce.html">Vlastnosti funkcí + lineární →</a>
+          <a class="ok-link" href="ss/kvadraticke.html">Kvadratická →</a>
+          <a class="ok-link" href="ss/mocniny.html#funkce-graf">Mocninné funkce →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">9</div>
-        <div class="t-nazev">Komplexní čísla, operace s komplexními čísly</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">5</div>
+          <div class="ok-nazev">Posloupnosti a finanční matematika</div>
+          <div class="ok-pct">4–14 %</div>
+        </div>
+        <div class="ok-popis">Aritmetická a geometrická posloupnost, finanční matematika, nekonečná geometrická řada</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/posloupnosti.html">Posloupnosti a řady →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">10</div>
-        <div class="t-nazev">Řešení rovnic v oboru komplexních čísel</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">6</div>
+          <div class="ok-nazev">Planimetrie</div>
+          <div class="ok-pct">8–18 %</div>
+        </div>
+        <div class="ok-popis">Trojúhelníky, čtyřúhelníky, kružnice, obsahy a obvody, shodnost a podobnost</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/planimetrie.html">Planimetrie →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">11</div>
-        <div class="t-nazev">Exponenciální a logaritmické funkce</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">7</div>
+          <div class="ok-nazev">Stereometrie</div>
+          <div class="ok-pct">4–12 %</div>
+        </div>
+        <div class="ok-popis">Tělesa, objemy a povrchy, polohové a metrické vztahy v prostoru</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/stereometrie.html">Stereometrie →</a>
+        </div>
       </div>
-      <div class="tema">
-        <div class="t-num">12</div>
-        <div class="t-nazev">Exponenciální a logaritmické rovnice a nerovnice</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">8</div>
+          <div class="ok-nazev">Analytická geometrie</div>
+          <div class="ok-pct">4–14 %</div>
+        </div>
+        <div class="ok-popis">Vektory, přímka v rovině i prostoru, vzdálenosti a úhly, kuželosečky</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/analyticka-geometrie-rovina.html">Přímka v rovině →</a>
+          <a class="ok-link" href="ss/analyticka-geometrie-prostor.html">V prostoru →</a>
+          <a class="ok-link" href="ss/kruznice.html">Kuželosečky →</a>
+        </div>
       </div>
-      <a class="tema hotovo" href="funkce.html">
-        <div class="t-num">13</div>
-        <div class="t-nazev">Funkce a jejich základní vlastnosti</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <div class="tema">
-        <div class="t-num">14</div>
-        <div class="t-nazev">Analytická geometrie lineárních útvarů v rovině</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">15</div>
-        <div class="t-nazev">Analytická geometrie lineárních útvarů v prostoru</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">16</div>
-        <div class="t-nazev">Analytická geometrie kružnice</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">17</div>
-        <div class="t-nazev">Analytická geometrie elipsy</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">18</div>
-        <div class="t-nazev">Analytická geometrie hyperboly a paraboly</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">19</div>
-        <div class="t-nazev">Vzájemná poloha přímky a kuželosečky</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <a class="tema hotovo" href="derivace.html">
-        <div class="t-num">20</div>
-        <div class="t-nazev">Limity a derivace funkce</div>
-        <div class="t-stav">hotovo →</div>
-      </a>
-      <div class="tema">
-        <div class="t-num">21</div>
-        <div class="t-nazev">Užití derivací</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">22</div>
-        <div class="t-nazev">Neurčitý integrál</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">23</div>
-        <div class="t-nazev">Určitý integrál, užití integrálů</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">24</div>
-        <div class="t-nazev">Posloupnosti a řady</div>
-        <div class="t-stav pripravuje">připravuje se</div>
-      </div>
-      <div class="tema">
-        <div class="t-num">25</div>
-        <div class="t-nazev">Kombinatorika a pravděpodobnost</div>
-        <div class="t-stav pripravuje">připravuje se</div>
+      <div class="okruh hotovy">
+        <div class="ok-head">
+          <div class="ok-num">9</div>
+          <div class="ok-nazev">Kombinatorika, pravděpodobnost a statistika</div>
+          <div class="ok-pct">4–14 %</div>
+        </div>
+        <div class="ok-popis">Variace, kombinace, permutace, náhodné jevy, průměr, medián, modus</div>
+        <div class="ok-links">
+          <a class="ok-link" href="ss/kombinatorika-pravdepodobnost.html">Kombinatorika a pravděpodobnost →</a>
+        </div>
       </div>
   </div>
 
-  <h2 class="blok" id="spolecna">Společná část — didaktický test (Cermat)</h2>
-  <p class="txt">Písemný test má devět tematických okruhů. Procenta ukazují, jakou část testu okruh přibližně zabírá — podle toho se vyplatí rozvrhnout přípravu.</p>
+  <h2 class="blok" id="profilova">Profilová část — ústní zkouška</h2>
+  <p class="txt">Kromě didaktického testu má maturita ještě ústní část, kde si <strong>každá škola určuje vlastní seznam témat</strong>. Níže je ukázka takového seznamu (technické lyceum) — na tvé škole se může lišit, vždy si ověř ten svůj. Obsah je ale stejný, jen jinak rozdělený: když se učíš podle okruhů výše, připravuješ se zároveň i na ústní.</p>
 
-  <div class="ztab-wrap">
-    <table class="ztab">
-      <tr><th style="text-align:left;">okruh</th><th>podíl v testu</th><th style="text-align:left;">kde to najdeš</th></tr>
-        <tr><td class="rowlbl">1. Číselné obory</td><td>4–12 %</td><td style="text-align:left;"><a href="logika-mnoziny.html">logika-mnoziny</a> · <a href="mocniny.html">mocniny</a></td></tr>
-        <tr><td class="rowlbl">2. Algebraické výrazy</td><td>8–18 %</td><td style="text-align:left;"><a href="mocniny.html">mocniny</a></td></tr>
-        <tr><td class="rowlbl">3. Rovnice a nerovnice</td><td>12–20 %</td><td style="text-align:left;"><a href="funkce.html">funkce</a> · <a href="kvadraticke.html">kvadraticke</a></td></tr>
-        <tr><td class="rowlbl">4. Funkce</td><td>10–20 %</td><td style="text-align:left;"><a href="funkce.html">funkce</a> · <a href="kvadraticke.html">kvadraticke</a></td></tr>
-        <tr><td class="rowlbl">5. Posloupnosti a finanční matematika</td><td>4–14 %</td><td style="text-align:left;"><span style="color:var(--ink-soft); opacity:0.6;">—</span></td></tr>
-        <tr><td class="rowlbl">6. Planimetrie</td><td>8–18 %</td><td style="text-align:left;"><span style="color:var(--ink-soft); opacity:0.6;">—</span></td></tr>
-        <tr><td class="rowlbl">7. Stereometrie</td><td>4–12 %</td><td style="text-align:left;"><span style="color:var(--ink-soft); opacity:0.6;">—</span></td></tr>
-        <tr><td class="rowlbl">8. Analytická geometrie</td><td>4–14 %</td><td style="text-align:left;"><span style="color:var(--ink-soft); opacity:0.6;">—</span></td></tr>
-        <tr><td class="rowlbl">9. Kombinatorika, pravděpodobnost, statistika</td><td>4–14 %</td><td style="text-align:left;"><span style="color:var(--ink-soft); opacity:0.6;">—</span></td></tr>
-    </table>
-  </div>
-
-  <div class="rule-box" style="max-width:100%;">
-    <div class="rb-label">Jak to spolu souvisí</div>
-    Obě části pokrývají stejnou látku, jen jinak rozdělenou. Když se učíš podle 25 témat na ústní zkoušku, připravuješ se tím zároveň i na didaktický test — jen v jiném pořadí.
+  <div class="t25-list">
+      <a class="t25 hot" href="ss/logika-mnoziny.html"><span class="t-num">1</span><span class="t-nazev">Základní poznatky z matematické logiky a teorie množin</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/mocniny.html"><span class="t-num">2</span><span class="t-nazev">Mocniny a odmocniny, mocninné funkce</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/funkce.html"><span class="t-num">3</span><span class="t-nazev">Lineární funkce, rovnice a nerovnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/kvadraticke.html"><span class="t-num">4</span><span class="t-nazev">Kvadratické funkce, rovnice a nerovnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/absolutni-hodnoty.html"><span class="t-num">5</span><span class="t-nazev">Lineární a kvadratické funkce, rovnice a nerovnice s absolutními hodnotami</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/soustavy.html"><span class="t-num">6</span><span class="t-nazev">Soustavy lineárních rovnic, soustava lineární a kvadratické rovnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/goniometrie.html"><span class="t-num">7</span><span class="t-nazev">Goniometrické funkce, grafy, vlastnosti, trigonometrie</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/gon-vzorce.html"><span class="t-num">8</span><span class="t-nazev">Goniometrické vzorce, rovnice a nerovnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/komplexni-cisla.html"><span class="t-num">9</span><span class="t-nazev">Komplexní čísla, operace s komplexními čísly</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/komplexni-rovnice.html"><span class="t-num">10</span><span class="t-nazev">Řešení rovnic v oboru komplexních čísel</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/exp-log-funkce.html"><span class="t-num">11</span><span class="t-nazev">Exponenciální a logaritmické funkce</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/exp-log-rovnice.html"><span class="t-num">12</span><span class="t-nazev">Exponenciální a logaritmické rovnice a nerovnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/funkce.html"><span class="t-num">13</span><span class="t-nazev">Funkce a jejich základní vlastnosti</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/analyticka-geometrie-rovina.html"><span class="t-num">14</span><span class="t-nazev">Analytická geometrie lineárních útvarů v rovině</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/analyticka-geometrie-prostor.html"><span class="t-num">15</span><span class="t-nazev">Analytická geometrie lineárních útvarů v prostoru</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/kruznice.html"><span class="t-num">16</span><span class="t-nazev">Analytická geometrie kružnice</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/elipsa.html"><span class="t-num">17</span><span class="t-nazev">Analytická geometrie elipsy</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/hyperbola-parabola.html"><span class="t-num">18</span><span class="t-nazev">Analytická geometrie hyperboly a paraboly</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/vzajemna-poloha-kuzelosecky.html"><span class="t-num">19</span><span class="t-nazev">Vzájemná poloha přímky a kuželosečky</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/derivace.html"><span class="t-num">20</span><span class="t-nazev">Limity a derivace funkce</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/uziti-derivaci.html"><span class="t-num">21</span><span class="t-nazev">Užití derivací</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/neurcity-integral.html"><span class="t-num">22</span><span class="t-nazev">Neurčitý integrál</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/urcity-integral.html"><span class="t-num">23</span><span class="t-nazev">Určitý integrál, užití integrálů</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/posloupnosti.html"><span class="t-num">24</span><span class="t-nazev">Posloupnosti a řady</span><span class="t-ok">✓</span></a>
+      <a class="t25 hot" href="ss/kombinatorika-pravdepodobnost.html"><span class="t-num">25</span><span class="t-nazev">Kombinatorika a pravděpodobnost</span><span class="t-ok">✓</span></a>
   </div>
 
   <footer>matematika.jasně — přehled maturitní matematiky</footer>
 </div>
-
-<script>
-  if (window.renderMathInElement) {
-    renderMathInElement(document.body, {
-      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "\\(", right: "\\)", display: false }],
-      throwOnError: false
-    });
-  }
-</script>
 
 </body>
 </html>

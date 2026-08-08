@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planimetrie | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 20px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .graf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 22px 0 26px; max-width: 700px; }
+  .graf-card { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; text-align: center; }
+  .graf-card .gc-title { font-size: 13px; font-weight: 600; margin-top: 6px; }
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .shape { stroke: var(--ink); stroke-width: 1.8; fill: none; }
+  .fillp { fill: var(--gold); opacity: 0.15; }
+  .dot { fill: var(--brick); }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--ink-soft); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Planimetrie</div>
+    <ul>
+      <li><a href="#uhly">Základní pojmy — úhly</a></li>
+      <li><a href="#trojuhelniky">Trojúhelníky — prvky</a></li>
+      <li><a href="#shodnost">Shodnost a podobnost</a></li>
+      <li><a href="#pythagoras">Pythagorova a Eukleidovy věty</a></li>
+      <li><a href="#trigonometrie">Trigonometrie trojúhelníku</a></li>
+      <li><a href="#mnohouhelniky">Čtyřúhelníky a mnohoúhelníky</a></li>
+      <li><a href="#kruznice">Kružnice a kruh</a></li>
+      <li><a href="#zobrazeni">Geometrická zobrazení</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Planimetrie</div>
+    <p class="section-lead">Rovinná geometrie — úhly, trojúhelníky a jejich vlastnosti, shodnost a podobnost, Pythagorova věta, čtyřúhelníky a mnohoúhelníky, kružnice a kruh, geometrická zobrazení.</p>
+    <div class="source-note">okruh 6 didaktického testu · planimetrie</div>
+    <div class="warn-box">
+      <div class="wb-label">Odkud tahle stránka je</div>
+      Na rozdíl od ostatních témat na webu tahle stránka <strong>nevychází z konkrétních poznámek</strong> — je to standardní základ podle Cermat katalogu požadavků, který jsem sestavil a příklady na něm ověřil sám. Klidně to over-write vlastním materiálem, až ho budeš mít.
+    </div>
+
+    <h2 class="blok" id="uhly">Základní pojmy — úhly</h2>
+    <div class="rule-box">
+      <div class="rb-label">Dvojice úhlů u dvou přímek</div>
+      <strong>Vedlejší úhly</strong> — mají společné rameno, dohromady dávají 180°<br>
+      <strong>Vrcholové úhly</strong> — vznikají průsečíkem dvou přímek naproti sobě, jsou <strong>shodné</strong><br>
+      <strong>Souhlasné úhly</strong> (na rovnoběžkách protnutých příčkou) — na stejné straně příčky i rovnoběžek, jsou <strong>shodné</strong><br>
+      <strong>Střídavé úhly</strong> — na opačných stranách příčky, mezi rovnoběžkami, jsou <strong>shodné</strong>
+    </div>
+
+    <h2 class="blok" id="trojuhelniky">Trojúhelníky — základní prvky</h2>
+    <div class="rule-box">
+      <strong>Výška</strong> — kolmice z vrcholu na protější stranu (nebo její prodloužení); tři výšky se protínají v <strong>ortocentru</strong><br>
+      <strong>Těžnice</strong> — spojnice vrcholu se středem protější strany; tři těžnice se protínají v <strong>těžišti</strong> (dělí těžnici v poměru 2:1 od vrcholu)<br>
+      <strong>Střední příčka</strong> — spojnice středů dvou stran; je rovnoběžná se třetí stranou a poloviční<br>
+      <strong>Kružnice opsaná</strong> — prochází všemi vrcholy, střed leží na průsečíku os stran<br>
+      <strong>Kružnice vepsaná</strong> — dotýká se všech stran, střed leží na průsečíku os úhlů
+    </div>
+
+    <h2 class="blok" id="shodnost">Shodnost a podobnost trojúhelníků</h2>
+    <div class="rule-box">
+      <div class="rb-label">Věty o shodnosti (sss, sus, usu)</div>
+      Trojúhelníky jsou shodné, shodují-li se ve <strong>všech třech stranách</strong> (sss), ve <strong>dvou stranách a úhlu mezi nimi</strong> (sus), nebo ve <strong>straně a dvou přilehlých úhlech</strong> (usu).
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Podobnost</div>
+      Trojúhelníky jsou podobné, shodují-li se ve všech úhlech (nebo v poměru stran) — jeden je zvětšenou/zmenšenou kopií druhého s koeficientem podobnosti \(k\). Odpovídající si strany jsou v poměru \(k\), obsahy v poměru \(k^2\).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Trojúhelník má strany 3 cm, 4 cm, 5 cm. Jak dlouhé jsou strany podobného trojúhelníku, jehož nejdelší strana měří 15 cm?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(k = \dfrac{15}{5}=3\)</div><div class="vp">/ koeficient podobnosti z nejdelší strany</div></div>
+      </div>
+      <div class="vysl">Strany: \(9\text{ cm},\ 12\text{ cm},\ 15\text{ cm}\)</div>
+    </div>
+
+    <h2 class="blok" id="pythagoras">Pythagorova věta a Eukleidovy věty</h2>
+    <div class="rule-box">
+      <div class="rb-label">Pythagorova věta</div>
+      V pravoúhlém trojúhelníku s odvěsnami \(a,b\) a přeponou \(c\):
+      $$a^2+b^2=c^2$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Eukleidovy věty</div>
+      Výška \(v\) z pravého úhlu rozdělí přeponu na úseky \(c_a,c_b\) (přilehlé k odvěsnám \(a,b\)):
+      $$v^2 = c_a\cdot c_b \quad\text{(o výšce)} \qquad a^2=c\cdot c_a,\quad b^2=c\cdot c_b \quad\text{(o odvěsně)}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">V pravoúhlém trojúhelníku dělí pata výšky přeponu na úseky \(c_a=9\), \(c_b=16\). Najdi výšku a obě odvěsny.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(v=\sqrt{c_a\cdot c_b}=\sqrt{9\cdot16}=12\)</div><div class="vp">/ Eukleidova věta o výšce</div></div>
+        <div class="vr odsad"><div class="vl">\(c=c_a+c_b=25\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(a=\sqrt{c\cdot c_a}=\sqrt{25\cdot9}=15, \qquad b=\sqrt{c\cdot c_b}=\sqrt{25\cdot16}=20\)</div><div class="vp">/ Eukleidova věta o odvěsně</div></div>
+      </div>
+      <div class="pozn">Kontrola Pythagorovou větou: \(15^2+20^2=225+400=625=25^2\) ✓</div>
+      <div class="vysl">\(v=12,\quad a=15,\quad b=20\)</div>
+    </div>
+
+    <h2 class="blok" id="trigonometrie">Trigonometrie trojúhelníku</h2>
+    <p class="txt">Definice \(\sin,\cos,\operatorname{tg}\) v pravoúhlém trojúhelníku a plné odvození sinové a kosinové věty jsou na stránce <a href="gon-vzorce.html">Goniometrické vzorce</a>. Tady jen rychlé připomenutí pro obecný (ne nutně pravoúhlý) trojúhelník:</p>
+    <div class="rule-box">
+      <div class="rb-label">Sinová věta</div>
+      $$\frac{a}{\sin\alpha}=\frac{b}{\sin\beta}=\frac{c}{\sin\gamma}=2R \quad (R \text{ — poloměr opsané kružnice})$$
+      <div class="rb-label" style="margin-top:14px;">Kosinová věta</div>
+      $$c^2=a^2+b^2-2ab\cos\gamma$$
+      <div class="rb-label" style="margin-top:14px;">Obsah ze dvou stran a úhlu (sus)</div>
+      $$S=\frac12 ab\sin\gamma$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Trojúhelník má strany \(a=7\), \(b=8\) a úhel mezi nimi \(\gamma=60°\). Najdi třetí stranu.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(c^2 = 7^2+8^2-2\cdot7\cdot8\cdot\cos60° = 49+64-56\)</div><div class="vp">/ kosinová věta</div></div>
+      </div>
+      <div class="vysl">\(c=\sqrt{57}\approx7{,}55\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · Heronův vzorec</div>
+      <div class="zadani">Najdi obsah trojúhelníku se stranami 13, 14, 15.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(s=\dfrac{13+14+15}{2}=21\)</div><div class="vp">/ poloviční obvod</div></div>
+        <div class="vr odsad"><div class="vl">\(S=\sqrt{s(s-a)(s-b)(s-c)}=\sqrt{21\cdot8\cdot7\cdot6}\)</div><div class="vp">/ Heronův vzorec</div></div>
+      </div>
+      <div class="vysl">\(S=84\)</div>
+    </div>
+
+    <h2 class="blok" id="mnohouhelniky">Čtyřúhelníky a mnohoúhelníky</h2>
+    <div class="rule-box">
+      <div class="rb-label">Obsahy čtyřúhelníků</div>
+      Obdélník/čtverec: \(S=ab\) &nbsp;·&nbsp; Rovnoběžník: \(S=a\cdot v_a\) &nbsp;·&nbsp; Kosočtverec: \(S=\dfrac{e\cdot f}{2}\) (z úhlopříček) &nbsp;·&nbsp; Lichoběžník: \(S=\dfrac{(a+c)v}{2}\) (\(a,c\) — základny)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Lichoběžník má základny 10 cm a 6 cm, výšku 4 cm. Jaký má obsah?</div>
+      <div class="vysl">\(S=\dfrac{(10+6)\cdot4}{2}=32\text{ cm}^2\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Pravidelný n-úhelník</div>
+      Velikost vnitřního úhlu: \(\alpha = \dfrac{(n-2)\cdot180°}{n}\)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Jakou velikost má vnitřní úhel pravidelného osmiúhelníku?</div>
+      <div class="vysl">\(\alpha=\dfrac{(8-2)\cdot180°}{8}=135°\)</div>
+    </div>
+
+    <h2 class="blok" id="kruznice">Kružnice a kruh</h2>
+    <div class="rule-box">
+      <div class="rb-label">Obvodový a středový úhel</div>
+      Středový úhel příslušný danému oblouku je <strong>dvakrát větší</strong> než obvodový úhel příslušný stejnému oblouku.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Thaletova věta</div>
+      Bod \(C\) leží na Thaletově kružnici nad průměrem \(AB\), právě když je úhel \(ACB\) pravý. (Speciální případ obvodového úhlu — pro průměr je středový úhel 180°, obvodový tedy vždy 90°.)
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Kruhová výseč a úseč</div>
+      $$S_{\text{kruh}}=\pi r^2 \qquad S_{\text{výseč}}=\frac{\varphi}{360°}\pi r^2 \qquad l_{\text{oblouk}} = r\varphi\ (\varphi\text{ v radiánech})$$
+      Kruhová <strong>úseč</strong> = výseč mínus rovnoramenný trojúhelník (dvě ramena \(r\), úhel mezi nimi \(\varphi\)).
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Kružnice má poloměr 6 cm. Najdi obsah kruhové výseče a úseče pro středový úhel 60°.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(S_{\text{výseč}}=\dfrac{60°}{360°}\cdot\pi\cdot6^2=6\pi\approx18{,}85\text{ cm}^2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(S_{\triangle}=\dfrac12\cdot6\cdot6\cdot\sin60°=9\sqrt3\approx15{,}59\text{ cm}^2\)</div><div class="vp">/ rovnoramenný trojúhelník r,r,60°</div></div>
+        <div class="vr odsad"><div class="vl">\(S_{\text{úseč}}=S_{\text{výseč}}-S_\triangle = 6\pi-9\sqrt3\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(S_{\text{úseč}}\approx3{,}26\text{ cm}^2\)</div>
+    </div>
+
+    <h2 class="blok" id="zobrazeni">Geometrická zobrazení</h2>
+    <div class="rule-box">
+      <div class="rb-label">Shodná zobrazení</div>
+      <strong>Osová souměrnost</strong> — překlopení podle přímky (osy)<br>
+      <strong>Středová souměrnost</strong> — otočení o 180° kolem bodu<br>
+      <strong>Posunutí</strong> (translace) — posun o vektor<br>
+      <strong>Otočení</strong> (rotace) — otočení kolem bodu o úhel
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Podobné zobrazení — stejnolehlost</div>
+      Zobrazení se středem \(S\) a koeficientem \(k\): bod \(X\) se zobrazí na \(X'\) tak, že \(\overrightarrow{SX'}=k\cdot\overrightarrow{SX}\). Pro \(|k|>1\) zvětšuje, pro \(|k|<1\) zmenšuje, záporné \(k\) navíc otočí o 180°.
+    </div>
+
+    <footer>matematika.jasně — planimetrie</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

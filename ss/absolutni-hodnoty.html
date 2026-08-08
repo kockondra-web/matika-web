@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absolutní hodnoty | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Absolutní hodnoty</div>
+    <ul>
+      <li><a href="#definice">Definice a význam</a></li>
+      <li><a href="#transformace">Transformace grafů</a></li>
+      <li><a href="#pr-grafy">Příklady — grafy</a></li>
+      <li><a href="#postup">Postup u rovnic</a></li>
+      <li><a href="#pr-lin">Lineární rovnice</a></li>
+      <li><a href="#pr-kvadr">Kvadratické rovnice</a></li>
+      <li><a href="#pr-nerovnice">Nerovnice</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Rovnice a nerovnice s absolutními hodnotami</div>
+    <p class="section-lead">Definice absolutní hodnoty a její geometrický význam, grafy funkcí \(|f(x)|\) a \(f(|x|)\), početní i grafické řešení lineárních a kvadratických rovnic a nerovnic s absolutními hodnotami.</p>
+    <div class="source-note">maturitní téma 5 · navazuje na lineární a kvadratické funkce</div>
+
+    <h2 class="blok" id="definice">Definice a geometrický význam</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$|x| = \begin{cases} x & \text{pro } x \geq 0 \\ -x & \text{pro } x < 0 \end{cases}$$
+      Geometricky: \(|x|\) je <strong>vzdálenost čísla \(x\) od nuly</strong> na číselné ose. Proto je vždy nezáporná.
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Nejčastější nedorozumění</div>
+      \(-x\) neznamená „záporné číslo". Když je \(x = -5\), pak \(-x = 5\). Absolutní hodnota tedy záporná čísla <strong>otočí na kladná</strong>, kladná nechá být.
+    </div>
+
+    <h2 class="blok" id="transformace">Transformace grafů</h2>
+    <p class="txt">Dva různé zápisy, dvě různá pravidla — nepleť si je:</p>
+
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 150 120" width="150" height="120">
+          <line class="ax" x1="14" y1="60" x2="138" y2="60"/>
+          <line class="ax" x1="76" y1="12" x2="76" y2="110"/>
+          <path class="dash" d="M24 20 L 76 96 L 128 20" fill="none" stroke-width="1.6"/>
+          <path class="curve" d="M24 20 L 50 60 L 76 24 L 102 60 L 128 20" fill="none"/>
+        </svg>
+        <div class="gc-title">\(f(x) \to |f(x)|\)</div>
+        <div class="gc-note">Vše <strong>pod osou x</strong> se zrcadlově překlopí nahoru</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 150 120" width="150" height="120">
+          <line class="ax" x1="14" y1="60" x2="138" y2="60"/>
+          <line class="ax" x1="76" y1="12" x2="76" y2="110"/>
+          <path class="dash" d="M20 96 L 50 30 L 76 70 L 100 25 L 130 55" fill="none" stroke-width="1.6"/>
+          <path class="curve" d="M76 70 L 100 25 L 130 55" fill="none"/>
+          <path class="curve" d="M76 70 L 52 25 L 22 55" fill="none"/>
+        </svg>
+        <div class="gc-title">\(f(x) \to f(|x|)\)</div>
+        <div class="gc-note"><strong>Pravá</strong> část se zrcadlově překlopí doleva</div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-label">Jak si to zapamatovat</div>
+      Absolutní hodnota <strong>kolem celé funkce</strong> \(|f(x)|\) → mění se <strong>výsledek</strong> (y-ové hodnoty) → překlápí se podle <strong>osy x</strong>.<br><br>
+      Absolutní hodnota <strong>jen u \(x\)</strong> \(f(|x|)\) → mění se <strong>vstup</strong> → překlápí se podle <strong>osy y</strong>, přičemž levá půlka se zahodí.
+    </div>
+
+    <h2 class="blok" id="pr-grafy">Příklady — grafy funkcí</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 1 · lineární funkce s více absolutními hodnotami</div>
+      <div class="zadani">Sestroj graf: \(f: y = 13 - 2|x-1| + |x| - 4|x+3| + x\)</div>
+      <div class="pozn" style="padding-left:0;">Nulové body jednotlivých absolutních hodnot: \(1,\ 0,\ -3\). Ty rozdělí osu na intervaly — mezi nimi je graf vždy <strong>přímka</strong>, stačí tedy spočítat hodnoty v několika bodech a spojit je.</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x\)</th><th>\(-5\)</th><th>\(-3\)</th><th>\(0\)</th><th>\(1\)</th><th>\(2\)</th></tr>
+        <tr><td class="rowlbl">\(y\)</td><td>\(-7\)</td><td class="plus">\(5\)</td><td>\(-1\)</td><td>\(-1\)</td><td>\(-5\)</td></tr>
+      </table>
+      </div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(f(-5) = 13 - 2\cdot6 + 5 - 4\cdot2 - 5 = -7\)</div><div class="vp">/ dosadit</div></div>
+        <div class="vr"><div class="vl">\(f(-3) = 13 - 2\cdot4 + 3 - 0 - 3 = 5\)</div><div class="vp">/ vrchol</div></div>
+        <div class="vr"><div class="vl">\(f(0) = 13 - 2 + 0 - 12 + 0 = -1\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">Lomená čára s vrcholy v bodech \([-3;\ 5]\), \([0;\ -1]\), \([1;\ -1]\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 2 · kvadratická funkce v absolutní hodnotě</div>
+      <div class="zadani">Sestroj graf: \(f: y = |x^2 + x - 12|\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x^2+x-12 = (x-3)(x+4)\)</div><div class="vp">/ nulové body \(3,\ -4\)</div></div>
+        <div class="vr odsad"><div class="vl">vrchol v \(x = -0{,}5\)</div><div class="vp">/ střed mezi kořeny</div></div>
+        <div class="vr odsad"><div class="vl">\(f(-0{,}5) = -12{,}25 \to +12{,}25\)</div><div class="vp">/ překlopit nahoru</div></div>
+      </div>
+      <div class="pozn">Části paraboly pod osou \(x\) (mezi kořeny) se překlopí nahoru — vznikne „hrb" s vrcholem v \(12{,}25\).</div>
+      <div class="vysl">Parabola s překlopenou částí mezi \(-4\) a \(3\), maximum „hrbu" \(12{,}25\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 3 · absolutní hodnota u proměnné</div>
+      <div class="zadani">Sestroj graf: \(f: y = x^2 - 2|x| - 15\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x^2 - 2|x| - 15\)</div><div class="vp">/ úprava na čtverec</div></div>
+        <div class="vr odsad"><div class="vl">\((|x|-1)^2 - 16\)</div><div class="vp">/ posun \(+1\) doprava, \(-16\) dolů</div></div>
+      </div>
+      <div class="pozn">Nakreslíme parabolu \(y = x^2-2x-15\) pro \(x \geq 0\) a pak ji <strong>zrcadlově překlopíme doleva</strong> — vznikne symetrický tvar písmene W s minimy v \(\pm1\).</div>
+      <div class="vysl">Nuly v \(\pm 5\), dvě minima v \([\pm1;\ -16]\), lokální maximum v \([0;\ -15]\)</div>
+    </div>
+
+    <h2 class="blok" id="postup">Postup u rovnic a nerovnic</h2>
+    <div class="rule-box">
+      <div class="rb-label">Čtyři kroky</div>
+      <strong>1.</strong> Najdeme <strong>nulové body</strong> všech absolutních hodnot.<br>
+      <strong>2.</strong> Rozdělíme osu na <strong>intervaly</strong>.<br>
+      <strong>3.</strong> V každém intervalu absolutní hodnoty odstraníme (podle znaménka výrazu uvnitř) a rovnici vyřešíme.<br>
+      <strong>4.</strong> <strong>Ověříme</strong>, jestli řešení leží ve svém intervalu — a pro jistotu dosadíme do původní rovnice.
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Bez čtvrtého kroku to nemá cenu</div>
+      Řešení, které vyjde v jednom intervalu, ale <strong>leží mimo něj</strong>, není řešením rovnice. Tohle je nejčastější zdroj ztracených bodů — viz příklad 5.
+    </div>
+
+    <h2 class="blok" id="pr-lin">Příklady — lineární rovnice</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 4 · jedna absolutní hodnota</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2 - |3x+6| = 2x - 1\) &nbsp; nulový bod \(-2\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\((-\infty;-2)\)</th><th>\((-2;+\infty)\)</th></tr>
+        <tr><td>\(2 + (3x+6) = 2x-1\)</td><td>\(2 - (3x+6) = 2x-1\)</td></tr>
+        <tr><td>\(3x + 8 = 2x - 1\)</td><td>\(-3x - 4 = 2x - 1\)</td></tr>
+        <tr><td>\(x = -9\)</td><td>\(-5x = 3\)</td></tr>
+        <tr class="vysledek"><td class="plus">\(-9 \in\) intervalu ✓</td><td class="plus">\(x = -\frac{3}{5} \in\) intervalu ✓</td></tr>
+      </table>
+      </div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \left\{-9;\ -\frac{3}{5}\right\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 5 · dvě absolutní hodnoty — past na ověření</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2|x+1| - 3x = 3|2-x| + 4\) &nbsp; nulové body \(-1,\ 2\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\((-\infty;-1)\)</th><th>\((-1;2)\)</th><th>\((2;+\infty)\)</th></tr>
+        <tr><td>\(-2(x+1)-3x = 3(2-x)+4\)</td><td>\(2(x+1)-3x = 3(2-x)+4\)</td><td>\(2(x+1)-3x = -3(2-x)+4\)</td></tr>
+        <tr><td>\(-5x-2 = 10-3x\)</td><td>\(-x+2 = 10-3x\)</td><td>\(-x+2 = 3x-2\)</td></tr>
+        <tr><td>\(x = -6\)</td><td>\(x = 4\)</td><td>\(x = 1\)</td></tr>
+        <tr class="vysledek"><td class="plus">\(-6 \in (-\infty;-1)\) ✓</td><td class="minus">\(4 \notin (-1;2)\) ✗</td><td class="minus">\(1 \notin (2;\infty)\) ✗</td></tr>
+      </table>
+      </div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Zkouška \(x=-6\): &nbsp; \(2\cdot5 + 18 = 28\), &nbsp; \(3\cdot8 + 4 = 28\)</div><div class="vp">✓ platí</div></div>
+        <div class="vr"><div class="vl">Zkouška \(x=4\): &nbsp; \(10 - 12 = -2\), &nbsp; \(3\cdot2 + 4 = 10\)</div><div class="vp">✗ neplatí</div></div>
+      </div>
+      <div class="pozn">Dvě ze tří „řešení" vypadla — proto se <strong>vždy musí ověřit</strong>, jestli výsledek leží ve svém intervalu.</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \{-6\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 6 · rovnice bez řešení</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2 - |2x+1| = 3|1-x| + x\) &nbsp; nulové body \(-\frac{1}{2},\ 1\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(\left(-\infty;-\frac{1}{2}\right)\)</th><th>\(\left(-\frac{1}{2};1\right)\)</th><th>\((1;+\infty)\)</th></tr>
+        <tr><td>\(2+(2x+1) = 3(1-x)+x\)</td><td>\(2-(2x+1) = 3(1-x)+x\)</td><td>\(2-(2x+1) = -3(1-x)+x\)</td></tr>
+        <tr><td>\(4x = 0 \Rightarrow x = 0\)</td><td>\(1-2x = 3-2x\)</td><td>\(6x = 4 \Rightarrow x = \frac{2}{3}\)</td></tr>
+        <tr class="vysledek"><td class="minus">\(0 \notin\) intervalu ✗</td><td class="minus">\(1 = 3\) — nesmysl ✗</td><td class="minus">\(\frac{2}{3} \notin\) intervalu ✗</td></tr>
+      </table>
+      </div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \emptyset\) — rovnice nemá řešení</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 7 · tři absolutní hodnoty</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(|2x-4| - 2|x+1| = 3 - |2-x|\) &nbsp; nulové body \(-1,\ 2\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\((-\infty;-1)\)</th><th>\((-1;2)\)</th><th>\((2;+\infty)\)</th></tr>
+        <tr><td>\(-2x+4-2(-x-1) = 3-(2-x)\)</td><td>\(-2x+4-2(x+1) = 3-(2-x)\)</td><td>\(2x-4-2(x+1) = 3-(x-2)\)</td></tr>
+        <tr><td>\(6 = 1+x \Rightarrow x = 5\)</td><td>\(-4x+2 = 1+x \Rightarrow x = \frac{1}{5}\)</td><td>\(-6 = 5-x \Rightarrow x = 11\)</td></tr>
+        <tr class="vysledek"><td class="minus">\(5 \notin\) intervalu ✗</td><td class="plus">\(\frac{1}{5} \in\) intervalu ✓</td><td class="plus">\(11 \in\) intervalu ✓</td></tr>
+      </table>
+      </div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \left\{\frac{1}{5};\ 11\right\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 8 · řešením je celý interval</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(|4-x| - |x| = 3 - |2x-1|\) &nbsp; nulové body \(0,\ \frac{1}{2},\ 4\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\((-\infty;0)\)</th><th>\(\left(0;\frac{1}{2}\right)\)</th><th>\(\left(\frac{1}{2};4\right)\)</th><th>\((4;\infty)\)</th></tr>
+        <tr><td>\(4-x+x = 3+2x-1\)</td><td>\(4-x-x = 3+2x-1\)</td><td>\(4-x-x = 3-2x+1\)</td><td>\(-4+x-x = 3-2x+1\)</td></tr>
+        <tr><td>\(x = 1\)</td><td>\(x = \frac{1}{2}\)</td><td>\(4 = 4\)</td><td>\(x = 4\)</td></tr>
+        <tr class="vysledek"><td class="minus">✗ mimo</td><td>hranice</td><td class="plus">platí <strong>celý interval</strong></td><td>hranice</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Ve třetím intervalu se rovnice zredukovala na <strong>identitu \(4=4\)</strong> — platí tedy pro každé \(x\) z toho intervalu. Krajní body \(\frac{1}{2}\) a \(4\) po dosazení také vyhovují.</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \left\langle \frac{1}{2};\ 4 \right\rangle\)</div>
+    </div>
+
+    <h2 class="blok" id="pr-kvadr">Příklady — kvadratické rovnice</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 9 · absolutní hodnota u proměnné</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(x^2 + |x| - 2 = 0\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x \geq 0\)</th><th>\(x < 0\)</th></tr>
+        <tr><td>\(x^2+x-2 = 0\)</td><td>\(x^2-x-2 = 0\)</td></tr>
+        <tr><td>\((x+2)(x-1)\)</td><td>\((x-2)(x+1)\)</td></tr>
+        <tr class="vysledek"><td><span class="minus">\(-2\) ✗</span> &nbsp; <span class="plus">\(1\) ✓</span></td><td><span class="minus">\(2\) ✗</span> &nbsp; <span class="plus">\(-1\) ✓</span></td></tr>
+      </table>
+      </div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \{-1;\ 1\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 10 · celý výraz v absolutní hodnotě</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(|x^2 - 5| = 4\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(x^2 - 5 = 4\)</div><div class="vp">/ první možnost</div></div>
+        <div class="vr odsad"><div class="vl">\(x^2 = 9 \Rightarrow x = \pm 3\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl">\(x^2 - 5 = -4\)</div><div class="vp">/ druhá možnost</div></div>
+        <div class="vr odsad"><div class="vl">\(x^2 = 1 \Rightarrow x = \pm 1\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Když je v absolutní hodnotě celý výraz a rovná se číslu, stačí rozepsat obě možnosti (\(+4\) a \(-4\)) — netřeba dělit na intervaly.</div>
+      <div class="vysl">\(P = \{-3;\ -1;\ 1;\ 3\}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 11 · kvadratická rovnice s absolutní hodnotou uvnitř</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(x^2 + 6x - 4|x+3| + 12 = 0\) &nbsp; nulový bod \(-3\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x < -3\)</th><th>\(x \geq -3\)</th></tr>
+        <tr><td>\(x^2+6x-4(-x-3)+12 = 0\)</td><td>\(x^2+6x-4(x+3)+12 = 0\)</td></tr>
+        <tr><td>\(x^2+10x+24 = 0\)</td><td>\(x^2+2x = 0\)</td></tr>
+        <tr><td>\((x+6)(x+4)\)</td><td>\(x(x+2)\)</td></tr>
+        <tr class="vysledek"><td class="plus">\(-6\) ✓ &nbsp; \(-4\) ✓</td><td class="plus">\(0\) ✓ &nbsp; \(-2\) ✓</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Tady vyšla <strong>všechna čtyři</strong> řešení — každé leží ve svém intervalu. To se nestává často, o to důležitější je kontrola.</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \{-6;\ -4;\ -2;\ 0\}\)</div>
+    </div>
+
+    <h2 class="blok" id="pr-nerovnice">Příklady — nerovnice</h2>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 12 · základní nerovnice</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(|1-2x| \leq 2\) &nbsp; nulový bod \(\frac{1}{2}\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x \leq \frac{1}{2}\)</th><th>\(x > \frac{1}{2}\)</th></tr>
+        <tr><td>\(1-2x \leq 2\)</td><td>\(-1+2x \leq 2\)</td></tr>
+        <tr><td>\(2x \geq -1 \Rightarrow x \geq -\frac{1}{2}\)</td><td>\(2x \leq 3 \Rightarrow x \leq \frac{3}{2}\)</td></tr>
+        <tr class="vysledek"><td>\(\left\langle -\frac{1}{2};\ \frac{1}{2} \right\rangle\)</td><td>\(\left(\frac{1}{2};\ \frac{3}{2} \right\rangle\)</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Výsledky z jednotlivých intervalů se <strong>sjednotí</strong> (na rozdíl od soustavy nerovnic, kde se hledá průnik).</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \left\langle -\frac{1}{2};\ \frac{3}{2} \right\rangle\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 13 · řešením jsou všechna reálná čísla</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(3 - |1-x| \leq x+2\) &nbsp; nulový bod \(1\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x \leq 1\)</th><th>\(x > 1\)</th></tr>
+        <tr><td>\(3-(1-x) \leq x+2\)</td><td>\(3-(x-1) \leq x+2\)</td></tr>
+        <tr><td>\(2+x \leq x+2\)</td><td>\(4-x \leq x+2\)</td></tr>
+        <tr><td>\(2 \leq 2\)</td><td>\(2 \leq 2x \Rightarrow x \geq 1\)</td></tr>
+        <tr class="vysledek"><td class="plus">platí vždy → \((-\infty;1\rangle\)</td><td class="plus">platí celý interval → \((1;\infty)\)</td></tr>
+      </table>
+      </div>
+      <div class="pozn">V levém intervalu se \(x\) úplně vykrátilo a zbyla pravdivá nerovnost \(2 \leq 2\) — platí tedy pro <strong>všechna</strong> \(x\) z toho intervalu.</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \mathbb{R}\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 14 · dvě absolutní hodnoty</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(2|x| - 4|1-x| \leq 3x+1\) &nbsp; nulové body \(0,\ 1\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\((-\infty;0\rangle\)</th><th>\((0;1\rangle\)</th><th>\((1;\infty)\)</th></tr>
+        <tr><td>\(-2x-4(1-x) \leq 3x+1\)</td><td>\(2x-4(1-x) \leq 3x+1\)</td><td>\(2x-4(x-1) \leq 3x+1\)</td></tr>
+        <tr><td>\(2x-4 \leq 3x+1\)</td><td>\(6x-4 \leq 3x+1\)</td><td>\(-2x+4 \leq 3x+1\)</td></tr>
+        <tr><td>\(x \geq -5\)</td><td>\(x \leq \frac{5}{3}\)</td><td>\(x \geq \frac{3}{5}\)</td></tr>
+        <tr class="vysledek"><td>\(\langle -5;\ 0 \rangle\)</td><td class="plus">celý \((0;1\rangle\)</td><td class="plus">celý \((1;\infty)\)</td></tr>
+      </table>
+      </div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = \langle -5;\ +\infty)\)</div>
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad 15 · kvadratická nerovnice s absolutní hodnotou</div>
+      <div class="zadani">Řeš v \(\mathbb{R}\): \(x^2 - 5|x| + 6 < 0\)</div>
+      <div class="ztab-wrap">
+      <table class="ztab">
+        <tr><th>\(x \geq 0\)</th><th>\(x < 0\)</th></tr>
+        <tr><td>\(x^2-5x+6 < 0\)</td><td>\(x^2+5x+6 < 0\)</td></tr>
+        <tr><td>\((x-2)(x-3) < 0\)</td><td>\((x+2)(x+3) < 0\)</td></tr>
+        <tr class="vysledek"><td class="plus">\((2;\ 3)\)</td><td class="plus">\((-3;\ -2)\)</td></tr>
+      </table>
+      </div>
+      <div class="pozn">Graf je <strong>souměrný podle osy y</strong> — proto vyjdou dva symetrické intervaly. To je typický znak funkce s \(|x|\).</div>
+      <div class="vysl">\(O = D = \mathbb{R}\), \(P = (-3;\ -2) \cup (2;\ 3)\)</div>
+    </div>
+
+    <footer>matematika.jasně — rovnice a nerovnice s absolutními hodnotami</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

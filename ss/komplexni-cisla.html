@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komplexní čísla | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  /* --- galerie grafu --- */
+  .graf-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px; margin: 22px 0 26px; max-width: 700px;
+  }
+  .graf-card {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 14px 14px 10px; text-align: center;
+  }
+  .graf-card svg { display: block; margin: 0 auto; }
+  .graf-card .gc-title { font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+  .graf-card .gc-note { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.45; }
+  .graf-wide { max-width: 700px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin: 22px 0; }
+  .graf-wide .gw-caption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+  /* SVG barvy */
+  .ax { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .curve { stroke: var(--brick); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .curve2 { stroke: var(--gold); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: var(--ink-soft); }
+  .dot { fill: var(--brick); }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .step { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; line-height: 1.6; }
+  .priklad .step:last-child { border-bottom: none; }
+  .priklad .snum { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; width: 16px; }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  /* --- znamenkova tabulka --- */
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td {
+    border: 1px solid var(--line); padding: 7px 9px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab td.rowlbl { text-align: left; background: var(--paper-dim); font-weight: 600; white-space: nowrap; }
+  .ztab tr.vysledek td { background: #FCF7EC; font-weight: 700; }
+  .ztab .plus { color: var(--green); }
+  .ztab .minus { color: var(--brick); }
+  .ztab .nula { color: var(--ink-soft); }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  /* --- blokovy zapis vypoctu (jako v sesite) --- */
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr {
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 7px 0;
+  }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+  }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;
+    padding: 4px 0 8px 26px; max-width: 600px;
+  }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../maturita.html" class="back">← zpět na maturitu</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Komplexní čísla</div>
+    <ul>
+      <li><a href="#algebraicky">Algebraický tvar</a></li>
+      <li><a href="#operace">Operace s komplexními čísly</a></li>
+      <li><a href="#mocniny-i">Mocniny čísla i</a></li>
+      <li><a href="#abs-hodnota">Absolutní hodnota</a></li>
+      <li><a href="#gon-exp">Goniometrický a exponenciální tvar</a></li>
+      <li><a href="#operace-ge">Operace v G/E tvaru, Moivreova věta</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Komplexní čísla</div>
+    <p class="section-lead">Imaginární jednotka, algebraický, goniometrický a exponenciální tvar komplexního čísla, operace s komplexními čísly, komplexně sdružené číslo, absolutní hodnota a Moivreova věta.</p>
+    <div class="source-note">maturitní téma 9 · komplexní čísla, operace s komplexními čísly</div>
+
+    <h2 class="blok" id="algebraicky">Algebraický tvar</h2>
+    <div class="rule-box">
+      <div class="rb-label">Imaginární jednotka</div>
+      Zavádíme číslo \(i\), pro které platí \(i^2 = -1\). Díky němu jde počítat i s odmocninami ze záporných čísel.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Komplexní číslo</div>
+      Komplexní číslo je dvojice \(z = a + bi\), kde \(a, b \in \mathbb{R}\).<br><br>
+      \(a\) se nazývá <strong>reálná část</strong> — píše se \(\text{Re}(z) = a\)<br>
+      \(b\) se nazývá <strong>imaginární část</strong> — píše se \(\text{Im}(z) = b\)<br><br>
+      Pokud \(b = 0\), je \(z\) obyčejné reálné číslo (\(z \in \mathbb{R}\)).<br>
+      Pokud \(a = 0\), je \(z = bi\) <strong>ryze imaginární</strong>.
+    </div>
+
+    <h3 class="pod">Gaussova rovina</h3>
+    <p class="txt">Komplexní číslo \(z = a+bi\) zobrazujeme jako bod (nebo vektor z počátku) v rovině, kde na vodorovnou osu nanášíme reálnou část a na svislou imaginární část.</p>
+    <div class="graf-wide">
+      <svg viewBox="0 0 300 180" width="300" height="180">
+        <line class="ax" x1="20" y1="150" x2="280" y2="150"/>
+        <line class="ax" x1="40" y1="20" x2="40" y2="170"/>
+        <text class="lbl" x="270" y="145">Re</text>
+        <text class="lbl" x="46" y="28">Im</text>
+        <line x1="40" y1="150" x2="190" y2="70" stroke="var(--brick)" stroke-width="2.2"/>
+        <circle class="dot" cx="190" cy="70" r="3.5"/>
+        <line class="dash" x1="190" y1="150" x2="190" y2="70"/>
+        <line class="dash" x1="40" y1="70" x2="190" y2="70"/>
+        <text class="lbl" x="188" y="164">3</text>
+        <text class="lbl" x="14" y="74">1</text>
+        <text class="lbl" x="196" y="66">z = 3 + i</text>
+      </svg>
+      <div class="gw-caption">Bod \(z = 3+i\): 3 jednotky doprava, 1 jednotka nahoru</div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor</div>
+      \(i\) je konkrétní, pevně daná hodnota (\(i^2=-1\)), <strong>ne proměnná</strong>. Nepočítej s ním jako s neznámým \(x\) — nedá se „vytknout" nebo řešit rovnici pro \(i\).
+    </div>
+
+    <h2 class="blok" id="operace">Operace s komplexními čísly</h2>
+    <p class="txt">Pro celou sekci: \(z_1 = a+bi\), &nbsp; \(z_2 = c+di\).</p>
+
+    <div class="rule-box">
+      <div class="rb-label">Rovnost</div>
+      $$z_1 = z_2 \iff a = c \ \land\ b = d$$
+      Dvě komplexní čísla se rovnají, právě když se rovnají jejich reálné i imaginární části zvlášť.
+    </div>
+
+    <h3 class="pod">Součet a rozdíl</h3>
+    <div class="rule-box">
+      <div class="rb-label">Vzorce</div>
+      $$z_1 + z_2 = (a+c) + (b+d)i$$
+      $$z_1 - z_2 = (a-c) + (b-d)i$$
+      Reálné části se sečtou/odečtou zvlášť, imaginární zvlášť — stejně jako u sčítání dvojčlenů.
+    </div>
+
+    <p class="txt">Geometricky odpovídá součtu <strong>skládání vektorů</strong> (rovnoběžníkové pravidlo), rozdíl je součet s opačným vektorem \(-z_2\).</p>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 160 130" width="160" height="130">
+          <line class="ax" x1="14" y1="110" x2="150" y2="110"/>
+          <line class="ax" x1="30" y1="14" x2="30" y2="120"/>
+          <line x1="30" y1="110" x2="80" y2="40" stroke="var(--gold)" stroke-width="2"/>
+          <line x1="30" y1="110" x2="120" y2="70" stroke="var(--ink-soft)" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="30" y1="110" x2="135" y2="30" stroke="var(--brick)" stroke-width="2.4"/>
+          <circle class="dot" cx="135" cy="30" r="3.5"/>
+        </svg>
+        <div class="gc-title">\(z_1+z_2\)</div>
+        <div class="gc-note">Vektory se sečtou „za sebe" — úhlopříčka rovnoběžníku</div>
+      </div>
+      <div class="graf-card">
+        <svg viewBox="0 0 160 130" width="160" height="130">
+          <line class="ax" x1="14" y1="70" x2="150" y2="70"/>
+          <line class="ax" x1="30" y1="14" x2="30" y2="120"/>
+          <line x1="30" y1="70" x2="80" y2="20" stroke="var(--gold)" stroke-width="2"/>
+          <line x1="30" y1="70" x2="70" y2="115" stroke="var(--ink-soft)" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="30" y1="70" x2="120" y2="30" stroke="var(--brick)" stroke-width="2.4"/>
+          <circle class="dot" cx="120" cy="30" r="3.5"/>
+        </svg>
+        <div class="gc-title">\(z_1-z_2 = z_1+(-z_2)\)</div>
+        <div class="gc-note">\(-z_2\) je \(z_2\) otočené o 180°</div>
+      </div>
+    </div>
+
+    <h3 class="pod">Součin</h3>
+    <div class="rule-box">
+      <div class="rb-label">Vzorec</div>
+      Roznásobí se jako dva dvojčleny, s využitím \(i^2=-1\):
+      $$z_1 \cdot z_2 = (a+bi)(c+di) = ac + adi + bci + bdi^2 = (ac-bd) + (ad+bc)i$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · součin</div>
+      <div class="zadani">Vypočítej: \((-4+5i)(6-2i)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\((-4+5i)(6-2i) = -24 +8i +30i -10i^2\)</div><div class="vp">/ roznásobit</div></div>
+        <div class="vr odsad"><div class="vl">\(= -24 + 8i + 30i + 10\)</div><div class="vp">/ \(i^2=-1\)</div></div>
+        <div class="vr odsad"><div class="vl">\(= -14 + 38i\)</div><div class="vp">/ sečíst</div></div>
+      </div>
+      <div class="vysl">\(-14+38i\)</div>
+    </div>
+
+    <h3 class="pod">Komplexně sdružené číslo</h3>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$\overline{z} = a - bi$$
+      Ke komplexně sdruženému číslu dojdeš tak, že <strong>otočíš znaménko u imaginární části</strong>. Geometricky je to zrcadlový obraz podle reálné osy.
+    </div>
+
+    <h3 class="pod">Podíl</h3>
+    <div class="rule-box">
+      <div class="rb-label">Postup</div>
+      Zlomek rozšíříme číslem komplexně sdruženým ke jmenovateli — tím se jmenovatel zbaví \(i\):
+      $$\frac{z_1}{z_2} = \frac{a+bi}{c+di}\cdot\frac{c-di}{c-di} = \frac{ac+bd}{c^2+d^2} + \frac{bc-ad}{c^2+d^2}i$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · podíl</div>
+      <div class="zadani">Vypočítej: \(\dfrac{3+4i}{1-i}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dfrac{3+4i}{1-i}\cdot\dfrac{1+i}{1+i}\)</div><div class="vp">/ rozšířit sdruženým \(1+i\)</div></div>
+        <div class="vr odsad"><div class="vl">\(= \dfrac{3+3i+4i+4i^2}{1-i^2} = \dfrac{-1+7i}{2}\)</div><div class="vp">/ roznásobit, \(i^2=-1\)</div></div>
+        <div class="vr odsad"><div class="vl">\(= -\dfrac{1}{2} + \dfrac{7}{2}i\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Jmenovatel \((1-i)(1+i) = 1-i^2 = 2\) je po rozšíření vždy <strong>reálné</strong> číslo — proto se \(i\) ve jmenovateli „ztratí".</div>
+      <div class="vysl">\(-\frac{1}{2} + \frac{7}{2}i\)</div>
+    </div>
+
+    <h2 class="blok" id="mocniny-i">Mocniny čísla i</h2>
+    <div class="rule-box">
+      <div class="rb-label">Základní mocniny</div>
+      $$i^1 = i \qquad i^2 = -1 \qquad i^3 = -i \qquad i^4 = 1$$
+      Od páté mocniny se vzor <strong>opakuje po čtyřech</strong>: \(i^5=i,\ i^6=-1,\ i^7=-i,\ i^8=1,\ \dots\)
+    </div>
+    <div class="graf-grid">
+      <div class="graf-card">
+        <svg viewBox="0 0 150 150" width="150" height="150">
+          <circle cx="75" cy="75" r="50" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+          <line class="ax" x1="10" y1="75" x2="140" y2="75"/>
+          <line class="ax" x1="75" y1="10" x2="75" y2="140"/>
+          <circle class="dot" cx="125" cy="75" r="4"/>
+          <text class="lbl" x="130" y="72">1</text>
+          <circle class="dot" cx="75" cy="25" r="4"/>
+          <text class="lbl" x="80" y="22">i</text>
+          <circle class="dot" cx="25" cy="75" r="4"/>
+          <text class="lbl" x="4" y="72">-1</text>
+          <circle class="dot" cx="75" cy="125" r="4"/>
+          <text class="lbl" x="80" y="135">-i</text>
+        </svg>
+        <div class="gc-title">Mocniny \(i\) na jednotkové kružnici</div>
+        <div class="gc-note">Každá další mocnina = pootočení o 90°</div>
+      </div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Obecně (\(k \in \mathbb{N}_0\))</div>
+      $$i^{4k}=1 \qquad i^{4k+1}=i \qquad i^{4k+2}=-1 \qquad i^{4k+3}=-i$$
+      Stačí vydělit exponent čtyřmi a podívat se na zbytek.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · vysoká mocnina</div>
+      <div class="zadani">Urči \(i^{37}\) a \(i^{123}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(37 = 4\cdot 9 + 1 \ \Rightarrow\ i^{37}=i^{4\cdot9+1}=i^1=i\)</div><div class="vp">/ zbytek 1</div></div>
+        <div class="vr"><div class="vl">\(123 = 4\cdot 30 + 3 \ \Rightarrow\ i^{123}=i^{4\cdot30+3}=i^3=-i\)</div><div class="vp">/ zbytek 3</div></div>
+      </div>
+      <div class="vysl">\(i^{37}=i\), &nbsp; \(i^{123}=-i\)</div>
+    </div>
+
+    <h2 class="blok" id="abs-hodnota">Absolutní hodnota komplexního čísla</h2>
+    <div class="rule-box">
+      <div class="rb-label">Definice</div>
+      $$|z| = \sqrt{a^2+b^2}$$
+      Geometricky je \(|z|\) <strong>vzdálenost bodu \(z\) od počátku</strong> v Gaussově rovině — totéž jako délka vektoru.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Vlastnosti</div>
+      $$|z| = |\overline{z}| = |{-z}| \qquad |z|=0 \iff z=0$$
+      $$|z_1 \cdot z_2| = |z_1|\cdot|z_2| \qquad \left|\frac{z_1}{z_2}\right| = \frac{|z_1|}{|z_2|}$$
+      $$|z_1+z_2| \leq |z_1|+|z_2| \quad \text{(trojúhelníková nerovnost)}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · modul součinu</div>
+      <div class="zadani">Vypočítej \(|(2-i)(1+2i)|\) bez roznásobení</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(|(2-i)(1+2i)| = |2-i|\cdot|1+2i|\)</div><div class="vp">/ \(|z_1 z_2|=|z_1||z_2|\)</div></div>
+        <div class="vr odsad"><div class="vl">\(= \sqrt{5}\cdot\sqrt{5} = 5\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Díky vlastnosti modulu součinu není třeba čísla vůbec roznásobovat.</div>
+      <div class="vysl">5</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · modul podílu</div>
+      <div class="zadani">Vypočítej \(\left|\dfrac{i(3-4i)}{(1-3i)(2-i)}\right|\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(= \dfrac{|i|\cdot|3-4i|}{|1-3i|\cdot|2-i|}\)</div><div class="vp">/ vlastnosti modulu</div></div>
+        <div class="vr odsad"><div class="vl">\(= \dfrac{1\cdot 5}{\sqrt{10}\cdot\sqrt{5}} = \dfrac{5}{\sqrt{50}}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(= \dfrac{5}{5\sqrt{2}} = \dfrac{1}{\sqrt2} = \dfrac{\sqrt2}{2}\)</div><div class="vp">/ zjednodušit</div></div>
+      </div>
+      <div class="vysl">\(\dfrac{\sqrt2}{2}\)</div>
+    </div>
+
+    <h2 class="blok" id="gon-exp">Goniometrický a exponenciální tvar</h2>
+    <p class="txt">Kromě algebraického tvaru \(a+bi\) lze komplexní číslo zapsat i pomocí jeho vzdálenosti od počátku a úhlu, který svírá s kladnou reálnou osou.</p>
+    <div class="rule-box">
+      <div class="rb-label">Tři tvary téhož čísla</div>
+      Algebraický: &nbsp; \(z = a+bi\)<br>
+      Goniometrický: &nbsp; \(z = |z|(\cos\varphi + i\sin\varphi)\)<br>
+      Exponenciální: &nbsp; \(z = |z|\,e^{i\varphi}\)<br><br>
+      kde \(|z|=\sqrt{a^2+b^2}\) a \(\text{tg}\,\varphi = \dfrac{b}{a}\).
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Pozor na kvadrant</div>
+      \(\text{tg}\,\varphi=\frac{b}{a}\) dá jen <strong>referenční úhel</strong>. Skutečné \(\varphi\) (obvykle voleno z intervalu \(\langle0;2\pi)\)) je nutné dopočítat podle toho, ve kterém kvadrantu bod \(a+bi\) leží — podle znamének \(a\) a \(b\).
+    </div>
+
+    <div class="priklad">
+      <div class="p-label">Příklad · G → E tvar</div>
+      <div class="zadani">\(z_1 = 2\left(\cos\frac{2}{3}\pi + i\sin\frac{2}{3}\pi\right)\) &nbsp; převeď na exponenciální tvar</div>
+      <div class="vysl">\(z_1 = 2\,e^{\frac{2}{3}\pi i}\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · E → G tvar</div>
+      <div class="zadani">\(z_2 = 4\,e^{\frac{7}{4}\pi i}\) &nbsp; převeď na goniometrický tvar</div>
+      <div class="vysl">\(z_2 = 4\left(\cos\frac{7}{4}\pi + i\sin\frac{7}{4}\pi\right)\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · G → A tvar</div>
+      <div class="zadani">\(z_3 = 2\left(\cos\frac{5}{6}\pi + i\sin\frac{5}{6}\pi\right)\) &nbsp; převeď na algebraický tvar</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z_3 = 2\cdot\left(-\dfrac{\sqrt3}{2}\right) + 2\cdot\dfrac{1}{2}i\)</div><div class="vp">/ dosadit \(\cos,\sin\)</div></div>
+      </div>
+      <div class="vysl">\(z_3 = -\sqrt3 + i\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · G → A tvar (ve stupních)</div>
+      <div class="zadani">\(z_4 = 12(\cos 240° + i\sin 240°)\) &nbsp; převeď na algebraický tvar</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(z_4 = 12\cdot\left(-\dfrac12\right) + 12\cdot\left(-\dfrac{\sqrt3}{2}\right)i\)</div><div class="vp">/ dosadit \(\cos,\sin\)</div></div>
+      </div>
+      <div class="vysl">\(z_4 = -6 - 6\sqrt3\,i\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · A → G/E tvar</div>
+      <div class="zadani">\(z_6 = -2\sqrt5 - 2\sqrt{15}\,i\) &nbsp; převeď na goniometrický a exponenciální tvar</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(|z_6| = \sqrt{(2\sqrt5)^2+(2\sqrt{15})^2} = \sqrt{20+60}=\sqrt{80}=4\sqrt5\)</div><div class="vp">/ modul</div></div>
+        <div class="vr"><div class="vl">\(\text{tg}\,\varphi = \dfrac{2\sqrt{15}}{2\sqrt5}=\sqrt3\), obě části záporné → 3. kvadrant</div><div class="vp">/ úhel</div></div>
+        <div class="vr odsad"><div class="vl">\(\varphi = \pi + \dfrac{\pi}{3} = \dfrac{4}{3}\pi\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(z_6 = 4\sqrt5\left(\cos\frac{4}{3}\pi+i\sin\frac{4}{3}\pi\right) = 4\sqrt5\,e^{\frac{4}{3}\pi i}\)</div>
+    </div>
+
+    <h2 class="blok" id="operace-ge">Operace v G/E tvaru a Moivreova věta</h2>
+    <p class="txt">Sčítání a odčítání se v goniometrickém ani exponenciálním tvaru přímo nedají dělat — na to je potřeba algebraický tvar. Násobení a dělení jsou naopak v G/E tvaru <strong>jednodušší</strong> než v algebraickém.</p>
+    <div class="rule-box">
+      <div class="rb-label">Násobení</div>
+      $$z_1\cdot z_2 = |z_1|\cdot|z_2|\big(\cos(\alpha+\beta)+i\sin(\alpha+\beta)\big) = |z_1|\cdot|z_2|\,e^{(\alpha+\beta)i}$$
+      Moduly se <strong>vynásobí</strong>, úhly se <strong>sečtou</strong>.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Dělení</div>
+      $$\frac{z_1}{z_2} = \frac{|z_1|}{|z_2|}\big(\cos(\alpha-\beta)+i\sin(\alpha-\beta)\big) = \frac{|z_1|}{|z_2|}\,e^{(\alpha-\beta)i}$$
+      Moduly se <strong>vydělí</strong>, úhly se <strong>odečtou</strong>.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · násobení v G tvaru</div>
+      <div class="zadani">Vypočítej \(z_1\cdot z_3\), kde \(z_1=2(\cos120°+i\sin120°)\), \(z_3=2(\cos150°+i\sin150°)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(|z_1 z_3| = 2\cdot2 = 4\), &nbsp; úhel \(= 120°+150° = 270°\)</div><div class="vp">/ moduly krát, úhly plus</div></div>
+        <div class="vr odsad"><div class="vl">\(z_1 z_3 = 4(\cos270°+i\sin270°) = 4(0 - i)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Zkouška roznásobením algebraických tvarů \(z_1=-1+\sqrt3 i\), \(z_3=-\sqrt3+i\) dá stejný výsledek.</div>
+      <div class="vysl">\(z_1 z_3 = -4i\)</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Moivreova věta</div>
+      $$\big[|z|(\cos\varphi+i\sin\varphi)\big]^n = |z|^n\big(\cos n\varphi + i\sin n\varphi\big)$$
+      Umocňování v goniometrickém tvaru: modul se umocní, úhel se <strong>vynásobí</strong> exponentem.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · Moivreova věta</div>
+      <div class="zadani">Vypočítej \(z_1^3\), kde \(z_1=2(\cos120°+i\sin120°)\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(|z_1^3| = 2^3 = 8\), &nbsp; úhel \(= 3\cdot120° = 360°\)</div><div class="vp">/ modul na třetí, úhel krát 3</div></div>
+        <div class="vr odsad"><div class="vl">\(z_1^3 = 8(\cos360°+i\sin360°) = 8(1+0i)\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Umocnit \((-1+\sqrt3i)^3\) přímo roznásobením by bylo výrazně pracnější — v tom je síla Moivreovy věty.</div>
+      <div class="vysl">\(z_1^3 = 8\)</div>
+    </div>
+
+    <footer>matematika.jasně — komplexní čísla, operace s komplexními čísly</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>
