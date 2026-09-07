@@ -314,7 +314,7 @@
   <div class="wrap">
     <div class="gates-group-label">Základní škola</div>
     <div class="gates-row">
-      <a href="prijimacky.html" class="gate prijimacky featured">
+      <a href="zs/prijimacky.html" class="gate prijimacky featured">
         <div class="featured-tag">★ doporučeno</div>
         <div class="step-num">ZÁKLADNÍ ŠKOLA · PŘIJÍMAČKY</div>
         <h2>Přijímačky na SŠ</h2>
@@ -324,7 +324,7 @@
         </div>
         <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
       </a>
-      <a href="rocniky.html" class="gate rocniky">
+      <a href="zs/rocniky.html" class="gate rocniky">
         <div class="step-num">ZÁKLADNÍ ŠKOLA · PODLE ROČNÍKU</div>
         <h2>Podle ročníku</h2>
         <p>Stejné učivo jako ve škole — projdi si ho postupně ročník po ročníku, tak jak ho probíráš na hodinách.</p>
@@ -337,7 +337,7 @@
 
     <div class="gates-group-label" style="margin-top:48px;">Střední škola</div>
     <div class="gates-row">
-      <a href="ss-rocniky.html" class="gate ss-rocniky featured">
+      <a href="ss/ss-rocniky.html" class="gate ss-rocniky featured">
         <div class="featured-tag">★ doporučeno</div>
         <div class="step-num">STŘEDNÍ ŠKOLA · PODLE ROČNÍKU</div>
         <h2>Podle ročníku (SŠ)</h2>
@@ -347,7 +347,7 @@
         </div>
         <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
       </a>
-      <a href="maturita.html" class="gate maturita">
+      <a href="ss/maturita.html" class="gate maturita">
         <div class="step-num">STŘEDNÍ ŠKOLA · MATURITA</div>
         <h2>Maturita</h2>
         <p>Průřez učivem SŠ podle Katalogu požadavků Cermat — 9 tematických okruhů didaktického testu.</p>
@@ -360,33 +360,13 @@
   </div>
 </section>
 
-<section class="why">
-  <div class="wrap">
-    <h3>Proč tenhle web vznikl</h3>
-    <div class="why-points">
-      <div class="why-point">
-        <div class="mark">01</div>
-        <p><strong>4 roky doučování matematiky</strong> ukázaly stejná místa, kde se žáci zasekávají — pořád dokola ty samé chyby, ty samé nejasnosti. Tenhle web je jejich lékem.</p>
-      </div>
-      <div class="why-point">
-        <div class="mark">02</div>
-        <p>Každé téma má <strong>teorii vysvětlenou lidsky</strong> a hned za ní <strong>řešené příklady krok za krokem</strong> — ne jen výsledek, ale celý myšlenkový postup.</p>
-      </div>
-      <div class="why-point">
-        <div class="mark">03</div>
-        <p>Zdarma a bez háčků. Cílem není prodat kurz, ale udělat matematiku <strong>srozumitelnou pro každého</strong>, kdo se ji snaží pochopit.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="about">
   <div class="wrap">
     <div class="about-card">
-      <div class="about-photo">TJ</div>
+      <div class="about-photo">OK</div>
       <div class="about-text">
         <div class="about-eyebrow">Kdo za tím stojí</div>
-        <h3>Tvoje Jméno</h3>
+        <h3>Ondřej Kock</h3>
         <p>Doučuji matematiku už 4 roky — hlavně žáky 2. stupně, co se připravují na přijímačky nebo si chtějí srovnat základy. Tenhle web je shrnutí toho, co na doučování opakuju pořád dokola.</p>
         <p>Pokud by ti individuální doučování sedělo víc než samostudium, ozvi se — ať už na přijímačky, na doučení základů, nebo na zlepšení známek.</p>
         <a href="mailto:tvuj@email.cz" class="about-cta">Napsat kvůli doučování →</a>
@@ -404,7 +384,7 @@
   if (headerSearch) {
     headerSearch.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && headerSearch.value.trim() !== '') {
-        window.location.href = 'rocniky.html?q=' + encodeURIComponent(headerSearch.value.trim());
+        window.location.href = 'zs/rocniky.html?q=' + encodeURIComponent(headerSearch.value.trim());
       }
     });
   }

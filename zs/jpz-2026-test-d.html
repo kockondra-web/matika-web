@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPZ 2026 — test D | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    background: var(--paper-dim);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .gap-note {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    background: #FBF0EE;
+    border-left: 3px solid var(--brick);
+    padding: 12px 16px;
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.55;
+  }
+
+  .task-num-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .points-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .topic-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--paper-dim);
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  .topic-tag:hover { background: var(--ink); color: white; }
+
+  .pure-example {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 14px;
+    max-width: 720px;
+    padding: 18px 22px;
+  }
+  .pure-example .pe-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; margin-bottom: 10px; line-height: 1.5; }
+  .pure-example .pe-footer { display: flex; align-items: center; gap: 16px; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  .nav-tests { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+  .nav-tests a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    background: var(--paper-dim);
+  }
+  .nav-tests a.active { background: var(--ink); color: white; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../prijimacky.html" class="back">← zpět na přijímačky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">JPZ 2026 — test D</div>
+    <p class="section-lead">Vlastní verze testu M9D (2. náhradní termín) — stejná struktura, stejná obtížnost, jiná čísla a scénáře.</p>
+    <div class="source-note">vzor: JPZ 2026, 2. náhradní termín (M9PDD26C0T04) — 16 úloh, max. 50 bodů</div>
+    <div class="gap-note">Úlohy 9, 10 a 11 vynechány — obě konstrukční úlohy a graf s Pavliným růstem, kde chybí tři ze šesti údajů, jsou vázané na přesný obrázek, který bez spolehlivé reprodukce nešlo přepsat na nová čísla. Zbytek (13 z 16 úloh) je přepsaný na vlastní zadání a každý výsledek ověřený výpočtem.</div>
+
+    <div class="nav-tests">
+      <a href="jpz-2026-test-a.html">Test A</a>
+      <a href="jpz-2026-test-b.html">Test B</a>
+      <a href="jpz-2026-test-c.html">Test C</a>
+      <a href="jpz-2026-test-d.html" class="active">Test D</a>
+    </div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">1</div><a href="../prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">1 bod</div></div>
+    <div class="pe-q">Tomáš se učil vrhat koulí. Délka jeho prvního pokusu byla 8 m. Každý další pokus byl o pětinu delší než předchozí. Vypočtěte, o kolik cm byl Tomášův třetí pokus delší než první.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">352 cm</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">2.1</div><a href="../rocniky.html" class="topic-tag">Výpočet</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Vypočtěte: \(0{,}25\cdot(-0{,}08) - 50\cdot 0{,}04\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-2{,}02\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">2.2</div><a href="../prijimacky.html#zlomky" class="topic-tag">Zlomky</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Výsledek zapište zlomkem v základním tvaru: \(\left(\dfrac{15}{12}\cdot\dfrac{6}{5}-1\right):4\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{1}{8}\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">2.3</div><a href="../prijimacky.html#zlomky" class="topic-tag">Zlomky</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Výsledek zapište zlomkem v základním tvaru: \(\left(\dfrac{15}{2}-\dfrac{1}{3}\right):\left(10-4\cdot\dfrac{5}{6}\right)\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{43}{40}\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">3.1</div><a href="../rocniky.html" class="topic-tag">Výrazy</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Vytkněte \((-x)\): \(-6x^2 - x + 9xy\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-x\cdot(6x+1-9y)\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">3.2</div><a href="../rocniky.html" class="topic-tag">Výrazy</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Roznásobte a upravte (výsledný výraz nesmí obsahovat závorky): \(\frac{1}{2}\cdot(2n+6)^2\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(2n^2 + 12n + 18\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">3.3</div><a href="../rocniky.html" class="topic-tag">Výrazy</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Upravte na co nejjednodušší tvar bez závorek: \((3+3n)\cdot(3-3n) - 3\cdot(n+1) + (5n-2n)\cdot 3n\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(6 - 3n\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">4.1</div><a href="../prijimacky.html#rovnice" class="topic-tag">Rovnice</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Řešte rovnici: \(0{,}5\cdot(5-3x) = 0{,}25\cdot(2x+2)\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = 1\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">4.2</div><a href="../prijimacky.html#rovnice" class="topic-tag">Rovnice</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Řešte rovnici: \(\dfrac{3}{2}\cdot(y-4) + \dfrac{1}{2}y = \dfrac{2}{3}\cdot(2y-3)\)</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(y = 6\)</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">5</div><a href="../prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Na výstavbě cyklostezky se podílí tři firmy: Asfalt, Beton a Štěrk. Každá staví jeden souvislý úsek. Úsek stavěný firmou Asfalt je dvakrát delší než úsek stavěný firmou Beton. Úsek stavěný firmou Štěrk má čtyřikrát menší délku, než mají dohromady úseky stavěné oběma zbývajícími firmami.<br><br>5.1 Délku úseku, který staví firma Asfalt, označíme \(r\). Vyjádřete výrazem s proměnnou \(r\) délku úseku, který staví firma Beton.<br>5.2 Vyjádřete výrazem s proměnnou \(r\) délku úseku, který staví firma Štěrk.<br>5.3 Firma Štěrk staví úsek o 16 km kratší než firma Beton. Vypočtěte v km délku úseku, který staví firma Asfalt.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">5.1 \(\frac{r}{2}\) &nbsp; 5.2 \(\frac{3r}{8}\) &nbsp; 5.3 \(r=128\) km</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">6</div><a href="../prijimacky.html#geometrie" class="topic-tag">Geometrie</a><div class="points-tag">max. 2 body</div></div>
+    <div class="pe-q">Obdélník ABCD je složen z bílého a šedého obdélníku vedle sebe (oba mají stejnou výšku jako strana BC). Obvod obdélníku ABCD je 84 cm a délka strany BC je 12 cm. Obvod šedého obdélníku je o 16 cm větší než obvod bílého obdélníku. Vypočtěte v cm délku strany AB obdélníku ABCD a v cm² obsah šedého obdélníku.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">AB = 30 cm; obsah šedého obdélníku = 228 cm²</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">7</div><a href="../rocniky.html" class="topic-tag">Tělesa</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Na krychli ABCDEFGH (s vrcholy E, F, G, H nad A, B, C, D) jsme vyznačili střed M hrany AB a střed N hrany FG. Na třech stěnách jsme zakreslili šedé lichoběžníky MBFE, BCNF a HEFN. Ostatní stěny zůstaly celé bílé.<br><br>7.1 Zapište zlomkem, jakou část plochy přední stěny ABFE tvoří šedý lichoběžník MBFE.<br>7.2 Určete poměr obsahu šedé plochy ku obsahu bílé plochy na celém povrchu krychle (v základním tvaru).</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7.1 \(\frac{3}{4}\) &nbsp; 7.2 3 : 5</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">8</div><a href="../prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">V parku běží dva běžci trasu dlouhou 9 km, žádný z nich rychlost neupravuje. Rychlejší běžec uběhne celou trasu za 45 minut. Rychlejší běžec uběhne 4 km za čas, za který pomalejší běžec uběhne 3 km. Vypočtěte v minutách, za jaký čas uběhne rychlejší běžec 4 km a za jaký čas uběhne pomalejší běžec celou trasu.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">rychlejší: 20 min; pomalejší (celá trasa): 60 min</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">12</div><a href="../prijimacky.html#procenta" class="topic-tag">Procenta</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Eliška si koupila čtyřdílnou knižní sérii. První díl byl o 20 % levnější než druhý díl a třetí díl byl o 20 % dražší než druhý díl. Čtvrtý díl stojí běžně 750 korun, ale Eliška ho sehnala v akci za 44 % běžné ceny, a tak za něj zaplatila stejně jako za první a třetí díl dohromady. Kolik korun stál druhý díl?<br>A) 172 korun &nbsp; B) 165 korun &nbsp; C) 160 korun &nbsp; D) 142 korun &nbsp; E) 136 korun</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">B) 165 korun</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">13</div><a href="../prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Děti, které se účastnily soutěže, se měly rozdělit do stejně početných skupin. Když se rozdělily do čtveřic, dvě děti zbyly. Když se však rozdělily do šestic, nikdo nezbyl. Počet dětmi vytvořených šestic byl o 10 menší než počet čtveřic. Kolik šestic děti vytvořily?<br>A) 18 šestic &nbsp; B) 19 šestic &nbsp; C) 20 šestic &nbsp; D) 21 šestic &nbsp; E) jiný počet šestic</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">D) 21 šestic</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">14</div><a href="../rocniky.html" class="topic-tag">Tělesa</a><div class="points-tag">2 body</div></div>
+    <div class="pe-q">Na obrázku je síť hranolu, který má podstavy tvaru kosočtverce a boční stěny tvaru čtverce. Obsah jedné podstavy je 24 cm². Součet délek všech hran hranolu je 96 cm. Jaký je objem hranolu?<br>A) 96 cm³ &nbsp; B) 144 cm³ &nbsp; C) 168 cm³ &nbsp; D) 192 cm³ &nbsp; E) jiný objem</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">D) 192 cm³</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">15</div><a href="../prijimacky.html#procenta" class="topic-tag">Procenta</a><div class="points-tag">max. 6 bodů</div></div>
+    <div class="pe-q">Tabulka udává počty žáků gymnázia, kteří se zúčastnili sportovních kurzů: vodácký kurz celkem 36 žáků, turistický kurz celkem 39 žáků, cyklistického kurzu se zúčastnilo 12 chlapců.<br><br>15.1 Vodáckého kurzu se zúčastnilo 75 % chlapců. Kolik dívek se zúčastnilo vodáckého kurzu? _____<br>15.2 Turistického kurzu se zúčastnilo o 60 % více dívek než chlapců. O kolik více dívek než chlapců se zúčastnilo turistického kurzu? _____<br>15.3 Na cyklistický kurz se přihlásilo 14 dívek. Nakonec dívky tvořily pouze 40 % účastníků cyklistického kurzu. Kolik dívek přihlášených na kurz se ho nezúčastnilo? _____<br>A) 5 &nbsp; B) 6 &nbsp; C) 7 &nbsp; D) 8 &nbsp; E) 9 &nbsp; F) jiný počet</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">15.1 E) 9 &nbsp; 15.2 E) 9 &nbsp; 15.3 B) 6</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">16</div><a href="../prijimacky.html" class="topic-tag">Logická úloha</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Vědomostní hra má 10 kol. Hráč má na začátku hry 10 žetonů a postupně může odpovědět na 5 lehčích a 5 těžších otázek. V každém kole si může koupit jen 1 otázku a zaplatí za ni 1 žeton; pokud kolo vynechá, žeton mu zůstane. Za správnou odpověď na lehčí otázku získá 2 žetony, za těžší 3 žetony. Za chybnou odpověď žádný žeton nezíská.<br><br>16.1 Určete, kolik nejvíce žetonů může mít hráč na konci hry.<br>16.2 Hráč vynechal pouze 1 kolo a ve zbývajících kolech získal za odpovědi na lehčí otázky o 5 žetonů více než za odpovědi na těžší otázky. Určete, kolik žetonů měl na konci hry.<br>16.3 Hráč měl na konci hry 16 žetonů a přitom měl největší možný počet chybných odpovědí s tímto výsledkem. Určete, kolikrát v této hře správně odpověděl na lehčí otázku. Uveďte všechna řešení.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">16.1 25 žetonů &nbsp; 16.2 13 žetonů &nbsp; 16.3 0, 1 nebo 2× (při 4 chybných odpovědích)</div></div>
+  </div>
+
+  <footer>matematika.jasně — vlastní přepis podle struktury JPZ 2026, zdroj: prijimacky.cermat.cz</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
+  });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

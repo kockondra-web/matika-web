@@ -111,7 +111,18 @@
   }
   nav.toc li a.disabled .tnum { background: transparent; }
 
-  main { min-width: 0; }
+  main { min-width: 0; display: flex; flex-direction: column; }
+  main > .topic { order: 1; }
+  main > #slovni-ulohy { order: 1; }
+  main > #zlomky { order: 2; }
+  main > #mocniny { order: 3; }
+  main > #vyrazy { order: 4; }
+  main > #rovnice { order: 5; }
+  main > #geometrie { order: 6; }
+  main > #objemy { order: 7; }
+  main > #ano-ne { order: 8; }
+  main > #procenta { order: 9; }
+  main > #logicka-uloha { order: 10; }
 
   .section-title {
     font-family: 'Fraunces', serif;
@@ -478,6 +489,7 @@
   }
   .topic-content-block { display: none; }
   .topic-content-block.active { display: block; }
+  .year-topic { display: none; }
   .topic-back-link {
     display: inline-block;
     margin-bottom: 24px;
@@ -591,7 +603,7 @@
 
 <header>
   <div class="wrap">
-    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
     <div class="stats-bar">
       <div class="stat-chip streak-chip" id="streak-chip">🔥 <span id="streak-num">0</span> dní</div>
       <div class="stat-chip">
@@ -600,7 +612,7 @@
       </div>
       <button class="reset-btn" id="reset-progress" title="Vynulovat postup, XP a odznaky">↺ reset</button>
     </div>
-    <a href="index.html" class="back">← zpět na přehled</a>
+    <a href="../index.html" class="back">← zpět na přehled</a>
   </div>
 </header>
 
@@ -609,44 +621,18 @@
     <div class="eyebrow">Přijímačky · témata</div>
     <input type="text" class="toc-search" id="toc-search" placeholder="Hledat téma…">
     <ul id="toc-list">
-      <li><a href="#slovni-ulohy"><span class="tnum">ú. 1</span> Rozehřívací úloha</a></li>
-      <li><a href="#zlomky" class="active"><span class="tnum">ú. 2–3</span> Zlomky a odmocniny</a></li>
+      <li><a href="#slovni-ulohy" class="active"><span class="tnum">ú. 1</span> Rozehřívací úloha</a></li>
+      <li><a href="#zlomky"><span class="tnum">ú. 2–3</span> Zlomky a odmocniny</a></li>
       <li><a href="#mocniny"><span class="tnum">ú. 2–3</span> Mocniny a odmocniny</a></li>
       <li><a href="#vyrazy"><span class="tnum">ú. 3–4</span> Algebraické výrazy</a></li>
       <li><a href="#rovnice"><span class="tnum">ú. 4–5</span> Lineární rovnice</a></li>
       <li><a href="#geometrie"><span class="tnum">ú. 5–8</span> Obsahy a obvody</a></li>
       <li><a href="#objemy"><span class="tnum">ú. 5–8</span> Objemy těles</a></li>
-      <li><a href="#slovni-ulohy"><span class="tnum">ú. 1</span> Měřítko a poměr</a></li>
       <li><a href="#" class="disabled"><span class="tnum">ú. 9–10</span> Konstrukční úlohy</a></li>
       <li><a href="#ano-ne"><span class="tnum">ú. 11</span> Úlohy ano/ne</a></li>
       <li><a href="#" class="disabled"><span class="tnum">ú. 12–14</span> Uzavřené úlohy (A–E)</a></li>
       <li><a href="#procenta"><span class="tnum">ú. 15</span> Procenta a fin. matematika</a></li>
       <li><a href="#logicka-uloha"><span class="tnum">ú. 16</span> Netradiční logická úloha</a></li>
-      <li style="margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em;">Navíc podle ročníku</li>
-      <li><a href="#rovinne-obrazce"><span class="tnum">6. roč.</span> Rovinné obrazce</a></li>
-      <li><a href="#telesa-site"><span class="tnum">6. roč.</span> Tělesa</a></li>
-      <li><a href="#uhel"><span class="tnum">6. roč.</span> Úhel</a></li>
-      <li><a href="#osova-soumernost"><span class="tnum">6. roč.</span> Osová souměrnost</a></li>
-      <li><a href="#trojuhelnik-zs"><span class="tnum">6. roč.</span> Trojúhelník</a></li>
-      <li><a href="#desetinna"><span class="tnum">6. roč.</span> Desetinná čísla</a></li>
-      <li><a href="#delitelnost"><span class="tnum">6. roč.</span> Dělitelnost</a></li>
-      <li><a href="#shodnost-soumernost"><span class="tnum">7. roč.</span> Shodnost, stř. souměrnost</a></li>
-      <li><a href="#cela-cisla"><span class="tnum">7. roč.</span> Celá čísla</a></li>
-      <li><a href="#racionalni-cisla"><span class="tnum">7. roč.</span> Racionální čísla</a></li>
-      <li><a href="#ctyruhelniky"><span class="tnum">7. roč.</span> Čtyřúhelníky</a></li>
-      <li><a href="#hranoly-7"><span class="tnum">7. roč.</span> Hranoly</a></li>
-      <li><a href="#druha-mocnina"><span class="tnum">8. roč.</span> Druhá mocnina</a></li>
-      <li><a href="#mocniny-prirozeny-exponent"><span class="tnum">8. roč.</span> Mocniny</a></li>
-      <li><a href="#valec"><span class="tnum">8. roč.</span> Válec</a></li>
-      <li><a href="#konstrukcni-ulohy"><span class="tnum">8. roč.</span> Konstrukční úlohy</a></li>
-      <li><a href="#kruznice-kruh"><span class="tnum">8. roč.</span> Kružnice a kruh</a></li>
-      <li><a href="#statistika"><span class="tnum">8. roč.</span> Základy statistiky</a></li>
-      <li><a href="#soustavy-rovnic-zs"><span class="tnum">9. roč.</span> Soustavy rovnic</a></li>
-      <li><a href="#jehlan-kuzel-koule"><span class="tnum">9. roč.</span> Jehlan, kužel, koule</a></li>
-      <li><a href="#financni-matematika-zs"><span class="tnum">9. roč.</span> Finanční matematika</a></li>
-      <li><a href="#rysovani"><span class="tnum">9. roč.</span> Základy rýsování</a></li>
-      <li><a href="#podobnost"><span class="tnum">9. roč.</span> Podobnost trojúhelníků</a></li>
-      <li><a href="#funkce"><span class="tnum">9. roč.</span> Funkce</a></li>
 </ul>
     <div style="margin-top:14px; font-size:11.5px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; line-height:1.7;">
       <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#6B9B7A;vertical-align:middle;margin-right:5px;"></span>hotové téma<br>
@@ -656,11 +642,11 @@
 
   <main>
     <div class="section-title">Přijímačky na SŠ</div>
-    <p class="section-lead">Témata jsou seřazená <strong>podle čísla úlohy</strong>, tak jak jdou v testu za sebou — u každého vidíš, kde se v testu objeví. Struktura je ověřená na testech 2024 a 2025, ale pořadí se rok od roku může mírně přehodit. Chceš si projít celý test najednou? <a href="zs/jpz-2024-test1.html" style="color:var(--gold); font-weight:600;">→ JPZ 2024 celý test</a></p>
+    <p class="section-lead">Témata jsou seřazená <strong>podle čísla úlohy</strong>, tak jak jdou v testu za sebou — u každého vidíš, kde se v testu objeví. Struktura je ověřená na testech 2024 a 2025, ale pořadí se rok od roku může mírně přehodit. Chceš si projít celý test najednou? <a href="jpz-2024-test1.html" style="color:var(--gold); font-weight:600;">→ JPZ 2024 celý test</a> &nbsp;·&nbsp; JPZ 2026: <a href="jpz-2026-test-a.html" style="color:var(--gold); font-weight:600;">test A</a>, <a href="jpz-2026-test-b.html" style="color:var(--gold); font-weight:600;">test B</a>, <a href="jpz-2026-test-c.html" style="color:var(--gold); font-weight:600;">test C</a>, <a href="jpz-2026-test-d.html" style="color:var(--gold); font-weight:600;">test D</a></p>
 
     <div class="progress-summary" id="progress-summary">
       <div class="ps-item">
-        <div class="ps-num" id="ps-topics">0/13</div>
+        <div class="ps-num" id="ps-topics">0/10</div>
         <div class="ps-label">témat rozjeto</div>
       </div>
       <div class="ps-item">
@@ -683,7 +669,7 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        První úloha testu, jednoduchá — základní aritmetika nebo krátká slovní úloha na čas, počty nebo úměru. Cíl je hlavně nerozhodit se hned na začátku. <a href="zs/slovni-ulohy.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        První úloha testu, jednoduchá — základní aritmetika nebo krátká slovní úloha na čas, počty nebo úměru. Cíl je hlavně nerozhodit se hned na začátku. <a href="slovni-ulohy.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1082,7 +1068,7 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Tenhle blok (úlohy 5–8) se rok od roku přehazuje — může jít o obsahy/obvody rovinných útvarů, objemy těles, úhly nebo měřítko. Pythagorova věta se objevuje často jako mezikrok, ne jako celé zadání. <a href="zs/geometrie.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        Tenhle blok (úlohy 5–8) se rok od roku přehazuje — může jít o obsahy/obvody rovinných útvarů, objemy těles, úhly nebo měřítko. Pythagorova věta se objevuje často jako mezikrok, ne jako celé zadání. <a href="geometrie.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1230,104 +1216,6 @@
       <div class="pe-answer">120 mincí (Adam 60, Beta 30, Cyril 30)</div>
     </div>
   </div>
-    </div>
-
-    <div class="topic" id="desetinna">
-      <div class="topic-label">6. ročník</div>
-      <h2>Desetinná čísla</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Základ 6. ročníku — sčítání, odčítání, násobení a dělení desetinných čísel, zaokrouhlování. Objevuje se pak všude dál, i u přijímaček (hlavně u procent a finanční matematiky).
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Vypočítej: \(3{,}45 + 2{,}8\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6,25</div></div>
-  <div class="pure-example"><div class="pe-q">2. Vypočítej: \(7{,}2 - 3{,}65\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3,55</div></div>
-  <div class="pure-example"><div class="pe-q">3. Vypočítej: \(2{,}4 \times 1{,}5\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3,6</div></div>
-  <div class="pure-example"><div class="pe-q">4. Vypočítej: \(12{,}6 : 0{,}3\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">42</div></div>
-  <div class="pure-example"><div class="pe-q">5. Zaokrouhli číslo 4,5678 na setiny.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">4,57</div></div>
-    </div>
-
-    <div class="topic" id="delitelnost">
-      <div class="topic-label">6. ročník</div>
-      <h2>Dělitelnost</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Prvočísla, největší společný dělitel (NSD) a nejmenší společný násobek (NSN) — nejvíc se hodí při krácení zlomků a hledání společného jmenovatele.
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Je číslo 91 prvočíslo?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Ne — 91 = 7 × 13</div></div>
-  <div class="pure-example"><div class="pe-q">2. Najdi největšího společného dělitele čísel 48 a 60.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">NSD(48, 60) = 12</div></div>
-  <div class="pure-example"><div class="pe-q">3. Najdi nejmenší společný násobek čísel 8 a 12.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">NSN(8, 12) = 24</div></div>
-  <div class="pure-example"><div class="pe-q">4. Kolik dělitelů má číslo 36?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">9 dělitelů (1, 2, 3, 4, 6, 9, 12, 18, 36)</div></div>
-    </div>
-
-    <div class="topic" id="kruznice-kruh">
-      <div class="topic-label">8. ročník</div>
-      <h2>Kružnice a kruh</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Obsah a obvod kruhu, Thaletova věta. U přijímaček se objevuje hlavně jako součást složitějších geometrických úloh (viz Obsahy a obvody), tady je to samo o sobě.
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Vypočítej obsah kruhu o poloměru 7 cm. Použij π ≈ 3,14.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">153,86 cm²</div></div>
-  <div class="pure-example"><div class="pe-q">2. Vypočítej obvod kruhu o průměru 10 cm. Použij π ≈ 3,14.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">31,4 cm</div></div>
-  <div class="pure-example"><div class="pe-q">3. Podle Thaletovy věty: pokud je trojúhelník vepsaný do kružnice tak, že jedna jeho strana je průměr kružnice, jaký je úhel proti téhle straně?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Vždy 90° (pravý úhel)</div></div>
-    </div>
-
-    <div class="topic" id="podobnost">
-      <div class="topic-label">9. ročník</div>
-      <h2>Podobnost trojúhelníků</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Poměr podobnosti a jak se mění délky (lineárně) a obsahy (s druhou mocninou poměru) — tahle poslední část bývá nejčastější chybou.
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Trojúhelník má strany 6 cm, 8 cm a 10 cm. Jaké jsou strany podobného trojúhelníku s poměrem podobnosti 1,5?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">9 cm, 12 cm, 15 cm</div></div>
-  <div class="pure-example"><div class="pe-q">2. Trojúhelník ze zadání výše (6 a 8 cm jsou odvěsny) má obsah 24 cm². Jaký je obsah podobného trojúhelníku s poměrem podobnosti 1,5? (nápověda: obsah roste s druhou mocninou poměru)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">54 cm² (24 × 1,5²)</div></div>
-    </div>
-
-    <div class="topic" id="funkce">
-      <div class="topic-label">9. ročník</div>
-      <h2>Funkce</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Lineární funkce, jejich předpis a graf. Základ pro budoucí funkce na střední škole (viz sekce Maturita).
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Lineární funkce má předpis \(y = 2x+3\). Jaká je hodnota y pro x = 5?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">y = 13</div></div>
-  <div class="pure-example"><div class="pe-q">2. Pro stejnou funkci \(y=2x+3\): pro jaké x je y = 0 (najdi průsečík s osou x)?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">x = -1,5</div></div>
-  <div class="pure-example"><div class="pe-q">3. Graf lineární funkce prochází body [1, 5] a [3, 11]. Najdi předpis funkce \(y=ax+b\).</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">y = 3x + 2</div></div>
-    </div>
-
-    <div class="topic" id="statistika">
-      <div class="topic-label">8. ročník</div>
-      <h2>Základy statistiky</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Průměr, medián a modus — jak se v datech orientovat. Časté i mimo matematiku (např. ve zprávách nebo sportovních statistikách).
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Osm žáků dostalo na testu tyto body: 4, 7, 7, 9, 5, 7, 10, 6. Urči průměr.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6,875 bodu</div></div>
-  <div class="pure-example"><div class="pe-q">2. Pro stejná data (4, 7, 7, 9, 5, 7, 10, 6) urči medián.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7 (průměr dvou prostředních hodnot 7 a 7)</div></div>
-  <div class="pure-example"><div class="pe-q">3. Pro stejná data (4, 7, 7, 9, 5, 7, 10, 6) urči modus (nejčastější hodnotu).</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7 (vyskytuje se 3×)</div></div>
     </div>
 
     <div class="topic" id="procenta">
@@ -1550,74 +1438,7 @@
       </div>
     </div>
 
-    <div class="topic" id="rovinne-obrazce">
-      <div class="topic-label">6. ročník</div>
-      <h2>Rovinné obrazce</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Obvod a obsah obdélníku a čtverce — základ, na kterém stojí celá pozdější geometrie (čtyřúhelníky, kruh, tělesa).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Obdélník má strany 8 cm a 5 cm. Vypočti obvod a obsah.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o = 26 cm, S = 40 cm²</div></div>
-      <div class="pure-example"><div class="pe-q">2. Čtverec má stranu 6 cm. Vypočti obvod a obsah.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o = 24 cm, S = 36 cm²</div></div>
-      <div class="pure-example"><div class="pe-q">3. Zahrada tvaru obdélníku 12 m × 8 m se má oplotit, metr plotu stojí 150 Kč. Kolik bude plot stát celkem?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o = 40 m, cena = 6 000 Kč</div></div>
-      <div class="pure-example"><div class="pe-q">4. Čtverec má obsah 49 cm². Jak dlouhá je jeho strana?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7 cm</div></div>
-    </div>
-
-    <div class="topic" id="telesa-site">
-      <div class="topic-label">6. ročník</div>
-      <h2>Tělesa</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Kvádr a krychle, jejich sítě (rozložení pláště do roviny) — základ pro pozdější počítání objemu a povrchu.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Kolik stěn, hran a vrcholů má krychle?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6 stěn, 12 hran, 8 vrcholů</div></div>
-      <div class="pure-example"><div class="pe-q">2. Z kolika shodných čtverců se skládá síť krychle?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6 čtverců</div></div>
-      <div class="pure-example"><div class="pe-q">3. Kvádr má hrany 3 cm, 4 cm a 5 cm. Kolik různě velkých obdélníků obsahuje jeho síť?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3 různé (každý 2×) — 3×4, 3×5, 4×5</div></div>
-    </div>
-
-    <div class="topic" id="uhel">
-      <div class="topic-label">6. ročník</div>
-      <h2>Úhel</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Druhy úhlů, sčítání a odčítání, vedlejší a vrcholové úhly — vedlejší dávají dohromady 180°, vrcholové jsou vždy stejně velké.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Úhel má 34°. Jak velký je jeho doplněk do pravého úhlu (90°)?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">56°</div></div>
-      <div class="pure-example"><div class="pe-q">2. Jeden z vedlejších úhlů měří 65°. Jak velký je druhý?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">115° (dohromady 180°)</div></div>
-      <div class="pure-example"><div class="pe-q">3. Dvě přímky se protínají, jeden z úhlů měří 48°. Jak velký je úhel jemu vrcholový?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">48° (vrcholové úhly jsou vždy shodné)</div></div>
-      <div class="pure-example"><div class="pe-q">4. V trojúhelníku měří dva úhly 52° a 71°. Jak velký je třetí?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">57° (součet úhlů v trojúhelníku je vždy 180°)</div></div>
-    </div>
-
-    <div class="topic" id="osova-soumernost">
-      <div class="topic-label">6. ročník</div>
-      <h2>Osová souměrnost</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Zobrazení, které překlopí bod (nebo celý obrazec) podle přímky (osy) — vzdálenost bodu od osy zůstává stejná, jen na druhé straně.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Kolik os souměrnosti má čtverec?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">4 (dvě uhlopříčky a dvě spojnice středů stran)</div></div>
-      <div class="pure-example"><div class="pe-q">2. Kolik os souměrnosti má rovnostranný trojúhelník?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3</div></div>
-      <div class="pure-example"><div class="pe-q">3. Kolik os souměrnosti má obecný (různostranný) obdélník?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">2</div></div>
-    </div>
-
-    <div class="topic" id="trojuhelnik-zs">
-      <div class="topic-label">6. ročník</div>
-      <h2>Trojúhelník</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Druhy trojúhelníků, výšky, těžnice, kružnice opsaná a vepsaná. Součet vnitřních úhlů je vždy 180°.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Trojúhelník má dva úhly po 40°. Jak velký je třetí, a jakého druhu je trojúhelník podle stran?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">100°, trojúhelník je rovnoramenný</div></div>
-      <div class="pure-example"><div class="pe-q">2. Lze sestrojit trojúhelník se stranami 3 cm, 4 cm a 9 cm?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Ne — součet dvou kratších stran (7) musí být větší než třetí strana (9); trojúhelníková nerovnost neplatí</div></div>
-      <div class="pure-example"><div class="pe-q">3. Kde leží střed kružnice opsané trojúhelníku?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">V průsečíku os všech tří stran</div></div>
-    </div>
-
-    <div class="topic" id="shodnost-soumernost">
+    <div class="topic year-topic" id="shodnost-soumernost">
       <div class="topic-label">7. ročník</div>
       <h2>Shodnost a středová souměrnost</h2>
       <div class="exam-info">
@@ -1630,7 +1451,7 @@
       <div class="pure-example"><div class="pe-q">3. Bod A[2,3] zobrazíme středovou souměrností podle počátku [0,0]. Jaké jsou souřadnice obrazu?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">[-2,-3] (obě souřadnice změní znaménko)</div></div>
     </div>
 
-    <div class="topic" id="cela-cisla">
+    <div class="topic year-topic" id="cela-cisla">
       <div class="topic-label">7. ročník</div>
       <h2>Celá čísla</h2>
       <div class="exam-info">
@@ -1644,7 +1465,7 @@
       <div class="pure-example"><div class="pe-q">4. Ráno bylo −5 °C, odpoledne 8 °C. O kolik stupňů se oteplilo?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o 13 °C</div></div>
     </div>
 
-    <div class="topic" id="racionalni-cisla">
+    <div class="topic year-topic" id="racionalni-cisla">
       <div class="topic-label">7. ročník</div>
       <h2>Racionální čísla</h2>
       <div class="exam-info">
@@ -1657,7 +1478,7 @@
       <div class="pure-example"><div class="pe-q">3. Seřaď od nejmenšího: 0,3;  −1;  1/2;  −0,5</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−1 &lt; −0,5 &lt; 0,3 &lt; 1/2</div></div>
     </div>
 
-    <div class="topic" id="ctyruhelniky">
+    <div class="topic year-topic" id="ctyruhelniky">
       <div class="topic-label">7. ročník</div>
       <h2>Čtyřúhelníky</h2>
       <div class="exam-info">
@@ -1670,7 +1491,7 @@
       <div class="pure-example"><div class="pe-q">3. Co mají společné všechny rovnoběžníky (obdélník, čtverec, kosodélník, kosoctverec)?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Protější strany jsou rovnoběžné a stejně dlouhé</div></div>
     </div>
 
-    <div class="topic" id="hranoly-7">
+    <div class="topic year-topic" id="hranoly-7">
       <div class="topic-label">7. ročník</div>
       <h2>Hranoly</h2>
       <div class="exam-info">
@@ -1682,7 +1503,7 @@
       <div class="pure-example"><div class="pe-q">2. Krychle má hranu 5 cm. Jaký je její objem?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">125 cm³</div></div>
     </div>
 
-    <div class="topic" id="druha-mocnina">
+    <div class="topic year-topic" id="druha-mocnina">
       <div class="topic-label">8. ročník</div>
       <h2>Druhá mocnina a odmocnina</h2>
       <div class="exam-info">
@@ -1695,7 +1516,7 @@
       <div class="pure-example"><div class="pe-q">3. Mezi kterými dvěma celými čísly leží √150?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Mezi 12 a 13 (12²=144, 13²=169)</div></div>
     </div>
 
-    <div class="topic" id="mocniny-prirozeny-exponent">
+    <div class="topic year-topic" id="mocniny-prirozeny-exponent">
       <div class="topic-label">8. ročník</div>
       <h2>Mocniny</h2>
       <div class="exam-info">
@@ -1709,7 +1530,7 @@
       <div class="pure-example"><div class="pe-q">4. Vypočti: 3² · 3⁴</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3⁶ = 729 (exponenty se při násobení stejného základu sčítají)</div></div>
     </div>
 
-    <div class="topic" id="valec">
+    <div class="topic year-topic" id="valec">
       <div class="topic-label">8. ročník</div>
       <h2>Válec</h2>
       <div class="exam-info">
@@ -1721,7 +1542,7 @@
       <div class="pure-example"><div class="pe-q">2. Pro stejný válec (r=5, v=10) vypočti povrch.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 471 cm²</div></div>
     </div>
 
-    <div class="topic" id="konstrukcni-ulohy">
+    <div class="topic year-topic" id="konstrukcni-ulohy">
       <div class="topic-label">8. ročník</div>
       <h2>Konstrukční úlohy</h2>
       <div class="exam-info">
@@ -1734,7 +1555,7 @@
       <div class="pure-example"><div class="pe-q">3. Podle Thaletovy věty: jaká je množina vrcholů pravého úhlu nad danou úsečkou AB?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Kružnice s průměrem AB (bez bodů A, B)</div></div>
     </div>
 
-    <div class="topic" id="soustavy-rovnic-zs">
+    <div class="topic year-topic" id="soustavy-rovnic-zs">
       <div class="topic-label">9. ročník</div>
       <h2>Soustavy rovnic</h2>
       <div class="exam-info">
@@ -1746,7 +1567,7 @@
       <div class="pure-example"><div class="pe-q">2. Vyřeš soustavu: 2x + y = 11, x + 3y = 18</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">x = 3, y = 5</div></div>
     </div>
 
-    <div class="topic" id="jehlan-kuzel-koule">
+    <div class="topic year-topic" id="jehlan-kuzel-koule">
       <div class="topic-label">9. ročník</div>
       <h2>Jehlan, kužel, koule</h2>
       <div class="exam-info">
@@ -1759,7 +1580,7 @@
       <div class="pure-example"><div class="pe-q">3. Koule má poloměr 3 cm. Jaký je její objem? Použij π ≈ 3,14.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 113,1 cm³</div></div>
     </div>
 
-    <div class="topic" id="financni-matematika-zs">
+    <div class="topic year-topic" id="financni-matematika-zs">
       <div class="topic-label">9. ročník</div>
       <h2>Finanční matematika</h2>
       <div class="exam-info">
@@ -1771,7 +1592,7 @@
       <div class="pure-example"><div class="pe-q">2. Ve směnárně je kurz 25 Kč za 1 EUR. Kolik korun dostanu za 100 EUR?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">2 500 Kč</div></div>
     </div>
 
-    <div class="topic" id="rysovani">
+    <div class="topic year-topic" id="rysovani">
       <div class="topic-label">9. ročník</div>
       <h2>Základy rýsování</h2>
       <div class="exam-info">
@@ -1981,7 +1802,12 @@
   function showTopicMenu(topicId) {
     document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => b.classList.remove('active'));
     const menu = document.getElementById(topicId + '-menu');
-    if (menu) menu.style.display = 'flex';
+    if (menu) {
+      menu.style.display = 'flex';
+    } else {
+      const pureBlock = document.querySelector(`#${topicId} .topic-content-block[data-block="pure"]`);
+      if (pureBlock) pureBlock.classList.add('active');
+    }
   }
   function showTopicBlock(topicId, block) {
     const menu = document.getElementById(topicId + '-menu');
@@ -1990,6 +1816,18 @@
       b.classList.toggle('active', b.getAttribute('data-block') === block);
     });
   }
+
+  ['zlomky', 'procenta'].forEach(topicId => {
+    const topic = document.getElementById(topicId);
+    if (!topic) return;
+    const menu = document.getElementById(topicId + '-menu');
+    if (menu) menu.remove();
+    topic.querySelectorAll('.topic-content-block').forEach(block => {
+      if (block.getAttribute('data-block') !== 'pure') block.remove();
+    });
+    const pureBlock = topic.querySelector('.topic-content-block[data-block="pure"]');
+    if (pureBlock) pureBlock.classList.add('active');
+  });
 
   document.querySelectorAll('.topic-menu-card').forEach(card => {
     card.addEventListener('click', () => {
