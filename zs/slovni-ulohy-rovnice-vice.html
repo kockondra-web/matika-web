@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slovní úloha na rovnici | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1B2A4A; --ink-soft:#3A4A6B; --paper:#FAF9F6; --paper-dim:#F0EEE7; --gold:#D4A24E; --brick:#B85C4A; --line:rgba(27,42,74,.12); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  header { padding:24px 0; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10; background:var(--paper); }
+  header .wrap, .wrap { max-width:900px; margin:0 auto; padding:0 32px; }
+  header .wrap { display:flex; justify-content:space-between; align-items:center; gap:24px; }
+  .logo { color:var(--ink); font:600 20px 'Fraunces',serif; text-decoration:none; }.logo span { color:var(--gold); }
+  .back { color:var(--ink-soft); font:13px 'JetBrains Mono',monospace; text-decoration:none; }.back:hover { color:var(--ink); }
+  .page-head { padding:50px 0 10px; }.section-title { font:600 40px 'Fraunces',serif; margin-bottom:12px; }
+  .section-lead { color:var(--ink-soft); font-size:16px; max-width:700px; line-height:1.6; margin-bottom:10px; }
+  .source-note { color:var(--gold); background:var(--paper-dim); display:inline-block; padding:6px 12px; border-radius:4px; margin-bottom:40px; font:12.5px 'JetBrains Mono',monospace; }
+  .info-box, .tip-box, .practice-box { max-width:700px; padding:20px 24px; margin:24px 0; font-size:15px; line-height:1.65; }
+  .info-box { background:var(--paper-dim); border-left:3px solid var(--gold); }.tip-box { background:#FBF0EE; border-left:3px solid var(--brick); }.practice-box { background:#FCF7EC; border-left:3px solid var(--gold); }
+  .info-box h3, .tip-box h3 { font:600 22px 'Fraunces',serif; margin-bottom:12px; }.info-box p, .info-box ul, .info-box ol, .tip-box p { margin-bottom:12px; }
+  .info-box p:last-child, .info-box ul:last-child, .tip-box p:last-child { margin-bottom:0; }.info-box ul, .info-box ol, .practice-box ol { margin-left:22px; }
+  .solved-example { max-width:700px; background:white; border:1px solid var(--line); border-radius:4px; padding:20px 22px; margin:18px 0; line-height:1.65; }.solved-example h3 { font-size:17px; margin-bottom:10px; }.solved-example p { margin-bottom:8px; }
+  .examples-heading { color:var(--ink-soft); margin:36px 0 16px; font:13px 'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase; }
+  code { background:var(--paper-dim); padding:2px 5px; border-radius:3px; font:.92em 'JetBrains Mono',monospace; }.practice-box ol { margin-top:8px; margin-bottom:16px; line-height:1.8; }
+  footer { border-top:1px solid var(--line); padding:30px 0; margin-top:60px; color:var(--ink-soft); font:13.5px 'JetBrains Mono',monospace; }
+  @media (max-width:600px) { header .wrap { align-items:flex-start; flex-direction:column; gap:8px; }.wrap { padding:0 22px; }.section-title { font-size:36px; } }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="../index.html" class="logo">matematika<span>.</span>jasně</a><a href="prijimacky.html#slovni-ulohy-rovnice" class="back">← zpět na přijímačky</a></div></header>
+<div class="wrap">
+  <div class="page-head"><div class="section-title">Slovní úloha na rovnici</div><p class="section-lead">Postupy a příklady pro šestou úlohu přijímaček: jak ze slovního zadání sestavit rovnici, vyřešit ji a napsat úplnou odpověď.</p><div class="source-note">úloha 6 · slovní úloha na rovnici</div></div>
+
+  <div class="info-box">
+    <h3>Univerzální postup v pěti krocích</h3>
+    <ol>
+      <li>Urči, co má být výsledkem, a označ to jako <code>x</code> (případně <code>y</code>).</li>
+      <li>Vyjádři ostatní údaje pomocí neznámé.</li>
+      <li>Najdi v textu hlavní rovnost a sestav rovnici.</li>
+      <li>Rovnici vyřeš ekvivalentními úpravami.</li>
+      <li>Proveď zkoušku, zkontroluj smysl výsledku a napiš slovní odpověď.</li>
+    </ol>
+    <h3>Časté převody ze zadání</h3>
+    <ul>
+      <li>Číslo o 5 větší než <code>x</code>: <code>x + 5</code>.</li>
+      <li>Číslo třikrát větší než <code>x</code>: <code>3x</code>.</li>
+      <li>Číslo o 20 % menší než <code>x</code>: <code>0,8x</code>.</li>
+      <li>Předchozí a následující celé číslo: <code>x - 1</code> a <code>x + 1</code>.</li>
+    </ul>
+  </div>
+
+  <div class="tip-box"><h3>Tipy pro test</h3><p><strong>Piš přehledně:</strong> tabulka pomůže u úloh o věku, společné práci nebo pohybu.</p><p><strong>Hlídaj jednotky:</strong> 1 hodina 15 minut je 1,25 hodiny, ne 1,15 hodiny.</p><p><strong>Odpověz na celou otázku:</strong> někdy se zadání ptá na <code>x + 5</code>, ne pouze na <code>x</code>.</p><p><strong>Proveď zkoušku:</strong> výsledek musí sedět v rovnici i v původním příběhu.</p></div>
+
+  <div class="examples-heading">Řešené příklady s vysvětlením</div>
+  <div class="solved-example"><h3>Příklad 1: Rozdělení celku</h3><p><strong>Zadání:</strong> Tři třídy nasbíraly celkem 300 kg papíru. Třída 9.A nasbírala o 20 kg více než 9.B a třída 9.C 1,5krát více než 9.B. Kolik nasbírala 9.A?</p><p><strong>Zápis:</strong> 9.B = <code>x</code>, 9.A = <code>x + 20</code>, 9.C = <code>1,5x</code>.</p><p><strong>Rovnice:</strong> <code>(x + 20) + x + 1,5x = 300</code>, tedy <code>3,5x = 280</code> a <code>x = 80</code>.</p><p><strong>Odpověď:</strong> Třída 9.A nasbírala <code>100 kg</code>.</p></div>
+  <div class="solved-example"><h3>Příklad 2: Společná práce</h3><p><strong>Zadání:</strong> Mistr splní zakázku sám za 6 hodin, učeň za 10 hodin. Za jak dlouho ji splní společně?</p><p><strong>Rovnice:</strong> <code>x/6 + x/10 = 1</code>. Po vynásobení třiceti dostaneme <code>5x + 3x = 30</code>, tedy <code>x = 15/4 = 3,75 h</code>.</p><p><strong>Odpověď:</strong> Společně práci splní za <code>3 hodiny 45 minut</code>.</p></div>
+  <div class="solved-example"><h3>Příklad 3: Číselné vztahy</h3><p><strong>Zadání:</strong> Součet dvou čísel je 54. Větší číslo je o 12 větší než menší. Určete obě čísla.</p><p><strong>Rovnice:</strong> <code>x + (x + 12) = 54</code>, tedy <code>2x = 42</code> a <code>x = 21</code>.</p><p><strong>Odpověď:</strong> Čísla jsou <code>21</code> a <code>33</code>.</p></div>
+
+  <div class="examples-heading">Příklady k procvičení</div>
+  <div class="practice-box"><p>Sestav rovnici, vyřeš ji a napiš odpověď:</p><ol><li>Otci je 42 let a synovi 12 let. Za kolik let bude otec třikrát starší než syn?</li><li>Myslím si číslo. Když od jeho trojnásobku odečtu 15 a výsledek vydělím dvěma, dostanu číslo o 3 větší než původní číslo. Jaké číslo si myslím?</li><li>První čerpadlo naplní nádrž za 4 hodiny, druhé za 6 hodin. První pracuje hodinu samo, potom se přidá druhé. Za jak dlouho bude nádrž plná?</li><li>V kině bylo 240 diváků. Dětí bylo o 20 % více než dospělých. Kolik dětí bylo v kině?</li></ol></div>
+
+  <footer>matematika.jasně — slovní úlohy na rovnice pro JPZ</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Úměrnost a poměr | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1B2A4A; --ink-soft:#3A4A6B; --paper:#FAF9F6; --paper-dim:#F0EEE7; --gold:#D4A24E; --brick:#B85C4A; --line:rgba(27,42,74,.12); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  header { padding:24px 0; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10; background:var(--paper); }
+  header .wrap, .wrap { max-width:900px; margin:0 auto; padding:0 32px; }
+  header .wrap { display:flex; justify-content:space-between; align-items:center; gap:24px; }
+  .logo { color:var(--ink); font:600 20px 'Fraunces',serif; text-decoration:none; }.logo span { color:var(--gold); }
+  .back { color:var(--ink-soft); font:13px 'JetBrains Mono',monospace; text-decoration:none; }.back:hover { color:var(--ink); }
+  .page-head { padding:50px 0 10px; }.section-title { font:600 40px 'Fraunces',serif; margin-bottom:12px; }
+  .section-lead { color:var(--ink-soft); font-size:16px; max-width:700px; line-height:1.6; margin-bottom:10px; }
+  .source-note { color:var(--gold); background:var(--paper-dim); display:inline-block; padding:6px 12px; border-radius:4px; margin-bottom:40px; font:12.5px 'JetBrains Mono',monospace; }
+  .info-box, .tip-box, .practice-box { max-width:700px; padding:20px 24px; margin:24px 0; font-size:15px; line-height:1.65; }
+  .info-box { background:var(--paper-dim); border-left:3px solid var(--gold); }.tip-box { background:#FBF0EE; border-left:3px solid var(--brick); }.practice-box { background:#FCF7EC; border-left:3px solid var(--gold); }
+  .info-box h3, .tip-box h3 { font:600 22px 'Fraunces',serif; margin-bottom:12px; }.info-box p, .info-box ul, .info-box ol, .tip-box p { margin-bottom:12px; }
+  .info-box p:last-child, .info-box ul:last-child, .tip-box p:last-child { margin-bottom:0; }.info-box ul, .info-box ol, .practice-box ol { margin-left:22px; }
+  .solved-example { max-width:700px; background:white; border:1px solid var(--line); border-radius:4px; padding:20px 22px; margin:18px 0; line-height:1.65; }.solved-example h3 { font-size:17px; margin-bottom:10px; }.solved-example p { margin-bottom:8px; }
+  .examples-heading { color:var(--ink-soft); margin:36px 0 16px; font:13px 'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase; }
+  code { background:var(--paper-dim); padding:2px 5px; border-radius:3px; font:.92em 'JetBrains Mono',monospace; }.practice-box ol { margin-top:8px; margin-bottom:16px; line-height:1.8; }
+  footer { border-top:1px solid var(--line); padding:30px 0; margin-top:60px; color:var(--ink-soft); font:13.5px 'JetBrains Mono',monospace; }
+  @media (max-width:600px) { header .wrap { align-items:flex-start; flex-direction:column; gap:8px; }.wrap { padding:0 22px; }.section-title { font-size:36px; } }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="../index.html" class="logo">matematika<span>.</span>jasně</a><a href="prijimacky.html#slovni-ulohy-pomer-umernost" class="back">← zpět na přijímačky</a></div></header>
+<div class="wrap">
+  <div class="page-head"><div class="section-title">Úměrnost a poměr</div><p class="section-lead">Postupy a příklady pro sedmou úlohu přijímaček: přímá a nepřímá úměrnost, poměry, měřítko, rychlost, dráha a čas.</p><div class="source-note">úloha 7 · úměrnost a poměr</div></div>
+
+  <div class="info-box">
+    <h3>Přímá a nepřímá úměrnost</h3>
+    <ul>
+      <li><strong>Přímá úměrnost:</strong> když se jedna veličina zvětší, druhá se zvětší stejným poměrem. Platí <code>x₁ / y₁ = x₂ / y₂</code>.</li>
+      <li><strong>Nepřímá úměrnost:</strong> když se jedna veličina zvětší, druhá se zmenší. Platí <code>x₁ · y₁ = x₂ · y₂</code>.</li>
+    </ul>
+    <h3>Poměr, měřítko a pohyb</h3>
+    <ul>
+      <li>U poměru <code>a : b</code> nejprve spočítej hodnotu jednoho dílu: celek vyděl součtem dílů.</li>
+      <li>Měřítko <code>1 : M</code> znamená, že 1 cm na mapě odpovídá <code>M</code> cm ve skutečnosti.</li>
+      <li>Pro pohyb použij <code>s = v · t</code>. Dráha je rychlost krát čas.</li>
+    </ul>
+  </div>
+
+  <div class="tip-box"><h3>Tipy pro test</h3><p><strong>Najdi jeden díl:</strong> u rozdělování v poměru nejprve sečti poměrná čísla a vyděl jimi celek.</p><p><strong>Rozliš úměrnost:</strong> více pracovníků znamená kratší čas, jde tedy o nepřímou úměrnost.</p><p><strong>Hlídaj jednotky:</strong> u měřítka převáděj centimetry na metry nebo kilometry. 15 minut je 0,25 hodiny.</p><p><strong>Udělej odhad:</strong> výsledek by měl odpovídat tomu, zda se veličiny mění stejným nebo opačným směrem.</p></div>
+
+  <div class="examples-heading">Řešené příklady s vysvětlením</div>
+  <div class="solved-example"><h3>Příklad 1: Rozdělení v poměru</h3><p><strong>Zadání:</strong> Odměnu 12 000 Kč si tři pracovníci rozdělili v poměru <code>2 : 3 : 5</code>. O kolik dostal pracovník s pěti díly více než pracovník se dvěma díly?</p><p><strong>Výpočet:</strong> Celkem je <code>10 dílů</code>, jeden díl je <code>12 000 : 10 = 1 200 Kč</code>. Rozdíl jsou tři díly: <code>3 · 1 200 = 3 600 Kč</code>.</p><p><strong>Odpověď:</strong> Dostal o <code>3 600 Kč</code> více.</p></div>
+  <div class="solved-example"><h3>Příklad 2: Měřítko mapy</h3><p><strong>Zadání:</strong> Na mapě v měřítku <code>1 : 75 000</code> měří vzdálenost 8 cm. Jaká je skutečná vzdálenost?</p><p><strong>Výpočet:</strong> 1 cm na mapě je 75 000 cm = 0,75 km. Proto <code>8 · 0,75 = 6 km</code>.</p><p><strong>Odpověď:</strong> Skutečná vzdálenost je <code>6 km</code>.</p></div>
+  <div class="solved-example"><h3>Příklad 3: Nepřímá úměrnost</h3><p><strong>Zadání:</strong> Auto projede trať rychlostí 80 km/h za 45 minut. Jakou rychlostí musí jet, aby stejnou trať projelo za 30 minut?</p><p><strong>Výpočet:</strong> <code>45 min = 0,75 h</code>, takže <code>s = 80 · 0,75 = 60 km</code>. Nová rychlost je <code>v = 60 : 0,5 = 120 km/h</code>.</p><p><strong>Odpověď:</strong> Auto musí jet rychlostí <code>120 km/h</code>.</p></div>
+
+  <div class="examples-heading">Příklady k procvičení</div>
+  <div class="practice-box"><p>Vyřeš úlohy a zapiš postup:</p><ol><li>Obvod obdélníku je 56 cm. Strany jsou v poměru 3 : 4. Urči jeho obsah.</li><li>Cena zboží 1 500 Kč se změnila v poměru 4 : 5. Jaká je nová cena?</li><li>Skutečná vzdálenost měst je 25 km a na mapě 10 cm. Jaké je měřítko?</li><li>Čtyři čerpadla vyčerpají nádrž za 15 hodin. Za jak dlouho ji vyčerpá šest stejných čerpadel?</li><li>Cyklista ujede za 1 hodinu 30 minut 27 km. Jaká je jeho průměrná rychlost?</li></ol></div>
+
+  <footer>matematika.jasně — úměrnost a poměr pro JPZ</footer>
+</div>
+</body>
+</html>

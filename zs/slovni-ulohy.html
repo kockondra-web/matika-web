@@ -6,6 +6,9 @@
 <title>Slovní úlohy | matematika.jasně</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
   :root {
     --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
@@ -25,48 +28,64 @@
 
   .page-head { padding: 50px 0 10px; }
   .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
-  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 660px; line-height: 1.6; margin-bottom: 10px; }
   .source-note {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    color: var(--gold);
-    background: var(--paper-dim);
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 4px;
-    margin-bottom: 40px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 40px;
   }
 
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .rule-box p, .rule-box ul, .rule-box ol { margin-bottom: 12px; }
+  .rule-box p:last-child, .rule-box ul:last-child, .rule-box ol:last-child { margin-bottom: 0; }
+  .rule-box ul, .rule-box ol { margin-left: 20px; }
+
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box p { margin-bottom: 10px; }
+  .warn-box p:last-child { margin-bottom: 0; }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 16px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 9px;
+  }
+  .zadani { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+  .priklad .krok { font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); margin: 4px 0; }
+  .priklad .krok strong { color: var(--ink); }
+  .priklad .vysl { background: #FCF7EC; margin: 10px -22px -18px; padding: 13px 22px; font-weight: 600; border-radius: 0 0 6px 6px; }
+
   .examples-heading {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
-    margin: 36px 0 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft); margin: 44px 0 16px; padding-top: 24px; border-top: 1px solid var(--line);
+    max-width: 700px;
   }
 
   .pure-example {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    margin-bottom: 14px;
-    max-width: 700px;
-    padding: 18px 22px;
+    background: white; border: 1px solid var(--line); border-radius: 4px;
+    margin-bottom: 14px; max-width: 700px; padding: 18px 22px;
   }
   .pure-example .pe-q { font-size: 15.5px; font-weight: 500; margin-bottom: 10px; }
   .pure-example .pe-footer { display: flex; align-items: center; gap: 16px; }
   .pure-example .pe-answer-btn {
-    background: var(--paper-dim);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 7px 14px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
+    background: var(--paper-dim); border: 1px solid var(--line); border-radius: 4px;
+    padding: 7px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap;
   }
   .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
   .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
@@ -80,7 +99,7 @@
 
 <header>
   <div class="wrap">
-    <a href="index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
     <a href="prijimacky.html" class="back">← zpět na přijímačky</a>
   </div>
 </header>
@@ -88,28 +107,93 @@
 <div class="wrap">
   <div class="page-head">
     <div class="section-title">Slovní úlohy</div>
-    <p class="section-lead">Čisté příklady bez teorie — přímo ze skutečných zadání jednotné přijímací zkoušky.</p>
-    <div class="source-note">zdroj: JPZ 2024, 1. řádný termín (M9PAD24C0T01), Cermat</div>
+    <p class="section-lead">Teorie a rozšířené příklady k první úloze přijímaček — pořadí početních operací, převod slovního zadání na výraz, a na konci čisté příklady přímo ze skutečných zadání JPZ.</p>
+    <div class="source-note">úloha 1 · 1 bod</div>
   </div>
 
-  <div class="examples-heading">Příklady</div>
+  <div class="rule-box">
+    <div class="rb-label">Pořadí početních operací</div>
+    <ol>
+      <li><strong>Závorky</strong> — počítáme nejdřív uvnitř nich.</li>
+      <li><strong>Mocniny a odmocniny</strong> — mají přednost před násobením a dělením.</li>
+      <li><strong>Násobení a dělení</strong> — zleva doprava.</li>
+      <li><strong>Sčítání a odčítání</strong> — provádíme nakonec, opět zleva doprava.</li>
+    </ol>
+  </div>
+
+  <div class="rule-box">
+    <div class="rb-label">Jak převést slovní zadání na výraz</div>
+    <ul>
+      <li><strong>O kolik</strong> je X větší nebo menší než Y: počítáme rozdíl \(X-Y\).</li>
+      <li><strong>Kolikrát</strong> je X větší nebo menší než Y: dělíme \(X:Y\).</li>
+      <li><strong>Změna teploty nebo výšky:</strong> pokles odčítáme, nárůst sčítáme. Rozdíl mezi −4 °C a +6 °C je \(6-(-4)=10\) °C.</li>
+      <li><strong>Rozdíl součinu a součtu:</strong> zapisujeme \((a\cdot b)-(a+b)\).</li>
+    </ul>
+  </div>
+
+  <div class="warn-box">
+    <div class="wb-label">Tipy a časté chyby</div>
+    <p><strong>Podtrhni klíčová slova:</strong> rozdíl, součin, o méně, třikrát více, poklesla o.</p>
+    <p><strong>Sestav nejprve celý výraz</strong> včetně závorek a teprve potom počítej.</p>
+    <p><strong>Pozor na „o" a „krát":</strong> „o 5 více" znamená \(+5\), zatímco „5krát více" znamená \(\cdot5\). Ve výrazu \(10-2\cdot3\) se násobí dřív, takže výsledek je 4, ne 24.</p>
+    <p><strong>Ověř výsledek zdravým rozumem:</strong> když teplota klesla z +2 °C o 5 stupňů, nemůže vyjít +7 °C.</p>
+  </div>
+
+  <div class="examples-heading">Řešené příklady s vysvětlením</div>
+
+  <div class="priklad">
+    <div class="p-label">Příklad 1 — výraz se závorkou a zápornými čísly</div>
+    <div class="zadani">Vypočítej: \(15-3\cdot(8-12)\)</div>
+    <div class="krok">1. krok: \(8-12=-4\)</div>
+    <div class="krok">2. krok: \(-3\cdot(-4)=12\)</div>
+    <div class="vysl">\(15+12=27\)</div>
+  </div>
+
+  <div class="priklad">
+    <div class="p-label">Příklad 2 — změna teploty</div>
+    <div class="zadani">V pondělí v noci byla teplota −6 °C. Přes den stoupla o 9 °C. V úterý v noci klesla o 5 °C níže než denní teplota v pondělí. O kolik stupňů se lišily noční teploty?</div>
+    <div class="krok">1. krok: Denní teplota v pondělí: \(-6+9=3\) °C</div>
+    <div class="krok">2. krok: Noční teplota v úterý: \(3-5=-2\) °C</div>
+    <div class="krok">3. krok: Rozdíl nočních teplot: \(-2-(-6)=4\) °C</div>
+    <div class="vysl">Teploty se lišily o 4 °C</div>
+  </div>
+
+  <div class="priklad">
+    <div class="p-label">Příklad 3 — přepis zadání do výrazu</div>
+    <div class="zadani">Od součinu čísel −4 a 7 odečti podíl čísel −18 a 3.</div>
+    <div class="krok">Zápis: \((-4\cdot7)-[(-18):3]\)</div>
+    <div class="krok">Výpočet: \(-28-(-6)=-28+6=-22\)</div>
+    <div class="vysl">\(-22\)</div>
+  </div>
+
+  <div class="examples-heading">Příklady k procvičení</div>
+
+  <div class="pure-example"><div class="pe-q">1. \(24-4\cdot5+12:3\)</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">8</div></div></div>
+  <div class="pure-example"><div class="pe-q">2. \((18-25)\cdot(-2)-15\)</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−1</div></div></div>
+  <div class="pure-example"><div class="pe-q">3. \(-3\cdot(4-9)-2\cdot(8-11)\)</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">21</div></div></div>
+  <div class="pure-example"><div class="pe-q">4. \(100-[20-(5-8)\cdot4]\)</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">68</div></div></div>
+  <div class="pure-example"><div class="pe-q">5. Urči číslo, které je o 15 větší než trojnásobek čísla −8.</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−9</div></div></div>
+  <div class="pure-example"><div class="pe-q">6. O kolik je součet čísel −6 a 5 větší než jejich součin?</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o 29 (součet −1, součin −30)</div></div></div>
+  <div class="pure-example"><div class="pe-q">7. Petr měl na účtu dluh −450 Kč. Poté vložil 1 200 Kč a zaplatil 3 stejné platby po 350 Kč. Jaký je konečný zůstatek?</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−300 Kč (stále dluh)</div></div></div>
+  <div class="pure-example"><div class="pe-q">8. Ranní teplota byla −3 °C, do poledne stoupla o 8 °C a do večera klesla o 6 °C. Urči večerní teplotu.</div><div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−1 °C</div></div></div>
+
+  <div class="examples-heading">Příklady přímo ze zadání JPZ</div>
 
   <div class="pure-example">
-    <div class="pe-q">1. Pět švadlen, které šijí oblečení stejným tempem, splní danou zakázku za 24 hodin. Za jakou dobu splní o polovinu větší zakázku čtyři švadleny?</div>
+    <div class="pe-q">1. Šest zedníků, kteří pracují stejným tempem, postaví zeď za 20 hodin. Za jakou dobu postaví o polovinu větší zeď pět zedníků?</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">45 hodin</div>
+      <div class="pe-answer">36 hodin</div>
     </div>
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">2. Žáci třídy 8. B se dělí na dvě stejně velké skupiny podle toho, zda chodí na němčinu nebo na angličtinu. Ve třídě je 14 chlapců a 5 z nich chodí na angličtinu. Na němčinu chodí 4 dívky.<br><br>a) Kolik dívek celkem chodí na angličtinu?<br>b) Kolik má třída 8. B celkem žáků?</div>
+    <div class="pe-q">2. Žáci třídy 9. A se dělí na dvě stejně velké skupiny podle toho, zda chodí na informatiku nebo na výtvarku. Ve třídě je 16 chlapců a 6 z nich chodí na výtvarku. Na informatiku chodí 5 dívek.<br><br>a) Kolik dívek celkem chodí na výtvarku?<br>b) Kolik má třída 9. A celkem žáků?</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">a) 8 dívek &nbsp;&nbsp; b) 26 žáků</div>
+      <div class="pe-answer">a) 9 dívek &nbsp;&nbsp; b) 30 žáků</div>
     </div>
   </div>
-
 
   <div class="pure-example">
     <div class="pe-q">3. <span style="color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:11px;">[JPZ 2024 B, ú. 1]</span> Josef má délku kroku 75 cm, Naďa má krok dlouhý 60 cm. Oba ušli 10 000 kroků. O kolik kilometrů ušel Josef více než Naďa?</div>
@@ -126,13 +210,35 @@
     <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">200 koláčků</div></div>
   </div>
 
-  <footer>matematika.jasně — příklady ze skutečných zadání JPZ, zdroj: prijimacky.cermat.cz</footer>
+  <footer>matematika.jasně — slovní úlohy pro JPZ, část ze skutečných zadání, zdroj: prijimacky.cermat.cz</footer>
 </div>
 
 <script>
+  const selectedView = new URLSearchParams(window.location.search).get('view');
+  if (selectedView) {
+    const solvedHeading = heading => heading.textContent.includes('Řešené');
+    if (selectedView === 'theory') {
+      document.querySelectorAll('.examples-heading, .priklad, .pure-example').forEach(el => el.hidden = true);
+    } else if (selectedView === 'solutions') {
+      document.querySelectorAll('.rule-box, .warn-box, .pure-example').forEach(el => el.hidden = true);
+      document.querySelectorAll('.examples-heading').forEach(heading => heading.hidden = !solvedHeading(heading));
+    } else if (selectedView === 'examples') {
+      document.querySelectorAll('.rule-box, .warn-box, .priklad').forEach(el => el.hidden = true);
+      document.querySelectorAll('.examples-heading').forEach(heading => heading.hidden = solvedHeading(heading));
+    }
+  }
   document.querySelectorAll('.pe-answer-btn').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
   });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
 </script>
 
 </body>

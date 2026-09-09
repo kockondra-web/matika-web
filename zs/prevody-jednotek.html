@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Převody jednotek a výpočty | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 660px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold); background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 40px; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .rule-box p, .rule-box ul { margin-bottom: 10px; }
+  .rule-box p:last-child, .rule-box ul:last-child { margin-bottom: 0; }
+  .rule-box ul { margin-left: 20px; }
+  .rule-box code { background: white; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.92em; }
+
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box p { margin-bottom: 10px; }
+  .warn-box p:last-child { margin-bottom: 0; }
+  .warn-box code { background: white; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.92em; }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 16px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 9px;
+  }
+  .zadani { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+  .priklad .krok { font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); margin: 4px 0; }
+  .priklad .krok strong { color: var(--ink); }
+  .priklad .vysl { background: #FCF7EC; margin: 10px -22px -18px; padding: 13px 22px; font-weight: 600; border-radius: 0 0 6px 6px; }
+
+  .examples-heading {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft); margin: 44px 0 16px; padding-top: 24px; border-top: 1px solid var(--line);
+    max-width: 680px;
+  }
+
+  .pure-example {
+    background: white; border: 1px solid var(--line); border-radius: 4px;
+    margin-bottom: 14px; max-width: 680px; padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim); border: 1px solid var(--line); border-radius: 4px;
+    padding: 7px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="prijimacky.html#prevody" class="back">← zpět na přijímačky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">Převody jednotek a výpočty</div>
+    <p class="section-lead">Základní převody délek, obsahů, objemů, hmotnosti a času pro druhou úlohu přijímaček.</p>
+    <div class="source-note">úloha 2 · převody a jednotky</div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rb-label">Jednotky délky</div>
+    <code>km → m → dm → cm → mm</code> — mezi sousedními jednotkami násobíme nebo dělíme 10. Например <code>3,5 m = 35 dm = 350 cm = 3 500 mm</code>.
+  </div>
+
+  <div class="rule-box">
+    <div class="rb-label">Jednotky obsahu</div>
+    Obsah je dvojrozměrný, proto mezi sousedními jednotkami násobíme nebo dělíme 100:<br>
+    <code>km² → ha → a → m² → dm² → cm² → mm²</code><br>
+    <code>1 ha = 100 a = 10 000 m²</code>, &nbsp; <code>1 a = 100 m²</code>
+  </div>
+
+  <div class="rule-box">
+    <div class="rb-label">Jednotky objemu a dutých měr</div>
+    Objem je trojrozměrný, proto mezi sousedními jednotkami násobíme nebo dělíme 1 000:<br>
+    <code>m³ → dm³ → cm³ → mm³</code><br>
+    <code>1 dm³ = 1 l</code>, &nbsp; <code>1 cm³ = 1 ml</code>, &nbsp; <code>1 m³ = 1 000 l = 10 hl</code>
+  </div>
+
+  <div class="rule-box">
+    <div class="rb-label">Jednotky času</div>
+    Čas se nepřevádí po desítkách: <code>1 h = 60 min = 3 600 s</code>, <code>1 min = 60 s</code>.
+  </div>
+
+  <div class="warn-box">
+    <div class="wb-label">Tipy a časté chyby</div>
+    <p><strong>Převeď všechno na stejnou jednotku</strong> ještě před výpočtem, pokud sčítáš nebo odčítáš různé jednotky.</p>
+    <p><strong>Litry a dm³:</strong> u nádob a vody pomůže převést vše na decimetry — <code>1 l = 1 dm³</code>.</p>
+    <p><strong>Desetinné hodiny:</strong> desetinnou část hodiny násob 60 — <code>0,4 h = 24 min</code>, <code>45 min = 45:60 = 0,75 h</code>. Nikdy nečti <code>1,5 h</code> jako "1 h 50 min" — je to 1 h 30 min.</p>
+  </div>
+
+  <div class="examples-heading">Řešené příklady s vysvětlením</div>
+
+  <div class="priklad">
+    <div class="p-label">Příklad 1 — obsah a objem</div>
+    <div class="zadani">Převeď a vypočítej: a) \(0{,}25\ \text{m}^2 + 350\ \text{cm}^2\) v dm² &nbsp; b) \(1{,}2\ \text{m}^3 - 450\ \text{l}\) v dm³</div>
+    <div class="krok">a) \(0{,}25\,\text{m}^2=25\,\text{dm}^2\), \(350\,\text{cm}^2=3{,}5\,\text{dm}^2\) → \(25+3{,}5=28{,}5\) dm²</div>
+    <div class="krok">b) \(1{,}2\,\text{m}^3=1200\,\text{dm}^3\), \(450\,\text{l}=450\,\text{dm}^3\) → \(1200-450=750\) dm³</div>
+    <div class="vysl">a) 28,5 dm² &nbsp;&nbsp; b) 750 dm³</div>
+  </div>
+
+  <div class="priklad">
+    <div class="p-label">Příklad 2 — časová úloha</div>
+    <div class="zadani">Stroj vyrobí jednu součástku za 40 sekund. Jak dlouho trvá výroba 135 součástek?</div>
+    <div class="krok">1. krok: Celkový čas: \(135\cdot40=5400\) s</div>
+    <div class="krok">2. krok: \(5400:60=90\) min</div>
+    <div class="krok">3. krok: \(90\) min \(= 1\) h \(30\) min</div>
+    <div class="vysl">1 h 30 min</div>
+  </div>
+
+  <div class="examples-heading">Doplňování chybějících hodnot</div>
+
+  <div class="pure-example"><div class="pe-q">1. \(3{,}2\ \text{km} + 450\ \text{m} = \,?\,\text{m}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3 650 m</div></div>
+  <div class="pure-example"><div class="pe-q">2. \(0{,}08\ \text{m}^2 + 120\ \text{cm}^2 = \,?\,\text{dm}^2\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">9,2 dm²</div></div>
+  <div class="pure-example"><div class="pe-q">3. \(2{,}5\ \text{hl} - 80\ \text{l} = \,?\,\text{dm}^3\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">170 dm³</div></div>
+  <div class="pure-example"><div class="pe-q">4. \(3\ \text{h}\ 15\ \text{min} - 45\ \text{min} = \,?\,\text{min}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">150 min (2 h 30 min)</div></div>
+
+  <div class="examples-heading">Slovní úlohy s převody jednotek</div>
+
+  <div class="pure-example"><div class="pe-q">5. Zahrada má rozlohu 0,12 ha. Kolik záhonů o obsahu 150 m² se na ni vejde?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">8 záhonů</div></div>
+  <div class="pure-example"><div class="pe-q">6. Do akvária s objemem 0,18 m³ nateklo 120 l vody. Kolik litrů chybí k naplnění?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">60 l</div></div>
+  <div class="pure-example"><div class="pe-q">7. Atlet běžel 1 h 12 min 30 s. O kolik sekund byl pomalejší než soupeř s časem 4 200 s?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o 150 s</div></div>
+
+  <footer>matematika.jasně — převody jednotek a výpočty pro JPZ</footer>
+</div>
+
+<script>
+  const selectedView = new URLSearchParams(window.location.search).get('view');
+  if (selectedView) {
+    const solvedHeading = heading => heading.textContent.includes('Řešené');
+    if (selectedView === 'theory') {
+      document.querySelectorAll('.examples-heading, .priklad, .pure-example').forEach(el => el.hidden = true);
+    } else if (selectedView === 'solutions') {
+      document.querySelectorAll('.rule-box, .warn-box, .pure-example').forEach(el => el.hidden = true);
+      document.querySelectorAll('.examples-heading').forEach(heading => heading.hidden = !solvedHeading(heading));
+    } else if (selectedView === 'examples') {
+      document.querySelectorAll('.rule-box, .warn-box, .priklad').forEach(el => el.hidden = true);
+      document.querySelectorAll('.examples-heading').forEach(heading => heading.hidden = solvedHeading(heading));
+    }
+  }
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
+  });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

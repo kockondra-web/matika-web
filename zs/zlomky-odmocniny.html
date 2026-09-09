@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zlomky a odmocniny | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+  .page-head { padding: 50px 0 10px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 660px; line-height: 1.6; margin-bottom: 10px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 40px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
+    margin: 44px 0 6px; padding-top: 22px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 16px 0; max-width: 680px; font-size: 15px; line-height: 1.65;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 16px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 9px;
+  }
+  .zadani { font-size: 15px; line-height: 1.6; margin-bottom: 4px; }
+  .priklad .krok { font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); margin: 4px 0; }
+  .priklad .krok strong { color: var(--ink); }
+  .priklad .vysl { background: #FCF7EC; margin: 10px -22px -18px; padding: 13px 22px; font-weight: 600; border-radius: 0 0 6px 6px; }
+
+  .examples-heading {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft); margin: 44px 0 16px; padding-top: 24px; border-top: 1px solid var(--line);
+    max-width: 680px;
+  }
+
+  .pure-example {
+    background: white; border: 1px solid var(--line); border-radius: 4px;
+    margin-bottom: 14px; max-width: 680px; padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
+  .pure-example .pe-answer-btn {
+    background: var(--paper-dim); border: 1px solid var(--line); border-radius: 4px;
+    padding: 7px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap;
+  }
+  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
+  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
+  .pure-example.revealed .pe-answer-btn { display: none; }
+  .pure-example.revealed .pe-answer { display: inline-block; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="prijimacky.html#zlomky" class="back">← zpět na přijímačky</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="section-title">Zlomky a odmocniny</div>
+    <p class="section-lead">Teorie a rozšířené příklady k úloze 2–3 přijímaček — sčítání, násobení, dělení zlomků, smíšená čísla a rychlé opakování odmocnin.</p>
+    <div class="source-note">úloha 2–3 · max. 3–4 body</div>
+  </div>
+
+  <h2 class="blok" id="scitani">Sčítání a odčítání zlomků</h2>
+  <div class="rule-box">
+    <div class="rb-label">Postup</div>
+    Nejprve najdi <strong>společný jmenovatel</strong> (ideálně nejmenší společný násobek jmenovatelů), oba zlomky na něj rozšiř a teprve pak sečti/odečti čitatele. Jmenovatel se nemění.
+    $$\frac{a}{b} + \frac{c}{d} = \frac{a\cdot d + c\cdot b}{b\cdot d}$$
+  </div>
+  <div class="priklad">
+    <div class="p-label">Příklad</div>
+    <div class="zadani">Vypočítej: \(\frac{2}{3} + \frac{1}{4}\)</div>
+    <div class="krok">Společný jmenovatel je 12: \(\frac{2}{3}=\frac{8}{12}\), \(\frac{1}{4}=\frac{3}{12}\)</div>
+    <div class="vysl">\(\frac{8}{12}+\frac{3}{12}=\frac{11}{12}\)</div>
+  </div>
+
+  <h2 class="blok" id="nasobeni">Násobení a dělení zlomků</h2>
+  <div class="rule-box">
+    <div class="rb-label">Pravidla</div>
+    <strong>Násobení:</strong> čitatel krát čitatel, jmenovatel krát jmenovatel — pokud to jde, kraťte křížem ještě před násobením.<br>
+    <strong>Dělení:</strong> druhý zlomek převrať a vynásob: \(\frac{a}{b} : \frac{c}{d} = \frac{a}{b}\cdot\frac{d}{c}\)
+  </div>
+  <div class="priklad">
+    <div class="p-label">Příklad</div>
+    <div class="zadani">Vypočítej: \(\left(\frac{2}{3} - \frac{1}{2}\right) : \frac{5}{12}\)</div>
+    <div class="krok">1. krok: \(\frac{2}{3}-\frac{1}{2}=\frac{4}{6}-\frac{3}{6}=\frac{1}{6}\)</div>
+    <div class="krok">2. krok: \(\frac{1}{6}:\frac{5}{12}=\frac{1}{6}\cdot\frac{12}{5}\), po zkrácení šestkou = \(\frac{2}{5}\)</div>
+    <div class="vysl">\(\frac{2}{5}\)</div>
+  </div>
+
+  <h2 class="blok" id="smisena">Smíšená čísla a složený zlomek</h2>
+  <div class="rule-box">
+    <div class="rb-label">Připomenutí</div>
+    Smíšené číslo nejdřív převeď na zlomek: \(2\frac13 = \frac73\). Celé číslo bereš jako zlomek se jmenovatelem 1 (\(3=\frac31\)), desetinné číslo převeď na zlomek (\(0{,}4=\frac{4}{10}=\frac25\)). Složený zlomek je jen dělení dvou zlomků — čitatel i jmenovatel uprav zvlášť, pak vyděl.
+  </div>
+  <div class="priklad">
+    <div class="p-label">Příklad</div>
+    <div class="zadani">Vypočítej: \(\dfrac{1-0{,}2}{\frac34+\frac12}\)</div>
+    <div class="krok">1. krok: \(1-0{,}2=0{,}8=\frac45\)</div>
+    <div class="krok">2. krok: \(\frac34+\frac12=\frac54\)</div>
+    <div class="krok">3. krok: \(\frac45 : \frac54 = \frac45\cdot\frac45=\frac{16}{25}\)</div>
+    <div class="vysl">\(\frac{16}{25}\)</div>
+  </div>
+
+  <div class="priklad">
+    <div class="p-label">Slovní úloha</div>
+    <div class="zadani">Z nádrže se odčerpaly \(\frac25\) vody, pak přiteklo \(\frac14\) z toho, co zbylo. Kolik vody je v nádrži oproti původnímu množství?</div>
+    <div class="krok">1. krok: Po odčerpání zbývá \(1-\frac25=\frac35\).</div>
+    <div class="krok">2. krok: Přiteklo \(\frac14\) ze zbytku (ne z celku!): \(\frac14\cdot\frac35=\frac{3}{20}\)</div>
+    <div class="krok">3. krok: Celkem: \(\frac35+\frac{3}{20}=\frac{12}{20}+\frac{3}{20}=\frac{15}{20}=\frac34\)</div>
+    <div class="vysl">\(\frac34\) původního množství</div>
+  </div>
+
+  <h2 class="blok" id="odmocniny">Odmocniny — rychlé opakování</h2>
+  <div class="rule-box">
+    <div class="rb-label">Kde se to hodí</div>
+    Odmocniny se v přijímačkách často objeví ve stejném výrazu jako zlomky. Vyplatí se znát nazpaměť mocniny čísel do 20. Pokud odmocnina nevyjde přesně, stačí ji umět odhadnout mezi dvěma celými čísly.
+  </div>
+  <div class="priklad">
+    <div class="p-label">Příklad</div>
+    <div class="zadani">Vypočítej: \(\sqrt{49}\), a odhadni \(\sqrt{72}\) mezi dvěma celými čísly.</div>
+    <div class="krok">\(\sqrt{49}=7\), protože \(7^2=49\)</div>
+    <div class="krok">\(\sqrt{72}\) leží mezi \(\sqrt{64}=8\) a \(\sqrt{81}=9\)</div>
+    <div class="vysl">\(\sqrt{49}=7\), &nbsp; \(8 < \sqrt{72} < 9\)</div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wb-label">Nejčastější chyba</div>
+    Zapomenutí zkrátit výsledek na základní tvar — bod se strhává i za správný, ale nezkrácený výsledek. Vždy na konci zkontroluj, jestli čitatel a jmenovatel nemají společného dělitele.
+  </div>
+
+  <footer>matematika.jasně — zlomky a odmocniny pro JPZ</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
+  });
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+</body>
+</html>

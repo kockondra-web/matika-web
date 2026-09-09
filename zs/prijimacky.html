@@ -58,6 +58,10 @@
     position: sticky;
     top: 100px;
     align-self: start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
   }
   nav.toc .eyebrow {
     font-family: 'JetBrains Mono', monospace;
@@ -67,6 +71,32 @@
     color: var(--gold);
     margin-bottom: 16px;
   }
+  .toc-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .toc-header-row .eyebrow { margin-bottom: 0; }
+  .toc-collapse-btn {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    width: 24px; height: 24px;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+  }
+  .toc-collapse-btn:hover { border-color: var(--ink); color: var(--ink); }
+  nav.toc.collapsed .toc-search,
+  nav.toc.collapsed ul,
+  nav.toc.collapsed > div:last-child {
+    display: none;
+  }
+  nav.toc.collapsed .toc-collapse-btn { transform: rotate(-90deg); }
   .toc-search {
     width: 100%;
     padding: 9px 12px;
@@ -114,15 +144,21 @@
   main { min-width: 0; display: flex; flex-direction: column; }
   main > .topic { order: 1; }
   main > #slovni-ulohy { order: 1; }
-  main > #zlomky { order: 2; }
-  main > #mocniny { order: 3; }
-  main > #vyrazy { order: 4; }
-  main > #rovnice { order: 5; }
-  main > #geometrie { order: 6; }
-  main > #objemy { order: 7; }
-  main > #ano-ne { order: 8; }
-  main > #procenta { order: 9; }
-  main > #logicka-uloha { order: 10; }
+  main > #prevody { order: 2; }
+  main > #zlomky { order: 3; }
+  main > #mocniny { order: 4; }
+  main > #vyrazy { order: 5; }
+  main > #rovnice { order: 6; }
+  main > #slovni-ulohy-rovnice { order: 7; }
+  main > #slovni-ulohy-pomer-umernost { order: 8; }
+  main > #procenta-uloha-8 { order: 9; }
+  main > #konstrukcni-ulohy { order: 11; display: block; }
+  main > #geometrie { order: 12; }
+  main > #objemy { order: 13; }
+  main > #ano-ne { order: 14; }
+  main > #vyber-a-e { order: 15; }
+  main > #procenta { order: 16; }
+  main > #logicka-uloha { order: 17; }
 
   .section-title {
     font-family: 'Fraunces', serif;
@@ -138,6 +174,57 @@
     line-height: 1.6;
     margin-bottom: 60px;
   }
+
+  /* --- rychlý start přípravy --- */
+  .prep-hub {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 26px;
+    margin: 0 0 28px;
+  }
+  .prep-hub h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 27px;
+    margin: 4px 0 8px;
+  }
+  .prep-hub > p { color: var(--ink-soft); line-height: 1.55; max-width: 680px; }
+  .hub-label {
+    color: var(--gold);
+    font: 700 11px 'JetBrains Mono', monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .plan-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0 14px; }
+  .plan-option {
+    border: 1px solid var(--line); border-radius: 5px; background: var(--paper);
+    padding: 13px; text-align: left; cursor: pointer; color: var(--ink); font-family: 'Inter', sans-serif;
+  }
+  .plan-option strong { display: block; font-size: 14px; margin-bottom: 3px; }
+  .plan-option span { color: var(--ink-soft); font-size: 12px; line-height: 1.35; }
+  .plan-option.active, .plan-option:hover { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); background: #FCF7EC; }
+  .plan-result { border-left: 3px solid var(--gold); padding: 10px 14px; color: var(--ink-soft); line-height: 1.55; font-size: 14px; background: var(--paper); }
+  .hub-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .hub-button, .timer-button, .diagnostic-submit {
+    border: 0; border-radius: 4px; padding: 10px 14px; cursor: pointer; font: 600 13.5px 'Inter', sans-serif;
+    background: var(--ink); color: white;
+  }
+  .hub-button:hover, .timer-button:hover, .diagnostic-submit:hover { background: var(--ink-soft); }
+  .hub-button.secondary { background: var(--paper-dim); color: var(--ink); border: 1px solid var(--line); }
+  .diagnostic { margin: 28px 0; padding-top: 26px; border-top: 1px solid var(--line); }
+  .diagnostic h3, .timer-panel h3, .error-panel h3 { font-family: 'Fraunces', serif; font-size: 22px; margin-bottom: 6px; }
+  .diagnostic > p, .timer-panel > p, .error-panel > p { color: var(--ink-soft); font-size: 14px; line-height: 1.5; margin-bottom: 14px; }
+  .diagnostic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .diagnostic-question { border: 1px solid var(--line); border-radius: 4px; padding: 12px; font-size: 13.5px; line-height: 1.45; }
+  .diagnostic-question input { width: 74px; margin: 7px 0 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 3px; font: 13px 'JetBrains Mono', monospace; }
+  .diagnostic-result, .error-summary { display: none; margin-top: 14px; padding: 12px 14px; background: #FCF7EC; border-left: 3px solid var(--gold); font-size: 14px; line-height: 1.55; }
+  .timer-panel { padding-top: 26px; border-top: 1px solid var(--line); }
+  .timer-display { font: 600 30px 'JetBrains Mono', monospace; color: var(--ink); margin: 10px 0; }
+  .error-panel { margin: 0 0 28px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper-dim); }
+  .error-reasons { display: flex; gap: 7px; flex-wrap: wrap; margin: 10px 0 0; }
+  .error-reason { border: 1px solid var(--line); background: white; border-radius: 20px; padding: 6px 10px; color: var(--ink-soft); cursor: pointer; font: 12px 'Inter', sans-serif; }
+  .error-reason:hover { border-color: var(--brick); color: var(--brick); }
+  @media (max-width: 640px) { .plan-options, .diagnostic-grid { grid-template-columns: 1fr; } .prep-hub { padding: 20px; } }
 
   .topic {
     padding-top: 30px;
@@ -444,6 +531,17 @@
     font-weight: 700;
     margin-bottom: 5px;
   }
+  .more-examples-link {
+    display: inline-block;
+    margin: 10px 0 26px;
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .more-examples-link:hover {
+    color: var(--brick);
+  }
   .exam-info strong { color: var(--ink); }
 
   .topic-menu {
@@ -462,11 +560,24 @@
     cursor: pointer;
     transition: all 0.18s ease;
     text-align: left;
+    color: var(--ink);
+    text-decoration: none;
+    display: block;
   }
   .topic-menu-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 16px 30px -16px rgba(27,42,74,0.25);
     border-color: var(--ink);
+  }
+  .topic-menu-card.pending {
+    background: var(--paper-dim);
+    cursor: default;
+    opacity: 0.72;
+  }
+  .topic-menu-card.pending:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--line);
   }
   .topic-menu-card .tmc-icon {
     font-family: 'JetBrains Mono', monospace;
@@ -487,7 +598,7 @@
     color: var(--ink-soft);
     line-height: 1.5;
   }
-  .topic-content-block { display: none; }
+  .topic-content-block { display: none; scroll-margin-top: 110px; }
   .topic-content-block.active { display: block; }
   .year-topic { display: none; }
   .topic-back-link {
@@ -617,23 +728,29 @@
 </header>
 
 <div class="layout">
-  <nav class="toc">
-    <div class="eyebrow">Přijímačky · témata</div>
+  <nav class="toc" id="toc-nav">
+    <div class="toc-header-row">
+      <div class="eyebrow">Přijímačky · témata</div>
+      <button class="toc-collapse-btn" id="toc-collapse-btn" title="Sbalit/rozbalit seznam témat">▾</button>
+    </div>
     <input type="text" class="toc-search" id="toc-search" placeholder="Hledat téma…">
     <ul id="toc-list">
-      <li><a href="#slovni-ulohy" class="active"><span class="tnum">ú. 1</span> Rozehřívací úloha</a></li>
-      <li><a href="#zlomky"><span class="tnum">ú. 2–3</span> Zlomky a odmocniny</a></li>
-      <li><a href="#mocniny"><span class="tnum">ú. 2–3</span> Mocniny a odmocniny</a></li>
-      <li><a href="#vyrazy"><span class="tnum">ú. 3–4</span> Algebraické výrazy</a></li>
-      <li><a href="#rovnice"><span class="tnum">ú. 4–5</span> Lineární rovnice</a></li>
-      <li><a href="#geometrie"><span class="tnum">ú. 5–8</span> Obsahy a obvody</a></li>
-      <li><a href="#objemy"><span class="tnum">ú. 5–8</span> Objemy těles</a></li>
-      <li><a href="#" class="disabled"><span class="tnum">ú. 9–10</span> Konstrukční úlohy</a></li>
-      <li><a href="#ano-ne"><span class="tnum">ú. 11</span> Úlohy ano/ne</a></li>
-      <li><a href="#" class="disabled"><span class="tnum">ú. 12–14</span> Uzavřené úlohy (A–E)</a></li>
-      <li><a href="#procenta"><span class="tnum">ú. 15</span> Procenta a fin. matematika</a></li>
-      <li><a href="#logicka-uloha"><span class="tnum">ú. 16</span> Netradiční logická úloha</a></li>
-</ul>
+      <li><a href="#slovni-ulohy" class="active"><span class="tnum">ú. 1</span> Aritmetika a početní operace</a></li>
+      <li><a href="#prevody"><span class="tnum">ú. 2</span> Převody jednotek a výpočty</a></li>
+      <li><a href="#zlomky"><span class="tnum">ú. 3</span> Zlomky</a></li>
+      <li><a href="#mocniny"><span class="tnum">ú. 4</span> Mocniny, odmocniny a výrazy</a></li>
+      <li><a href="#rovnice"><span class="tnum">ú. 5</span> Lineární rovnice</a></li>
+      <li><a href="#slovni-ulohy-rovnice"><span class="tnum">ú. 6</span> Slovní úloha na rovnici</a></li>
+      <li><a href="#slovni-ulohy-pomer-umernost"><span class="tnum">ú. 7</span> Úměrnost a poměr</a></li>
+      <li><a href="#procenta-uloha-8"><span class="tnum">ú. 8</span> Procenta</a></li>
+      <li><a href="#konstrukcni-ulohy"><span class="tnum">ú. 9–10</span> Konstrukční úlohy</a></li>
+      <li><a href="#geometrie"><span class="tnum">ú. 11</span> Planimetrie</a></li>
+      <li><a href="#objemy"><span class="tnum">ú. 12</span> Objemy těles</a></li>
+      <li><a href="#ano-ne"><span class="tnum">ú. 13</span> Úloha ano/ne</a></li>
+      <li><a href="#vyber-a-e"><span class="tnum">ú. 14</span> Výběr z možností A–E</a></li>
+      <li><a href="#procenta"><span class="tnum">ú. 15</span> Přiřazovací úloha</a></li>
+      <li><a href="#logicka-uloha"><span class="tnum">ú. 16</span> Nestandardní aplikační úloha</a></li>
+    </ul>
     <div style="margin-top:14px; font-size:11.5px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; line-height:1.7;">
       <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#6B9B7A;vertical-align:middle;margin-right:5px;"></span>hotové téma<br>
       <span style="opacity:0.38; font-style:italic;">kurzívou</span> = připravuje se
@@ -643,6 +760,55 @@
   <main>
     <div class="section-title">Přijímačky na SŠ</div>
     <p class="section-lead">Témata jsou seřazená <strong>podle čísla úlohy</strong>, tak jak jdou v testu za sebou — u každého vidíš, kde se v testu objeví. Struktura je ověřená na testech 2024 a 2025, ale pořadí se rok od roku může mírně přehodit. Chceš si projít celý test najednou? <a href="jpz-2024-test1.html" style="color:var(--gold); font-weight:600;">→ JPZ 2024 celý test</a> &nbsp;·&nbsp; JPZ 2026: <a href="jpz-2026-test-a.html" style="color:var(--gold); font-weight:600;">test A</a>, <a href="jpz-2026-test-b.html" style="color:var(--gold); font-weight:600;">test B</a>, <a href="jpz-2026-test-c.html" style="color:var(--gold); font-weight:600;">test C</a>, <a href="jpz-2026-test-d.html" style="color:var(--gold); font-weight:600;">test D</a></p>
+
+    <section class="prep-hub" aria-labelledby="prep-title">
+      <div class="hub-label">Rychlý start</div>
+      <h2 id="prep-title">Nevíš, čím začít?</h2>
+      <p>Vyber si, kolik času zbývá do zkoušky, nebo si nejdřív udělej krátkou diagnostiku. Plán je jednoduchý: nejdřív získej jistotu v bodech, které se vyplatí nejvíc.</p>
+      <div class="plan-options" aria-label="Délka přípravy">
+        <button class="plan-option active" type="button" data-plan="14"><strong>Méně než 2 týdny</strong><span>základy, nejčastější typy a celé testy</span></button>
+        <button class="plan-option" type="button" data-plan="30"><strong>Přibližně měsíc</strong><span>systematické procvičení po tématech</span></button>
+        <button class="plan-option" type="button" data-plan="90"><strong>Více než 2 měsíce</strong><span>mezery v základech a postupné zpevnění</span></button>
+      </div>
+      <div class="plan-result" id="plan-result">Každý den: 20 minut zlomky nebo procenta, 20 minut rovnice či poměr a jednou za tři dny jeden celý test na čas.</div>
+      <div class="hub-actions">
+        <button class="hub-button" type="button" id="start-diagnostic">Udělám si diagnostiku</button>
+        <a class="hub-button secondary" href="jpz-2026-test-a.html">Zkusit celý test</a>
+      </div>
+
+      <div class="diagnostic" id="diagnostic" hidden>
+        <div class="hub-label">8 rychlých otázek</div>
+        <h3>Co procvičit jako první?</h3>
+        <p>Piš jen výsledek. Diagnostika slouží pro výběr témat, není to známkování.</p>
+        <div class="diagnostic-grid">
+          <label class="diagnostic-question">1. \(\frac{1}{2}+\frac{1}{4}=\)<br><input data-topic="zlomky" data-answer="3/4" aria-label="Odpověď k otázce 1"></label>
+          <label class="diagnostic-question">2. \(x+4=13\), tedy \(x=\)<br><input data-topic="rovnice" data-answer="9" aria-label="Odpověď k otázce 2"></label>
+          <label class="diagnostic-question">3. 20 % ze 150 je<br><input data-topic="procenta-uloha-8" data-answer="30" aria-label="Odpověď k otázce 3"></label>
+          <label class="diagnostic-question">4. Poměr 2 : 3, celek 25. Menší díl je<br><input data-topic="slovni-ulohy-pomer-umernost" data-answer="10" aria-label="Odpověď k otázce 4"></label>
+          <label class="diagnostic-question">5. \(2\,m^2=\) kolik \(cm^2\)?<br><input data-topic="prevody" data-answer="20000" aria-label="Odpověď k otázce 5"></label>
+          <label class="diagnostic-question">6. Přepona pravoúhlého trojúhelníku s odvěsnami 3 a 4 je<br><input data-topic="geometrie" data-answer="5" aria-label="Odpověď k otázce 6"></label>
+          <label class="diagnostic-question">7. \(\sqrt{144}=\)<br><input data-topic="mocniny" data-answer="12" aria-label="Odpověď k otázce 7"></label>
+          <label class="diagnostic-question">8. Válec má obsah podstavy 100 \(cm^2\) a výšku 6 cm. Objem je<br><input data-topic="objemy" data-answer="600" aria-label="Odpověď k otázce 8"></label>
+        </div>
+        <button class="diagnostic-submit" type="button" id="diagnostic-submit">Vyhodnotit a ukázat témata</button>
+        <div class="diagnostic-result" id="diagnostic-result"></div>
+      </div>
+
+      <div class="timer-panel">
+        <div class="hub-label">Trénink na čas</div>
+        <h3>Krátký blok soustředění</h3>
+        <p>Dej si osm minut na několik příkladů z jednoho tématu. Až čas skončí, poznamenej si, kde ses zasekl.</p>
+        <div class="timer-display" id="timer-display" aria-live="polite">08:00</div>
+        <button class="timer-button" type="button" id="timer-button">Spustit 8 minut</button>
+      </div>
+    </section>
+
+    <section class="error-panel" aria-labelledby="error-title">
+      <div class="hub-label">Chybový deník</div>
+      <h3 id="error-title">Z chyb vzniká plán</h3>
+      <p>U špatně zadané interaktivní odpovědi vyber důvod. Tady pak uvidíš, co se opakuje.</p>
+      <div class="error-summary" id="error-summary"></div>
+    </section>
 
     <div class="progress-summary" id="progress-summary">
       <div class="ps-item">
@@ -669,10 +835,17 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        První úloha testu, jednoduchá — základní aritmetika nebo krátká slovní úloha na čas, počty nebo úměru. Cíl je hlavně nerozhodit se hned na začátku. <a href="slovni-ulohy.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        První úloha testu, jednoduchá — základní aritmetika nebo krátká slovní úloha na čas, počty nebo úměru. Cíl je hlavně nerozhodit se hned na začátku.
       </div>
 
-<div class="examples-heading">Příklady</div>
+      <div class="topic-menu" id="slovni-ulohy-menu" aria-label="Možnosti pro rozehřívací úlohu">
+        <div class="topic-menu-card" data-open="pure"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Rychle si ověř, že základní početní úlohy zvládneš bez nápovědy.</p></div>
+        <a class="topic-menu-card" href="slovni-ulohy.html?view=solutions"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Prohlédni si postup u typových úloh z přijímaček.</p></a>
+        <a class="topic-menu-card" href="slovni-ulohy.html?view=theory"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Jak převést slovní zadání na výpočet a na co si dát pozor.</p></a>
+        <div class="topic-menu-card pending" aria-disabled="true"><div class="tmc-icon">04 · připravuje se</div><h3>Procvičuj s levely</h3><p>Postupový trénink s odemykáním obtížností doplníme brzy.</p></div>
+      </div>
+
+<div class="examples-heading" id="slovni-ulohy-priklady">Příklady</div>
 
   <div class="pure-example">
     <div class="pe-q">1. Šest zedníků, kteří pracují stejným tempem, postaví zeď za 20 hodin. Za jakou dobu postaví o polovinu větší zeď pět zedníků?</div>
@@ -762,16 +935,39 @@
   </div>
     </div>
 
+    <div class="topic" id="prevody">
+      <div class="topic-label">úloha 2 · převody a jednotky</div>
+      <h2>Převody jednotek a výpočty</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Druhá úloha procvičuje převody délky, obsahu, objemu, hmotnosti a času. Nejčastější chybou je záměna násobků u plošných a objemových jednotek.
+      </div>
+      <div class="topic-menu" id="prevody-menu" aria-label="Možnosti pro převody jednotek">
+        <a class="topic-menu-card" href="prevody-jednotek.html?view=examples"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Krátké úlohy na délku, obsah, objem, hmotnost a čas.</p></a>
+        <a class="topic-menu-card" href="prevody-jednotek.html?view=solutions"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Ukázky převodů se správně zapsaným postupem.</p></a>
+        <a class="topic-menu-card" href="prevody-jednotek.html?view=theory"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Přehled převodů a častých záměn plošných a objemových jednotek.</p></a>
+        <div class="topic-menu-card pending" aria-disabled="true"><div class="tmc-icon">04 · připravuje se</div><h3>Procvičuj s levely</h3><p>Postupový trénink s odemykáním obtížností doplníme brzy.</p></div>
+      </div>
+    </div>
+
     <div class="topic" id="mocniny">
       <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
-      <h2>Mocniny a odmocniny</h2>
+      <h2>Mocniny, odmocniny a algebraické výrazy</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
         Často se objevují společně se zlomky ve složeném výrazu. Klíčové je znát nazpaměť druhé mocniny čísel do 20 (a jejich odmocniny) — bez kalkulačky to jinak zabere zbytečně moc času.
       </div>
 
-<div class="examples-heading">Příklady</div>
+      <div class="topic-menu" id="mocniny-menu" aria-label="Možnosti pro mocniny a odmocniny">
+        <div class="topic-menu-card" data-open="pure"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Rychlé příklady na mocniny, odmocniny a výpočty bez kalkulačky.</p></div>
+        <a class="topic-menu-card" href="vyrazy-vice.html?view=solutions"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Ukázky úprav výrazů a výpočtů rozepsané krok za krokem.</p></a>
+        <a class="topic-menu-card" href="vyrazy-vice.html?view=theory"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Pravidla pro mocniny, odmocniny, vzorce a algebraické výrazy.</p></a>
+        <div class="topic-menu-card pending" aria-disabled="true"><div class="tmc-icon">04 · připravuje se</div><h3>Procvičuj s levely</h3><p>Postupový trénink s odemykáním obtížností doplníme brzy.</p></div>
+      </div>
+
+<div class="examples-heading" id="mocniny-priklady">Příklady</div>
 
   <div class="pure-example"><div class="pe-q">1. Vypočítej: \(\sqrt{144} + \sqrt{81}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">21</div></div>
   <div class="pure-example"><div class="pe-q">2. Vypočítej: \(3^2 + 4^2\), a pak z výsledku spočítej druhou odmocninu.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">25, odmocnina = 5</div></div>
@@ -782,28 +978,33 @@
 
     <div class="topic" id="zlomky">
       <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
-      <h2>Zlomky a odmocniny</h2>
+      <h2>Zlomky</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Obvykle <strong>úloha 2 nebo 3</strong>, max. 3–4 body. Výsledek se skoro vždy zapisuje <strong>zlomkem v základním tvaru</strong> — když ho nezkrátíš, přijdeš o bod. Často jde o složený výraz se zlomky a desetinnými čísly dohromady.
+        Obvykle <strong>úloha 3</strong>, max. 3–4 body. Výsledek se skoro vždy zapisuje <strong>zlomkem v základním tvaru</strong> — když ho nezkrátíš, přijdeš o bod. Často jde o složený výraz se zlomky a desetinnými čísly dohromady.
       </div>
 
       <div class="topic-menu" id="zlomky-menu">
-        <div class="topic-menu-card" data-open="solutions">
-          <div class="tmc-icon">01 · jen řešení</div>
-          <h3>Příklady s řešením</h3>
-          <p>Všechny příklady najednou, postup krok za krokem. Bez levelů, bez zamykání — jen si to projdeš.</p>
+        <div class="topic-menu-card" data-open="pure">
+          <div class="tmc-icon">01 · jen zadání</div>
+          <h3>Příklady</h3>
+          <p>Jen zadání a výsledek. Ideální pro rychlé procvičení nebo ověření, že to umíš bez nápovědy.</p>
         </div>
+        <div class="topic-menu-card" data-open="solutions">
+          <div class="tmc-icon">02 · krok za krokem</div>
+          <h3>Příklady s řešením</h3>
+          <p>Všechny příklady s postupem krok za krokem. Hodí se, když chceš pochopit, kde se v řešení bere každý mezikrok.</p>
+        </div>
+        <a class="topic-menu-card" href="zlomky-odmocniny.html">
+          <div class="tmc-icon">03 · vysvětlení</div>
+          <h3>Vysvětlení látky</h3>
+          <p>Pravidla pro zlomky, smíšená čísla i odmocniny přehledně na jednom místě, včetně ukázek.</p>
+        </a>
         <div class="topic-menu-card" data-open="practice">
-          <div class="tmc-icon">02 · procvičování</div>
+          <div class="tmc-icon">04 · postupový trénink</div>
           <h3>Procvičuj s levely</h3>
           <p>Stejné příklady rozdělené na lehké/střední/těžké, které se postupně odemykají. Sbíráš XP.</p>
-        </div>
-        <div class="topic-menu-card" data-open="pure">
-          <div class="tmc-icon">03 · jen zadání</div>
-          <h3>Čisté příklady</h3>
-          <p>Jen zadání a výsledek, žádný postup. Pro rychlé procvičení nebo ověření, že to umíš.</p>
         </div>
       </div>
 
@@ -889,6 +1090,11 @@
         <div class="pure-example"><div class="pe-q">10. Vypočítej: \(\left(\frac{5}{6} - \frac{1}{3}\right)\cdot\frac{6}{7} \ : \ \frac{2}{3}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{9}{14}\)</div></div>
         <div class="pure-example"><div class="pe-q">11. Vypočítej: \(\left(\frac{7}{8} - \frac{1}{3}\right)\cdot\frac{4}{5} \ : \ \frac{2}{3}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{13}{20}\)</div></div>
         <div class="pure-example"><div class="pe-q">12. Vypočítej: \(\frac{3}{4}\cdot\frac{2}{9} + \frac{1}{6}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{1}{3}\)</div></div>
+        <div class="pure-example"><div class="pe-q">13. \(\frac34+\frac23\cdot\frac98\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac32\)</div></div>
+        <div class="pure-example"><div class="pe-q">14. \(\left(\frac56-\frac14\right):\frac{7}{12}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(1\)</div></div>
+        <div class="pure-example"><div class="pe-q">15. \(\left(\frac25:\frac{4}{15}\right)-\frac12\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(1\)</div></div>
+        <div class="pure-example"><div class="pe-q">16. \(\dfrac{\frac13+0{,}5}{2-\frac23}\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac58\)</div></div>
+        <div class="pure-example"><div class="pe-q">17. O kolik je \(\frac34\cdot\left(\frac23+\frac16\right)\) větší než \(\frac12\)?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o \(\frac18\)</div></div>
       </div>
 
       <div class="topic-content-block" data-block="practice">
@@ -1018,11 +1224,11 @@
 
     <div class="topic" id="vyrazy">
       <div class="topic-label">úloha 3–4 · max. 4 body</div>
-      <h2>Algebraické výrazy</h2>
+      <h2>Mocniny, odmocniny a algebraické výrazy</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Úpravy výrazů, umocňování dvojčlenu, rozklad na součin (vytýkáním nebo podle vzorce). Výsledek musí být bez závorek, pokud to zadání žádá. <a href="vyrazy.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        Úloha kombinuje mocniny, odmocniny a úpravy algebraických výrazů. Výsledek musí být bez závorek, pokud to zadání žádá.
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1047,10 +1253,17 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Dvě podúlohy, u obou se vyžaduje celý zapsaný postup (ne jen výsledek) — bez postupu nedostaneš body, i kdyby výsledek seděl. <a href="rovnice.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        Dvě podúlohy, u obou se vyžaduje celý zapsaný postup (ne jen výsledek) — bez postupu nedostaneš body, i kdyby výsledek seděl.
       </div>
 
-<div class="examples-heading">Příklady</div>
+      <div class="topic-menu" id="rovnice-menu" aria-label="Možnosti pro lineární rovnice">
+        <div class="topic-menu-card" data-open="pure"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Vyřeš rovnice samostatně a výsledek si až potom zkontroluj.</p></div>
+        <a class="topic-menu-card" href="rovnice-vice.html"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Postupy k rovnicím se závorkami, zlomky i slovním zadáním.</p></a>
+        <a class="topic-menu-card" href="rovnice-vice.html"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Jak upravovat rovnice, dělat zkoušku a nepřijít o body za postup.</p></a>
+        <div class="topic-menu-card pending" aria-disabled="true"><div class="tmc-icon">04 · připravuje se</div><h3>Procvičuj s levely</h3><p>Postupový trénink s odemykáním obtížností doplníme brzy.</p></div>
+      </div>
+
+<div class="examples-heading" id="rovnice-priklady">Příklady</div>
 
   <div class="pure-example"><div class="pe-q">1. Řeš rovnici: \(4(x+2) - 3(x-1) = 15\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = 4\)</div></div>
   <div class="pure-example"><div class="pe-q">2. Sečteme trojnásobek neznámého čísla se čtyřnásobkem čísla o 2 menšího a dostaneme 34. Jaká je hodnota toho čísla?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6</div></div>
@@ -1062,13 +1275,61 @@
   <div class="pure-example"><div class="pe-q">7. Řeš rovnici: \(5(x+2) - 3(2x-1) = 2x+7\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = 2\)</div></div>
     </div>
 
-    <div class="topic" id="geometrie">
-      <div class="topic-label">úloha 5–8 · max. 4 body</div>
-      <h2>Obsahy, obvody a Pythagorova věta</h2>
+    <div class="topic" id="slovni-ulohy-rovnice">
+      <div class="topic-label">úloha 6 · slovní úloha</div>
+      <h2>Slovní úloha na rovnici</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Tenhle blok (úlohy 5–8) se rok od roku přehazuje — může jít o obsahy/obvody rovinných útvarů, objemy těles, úhly nebo měřítko. Pythagorova věta se objevuje často jako mezikrok, ne jako celé zadání. <a href="geometrie.html" style="color:var(--gold); font-weight:600;">→ další příklady přímo z ostrých zadání JPZ</a>
+        Nejprve označ neznámou, převeď údaje ze zadání na matematické vztahy a sestav rovnici. Nakonec proveď zkoušku a napiš slovní odpověď. <a href="slovni-ulohy-rovnice-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+      </div>
+
+      <div class="examples-heading">Příklady</div>
+
+      <div class="pure-example"><div class="pe-q">1. Tři třídy nasbíraly celkem 300 kg papíru. Třída 9.A nasbírala o 20 kg více než 9.B a třída 9.C nasbírala 1,5krát více než 9.B. Kolik kg papíru nasbírala 9.A?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Označíme 9.B jako \(x\): \((x+20)+x+1{,}5x=300\), tedy \(x=80\). Třída 9.A nasbírala \(100\) kg.</div></div>
+      <div class="pure-example"><div class="pe-q">2. Mistr splní zakázku sám za 6 hodin, učeň za 10 hodin. Za jak dlouho ji splní společně?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Za hodinu udělají \(\frac{1}{6}+\frac{1}{10}=\frac{4}{15}\) práce. Celou zakázku splní za \(\frac{15}{4}=3{,}75\) hodiny, tedy za 3 hodiny 45 minut.</div></div>
+      <div class="pure-example"><div class="pe-q">3. Součet dvou čísel je 54. Větší číslo je o 12 větší než menší. Určete obě čísla.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Menší číslo \(x\): \(x+(x+12)=54\). Dostaneme \(x=21\), čísla jsou \(21\) a \(33\).</div></div>
+    </div>
+
+    <div class="topic" id="slovni-ulohy-pomer-umernost">
+      <div class="topic-label">úloha 7 · úměrnost a poměr</div>
+      <h2>Úměrnost a poměr</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Rozliš přímou a nepřímou úměrnost, pracuj s poměrem a měřítkem a u pohybu používej vztah mezi dráhou, rychlostí a časem. <a href="slovni-ulohy-pomer-umernost-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+      </div>
+
+      <div class="examples-heading">Příklady</div>
+
+      <div class="pure-example"><div class="pe-q">1. Odměnu 12 000 Kč si tři pracovníci rozdělili v poměru 2 : 3 : 5. O kolik dostal pracovník s pěti díly více než pracovník se dvěma díly?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3 600 Kč</div></div>
+      <div class="pure-example"><div class="pe-q">2. Na mapě v měřítku 1 : 75 000 měří vzdálenost mezi dvěma místy 8 cm. Jaká je skutečná vzdálenost?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6 km</div></div>
+      <div class="pure-example"><div class="pe-q">3. Auto projede trať rychlostí 80 km/h za 45 minut. Jakou rychlostí musí jet, aby stejnou trať projelo za 30 minut?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">120 km/h</div></div>
+    </div>
+
+    <div class="topic" id="procenta-uloha-8">
+      <div class="topic-label">úloha 8 · procenta</div>
+      <h2>Procenta a finanční matematika</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Urči základ, procentovou část nebo počet procent. U slev a zdražení počítej každou další změnu z aktuální ceny. <a href="procenta-uloha-8-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+      </div>
+
+      <div class="examples-heading">Příklady</div>
+
+      <div class="pure-example"><div class="pe-q">1. Bunda stála 2 000 Kč. Nejprve ji zdražili o 10 % a potom zlevnili o 20 % z nové ceny. Jaká byla konečná cena?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">1 760 Kč</div></div>
+      <div class="pure-example"><div class="pe-q">2. Po slevě 15 % stojí boty 1 530 Kč. Kolik stály před slevou?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">1 800 Kč</div></div>
+      <div class="pure-example"><div class="pe-q">3. Ve třídě je 120 žáků a 65 % z nich dojíždí autobusem. Kolik žáků chodí pěšky?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">42 žáků</div></div>
+    </div>
+
+    <div class="topic" id="geometrie">
+      <div class="topic-label">úloha 11 · planimetrie</div>
+      <h2>Planimetrie – úhly a rovinné útvary</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Úloha 11 procvičuje úhly, obsahy a obvody rovinných útvarů a Pythagorovu větu. <a href="planimetrie-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1082,10 +1343,10 @@
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">2. Šedý obrazec je ohraničen úsečkou délky 16 cm a dvěma shodnými čtvrtkružnicemi (poloměr každé je 8 cm).<br><br>a) Vypočítejte obsah šedého obrazce (na celé cm²).<br>b) Vypočítejte obvod šedého obrazce (na celé cm), použijte π ≈ 3,14.</div>
+    <div class="pe-q">2. Kruh má poloměr 8 cm. Vypočítejte jeho obsah a obvod; použijte \(\pi \approx 3{,}14\). Výsledky zaokrouhlete na dvě desetinná místa.</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">a) 28 cm² &nbsp;&nbsp; b) 41 cm</div>
+      <div class="pe-answer">obsah ≈ 200,96 cm² &nbsp;&nbsp; obvod ≈ 50,24 cm</div>
     </div>
   </div>
 
@@ -1098,10 +1359,10 @@
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">4. Lichoběžník ABCD se základnami AB a CD má úsečku BD jako výšku. Platí AD = 13 cm, BD = 12 cm a obsah trojúhelníku BCD je 30 cm².<br><br>a) Vypočítejte obsah lichoběžníku ABCD.<br>b) Vypočítejte obvod lichoběžníku ABCD.</div>
+    <div class="pe-q">4. Lichoběžník ABCD má základny AB a CD. Úsečka BD je výškou, AD = 13 cm, BD = 12 cm a obsah trojúhelníku BCD je 30 cm². Vypočítejte obsah a obvod lichoběžníku.</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">a) 60 cm² &nbsp;&nbsp; b) 36 cm</div>
+      <div class="pe-answer">obsah = 90 cm² &nbsp;&nbsp; obvod = 40 cm</div>
     </div>
   </div>
 
@@ -1114,10 +1375,10 @@
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">6. Rovinou prochází 5 přímek, které se protínají v jednom bodě a rozdělují okolí bodu na 5 shodných úhlů. Sousední úhel z jedné strany je 70°, z druhé (vedlejší) strany 150°. Jaká je velikost úhlu α mezi dvěma sousedními z těch pěti přímek?</div>
+    <div class="pe-q">6. Dvě přímky se protínají. Jeden z úhlů má velikost 70°. Určete velikosti zbývajících tří úhlů a uveďte, které jsou vedlejší.</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">α = 20°</div>
+      <div class="pe-answer">Protilehlý úhel má 70°, oba vedlejší úhly mají 110°.</div>
     </div>
   </div>
 
@@ -1130,7 +1391,7 @@
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">8. Ve čtvercové síti (strana čtverečku 3 cm) je nakreslen půlkruh o průměru AB, kde AB měří 5 čtverečků (15 cm). Jaký je obsah půlkruhu? Použijte π ≈ 3,14, výsledek zaokrouhlete na 2 desetinná místa.</div>
+    <div class="pe-q">8. Půlkruh má průměr 15 cm. Jaký je jeho obsah? Použijte \(\pi \approx 3{,}14\), výsledek zaokrouhlete na dvě desetinná místa.</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
       <div class="pe-answer">≈ 88,31 cm²</div>
@@ -1146,21 +1407,21 @@
   </div>
 
   <div class="pure-example">
-    <div class="pe-q">10. Rotační válec má poloměr podstavy 4 cm a výšku 10 cm. Jaký je jeho povrch? Použijte π ≈ 3,14, výsledek zaokrouhlete na 2 desetinná místa.</div>
+    <div class="pe-q">10. Rovnoběžník má stranu dlouhou 12 cm a výšku k této straně 7 cm. Vypočítejte jeho obsah.</div>
     <div class="pe-footer">
       <button class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">≈ 351,68 cm²</div>
+      <div class="pe-answer">84 cm²</div>
     </div>
   </div>
     </div>
 
     <div class="topic" id="ano-ne">
-      <div class="topic-label">úloha 11 · max. 4 body</div>
+      <div class="topic-label">úloha 13 · max. 4 body</div>
       <h2>Úlohy ano/ne</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Tři nezávislá tvrzení k posouzení, obvykle bez souvislosti mezi sebou. Nejrychlejší cesta je vždy dopočítat obě strany tvrzení a porovnat, ne odhadovat od oka.
+        Čtyři nezávislá tvrzení k posouzení. Nejrychlejší cesta je vždy dopočítat obě strany tvrzení nebo najít protipříklad, ne odhadovat od oka. <a href="ano-ne-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1170,13 +1431,25 @@
   <div class="pure-example"><div class="pe-q">3. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): Součet čísel 12 a 8 je menší než součin čísel 5 a 4.</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">N (20 = 20, nejsou různé)</div></div>
     </div>
 
+    <div class="topic" id="vyber-a-e">
+      <div class="topic-label">úloha 14 · výběr A–E</div>
+      <h2>Výběr z možností A–E</h2>
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Vyber právě jednu správnou odpověď z pěti možností. Pomáhá eliminace nesmyslných výsledků, zpětné dosazení a kontrola jednotek. <a href="vyber-a-e-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+      </div>
+      <div class="examples-heading">Příklady</div>
+      <div class="pure-example"><div class="pe-q">1. V láhvi je 600 ml nápoje v poměru džus : voda = 1 : 2. Kolik čistého džusu přilijeme, aby poměr byl 1 : 1? A) 100 ml B) 150 ml C) 200 ml D) 300 ml E) 400 ml</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 200 ml</div></div>
+      <div class="pure-example"><div class="pe-q">2. Autobus jel rychlostí 60 km/h po dobu 15 minut. Kolik kilometrů ujel? A) 10 B) 12 C) 15 D) 20 E) 25</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 15 km</div></div>
+    </div>
+
     <div class="topic" id="objemy">
-      <div class="topic-label">úloha 5–8 · max. 4 body</div>
-      <h2>Objemy těles</h2>
+      <div class="topic-label">úloha 12 · stereometrie</div>
+      <h2>Objemy a povrchy těles</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Válce, hranoly a jejich kombinace. Často se kombinuje s převody jednotek (litry ↔ cm³, mm ↔ cm) — to bývá nejčastější zdroj chyb, ne samotný vzorec.
+        Válce, hranoly a jejich kombinace. Často se kombinuje s převody jednotek (litry ↔ cm³, mm ↔ cm) — to bývá nejčastější zdroj chyb, ne samotný vzorec. <a href="stereometrie-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1196,6 +1469,13 @@
       <div class="pe-answer">a) 3 litry &nbsp;&nbsp; b) 20 mm</div>
     </div>
   </div>
+  <div class="pure-example">
+    <div class="pe-q">3. Rotační válec má poloměr podstavy 4 cm a výšku 10 cm. Vypočítejte jeho povrch; použijte \(\pi \approx 3{,}14\).</div>
+    <div class="pe-footer">
+      <button class="pe-answer-btn">Zobrazit výsledek</button>
+      <div class="pe-answer">≈ 351,68 cm²</div>
+    </div>
+  </div>
     </div>
 
     <div class="topic" id="logicka-uloha">
@@ -1204,7 +1484,7 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Poslední úloha testu bývá nejtěžší a nejvíc "netypická" — často jde o posloupnost obrazců nebo čísel podle nějakého pravidla, ne o standardní výpočet. Klíč je najít vzorec/pravidlo, ne počítat ručně kolo po kole.
+        Poslední úloha testu bývá nejtěžší a nejvíc "netypická" — často jde o posloupnost obrazců nebo čísel podle nějakého pravidla, ne o standardní výpočet. Klíč je najít vzorec/pravidlo, ne počítat ručně kolo po kole. <a href="nestandardni-ulohy-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
@@ -1224,24 +1504,29 @@
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Nejčastěji <strong>přiřazovací úloha na konci testu</strong> (úloha 15 nebo 16), tři podúlohy, <strong>max. 6 bodů</strong> — nejvíc bodovaná úloha celého testu. Skoro vždy jde o <strong>finanční matematiku</strong>: úroky, půjčky, slevy a zdražení. Pozor na řetězené slevy/zdražení — počítá se vždy z nové ceny, ne z původní.
+        Nejčastěji <strong>přiřazovací úloha na konci testu</strong>, tři podúlohy a nabídka výsledků A–F. Každý výsledek nejdřív samostatně spočítej a potom přiřaď.
       </div>
 
       <div class="topic-menu" id="procenta-menu">
+        <div class="topic-menu-card" data-open="pure">
+          <div class="tmc-icon">01 · jen zadání</div>
+          <h3>Příklady</h3>
+          <p>Jen zadání a výsledek, bez postupu.</p>
+        </div>
         <div class="topic-menu-card" data-open="solutions">
-          <div class="tmc-icon">01 · jen řešení</div>
+          <div class="tmc-icon">02 · krok za krokem</div>
           <h3>Příklady s řešením</h3>
           <p>Všech 6 příkladů najednou s postupem. Bez levelů, bez zamykání.</p>
         </div>
+        <a class="topic-menu-card" href="prirazovaci-ulohy-vice.html">
+          <div class="tmc-icon">03 · vysvětlení</div>
+          <h3>Vysvětlení látky</h3>
+          <p>Pravidla pro procenta a finanční matematiku, včetně dalších ukázek.</p>
+        </a>
         <div class="topic-menu-card" data-open="practice">
-          <div class="tmc-icon">02 · procvičování</div>
+          <div class="tmc-icon">04 · postupový trénink</div>
           <h3>Procvičuj s levely</h3>
           <p>Zadáš vlastní výsledek. Lehké/střední/těžké se postupně odemykají, sbíráš XP.</p>
-        </div>
-        <div class="topic-menu-card" data-open="pure">
-          <div class="tmc-icon">03 · jen zadání</div>
-          <h3>Čisté příklady</h3>
-          <p>Jen zadání a výsledek, žádný postup.</p>
         </div>
       </div>
 
@@ -1543,11 +1828,11 @@
     </div>
 
     <div class="topic year-topic" id="konstrukcni-ulohy">
-      <div class="topic-label">8. ročník</div>
+      <div class="topic-label">úlohy 9–10 · konstrukce v rovině</div>
       <h2>Konstrukční úlohy</h2>
       <div class="exam-info">
         <div class="ei-label">Kde se to učí</div>
-        Množiny bodů dané vlastnosti — základní "stavební kameny" pro rýsovací konstrukční úlohy.
+        Množiny bodů dané vlastnosti a přesný zápis konstrukce — základní stavební kameny pro úlohy 9 a 10. <a href="konstrukcni-ulohy-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
       <div class="examples-heading">Příklady</div>
       <div class="pure-example"><div class="pe-q">1. Jak se nazývá množina bodů, které mají stejnou vzdálenost od dvou daných bodů?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Osa úsečky (kolmice půlicí úsečku)</div></div>
@@ -1605,6 +1890,92 @@
       </div>
     </div>
 
+<script>
+  // Řazení existujících témat odpovídá pořadí úloh v seznamu JPZ.
+  const topicOrder = [
+    'slovni-ulohy', 'zlomky', 'mocniny', 'vyrazy', 'rovnice',
+    'procenta', 'konstrukcni-ulohy', 'geometrie', 'objemy', 'ano-ne',
+    'logicka-uloha',
+    'shodnost', 'cela', 'racionalni', 'ctyruhelniky', 'hranoly-7',
+    'druha-mocnina', 'mocniny-prirozeny-exponent', 'valec',
+    'soustavy-rovnic-zs', 'jehlan-kuzel-koule',
+    'financni-matematika-zs', 'rysovani'
+  ];
+  const topicContainer = document.querySelector('main');
+  topicOrder.forEach(topicId => {
+    const topic = document.getElementById(topicId);
+    if (topic) topicContainer.appendChild(topic);
+  });
+
+  const powersTopic = document.getElementById('mocniny');
+  const expressionsTopic = document.getElementById('vyrazy');
+  if (powersTopic && expressionsTopic) {
+    [...expressionsTopic.children].slice(3).forEach(child => powersTopic.appendChild(child));
+    expressionsTopic.remove();
+  }
+
+  // Jednotná nabídka pro témata, která zatím nemají vlastní čtyři cesty.
+  // Zlomky a prvních pět témat mají nabídku napsanou přímo v HTML; ostatní ji
+  // dostanou automaticky podle příkladů a odkazu na rozšířenou stránku.
+  document.querySelectorAll('main > .topic').forEach(topic => {
+    if (topic.querySelector(':scope > .topic-menu')) return;
+
+    const info = topic.querySelector(':scope > .exam-info');
+    if (!info) return;
+
+    const sourceLink = info.querySelector('a[href]');
+    const sourceHref = sourceLink ? sourceLink.getAttribute('href') : '';
+    if (sourceLink) sourceLink.remove();
+
+    const examplesHeading = topic.querySelector(':scope > .examples-heading');
+    const examplesId = `${topic.id}-priklady`;
+    if (examplesHeading) examplesHeading.id = examplesId;
+
+    const menu = document.createElement('div');
+    menu.className = 'topic-menu';
+    menu.id = `${topic.id}-menu`;
+    menu.setAttribute('aria-label', `Možnosti pro téma ${topic.querySelector('h2')?.textContent || ''}`);
+
+    const makeLink = (number, label, title, description, href, block) => {
+      const card = document.createElement(block ? 'div' : (href ? 'a' : 'div'));
+      card.className = `topic-menu-card${(href || block) ? '' : ' pending'}`;
+      if (block) card.setAttribute('data-open', block);
+      else if (href) card.href = href;
+      else card.setAttribute('aria-disabled', 'true');
+      card.innerHTML = `<div class="tmc-icon">${number} · ${label}</div><h3>${title}</h3><p>${description}</p>`;
+      return card;
+    };
+
+    menu.append(
+      makeLink('01', 'jen zadání', 'Příklady', examplesHeading ? 'Zadání k samostatnému vyřešení a kontrola výsledku.' : 'Příklady k tématu otevřeš na rozšířené stránce.', sourceHref, examplesHeading ? 'pure' : ''),
+      makeLink('02', 'krok za krokem', 'Příklady s řešením', 'Ukázkové postupy u typových úloh.', sourceHref),
+      makeLink('03', 'vysvětlení', 'Vysvětlení látky', 'Pravidla, postupy a časté chyby přehledně na jednom místě.', sourceHref),
+      makeLink('04', 'připravuje se', 'Procvičuj s levely', 'Postupový trénink s odemykáním obtížností doplníme brzy.', '')
+    );
+    info.insertAdjacentElement('afterend', menu);
+  });
+
+  // Volně zobrazené příklady patří do první bubliny, ne přímo pod téma.
+  document.querySelectorAll('main > .topic').forEach(topic => {
+    const menu = topic.querySelector(':scope > .topic-menu');
+    if (!menu || topic.querySelector(':scope > .topic-content-block[data-block="pure"]')) return;
+
+    const heading = topic.querySelector(':scope > .examples-heading');
+    const examples = Array.from(topic.querySelectorAll(':scope > .pure-example, :scope > .my-example'));
+    if (!heading || !examples.length) return;
+
+    const block = document.createElement('div');
+    block.className = 'topic-content-block';
+    block.setAttribute('data-block', 'pure');
+    const back = document.createElement('a');
+    back.className = 'topic-back-link';
+    back.setAttribute('data-back', topic.id);
+    back.textContent = '← zpět na výběr tématu';
+    block.append(back, heading, ...examples);
+    menu.insertAdjacentElement('afterend', block);
+  });
+</script>
+
 <div class="toast" id="toast">
   <div class="toast-title" id="toast-title">Level up!</div>
   <div id="toast-body">Postoupil jsi na level 2.</div>
@@ -1619,13 +1990,14 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) return JSON.parse(raw);
     } catch (e) {}
-    return { xp: 0, done: {}, lastVisit: null, streak: 0 };
+    return { xp: 0, done: {}, errors: [], lastVisit: null, streak: 0 };
   }
   function saveState(s) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
   }
 
   let state = loadState();
+  if (!Array.isArray(state.errors)) state.errors = [];
 
   // streak: velmi jednoduchá verze — počítá po sobě jdoucí kalendářní dny s návštěvou
   (function updateStreak() {
@@ -1685,12 +2057,26 @@
     if (psXp) psXp.textContent = state.xp;
   }
 
+  function renderErrorSummary() {
+    const box = document.getElementById('error-summary');
+    if (!box) return;
+    const errors = state.errors || [];
+    if (!errors.length) { box.style.display = 'none'; return; }
+    const labels = { 'postup': 'neznám postup', 'pocitani': 'chyba v počítání', 'zadani': 'špatně přečtené zadání', 'cas': 'málo času' };
+    const counts = {};
+    errors.forEach(error => { counts[error.reason] = (counts[error.reason] || 0) + 1; });
+    const summary = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([reason, count]) => `${labels[reason]}: ${count}×`).join(' · ');
+    box.textContent = `Zatím se objevilo: ${summary}.`;
+    box.style.display = 'block';
+  }
+
   function render() {
     const { level, into, need } = levelForXp(state.xp);
     document.getElementById('level-badge').textContent = level;
     document.getElementById('xp-fill').style.width = Math.round((into / need) * 100) + '%';
     document.getElementById('streak-num').textContent = state.streak;
     renderProgressSummary();
+    renderErrorSummary();
 
     // vyznač hotové příklady
     document.querySelectorAll('.example-done-btn').forEach(btn => {
@@ -1747,6 +2133,27 @@
       .replace(/,/g, '.');
   }
 
+  function addErrorChoices(ex, id) {
+    if (ex.querySelector('.error-reasons')) return;
+    const choices = document.createElement('div');
+    choices.className = 'error-reasons';
+    choices.setAttribute('aria-label', 'Proč odpověď nevyšla');
+    choices.innerHTML = '<span style="font-size:12px;color:var(--ink-soft);align-self:center">Co se stalo?</span>' +
+      '<button type="button" class="error-reason" data-reason="postup">Neznám postup</button>' +
+      '<button type="button" class="error-reason" data-reason="pocitani">Chyba v počítání</button>' +
+      '<button type="button" class="error-reason" data-reason="zadani">Špatně jsem přečetl zadání</button>' +
+      '<button type="button" class="error-reason" data-reason="cas">Málo času</button>';
+    const row = ex.querySelector('.answer-row');
+    if (row) row.insertAdjacentElement('afterend', choices);
+    choices.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
+      state.errors.push({ id, reason: button.dataset.reason, at: Date.now() });
+      saveState(state);
+      renderErrorSummary();
+      choices.remove();
+      showToast('Zapsáno', 'Chyba je v deníku — příště se ukáže, co procvičit.');
+    }));
+  }
+
   // kontrola odpovědi u příkladů s vlastním zadáním výsledku
   document.querySelectorAll('.example[data-answers]').forEach(ex => {
     const id = ex.getAttribute('data-id');
@@ -1784,6 +2191,7 @@
       } else {
         feedback.textContent = 'Zkus to znovu';
         feedback.className = 'answer-feedback wrong';
+        addErrorChoices(ex, id);
       }
     }
 
@@ -1815,29 +2223,44 @@
     document.querySelectorAll(`#${topicId} .topic-content-block`).forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-block') === block);
     });
+    const activeBlock = document.querySelector(`#${topicId} .topic-content-block[data-block="${block}"]`);
+    if (activeBlock) requestAnimationFrame(() => activeBlock.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   }
 
-  ['zlomky', 'procenta'].forEach(topicId => {
+  const extraExamplePages = {
+    'geometrie': 'geometrie-vice.html',
+    'procenta': 'procenta-vice.html'
+  };
+  Object.entries(extraExamplePages).forEach(([topicId, href]) => {
     const topic = document.getElementById(topicId);
     if (!topic) return;
-    const menu = document.getElementById(topicId + '-menu');
-    if (menu) menu.remove();
-    topic.querySelectorAll('.topic-content-block').forEach(block => {
-      if (block.getAttribute('data-block') !== 'pure') block.remove();
-    });
     const pureBlock = topic.querySelector('.topic-content-block[data-block="pure"]');
-    if (pureBlock) pureBlock.classList.add('active');
+    const examples = pureBlock
+      ? [...pureBlock.querySelectorAll('.pure-example')]
+      : [...topic.querySelectorAll(':scope > .pure-example')];
+    if (examples.length <= 5) return;
+    examples.slice(5).forEach(example => example.remove());
+    const link = document.createElement('a');
+    link.className = 'more-examples-link';
+    link.href = href;
+    link.textContent = '→ více příkladů';
+    const info = topic.querySelector('.exam-info');
+    if (info) info.insertAdjacentElement('afterend', link);
   });
 
   document.querySelectorAll('.topic-menu-card').forEach(card => {
     card.addEventListener('click', () => {
       const topicId = card.closest('.topic').id;
-      showTopicBlock(topicId, card.getAttribute('data-open'));
+      const block = card.getAttribute('data-open');
+      if (block) showTopicBlock(topicId, block);
     });
   });
   document.querySelectorAll('.topic-back-link').forEach(link => {
     link.addEventListener('click', () => {
-      showTopicMenu(link.getAttribute('data-back'));
+      const topicId = link.getAttribute('data-back');
+      showTopicMenu(topicId);
+      const topic = document.getElementById(topicId);
+      if (topic) requestAnimationFrame(() => topic.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     });
   });
   // při vstupu na stránku (nebo kliku v postranním menu) se vždy nejdřív ukáže výběr tématu
@@ -1861,12 +2284,25 @@
     });
   }
 
+  // sbalení/rozbalení seznamu témat (jen levé menu, pravý obsah se nemění)
+  const tocNav = document.getElementById('toc-nav');
+  const tocCollapseBtn = document.getElementById('toc-collapse-btn');
+  if (tocNav && tocCollapseBtn) {
+    if (localStorage.getItem('tocCollapsed') === '1') {
+      tocNav.classList.add('collapsed');
+    }
+    tocCollapseBtn.addEventListener('click', () => {
+      tocNav.classList.toggle('collapsed');
+      localStorage.setItem('tocCollapsed', tocNav.classList.contains('collapsed') ? '1' : '0');
+    });
+  }
+
   const resetBtn = document.getElementById('reset-progress');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       if (confirm('Opravdu chceš vynulovat celý postup, XP a odemčené obtížnosti? Tohle nejde vzít zpět.')) {
         localStorage.removeItem(STORAGE_KEY);
-        state = { xp: 0, done: {}, lastVisit: new Date().toDateString(), streak: 1 };
+        state = { xp: 0, done: {}, errors: [], lastVisit: new Date().toDateString(), streak: 1 };
         saveState(state);
         document.querySelectorAll('.example.solved').forEach(ex => {
           ex.classList.remove('solved');
@@ -1880,6 +2316,77 @@
       }
     });
   }
+
+  // --- rychlý plán, diagnostika a trénink na čas ---
+  const plans = {
+    '14': 'Každý den: 20 minut zlomky nebo procenta, 20 minut rovnice či poměr a jednou za tři dny jeden celý test na čas.',
+    '30': 'Střídej každý den jedno číselné téma (zlomky, procenta, rovnice) a jedno slovní nebo geometrické téma. Každý týden si napiš jeden celý test.',
+    '90': 'První měsíc zpevni základy po tématech, druhý měsíc kombinuj úlohy a poslední týdny trénuj celé testy na čas.'
+  };
+  const planResult = document.getElementById('plan-result');
+  document.querySelectorAll('.plan-option').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('.plan-option').forEach(item => item.classList.toggle('active', item === button));
+    if (planResult) planResult.textContent = plans[button.dataset.plan];
+  }));
+
+  const diagnostic = document.getElementById('diagnostic');
+  const startDiagnostic = document.getElementById('start-diagnostic');
+  if (diagnostic && startDiagnostic) startDiagnostic.addEventListener('click', () => {
+    diagnostic.hidden = false;
+    diagnostic.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const firstInput = diagnostic.querySelector('input');
+    if (firstInput) firstInput.focus({ preventScroll: true });
+  });
+  const diagnosticSubmit = document.getElementById('diagnostic-submit');
+  if (diagnosticSubmit) diagnosticSubmit.addEventListener('click', () => {
+    const inputs = Array.from(document.querySelectorAll('#diagnostic input'));
+    const answered = inputs.filter(input => input.value.trim());
+    const result = document.getElementById('diagnostic-result');
+    if (!result) return;
+    if (!answered.length) {
+      result.textContent = 'Nejdřív zkus vyplnit alespoň jednu odpověď.';
+      result.style.display = 'block';
+      return;
+    }
+    const missed = answered.filter(input => normalizeAnswer(input.value) !== normalizeAnswer(input.dataset.answer));
+    const labels = {
+      'zlomky': 'zlomky', 'rovnice': 'lineární rovnice', 'procenta-uloha-8': 'procenta',
+      'slovni-ulohy-pomer-umernost': 'poměr a úměrnost', 'prevody': 'převody jednotek',
+      'geometrie': 'planimetrie', 'mocniny': 'mocniny a odmocniny', 'objemy': 'objemy těles'
+    };
+    if (!missed.length) {
+      result.innerHTML = '<strong>Výborně.</strong> Základy z diagnostiky máš jisté. Dej si celý test na čas a sleduj hlavně tempo a zápis postupu.';
+    } else {
+      const unique = [...new Set(missed.map(input => input.dataset.topic))];
+      const links = unique.map(topic => `<a href="#${topic}" style="color:var(--gold);font-weight:600">${labels[topic]}</a>`).join(', ');
+      result.innerHTML = `<strong>Začni tady:</strong> ${links}. Vyřeš nejdřív 3–5 příkladů z každého označeného tématu a diagnostiku pak zopakuj.`;
+    }
+    result.style.display = 'block';
+  });
+
+  let timerSeconds = 8 * 60;
+  let timerHandle = null;
+  const timerDisplay = document.getElementById('timer-display');
+  const timerButton = document.getElementById('timer-button');
+  function renderTimer() {
+    const minutes = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const seconds = String(timerSeconds % 60).padStart(2, '0');
+    if (timerDisplay) timerDisplay.textContent = `${minutes}:${seconds}`;
+  }
+  if (timerButton) timerButton.addEventListener('click', () => {
+    if (timerHandle) {
+      clearInterval(timerHandle); timerHandle = null; timerButton.textContent = 'Pokračovat'; return;
+    }
+    if (timerSeconds === 0) timerSeconds = 8 * 60;
+    timerButton.textContent = 'Pozastavit';
+    timerHandle = setInterval(() => {
+      timerSeconds -= 1; renderTimer();
+      if (timerSeconds <= 0) {
+        clearInterval(timerHandle); timerHandle = null; timerButton.textContent = 'Spustit znovu';
+        showToast('Čas vypršel', 'Poznamenej si do chybového deníku, kde ses zasekl.');
+      }
+    }, 1000);
+  });
 
   render();
 
