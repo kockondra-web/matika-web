@@ -250,6 +250,7 @@
   .diag-option input { position:absolute; opacity:0; pointer-events:none; }
   .diag-option span { display:block; border:1px solid var(--line); border-radius:5px; padding:8px 12px; font:600 13px 'JetBrains Mono',monospace; cursor:pointer; background:white; }
   .diag-option input:checked + span { color:white; background:var(--ink); border-color:var(--ink); }
+  .diag-open-input { width:min(100%,260px); margin-left:26px; padding:9px 11px; border:1px solid var(--line); border-radius:5px; background:var(--paper); color:var(--ink); font:600 14px 'JetBrains Mono',monospace; }
   .diag-actions { padding:17px 20px; display:flex; align-items:center; flex-wrap:wrap; gap:12px; background:var(--paper-dim); }
   .diag-submit { border:0; border-radius:5px; padding:11px 16px; color:var(--ink); background:var(--gold); font-weight:700; cursor:pointer; }
   .diag-reset { border:0; background:transparent; color:var(--ink-soft); text-decoration:underline; cursor:pointer; }
@@ -295,12 +296,20 @@
   .plan-card h3 { font: 600 20px 'Fraunces', serif; margin: 9px 0 12px; }
   .plan-card ol { margin-left: 18px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; }
   .plan-card li + li { margin-top: 6px; }
+  .date-planner { display:grid; grid-template-columns:minmax(220px,320px) 1fr; gap:18px; align-items:end; margin:20px 0 18px; padding:20px; border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:7px; background:white; }
+  .date-planner label { display:block; color:var(--ink); font-weight:700; font-size:13px; }
+  .date-planner input { display:block; width:100%; margin-top:7px; padding:10px 11px; border:1px solid var(--line); border-radius:5px; background:var(--paper); color:var(--ink); font:600 14px 'Inter',sans-serif; }
+  .date-plan-result { min-height:44px; color:var(--ink-soft); font-size:13.5px; line-height:1.55; }
+  .date-plan-result strong { color:var(--ink); }
+  .date-plan-result a { color:var(--ink); font-weight:700; text-decoration-color:var(--gold); }
+  .xp-explainer { margin:-10px 0 28px; padding:14px 16px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--ink-soft); font-size:12.5px; line-height:1.55; }
+  .xp-explainer strong { color:var(--ink); }
   .exam-routine { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; margin: 20px 0 42px; }
   .routine-step { background: white; padding: 18px; }
   .routine-num { font: 700 11px 'JetBrains Mono', monospace; color: var(--gold); }
   .routine-step strong { display: block; margin: 7px 0 5px; font-size: 14px; }
   .routine-step p { color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; }
-  @media (max-width:760px) { .maturita-hero { grid-template-columns:1fr; } .track-grid { grid-template-columns:1fr; } .plan-grid { grid-template-columns:1fr; } .exam-routine { grid-template-columns:1fr 1fr; } .resource-box { align-items:flex-start; flex-direction:column; } .mock-tool { grid-template-columns:1fr; } .test-library { grid-template-columns:1fr; } }
+  @media (max-width:760px) { .maturita-hero { grid-template-columns:1fr; } .track-grid { grid-template-columns:1fr; } .plan-grid { grid-template-columns:1fr; } .date-planner { grid-template-columns:1fr; align-items:start; } .exam-routine { grid-template-columns:1fr 1fr; } .resource-box { align-items:flex-start; flex-direction:column; } .mock-tool { grid-template-columns:1fr; } .test-library { grid-template-columns:1fr; } }
   @media (max-width:620px) { .exam-facts { grid-template-columns:1fr; } }
   @media (max-width:540px) { .diag-grid { grid-template-columns:1fr; } .diag-item:nth-child(odd) { border-right:0; } .exam-routine { grid-template-columns:1fr; } .diagnostic-head { align-items:flex-start; flex-direction:column; } .diagnostic-meta { width:100%; justify-content:space-between; } .test-progress-summary { align-items:flex-start; flex-direction:column; gap:5px; } .practice-overview { flex-wrap:wrap; } .practice-overview .practice-bar { flex:1 0 100%; } .layout { padding-left:20px; padding-right:20px; } .ok-head { flex-wrap:wrap; } .ok-nazev { flex:1 1 calc(100% - 44px); } .ok-pct { margin-left:32px; } }
 </style>
@@ -310,8 +319,8 @@
 
 <header>
   <div class="wrap">
-    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
-    <a href="../INDEX.html" class="back">← zpět na přehled</a>
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../index.html" class="back">← zpět na přehled</a>
   </div>
 </header>
 
@@ -325,8 +334,8 @@
     <aside class="hero-panel">
       <div class="hp-label">Začni za 2 minuty</div>
       <h2>Zkus skutečnou diagnostiku</h2>
-      <p>Osmnáct krátkých úloh ve dvou úrovních ti doporučí okruhy, kterými má smysl začít.</p>
-      <div class="hero-actions"><a class="primary" href="#diagnostika">Spustit 18 úloh</a><a class="secondary" href="#okruhy">Projít okruhy</a></div>
+      <p>Dvacet dva krátkých úloh včetně otevřených a vícekrokových ti doporučí okruhy, kterými má smysl začít.</p>
+      <div class="hero-actions"><a class="primary" href="#diagnostika">Spustit 22 úloh</a><a class="secondary" href="#okruhy">Projít okruhy</a></div>
     </aside>
   </div>
 
@@ -361,7 +370,7 @@
     <h2 class="blok">Rychlá diagnostika</h2>
     <p class="section-intro">U každé úlohy vyber jednu odpověď a potom diagnostiku vyhodnoť. Nezískáváš za ni XP — jejím cílem je pouze najít témata, která potřebují procvičit.</p>
     <div class="diagnostic">
-      <div class="diagnostic-head"><strong>18 úloh · základy i úroveň CERMAT</strong><div class="diagnostic-meta"><span class="diag-count" id="diag-count">0 z 18 zodpovězeno</span><button class="diag-toggle" id="diag-toggle" type="button" aria-expanded="true" aria-controls="diag-body">Sbalit ↑</button></div></div>
+      <div class="diagnostic-head"><strong>22 úloh · základy, otevřené úlohy i úroveň CERMAT</strong><div class="diagnostic-meta"><span class="diag-count" id="diag-count">0 z 22 zodpovězeno</span><button class="diag-toggle" id="diag-toggle" type="button" aria-expanded="true" aria-controls="diag-body">Sbalit ↑</button></div></div>
       <div class="diag-body" id="diag-body">
       <div class="diag-progress" aria-hidden="true"><span id="diag-progress"></span></div>
       <div id="diag-questions">
@@ -383,6 +392,10 @@
         <div class="diag-question" data-topic="stereometrie"><div class="diag-qhead"><span class="diag-qnum">16</span><span>Zdvojnásobíme všechny hrany krychle. Její objem bude:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d16" value="a"><span>2krát větší</span></label><label class="diag-option"><input type="radio" name="d16" value="b"><span>4krát větší</span></label><label class="diag-option"><input type="radio" name="d16" value="c"><span>8krát větší</span></label></div></div>
         <div class="diag-question" data-topic="analytika"><div class="diag-qhead"><span class="diag-qnum">17</span><span>Skalární součin vektorů (2; −1) a (3; 4) je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d17" value="a"><span>2</span></label><label class="diag-option"><input type="radio" name="d17" value="b"><span>5</span></label><label class="diag-option"><input type="radio" name="d17" value="c"><span>10</span></label></div></div>
         <div class="diag-question" data-topic="pravdepodobnost"><div class="diag-qhead"><span class="diag-qnum">18</span><span>Pravděpodobnost, že na běžné kostce padne číslo větší než 4, je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d18" value="a"><span>1/6</span></label><label class="diag-option"><input type="radio" name="d18" value="b"><span>1/3</span></label><label class="diag-option"><input type="radio" name="d18" value="c"><span>1/2</span></label></div></div>
+        <div class="diag-question" data-topic="rovnice"><div class="diag-qhead"><span class="diag-qnum">19 · otevřená</span><span>Vyřeš rovnici <code>3(x − 2) = 2x + 5</code>. Zapiš hodnotu x.</span></div><input class="diag-open-input" type="text" inputmode="decimal" name="d19" aria-label="Odpověď k otevřené úloze 19"></div>
+        <div class="diag-question" data-topic="planimetrie"><div class="diag-qhead"><span class="diag-qnum">20 · vícekroková</span><span>Obdélník má obsah 96 cm² a jeho strany jsou v poměru 2 : 3. Urči jeho obvod v centimetrech.</span></div><input class="diag-open-input" type="text" inputmode="decimal" name="d20" aria-label="Odpověď k otevřené úloze 20"></div>
+        <div class="diag-question" data-topic="funkce"><div class="diag-qhead"><span class="diag-qnum">21 · otevřená</span><span>Lineární funkce prochází body [1; 3] a [4; 9]. Urči její směrnici.</span></div><input class="diag-open-input" type="text" inputmode="decimal" name="d21" aria-label="Odpověď k otevřené úloze 21"></div>
+        <div class="diag-question" data-topic="pravdepodobnost"><div class="diag-qhead"><span class="diag-qnum">22 · vícekroková</span><span>V sáčku jsou 3 červené a 2 modré kuličky. Bez vracení vytáhneme dvě. Urči pravděpodobnost, že budou obě červené.</span></div><input class="diag-open-input" type="text" name="d22" placeholder="např. zlomek" aria-label="Odpověď k otevřené úloze 22"></div>
       </div>
       <div class="diag-actions"><button class="diag-submit" id="diag-submit" type="button">Vyhodnotit diagnostiku</button><button class="diag-reset" id="diag-reset" type="button">Vymazat odpovědi</button></div>
       <div class="diag-result" id="diag-result" aria-live="polite">Odpověz na úlohy a potom diagnostiku vyhodnoť.</div>
@@ -394,6 +407,10 @@
     <div class="section-kicker">Krok 2</div>
     <h2 class="blok">Vyber si plán podle času</h2>
     <p class="section-intro">Začni slabými základy, potom procvičuj celé tematické bloky a poslední část přípravy věnuj práci pod časem.</p>
+    <div class="date-planner">
+      <label for="exam-date">Datum tvé maturitní zkoušky<input id="exam-date" type="date"></label>
+      <div class="date-plan-result" id="date-plan-result" aria-live="polite">Zadej skutečné datum zkoušky. Web podle něj vybere tempo a řekne ti, co udělat jako první.</div>
+    </div>
     <div class="plan-grid">
       <article class="plan-card"><div class="plan-time">14 dní</div><h3>Záchranný plán</h3><ol><li>Rovnice, výrazy a funkce</li><li>Planimetrie a stereometrie</li><li>Posloupnosti a pravděpodobnost</li><li>Tři časované simulace</li></ol></article>
       <article class="plan-card recommended"><div class="plan-time">4–6 týdnů</div><h3>Rozumné tempo</h3><ol><li>Dva až tři okruhy týdně</li><li>Po každém okruhu smíšené příklady</li><li>Každý týden návrat k chybám</li><li>Poslední týden testy nanečisto</li></ol></article>
@@ -544,6 +561,7 @@
       <a class="test-card" href="https://maturita.cermat.cz/menu/testy-a-zadani-z-predchozich-obdobi/matematika/testy-a-zadani-matematika.html" target="_blank" rel="noopener"><span class="test-label">Oficiální zadání</span><h3>Archiv testů CERMAT ↗</h3><p>Zadání, záznamové archy, klíče správných řešení a vzorová řešení z minulých období.</p><div class="test-meta"><span>PDF</span><span>oficiální zdroj</span></div></a>
     </div>
     <div class="test-progress-summary"><span>Základy 1: <strong id="test-1-best">zatím nespuštěno</strong></span><span>Základy 2: <strong id="test-2-best">zatím nespuštěno</strong></span><span>Simulace 1: <strong id="sim-1-best">zatím nespuštěna</strong></span><span>Simulace 2: <strong id="sim-2-best">zatím nespuštěna</strong></span><span>Celkem: <strong id="maturita-xp">0 XP</strong></span><span>Poslední slabiny: <strong id="maturita-weak">zatím neznámé</strong></span></div>
+    <aside class="xp-explainer"><strong>XP nejsou odhad výsledku maturity.</strong> Jsou pouze motivační součet nově správně zvládnutých úloh. Připravenost posuzuj podle bodů z posledních náročnějších simulací, práce v limitu 135 minut a toho, zda se stejné chyby přestávají opakovat.</aside>
     <h3 class="pod">Časovač a poznámky k oficiálnímu PDF testu</h3>
     <div class="mock-tool">
       <div class="timer-panel"><div class="timer-label">Čas na test</div><div class="timer-display" id="timer-display">02:15:00</div><div class="timer-actions"><button class="timer-primary" id="timer-start" type="button">Spustit</button><button id="timer-pause" type="button">Pozastavit</button><button id="timer-reset" type="button">Obnovit</button></div></div>
@@ -605,7 +623,7 @@
     const reset = document.getElementById('diag-reset');
     const diagnostic = document.querySelector('.diagnostic');
     const toggle = document.getElementById('diag-toggle');
-    const answers = ['b', 'b', 'b', 'a', 'b', 'a', 'c', 'a', 'a', 'b', 'b', 'c', 'a', 'b', 'c', 'c', 'a', 'b'];
+    const answers = ['b', 'b', 'b', 'a', 'b', 'a', 'c', 'a', 'a', 'b', 'b', 'c', 'a', 'b', 'c', 'c', 'a', 'b', '11', '40', '2', '3/10|0.3'];
     const recommendations = {
       cisla: ['Procenta, poměr a jednotky', 'prakticke-pocitani.html'],
       vyrazy: ['Algebraické a lomené výrazy', 'algebraicke-vyrazy.html'],
@@ -620,14 +638,19 @@
     try {
       const saved = JSON.parse(localStorage.getItem('maturita-diagnostika-v2') || '{}');
       Object.entries(saved).forEach(([name, value]) => {
-        const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
-        if (input) input.checked = true;
+        const textInput = document.querySelector(`input[name="${name}"][type="text"]`);
+        if (textInput) textInput.value = value;
+        else {
+          const input = [...document.querySelectorAll(`input[name="${name}"]`)].find(item => item.value === value);
+          if (input) input.checked = true;
+        }
       });
     } catch (_) {}
+    const normalizeDiagnostic = value => String(value || '').trim().toLocaleLowerCase('cs').replace(/\s+/g, '').replace(',', '.');
     function selectedAnswers() {
-      return Object.fromEntries(questions.map((_, index) => {
-        const checked = document.querySelector(`input[name="d${index + 1}"]:checked`);
-        return [`d${index + 1}`, checked ? checked.value : ''];
+      return Object.fromEntries(questions.map((question, index) => {
+        const input = question.querySelector('input:checked, input[type="text"]');
+        return [`d${index + 1}`, input ? input.value : ''];
       }));
     }
     function updateProgress() {
@@ -639,7 +662,10 @@
         localStorage.setItem('maturita-diagnostika-v2', JSON.stringify(selected));
       } catch (_) {}
     }
-    document.querySelectorAll('.diag-option input').forEach(input => input.addEventListener('change', updateProgress));
+    document.querySelectorAll('#diag-questions input').forEach(input => {
+      input.addEventListener('change', updateProgress);
+      if (input.type === 'text') input.addEventListener('input', updateProgress);
+    });
     function setCollapsed(collapsed) {
       diagnostic.classList.toggle('collapsed', collapsed);
       toggle.setAttribute('aria-expanded', String(!collapsed));
@@ -655,25 +681,70 @@
         result.innerHTML = `<strong>Ještě chybí ${unanswered} ${unanswered === 1 ? 'odpověď' : unanswered < 5 ? 'odpovědi' : 'odpovědí'}.</strong> Pro přesnější doporučení dokonči všechny úlohy.`;
         return;
       }
-      const wrong = questions.filter((question, index) => selected[`d${index + 1}`] !== answers[index]);
+      const wrong = questions.filter((question, index) => !answers[index].split('|').map(normalizeDiagnostic).includes(normalizeDiagnostic(selected[`d${index + 1}`])));
       const score = questions.length - wrong.length;
       if (!wrong.length) {
         result.innerHTML = `<strong>${score} z ${questions.length} správně.</strong> Základy vypadají dobře. Pokračuj tematickými úlohami a potom celým testem pod časem.`;
         return;
       }
-      const links = wrong.slice(0, 4).map(question => {
-        const item = recommendations[question.dataset.topic];
-        return `<a href="${item[1]}">${item[0]}</a>`;
+      const topicCounts = wrong.reduce((all, question) => {
+        all[question.dataset.topic] = (all[question.dataset.topic] || 0) + 1;
+        return all;
+      }, {});
+      const ordered = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).map(([topic]) => topic);
+      const links = ordered.slice(0, 4).map((topic, index) => {
+        const item = recommendations[topic];
+        return `<a href="${item[1]}">${index + 1}. ${item[0]}</a>`;
       }).join(' · ');
-      result.innerHTML = `<strong>${score} z ${questions.length} správně.</strong> Jako první procvič: ${links}.`;
+      const first = recommendations[ordered[0]];
+      result.innerHTML = `<strong>${score} z ${questions.length} správně.</strong> Dnešní úkol: otevři <a href="${first[1]}">${first[0]}</a> a vyřeš 5 kontrolních úloh bez nápovědy. Další pořadí: ${links}.`;
     });
     reset.addEventListener('click', () => {
-      document.querySelectorAll('.diag-option input').forEach(input => input.checked = false);
+      document.querySelectorAll('#diag-questions input').forEach(input => {
+        if (input.type === 'radio') input.checked = false;
+        else input.value = '';
+      });
       try { localStorage.removeItem('maturita-diagnostika-v2'); } catch (_) {}
       result.textContent = 'Odpověz na úlohy a potom diagnostiku vyhodnoť.';
       updateProgress();
     });
     updateProgress();
+  })();
+  (() => {
+    const input = document.getElementById('exam-date');
+    const output = document.getElementById('date-plan-result');
+    const cards = [...document.querySelectorAll('.plan-card')];
+    if (!input || !output) return;
+    const today = new Date();
+    const localDate = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    input.min = localDate(today);
+    try { input.value = localStorage.getItem('maturita-datum-zkousky') || ''; } catch (_) {}
+    function renderDatePlan() {
+      if (!input.value) return;
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+      const target = new Date(`${input.value}T12:00:00`);
+      const days = Math.ceil((target - start) / 86400000);
+      cards.forEach(card => card.classList.remove('recommended'));
+      if (!Number.isFinite(days) || days < 1) {
+        output.innerHTML = '<strong>Vyber budoucí datum.</strong> Pokud zkoušku píšeš dnes, začni rovnou jednou náročnější simulací.';
+        return;
+      }
+      let cardIndex = 2;
+      let rhythm = 'čtyři studijní bloky týdně, z toho jeden věnuj opravě starých chyb';
+      if (days <= 14) {
+        cardIndex = 0;
+        rhythm = 'každý den 45–60 minut a alespoň tři celé simulace před zkouškou';
+      } else if (days <= 49) {
+        cardIndex = 1;
+        rhythm = 'čtyři studijní bloky týdně a od příštího týdne jednu simulaci každý týden';
+      }
+      cards[cardIndex]?.classList.add('recommended');
+      output.innerHTML = `<strong>Zbývá ${days} ${days === 1 ? 'den' : days < 5 ? 'dny' : 'dní'}.</strong> Doporučené tempo: ${rhythm}. Dnes udělej <a href="#diagnostika">diagnostiku</a>; podle ní otevři první slabý okruh.`;
+      try { localStorage.setItem('maturita-datum-zkousky', input.value); } catch (_) {}
+    }
+    input.addEventListener('change', renderDatePlan);
+    renderDatePlan();
   })();
   (() => {
     const display = document.getElementById('timer-display');

@@ -1,66 +1,46 @@
-# Audit webu a plán dokončení
+# Plán dokončení webu Matika pro každého
 
 Aktualizováno: 12. září 2026
 
-## Celkové hodnocení
+Tento soubor obsahuje pouze práci, která ještě zbývá. Body jsou seřazené podle doporučené priority.
 
-- Přijímačky na SŠ: přibližně 85–90 % hotového produktu.
-- CERMAT maturita: přibližně 70–75 %.
-- Výuka podle ročníků: dobrý rozcestník, ale zatím ne úplný kurz.
-- Vizuální styl je povedený a nepotřebuje zásadní redesign.
+## 1. Dokončit obsah přípravy k maturitě CERMAT
 
-## Priorita 1 — věci, které mohou žáka přímo zmást
+- [ ] Rozšířit procvičování v každém hlavním maturitním okruhu přibližně na 8–12 kvalitních úloh. Zachovat krátký lehčí rozjezd, ale většinu úloh držet na reálné maturitní obtížnosti.
+- [ ] U všech nových úloh doplnit nápovědu, správný výsledek a srozumitelný postup řešení.
+- [ ] Prověřit, že XP lze získat jen po skutečné kontrole odpovědi a že se stejná úloha nezapočítá opakovaně.
+- [ ] Vylepšit oba celé testy nanečisto o grafy, tabulky, náčrty, práci s údaji a navazující vícedílné úlohy podobné skutečnému didaktickému testu.
+- [ ] Doplnit k testům přesnější bodovací klíč a po vyhodnocení lépe propojit chyby s doporučenými tématy k procvičení.
 
-1. Opravit nefunkční interní odkazy v archivní kopii ústních otázek.
-2. Sjednotit odkazy `index.html` a `INDEX.html`, aby fungovaly i na serveru rozlišujícím velikost písmen.
-3. Odstranit vodorovné přetékání maturitní stránky na mobilu.
-4. U testů rozlišit počet číslovaných úloh a počet odpovědních polí.
-5. Jasně vysvětlit význam XP, levelu a skutečné připravenosti ke zkoušce.
+## 2. Doplnit a sjednotit výuku podle ročníků
 
-## Priorita 2 — přijímačky a devátá třída
+- [ ] Udělat obsahovou inventuru stránek pro 6.–9. třídu a střední školu a označit chybějící důležitá témata.
+- [ ] Doplnit největší mezery tak, aby rozcestníky podle ročníků nepůsobily jen jako výběr několika lekcí, ale jako ucelená cesta učivem.
+- [ ] Sjednotit zbývající starší lekce na stejnou strukturu: stručné vysvětlení, řešený příklad, procvičení, kontrola odpovědi a doporučený další krok.
+- [ ] Zkontrolovat, že obtížnost úloh roste postupně a že lehké úvodní úlohy nepřevažují nad úlohami odpovídajícími danému ročníku.
 
-1. Po diagnostice vytvořit konkrétní pořadí témat a dnešní úkol.
-2. Přidat historii výsledků: datum, body, čas, slabiny a změnu proti minulému pokusu.
-3. Přidat režim „Procvičit moje chyby“.
-4. Rozdělit dlouhé lekce na: vysvětlení, řešený příklad, zkus sám, úroveň CERMAT a shrnutí.
-5. Doplnit chybějící samostatné materiály zejména pro desetinná čísla, dělitelnost, statistiku, podobnost, kružnici a funkce.
-6. Po testu vysvětlit, co dosažené skóre znamená a co má žák udělat dál.
+## 3. Dokončit technickou a vizuální konzistenci
 
-## Priorita 3 — maturita
+- [ ] Sjednotit hlavičky starších stránek, názvy navigačních odkazů a chování tlačítek na mobilu i počítači.
+- [ ] Přesunout opakující se vložené styly ze starších stránek do společných CSS souborů a odstranit zbytečné duplicity.
+- [ ] Provést úplnou kontrolu kontrastu, ovládání klávesnicí, popisků formulářů a čitelnosti stavových hlášek.
+- [ ] Otestovat reprezentativní stránky při šířkách přibližně 360, 390, 768 a 1440 pixelů a opravit přetékání, příliš malé ovládací prvky a rozbité rozložení.
+- [ ] Projít všechny živé stránky automatickou kontrolou odkazů, nadpisů, metadat a chybějících souborů. Archiv původních ústních otázek ponechat obsahově beze změn.
 
-1. Přesunout seznam 25 ústních otázek na samostatnou stránku.
-2. V každé lekci oddělit minimum pro CERMAT, typické úlohy, časté chyby a rozšíření k ústní zkoušce.
-3. Doplnit přibližně 8–12 kontrolních úloh ke každému velkému okruhu.
-4. Do simulací přidat grafy, tabulky, nákresy, navazující části a podrobnější bodovací klíč.
-5. Rozšířit diagnostiku o otevřené a vícekrokové úlohy.
-6. Vytvořit plán podle skutečného data zkoušky.
+## 4. Dokončit SEO a veřejné nasazení
 
-## Priorita 4 — celý web
+- [ ] Doplnit chybějící hlavní nadpisy a meta popisy na zbývajících živých stránkách ZŠ.
+- [ ] Po potvrzení konečné veřejné adresy doplnit canonical URL a metadata pro náhledy při sdílení.
+- [ ] Ověřit celý web přímo na zveřejněné adrese GitHub Pages, včetně cest k souborům, obnovení stránky, externích odkazů a chování uloženého postupu.
+- [ ] Po závěrečné kontrole aktualizovat datum obsahu a odstranit z veřejné verze případné pracovní nebo diagnostické poznámky.
 
-1. Rozšířit vyhledávání z názvů stránek také na témata, pojmy a klíčová slova.
-2. Sjednotit horní a spodní navigaci.
-3. Přidat viditelné zvýraznění pro ovládání klávesnicí a zkontrolovat kontrast.
-4. Doplnit správné `<h1>`, meta description, canonical a metadata pro sdílení.
-5. Sjednotit opakované styly a omezit CSS vložené přímo do HTML.
-6. Přidat automatickou kontrolu interních odkazů a základní testy stránek.
-7. Doplnit stránku „O webu“, způsob ukládání výsledků a datum poslední aktualizace.
+## Doporučené pořadí práce
 
-## Doporučené pořadí realizace
+1. Rozšířit maturitní procvičování a oba testy nanečisto.
+2. Doplnit chybějící výuku podle ročníků a sjednotit starší lekce.
+3. Sjednotit hlavičky, styly, přístupnost a mobilní zobrazení.
+4. Doplnit SEO podle konečné adresy a provést závěrečný test zveřejněného webu.
 
-1. Technické chyby a odkazy.
-2. Chybějící učivo pro 9. třídu.
-3. Osobní plán, opakování chyb a historie výsledků JPZ.
-4. Samostatná ústní maturita a sjednocení maturitních lekcí.
-5. Více maturitních úloh a autentičtější simulace.
-6. Vyhledávání, přístupnost, SEO a výkon.
+## Podmínka dokončení
 
-## Průběžně dokončeno
-
-- Doplněny výklady pro desetinná čísla, dělitelnost, kružnici, podobnost, statistiku a funkce.
-- Opraveny odkazy těchto témat v přehledu 6.–9. ročníku.
-- Rozšířena rychlá přijímačková diagnostika z 8 na 12 úloh; neúplné vyplnění už nemůže vrátit falešný výsledek „Výborně“.
-- Rozepsaná diagnostika se ukládá v prohlížeči.
-- Vyhledávání zná více školních pojmů a synonym.
-- U celých JPZ testů je upřesněno, že ukazatel sleduje odpovědní části.
-- Opraveny odkazy na hlavní stránku ve všech živých materiálech ZŠ.
-- Opraveno vodorovné přetékání hlavní maturitní stránky na úzkém mobilu.
+Web lze považovat za dokončený, až když hlavní výukové cesty neobsahují slepé nebo zjevně nedodělané stránky, všechny interaktivní úlohy správně kontrolují odpovědi, maturitní testy odpovídají obtížností i formou CERMATu a automatická ani ruční kontrola nenajde závažnou chybu na mobilu nebo počítači.

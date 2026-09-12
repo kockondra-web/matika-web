@@ -1,0 +1,22 @@
+name: Kontrola webu
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  kontrola:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stažení projektu
+        uses: actions/checkout@v4
+      - name: Nastavení Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Kontrola interních odkazů a HTML
+        run: node scripts/check-site.mjs
+      - name: Kontrola syntaxe JavaScriptu
+        shell: bash
+        run: find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check

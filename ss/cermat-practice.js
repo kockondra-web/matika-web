@@ -62,9 +62,32 @@
       ['easy','Hodnota |−7| je:',['−7','0','7'],2,'Absolutní hodnota je vzdálenost od nuly.'],
       ['cermat','Rovnice |x−2|=3 má řešení:',['−1 a 5','1 a 5','−1 a 3'],0,'x−2=3 nebo x−2=−3.']]
   };
+  const guides = {
+    'prakticke-pocitani.html': ['procenta, poměr, přímá a nepřímá úměrnost a bezpečné převody jednotek', 'počítání druhé procentní změny z původního základu nebo záměna přímé a nepřímé úměrnosti'],
+    'logika-mnoziny.html': ['základní množinové operace, intervaly, výroky a jejich negace', 'negace výroku „všichni“ není „nikdo“, ale „alespoň jeden ne“'],
+    'mocniny.html': ['pravidla pro mocniny, odmocniny, záporný exponent a zápis v normovaném tvaru', 'sčítání exponentů při sčítání mocnin nebo zapomenutí podmínky u sudé odmocniny'],
+    'algebraicke-vyrazy.html': ['podmínky, rozklad na součin, vzorce a krácení lomených výrazů', 'krácení členů v součtu místo společných činitelů'],
+    'funkce.html': ['definiční obor, obor hodnot, čtení grafu a lineární funkce', 'záměna směrnice a absolutního členu nebo přehlédnutí vyloučeného bodu'],
+    'kvadraticke.html': ['kvadratická rovnice, diskriminant, kořeny, vrchol a základní vlastnosti paraboly', 'chyba ve znaménku u koeficientu b nebo zaměnění kořenů s vrcholem'],
+    'soustavy.html': ['soustavy dvou lineárních rovnic a převod slovního zadání na dvě podmínky', 'úprava jen jedné strany rovnice nebo odpověď bez kontroly v původním zadání'],
+    'exp-log-funkce.html': ['vlastnosti exponenciální a logaritmické funkce, graf a definiční obor', 'zapomenutí podmínky kladného argumentu logaritmu'],
+    'exp-log-rovnice.html': ['jednoduché exponenciální a logaritmické rovnice a kontrola podmínek', 'mechanické logaritmování bez ověření definičního oboru'],
+    'goniometrie.html': ['sinus, kosinus a tangens v pravoúhlém trojúhelníku a práce s kalkulačkou', 'špatný režim stupně/radiány nebo záměna protilehlé a přilehlé odvěsny'],
+    'gon-vzorce.html': ['základní identity a jednoduché goniometrické rovnice v daném intervalu', 'uvedení jen jednoho řešení nebo zahrnutí koncového bodu mimo interval'],
+    'posloupnosti.html': ['aritmetická a geometrická posloupnost, n-tý člen, součet a základní finanční aplikace', 'použití n místo n − 1 ve vzorci pro n-tý člen'],
+    'planimetrie.html': ['úhly, podobnost, Pythagorova věta, obvody a obsahy základních útvarů', 'lineární změna obsahu při podobnosti místo druhé mocniny měřítka'],
+    'stereometrie.html': ['objemy a povrchy hranolů, jehlanu, válce, kužele a koule včetně jednotek', 'záměna povrchu s objemem nebo chybný převod krychlových jednotek'],
+    'analyticka-geometrie-rovina.html': ['body, vektory, vzdálenosti, střed úsečky a rovnice přímky v rovině', 'opačné pořadí při odečítání souřadnic nebo neověřená rovnice přímky'],
+    'kombinatorika-pravdepodobnost.html': ['základní kombinatorická pravidla, pravděpodobnost a popisná statistika', 'počítání uspořádání tam, kde na pořadí nezáleží, nebo špatný počet všech možností'],
+    'absolutni-hodnoty.html': ['význam absolutní hodnoty a jednoduché rovnice a nerovnice s absolutní hodnotou', 'zapomenutí druhé větve řešení nebo chybné otočení nerovnosti']
+  };
   const file = location.pathname.split('/').pop().toLowerCase();
   const bank = banks[file];
   if (!bank || document.querySelector('.cermat-practice-section')) return;
+  const guide = document.createElement('section');
+  guide.className = 'cermat-lesson-guide';
+  const guideData = guides[file];
+  guide.innerHTML = `<div><span>Minimum pro CERMAT</span><p>${guideData[0]}.</p></div><div><span>Typická chyba</span><p>${guideData[1]}.</p></div><div><span>Rozšíření</span><p>Podrobná odvození a náročnější teorie používej až po zvládnutí minima a kontrolních úloh.</p></div>`;
   const section = document.createElement('section');
   section.className = 'cermat-practice-section';
   const awardedKey = `maturita-cermat-xp:${file}`;
@@ -74,6 +97,7 @@
   const main = document.querySelector('main');
   const footer = main?.querySelector('footer');
   if (!main) return;
+  main.insertBefore(guide, footer || null);
   main.insertBefore(section, footer || null);
   section.querySelectorAll('.cermat-task').forEach(task => {
     const i = Number(task.dataset.index), feedback = task.querySelector('.cermat-feedback'), details = task.querySelector('details');
