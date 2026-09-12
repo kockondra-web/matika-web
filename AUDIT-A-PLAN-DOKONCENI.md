@@ -29,7 +29,6 @@ Tento soubor obsahuje pouze práci, která ještě zbývá. Body jsou seřazené
 
 ## 4. Dokončit SEO a veřejné nasazení
 
-- [ ] Doplnit chybějící hlavní nadpisy a meta popisy na zbývajících živých stránkách ZŠ.
 - [ ] Po potvrzení konečné veřejné adresy doplnit canonical URL a metadata pro náhledy při sdílení.
 - [ ] Ověřit celý web přímo na zveřejněné adrese GitHub Pages, včetně cest k souborům, obnovení stránky, externích odkazů a chování uloženého postupu.
 - [ ] Po závěrečné kontrole aktualizovat datum obsahu a odstranit z veřejné verze případné pracovní nebo diagnostické poznámky.

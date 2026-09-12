@@ -480,3 +480,48 @@
   document.body.append(tools);
 
 })();
+
+// Po vyhodnocení celé maturitní simulace nabídne návrat do slabých témat.
+(() => {
+  if (!document.body.dataset.variant || !location.pathname.includes('cermat-simulace-')) return;
+  const submit = document.querySelector('#test-submit');
+  if (!submit) return;
+  const lessonFor = topic => {
+    const groups = [
+      [/Čísla|Odmocniny/, 'mocniny.html'],
+      [/Procenta|Poměr|Jednotky|Měřítko|Úměrnost|Finance/, 'prakticke-pocitani.html'],
+      [/Výrazy/, 'algebraicke-vyrazy.html'],
+      [/Absolutní/, 'absolutni-hodnoty.html'],
+      [/Rovnice|Nerovnice|Kvadratické rovnice/, 'kvadraticke.html'],
+      [/Slovní úloha|Soustavy/, 'soustavy.html'],
+      [/Kvadratická funkce/, 'kvadraticke.html'],
+      [/Funkce/, 'funkce.html'],
+      [/Exponenciální|Logaritmy/, 'exp-log-rovnice.html'],
+      [/Goniometrie/, 'goniometrie.html'],
+      [/Posloupnosti/, 'posloupnosti.html'],
+      [/Planimetrie|Podobnost|Kruh/, 'planimetrie.html'],
+      [/Stereometrie/, 'stereometrie.html'],
+      [/Analytická geometrie|Vektory|Přímka/, 'analyticka-geometrie-rovina.html'],
+      [/Kombinatorika|Pravděpodobnost|Statistika/, 'kombinatorika-pravdepodobnost.html']
+    ];
+    return groups.find(([pattern]) => pattern.test(topic))?.[1] || 'maturita.html';
+  };
+  submit.addEventListener('click', () => setTimeout(() => {
+    const result = document.querySelector('#test-result');
+    if (!result?.classList.contains('show') || result.querySelector('.result-next')) return;
+    const weak = [...document.querySelectorAll('.task.wrong, .task.partial')]
+      .map(task => task.querySelector('.topic')?.textContent.trim())
+      .filter(Boolean);
+    const unique = [...new Set(weak)].slice(0, 5);
+    const points = Number(result.querySelector('strong')?.textContent.match(/^\d+/)?.[0] || 0);
+    const message = points >= 40
+      ? 'Výborný základ. Zaměř se hlavně na jednotlivé ztracené body.'
+      : points >= 30
+        ? 'Jsi blízko jistému výsledku. Procvič nejdřív témata níže a test potom zopakuj.'
+        : 'Nejdřív doplň slabá témata bez časového tlaku a teprve potom zkus další celý test.';
+    const links = unique.length
+      ? `<ul>${unique.map(topic => `<li><a href="${lessonFor(topic)}">${topic} → procvičit</a></li>`).join('')}</ul>`
+      : '<p>Ve všech tématech máš plný počet bodů.</p>';
+    result.insertAdjacentHTML('beforeend', `<div class="result-next"><strong>Co dál</strong><p>${message}</p>${links}</div>`);
+  }, 0));
+})();

@@ -20,10 +20,13 @@ const attributePattern = /\b(?:href|src)=["']([^"']+)["']/gi;
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const short = relative(root, file).replaceAll('\\', '/');
-  const h1Count = (html.match(/<h1\b/gi) || []).length;
-  if (!/<title>[^<]+<\/title>/i.test(html)) warnings.push(`${short}: chybí neprázdný <title>`);
-  if (h1Count !== 1) warnings.push(`${short}: počet <h1> je ${h1Count}`);
-  if (!/<meta\s+name=["']description["']/i.test(html)) warnings.push(`${short}: chybí meta description`);
+  const isPreservedArchive = short.startsWith('ustni-otazky-puvodni/');
+  if (!isPreservedArchive) {
+    const h1Count = (html.match(/<h1\b/gi) || []).length;
+    if (!/<title>[^<]+<\/title>/i.test(html)) warnings.push(`${short}: chybí neprázdný <title>`);
+    if (h1Count !== 1) warnings.push(`${short}: počet <h1> je ${h1Count}`);
+    if (!/<meta\s+name=["']description["']/i.test(html)) warnings.push(`${short}: chybí meta description`);
+  }
 
   for (const match of html.matchAll(attributePattern)) {
     const value = match[1].trim();
