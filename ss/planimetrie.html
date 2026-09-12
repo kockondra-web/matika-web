@@ -114,6 +114,7 @@
 
   footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
@@ -139,6 +140,7 @@
       <li><a href="#mnohouhelniky">Čtyřúhelníky a mnohoúhelníky</a></li>
       <li><a href="#kruznice">Kružnice a kruh</a></li>
       <li><a href="#zobrazeni">Geometrická zobrazení</a></li>
+      <li><a href="#konstrukce">Konstrukční úlohy</a></li>
     </ul>
   </nav>
 
@@ -147,8 +149,8 @@
     <p class="section-lead">Rovinná geometrie — úhly, trojúhelníky a jejich vlastnosti, shodnost a podobnost, Pythagorova věta, čtyřúhelníky a mnohoúhelníky, kružnice a kruh, geometrická zobrazení.</p>
     <div class="source-note">okruh 6 didaktického testu · planimetrie</div>
     <div class="warn-box">
-      <div class="wb-label">Odkud tahle stránka je</div>
-      Na rozdíl od ostatních témat na webu tahle stránka <strong>nevychází z konkrétních poznámek</strong> — je to standardní základ podle Cermat katalogu požadavků, který jsem sestavil a příklady na něm ověřil sám. Klidně to over-write vlastním materiálem, až ho budeš mít.
+      <div class="wb-label">Zaměření stránky</div>
+      Tato stránka shrnuje planimetrii potřebnou pro <strong>didaktický test CERMAT</strong>. U početních úloh vždy zapisuj jednotky a u konstrukcí dodržuj rozbor, postup a diskusi o počtu řešení.
     </div>
 
     <h2 class="blok" id="uhly">Základní pojmy — úhly</h2>
@@ -296,6 +298,34 @@
       Zobrazení se středem \(S\) a koeficientem \(k\): bod \(X\) se zobrazí na \(X'\) tak, že \(\overrightarrow{SX'}=k\cdot\overrightarrow{SX}\). Pro \(|k|>1\) zvětšuje, pro \(|k|<1\) zmenšuje, záporné \(k\) navíc otočí o 180°.
     </div>
 
+    <h2 class="blok" id="konstrukce">Konstrukční úlohy</h2>
+    <p class="txt">U konstrukční úlohy nestačí výsledný obrázek. Přehledný postup má čtyři části: <strong>rozbor, zápis konstrukce, konstrukci a diskusi o počtu řešení</strong>.</p>
+    <div class="rule-box">
+      <div class="rb-label">Základní konstrukce, které musíš ovládat</div>
+      osa úsečky a střed úsečky · osa úhlu · kolmice a rovnoběžka daným bodem · kružnice s daným středem a poloměrem · přenesení délky · trojúhelník ze tří stran (SSS)
+    </div>
+    <div class="priklad">
+      <div class="p-label">Řešený postup · trojúhelník SSS</div>
+      <div class="zadani">Sestroj trojúhelník \(ABC\), jestliže \(a=5\text{ cm}\), \(b=6\text{ cm}\), \(c=7\text{ cm}\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">1. Sestroj základnu \(AB\) délky \(c=7\text{ cm}\).</div><div class="vp">\(AB=c\)</div></div>
+        <div class="vr"><div class="vl">2. Narýsuj kružnici se středem \(A\) a poloměrem \(b=6\text{ cm}\).</div><div class="vp">\(k(A;b)\)</div></div>
+        <div class="vr"><div class="vl">3. Narýsuj kružnici se středem \(B\) a poloměrem \(a=5\text{ cm}\).</div><div class="vp">\(l(B;a)\)</div></div>
+        <div class="vr"><div class="vl">4. Jejich průsečík označ \(C\) a spoj \(A,C\) a \(B,C\).</div><div class="vp">\(C\in k\cap l\)</div></div>
+      </div>
+      <div class="pozn">Kružnice mají dva průsečíky souměrné podle přímky AB. Vzniknou dvě polohy trojúhelníku, které jsou shodné.</div>
+      <div class="vysl">Konstrukce má dvě souměrná řešení.</div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">Nejdřív ověř existenci</div>
+      Tři délky vytvoří trojúhelník jen tehdy, když součet každých dvou stran převyšuje třetí stranu. Například délky 2 cm, 3 cm a 6 cm trojúhelník nevytvoří.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Samostatné procvičení</div>
+      <div class="zadani">Sestroj osu úsečky \(AB\) a vysvětli, proč každý její bod má od bodů \(A\) a \(B\) stejnou vzdálenost. Potom sestroj kružnici procházející třemi nekolineárními body.</div>
+      <div class="pozn">Nápověda: střed kružnice je průsečík os dvou stran trojúhelníku tvořeného danými body.</div>
+    </div>
+
     <footer>matematika.jasně — planimetrie</footer>
   </main>
 </div>
@@ -312,5 +342,6 @@
   }
 </script>
 
+<script src="../site.js"></script>
 </body>
 </html>

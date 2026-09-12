@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JPZ 2026 — test D | matematika.jasně</title>
+<title>Cvičný test ve stylu JPZ — D | matematika.jasně</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="jpz-exam.css">
 <style>
   :root {
     --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
@@ -42,8 +43,8 @@
   .gap-note {
     font-size: 13.5px;
     color: var(--ink-soft);
-    background: #FBF0EE;
-    border-left: 3px solid var(--brick);
+    background: #EAF2EC;
+    border-left: 3px solid #6B9B7A;
     padding: 12px 16px;
     max-width: 640px;
     margin-bottom: 40px;
@@ -109,6 +110,11 @@
   .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
   .pure-example.revealed .pe-answer-btn { display: none; }
   .pure-example.revealed .pe-answer { display: inline-block; }
+  .task-figure { display: block; width: 100%; max-width: 600px; height: auto; margin: 14px auto 18px; color: var(--ink); }
+  .task-figure text { font-family: 'Inter', sans-serif; fill: var(--ink); font-size: 14px; }
+  .task-figure .shape { fill: #FCF7EC; stroke: var(--ink); stroke-width: 2; }
+  .task-figure .accent { fill: rgba(212,162,78,.45); stroke: var(--gold); stroke-width: 2; }
+  .task-figure .guide { fill: none; stroke: var(--ink-soft); stroke-width: 1.5; stroke-dasharray: 6 5; }
 
   .nav-tests { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
   .nav-tests a {
@@ -125,22 +131,23 @@
 
   footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
     <a href="prijimacky.html" class="back">← zpět na přijímačky</a>
   </div>
 </header>
 
 <div class="wrap">
   <div class="page-head">
-    <div class="section-title">JPZ 2026 — test D</div>
+    <div class="section-title">Cvičný test ve stylu JPZ — D</div>
     <p class="section-lead">Vlastní verze testu M9D (2. náhradní termín) — stejná struktura, stejná obtížnost, jiná čísla a scénáře.</p>
     <div class="source-note">vzor: JPZ 2026, 2. náhradní termín (M9PDD26C0T04) — 16 úloh, max. 50 bodů</div>
-    <div class="gap-note">Úlohy 9, 10 a 11 vynechány — obě konstrukční úlohy a graf s Pavliným růstem, kde chybí tři ze šesti údajů, jsou vázané na přesný obrázek, který bez spolehlivé reprodukce nešlo přepsat na nová čísla. Zbytek (13 z 16 úloh) je přepsaný na vlastní zadání a každý výsledek ověřený výpočtem.</div>
+    <div class="gap-note"><strong>Kompletní cvičný test:</strong> obsahuje všech 16 typů úloh. Konstrukční úlohy 9–10 a grafická úloha 11 jsou plnohodnotné vlastní varianty s autorskými nákresy.</div>
 
     <div class="nav-tests">
       <a href="jpz-2026-test-a.html">Test A</a>
@@ -149,6 +156,21 @@
       <a href="jpz-2026-test-d.html" class="active">Test D</a>
     </div>
   </div>
+
+  <section class="exam-panel" id="exam-panel" aria-label="Ovládání cvičného testu">
+    <div class="exam-panel-main">
+      <div class="exam-status"><div class="exam-status-label">Stav testu</div><div class="exam-status-value" id="exam-status-value">Připraveno</div></div>
+      <div class="exam-timer" id="exam-timer" aria-label="Zbývající čas">70:00</div>
+      <div class="exam-progress" id="exam-progress">Vyplněno 0 z 21 odpovědí</div>
+      <div class="exam-actions">
+        <button class="exam-button" id="exam-start" type="button">Spustit test</button>
+        <button class="exam-button" id="exam-submit" type="button" disabled>Odevzdat</button>
+        <button class="exam-button danger" id="exam-reset" type="button" hidden>Nový pokus</button>
+      </div>
+    </div>
+    <p class="exam-panel-note">Po spuštění máte 70 minut. Odpovědi se průběžně ukládají. Automatické body jsou orientační; konstrukce a postup se po odevzdání hodnotí zvlášť.</p>
+  </section>
+  <section class="exam-result" id="exam-result" aria-live="polite"></section>
 
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">1</div><a href="prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">1 bod</div></div>
@@ -229,6 +251,49 @@
   </div>
 
   <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">9</div><a href="prijimacky.html#konstrukce" class="topic-tag">Konstrukce</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Je dána úsečka <em>AB</em> délky 6 cm a polopřímka <em>q</em> s počátkem v bodě <em>A</em>, která svírá s úsečkou <em>AB</em> úhel 45°. Sestrojte trojúhelník <em>ABC</em>, jestliže bod <em>C</em> leží na polopřímce <em>q</em> a jeho vzdálenost od přímky <em>AB</em> je 4 cm.
+      <svg class="task-figure" viewBox="0 0 360 220" role="img" aria-label="Úsečka AB a polopřímka q svírající úhel 45 stupňů">
+        <line class="shape" x1="55" y1="175" x2="305" y2="175"/>
+        <line class="accent" x1="55" y1="175" x2="245" y2="30"/>
+        <path class="guide" d="M95 175 A40 40 0 0 0 87 151"/>
+        <circle cx="55" cy="175" r="4" fill="#17233c"/><circle cx="275" cy="175" r="4" fill="#17233c"/>
+        <text x="43" y="198">A</text><text x="268" y="198">B</text><text x="252" y="42">q</text>
+        <text x="151" y="198">6 cm</text><text x="94" y="153">45°</text>
+      </svg>
+    </div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit řešení</button><div class="pe-answer">Sestrojte rovnoběžku s přímkou <em>AB</em> ve vzdálenosti 4 cm v polorovině, ve které leží polopřímka <em>q</em>. Její průsečík s polopřímkou <em>q</em> je bod <em>C</em>. Úloha má jedno řešení.</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">10</div><a href="prijimacky.html#konstrukce" class="topic-tag">Konstrukce</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Je dána přímka <em>p</em>, bod <em>T</em> na přímce <em>p</em> a bod <em>A</em> mimo přímku <em>p</em>. Sestrojte kružnici, která se přímky <em>p</em> dotýká v bodě <em>T</em> a prochází bodem <em>A</em>.
+      <svg class="task-figure" viewBox="0 0 360 220" role="img" aria-label="Přímka p s bodem T a bod A mimo přímku">
+        <line class="shape" x1="35" y1="170" x2="325" y2="170"/>
+        <circle cx="170" cy="170" r="4" fill="#17233c"/><circle cx="245" cy="70" r="4" fill="#ef476f"/>
+        <text x="310" y="160">p</text><text x="160" y="196">T</text><text x="253" y="67">A</text>
+      </svg>
+    </div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit řešení</button><div class="pe-answer">Střed hledané kružnice leží na kolmici k přímce <em>p</em> vedené bodem <em>T</em>. Zároveň musí mít stejnou vzdálenost od bodů <em>T</em> a <em>A</em>, proto leží na ose úsečky <em>AT</em>. Průsečík těchto dvou přímek je střed <em>O</em>; kružnici narýsujte s poloměrem <em>OT</em>. Úloha má jedno řešení.</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">11</div><a href="prijimacky.html#grafy" class="topic-tag">Grafy a tabulky</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Graf zachycuje Pavlinu výšku od 10 do 15 let. Rozhodněte o každém tvrzení (A = ano, N = ne):<br><br>11.1 Mezi 10. a 15. rokem Pavla vyrostla o 30 cm.<br>11.2 Od 11 do 13 let vyrostla celkem o 11 cm.<br>11.3 V každém sledovaném roce vyrostla alespoň o 6 cm.
+      <svg class="task-figure" viewBox="0 0 420 270" role="img" aria-label="Čárový graf výšky Pavly: v 10 letech 138, v 11 letech 145, ve 12 letech 151, ve 13 letech 156, ve 14 letech 164 a v 15 letech 168 centimetrů">
+        <line class="shape" x1="55" y1="225" x2="390" y2="225"/><line class="shape" x1="55" y1="225" x2="55" y2="25"/>
+        <g class="guide"><line x1="55" y1="185" x2="390" y2="185"/><line x1="55" y1="145" x2="390" y2="145"/><line x1="55" y1="105" x2="390" y2="105"/><line x1="55" y1="65" x2="390" y2="65"/></g>
+        <polyline class="accent" points="75,193 135,165 195,141 255,121 315,89 375,73"/>
+        <g fill="#ef476f"><circle cx="75" cy="193" r="4"/><circle cx="135" cy="165" r="4"/><circle cx="195" cy="141" r="4"/><circle cx="255" cy="121" r="4"/><circle cx="315" cy="89" r="4"/><circle cx="375" cy="73" r="4"/></g>
+        <g text-anchor="middle"><text x="75" y="247">10</text><text x="135" y="247">11</text><text x="195" y="247">12</text><text x="255" y="247">13</text><text x="315" y="247">14</text><text x="375" y="247">15</text></g>
+        <g text-anchor="end"><text x="47" y="229">130</text><text x="47" y="189">140</text><text x="47" y="149">150</text><text x="47" y="109">160</text><text x="47" y="69">170</text></g>
+        <text x="340" y="264">věk</text><text x="64" y="20">výška (cm)</text>
+      </svg>
+    </div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">11.1 A &nbsp; 11.2 A &nbsp; 11.3 N</div></div>
+  </div>
+
+  <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">12</div><a href="prijimacky.html#procenta" class="topic-tag">Procenta</a><div class="points-tag">2 body</div></div>
     <div class="pe-q">Eliška si koupila čtyřdílnou knižní sérii. První díl byl o 20 % levnější než druhý díl a třetí díl byl o 20 % dražší než druhý díl. Čtvrtý díl stojí běžně 750 korun, ale Eliška ho sehnala v akci za 44 % běžné ceny, a tak za něj zaplatila stejně jako za první a třetí díl dohromady. Kolik korun stál druhý díl?<br>A) 172 korun &nbsp; B) 165 korun &nbsp; C) 160 korun &nbsp; D) 142 korun &nbsp; E) 136 korun</div>
     <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">B) 165 korun</div></div>
@@ -255,23 +320,16 @@
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">16</div><a href="prijimacky.html" class="topic-tag">Logická úloha</a><div class="points-tag">max. 4 body</div></div>
     <div class="pe-q">Vědomostní hra má 10 kol. Hráč má na začátku hry 10 žetonů a postupně může odpovědět na 5 lehčích a 5 těžších otázek. V každém kole si může koupit jen 1 otázku a zaplatí za ni 1 žeton; pokud kolo vynechá, žeton mu zůstane. Za správnou odpověď na lehčí otázku získá 2 žetony, za těžší 3 žetony. Za chybnou odpověď žádný žeton nezíská.<br><br>16.1 Určete, kolik nejvíce žetonů může mít hráč na konci hry.<br>16.2 Hráč vynechal pouze 1 kolo a ve zbývajících kolech získal za odpovědi na lehčí otázky o 5 žetonů více než za odpovědi na těžší otázky. Určete, kolik žetonů měl na konci hry.<br>16.3 Hráč měl na konci hry 16 žetonů a přitom měl největší možný počet chybných odpovědí s tímto výsledkem. Určete, kolikrát v této hře správně odpověděl na lehčí otázku. Uveďte všechna řešení.</div>
-    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">16.1 25 žetonů &nbsp; 16.2 13 žetonů &nbsp; 16.3 0, 1 nebo 2× (při 4 chybných odpovědích)</div></div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">16.1 25 žetonů &nbsp; 16.2 12 žetonů &nbsp; 16.3 0 nebo 2× (při 4 chybných odpovědích)</div></div>
   </div>
 
   <footer>matematika.jasně — vlastní přepis podle struktury JPZ 2026, zdroj: prijimacky.cermat.cz</footer>
 </div>
 
-<script>
-  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
-  });
-  if (window.renderMathInElement) {
-    renderMathInElement(document.body, {
-      delimiters: [{ left: "\\(", right: "\\)", display: false }],
-      throwOnError: false
-    });
-  }
-</script>
+<script src="jpz-2026-exam-configs.js"></script>
+<script>window.JPZ_EXAM_CONFIG = window.JPZ_EXAM_CONFIGS.d;</script>
+<script src="jpz-exam.js"></script>
 
+<script src="../site.js"></script>
 </body>
 </html>

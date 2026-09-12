@@ -94,12 +94,13 @@
 
   footer { border-top: 1px solid var(--line); padding: 24px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
     <a href="rocniky.html" class="back">← zpět na ročníky</a>
   </div>
 </header>
@@ -114,11 +115,13 @@
       <li><a href="#trojuhelnik">Trojúhelník</a></li>
       <li><a href="#shodnost">Shodnost, středová souměrnost</a></li>
       <li><a href="#ctyruhelniky">Čtyřúhelníky</a></li>
+      <li><a href="#kruznice">Kružnice a kruh</a></li>
+      <li><a href="#podobnost">Podobnost</a></li>
     </ul>
   </nav>
 
   <main>
-    <div class="section-title">Rovinné útvary</div>
+    <h1 class="section-title">Rovinné útvary</h1>
     <p class="section-lead">Obvod a obsah základních rovinných útvarů, úhly a jejich vlastnosti, osová a středová souměrnost, trojúhelník a čtyřúhelníky.</p>
     <div class="source-note">6.–7. ročník ZŠ</div>
 
@@ -209,6 +212,18 @@
       <div class="vysl">\(S = \dfrac{(12+8)\cdot5}{2} = 50\text{ cm}^2\)</div>
     </div>
 
+    <h2 class="blok" id="kruznice">Kružnice a kruh</h2>
+    <p class="txt"><strong>Kružnice</strong> je čára tvořená body stejně vzdálenými od středu. <strong>Kruh</strong> obsahuje i vnitřní body. Průměr je dvojnásobek poloměru: (d=2r).</p>
+    <div class="rule-box"><div class="rb-label">Vzorce</div>Obvod kruhu: (o=2\pi r=\pi d). Obsah kruhu: (S=\pi r^2). V příkladech vždy zkontroluj, zda zadání uvádí poloměr, nebo průměr.</div>
+    <div class="priklad"><div class="p-label">Řešený příklad</div><div class="zadani">Kruhový záhon má průměr 10 m. Urči obvod a obsah pro (pi\doteq3{,}14).</div><p class="txt">Poloměr je 5 m. (o=2\cdot3{,}14\cdot5=31{,}4) m a (S=3{,}14\cdot5^2=78{,}5) m².</p><div class="vysl">Obvod 31,4 m; obsah 78,5 m²</div></div>
+    <div class="priklad"><div class="p-label">Zkus sám</div><div class="zadani">Kolo má poloměr 35 cm. Jakou vzdálenost ujede při 100 otočeních? Výsledek uveď v metrech, použij (pi\doteq22/7).</div><details><summary>Zobrazit řešení</summary><p class="txt">Jedno otočení: (2\cdot22/7\cdot35=220) cm. Sto otočení je 22 000 cm = 220 m.</p></details></div>
+
+    <h2 class="blok" id="podobnost">Podobnost trojúhelníků</h2>
+    <p class="txt">Podobné trojúhelníky mají stejné odpovídající úhly a odpovídající strany ve stejném poměru. Tento poměr nazýváme koeficient podobnosti (k).</p>
+    <div class="rule-box"><div class="rb-label">Pozor na změnu veličin</div>Délky se násobí (k), obvody také (k), ale obsahy se násobí (k^2).</div>
+    <div class="priklad"><div class="p-label">Řešený příklad</div><div class="zadani">Menší podobný trojúhelník má strany 3 cm, 4 cm a 5 cm. Nejkratší strana většího měří 7,5 cm. Urči ostatní strany.</div><p class="txt">(k=7{,}5/3=2{,}5). Zbylé strany jsou (4\cdot2{,}5=10) cm a (5\cdot2{,}5=12{,}5) cm.</p><div class="vysl">Strany většího: 7,5 cm; 10 cm; 12,5 cm</div></div>
+    <div class="priklad"><div class="p-label">Zkus sám</div><div class="zadani">Odpovídající délky dvou obrazců jsou v poměru 2 : 3. Menší má obsah 40 cm². Jaký obsah má větší?</div><details><summary>Zobrazit řešení</summary><p class="txt">Obsahy jsou v poměru (2^2:3^2=4:9). Větší obsah je (40\cdot9/4=90) cm².</p></details></div>
+
     <footer>matematika.jasně — rovinné útvary</footer>
   </main>
 </div>
@@ -225,5 +240,6 @@
   }
 </script>
 
+<script src="../site.js"></script>
 </body>
 </html>

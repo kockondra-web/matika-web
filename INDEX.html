@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matematika jasně | Přehled k přijímačkám a maturitě</title>
+<meta name="description" content="Srozumitelná matematika pro ZŠ a SŠ: teorie, řešené příklady, přijímačky a maturita.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -87,6 +88,19 @@
     color: var(--ink-soft);
     max-width: 560px;
   }
+  .start-hint {
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .start-hint a { color: var(--ink); font-weight: 700; text-decoration-color: var(--gold); text-underline-offset: 3px; }
 
   /* the "chalk step" signature motif faintly in the hero background */
   .hero::before {
@@ -201,7 +215,7 @@
     gap: 8px;
   }
   .gate.prijimacky .enter { color: var(--ink); }
-  .gate.maturita .enter { color: var(--brick); }
+  .gate.maturita .enter { color: var(--ink); }
   .gate .enter .arrow { transition: transform 0.2s ease; }
   .gate:hover .enter .arrow { transform: translateX(4px); }
 
@@ -307,6 +321,7 @@
     <div class="hero-eyebrow">přehled · postupy · řešené příklady</div>
     <h1>Matematika pro ZŠ a SŠ</h1>
     <p class="lead">Žádné strohé vzorečky bez kontextu. Přehled teorie a stovky řešených příkladů — tak, jak to funguje na doučování, jen zdarma a pro každého.</p>
+    <div class="start-hint">Nevíš, kde začít? <a href="zs/prijimacky.html">Připravuješ se na přijímačky</a> · <a href="ss/maturita.html">čeká tě maturita</a></div>
   </div>
 </section>
 
@@ -337,8 +352,7 @@
 
     <div class="gates-group-label" style="margin-top:48px;">Střední škola</div>
     <div class="gates-row">
-      <a href="ss/ss-rocniky.html" class="gate ss-rocniky featured">
-        <div class="featured-tag">★ doporučeno</div>
+      <a href="ss/ss-rocniky.html" class="gate ss-rocniky">
         <div class="step-num">STŘEDNÍ ŠKOLA · PODLE ROČNÍKU</div>
         <h2>Podle ročníku (SŠ)</h2>
         <p>Stejné učivo jako na hodinách SŠ matematiky — postupně ročník po ročníku, včetně semináře.</p>
@@ -347,7 +361,8 @@
         </div>
         <div class="enter">Otevřít sekci <span class="arrow">→</span></div>
       </a>
-      <a href="ss/maturita.html" class="gate maturita">
+      <a href="ss/maturita.html" class="gate maturita featured">
+        <div class="featured-tag">★ doporučeno</div>
         <div class="step-num">STŘEDNÍ ŠKOLA · MATURITA</div>
         <h2>Maturita</h2>
         <p>Průřez učivem SŠ podle Katalogu požadavků Cermat — 9 tematických okruhů didaktického testu.</p>
@@ -369,7 +384,7 @@
         <h3>Ondřej Kock</h3>
         <p>Doučuji matematiku už 4 roky — hlavně žáky 2. stupně, co se připravují na přijímačky nebo si chtějí srovnat základy. Tenhle web je shrnutí toho, co na doučování opakuju pořád dokola.</p>
         <p>Pokud by ti individuální doučování sedělo víc než samostudium, ozvi se — ať už na přijímačky, na doučení základů, nebo na zlepšení známek.</p>
-        <a href="mailto:tvuj@email.cz" class="about-cta">Napsat kvůli doučování →</a>
+        <a href="mailto:ondrakock@sezam.cz" class="about-cta">Napsat kvůli doučování →</a>
       </div>
     </div>
   </div>
@@ -384,7 +399,7 @@
   if (headerSearch) {
     headerSearch.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && headerSearch.value.trim() !== '') {
-        window.location.href = 'zs/rocniky.html?q=' + encodeURIComponent(headerSearch.value.trim());
+        window.location.href = 'vyhledavani.html?q=' + encodeURIComponent(headerSearch.value.trim());
       }
     });
   }

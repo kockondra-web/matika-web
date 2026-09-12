@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kombinatorika a pravděpodobnost | matematika.jasně</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
+    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
+    --green: #6B9B7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
+  header .wrap { max-width: 1150px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--gold); }
+  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+  .back:hover { color: var(--ink); }
+
+  .layout { max-width: 1150px; margin: 0 auto; padding: 40px 32px 100px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 20px; }
+    nav.toc { position: static; top: auto; }
+  }
+
+  nav.toc { position: sticky; top: 100px; align-self: start; }
+  nav.toc .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  nav.toc ul { list-style: none; }
+  nav.toc li a {
+    display: block; padding: 8px 0 8px 14px; margin-left: -14px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px;
+    border-left: 2px solid transparent; transition: all 0.15s ease;
+  }
+  nav.toc li a:hover { color: var(--ink); border-left-color: var(--gold); }
+
+  main { min-width: 0; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 14px; }
+  .source-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    background: var(--paper-dim); display: inline-block; padding: 6px 12px; border-radius: 4px; margin-bottom: 44px;
+  }
+
+  h2.blok {
+    font-family: 'Fraunces', serif; font-size: 27px; font-weight: 600;
+    margin: 54px 0 6px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 90px;
+  }
+  h3.pod { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+
+  p.txt { font-size: 15.5px; line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+  p.txt strong { font-weight: 600; }
+
+  .rule-box {
+    background: var(--paper-dim); border-left: 3px solid var(--gold);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .rule-box .rb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .warn-box {
+    background: #FBF0EE; border-left: 3px solid var(--brick);
+    padding: 18px 22px; margin: 20px 0; max-width: 680px; font-size: 15px; line-height: 1.7;
+  }
+  .warn-box .wb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--brick); margin-bottom: 8px; font-weight: 700;
+  }
+
+  .ztab { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; }
+  .ztab th, .ztab td { border: 1px solid var(--line); padding: 7px 9px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .ztab th { background: var(--paper-dim); font-weight: 600; font-size: 12.5px; }
+  .ztab-wrap { overflow-x: auto; margin: 10px 0; }
+
+  .priklad {
+    background: white; border: 1px solid var(--line); border-radius: 6px;
+    padding: 20px 24px; margin: 22px 0; max-width: 680px;
+  }
+  .priklad .p-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  }
+  .priklad .vysl { background: #FCF7EC; margin: 8px -24px -20px; padding: 14px 24px; font-weight: 600; }
+
+  .zadani { font-size: 15.5px; line-height: 1.6; margin-bottom: 4px; }
+  .vypocet { margin: 6px 0 4px; }
+  .vr { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; }
+  .vl { font-size: 15.5px; flex: 1; min-width: 0; }
+  .vp { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--brick); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .vr.odsad .vl { padding-left: 26px; }
+  .pozn { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; padding: 4px 0 8px 26px; max-width: 600px; }
+  @media (max-width: 620px) {
+    .vr { flex-direction: column; gap: 2px; }
+    .vp { padding-top: 0; }
+  }
+
+  .pascal { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; text-align: center; max-width: 500px; margin: 16px 0; }
+  .pascal .hi { background: #FCE9B8; padding: 1px 4px; border-radius: 3px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
+</style>
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+      <a href="maturita.html" class="back">← zpět na maturitu</a>
+      <a href="ss-rocniky.html" class="back">← zpět na ročníky SŠ</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="eyebrow">Kombinatorika a pravd.</div>
+    <ul>
+      <li><a href="#pravidla">Pravidlo součtu a součinu</a></li>
+      <li><a href="#variace">Variace</a></li>
+      <li><a href="#permutace">Permutace</a></li>
+      <li><a href="#faktorial">Faktoriál</a></li>
+      <li><a href="#kombinace">Kombinace</a></li>
+      <li><a href="#binomicka">Binomická věta</a></li>
+      <li><a href="#pravdepodobnost">Pravděpodobnost — pojmy</a></li>
+      <li><a href="#klasicka">Klasická pravděpodobnost</a></li>
+      <li><a href="#statistika">Statistika</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-title">Kombinatorika a pravděpodobnost</div>
+    <p class="section-lead">Kombinatorická pravidla součtu a součinu, variace, permutace, kombinace a faktoriály, binomická věta a Pascalův trojúhelník, základní pojmy pravděpodobnosti a klasická definice, základy statistiky.</p>
+    <div class="source-note">maturitní téma 25 · kombinatorika a pravděpodobnost</div>
+
+    <h2 class="blok" id="pravidla">Kombinatorické pravidlo součtu a součinu</h2>
+    <div class="rule-box">
+      <div class="rb-label">Pravidlo součtu</div>
+      Jsou-li \(A_1,A_2,\ldots,A_n\) konečné množiny, které mají po dvou prázdný průnik, pak počet prvků množiny \(A_1\cup A_2\cup\ldots\cup A_n\) je
+      $$\left|\bigcup_{i=1}^n A_i\right| = \sum_{i=1}^n|A_i| = p_1+p_2+\ldots+p_n$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Pravidlo součinu</div>
+      Počet všech uspořádaných \(k\)-tic (dvojic, trojic…), kde první člen lze vybrat \(m_1\) způsoby, druhý po výběru prvního \(m_2\) způsoby atd., je roven
+      $$m_1\cdot m_2\cdot\ldots\cdot m_k$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Kdy použít co</div>
+      Záleží na pořadí &rArr; <strong>variace</strong> (příp. permutace)<br>
+      Nezáleží na pořadí &rArr; <strong>kombinace</strong>
+    </div>
+
+    <h2 class="blok" id="variace">Variace</h2>
+    <div class="rule-box">
+      $$V_k(n) = \underbrace{n(n-1)\ldots(n-k+1)}_{k\ \text{členů}}$$
+      Vybíráme uspořádanou \(k\)-tici z \(n\) prvků, záleží na pořadí, bez opakování.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">\(V_3(6)\) — vybíráme ze 6 prvků 3, záleží na pořadí</div>
+      <div class="vysl">\(V_3(6) = 6\cdot5\cdot4=120\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">6 mužů a 4 ženy. Kolika způsoby lze vybrat (uspořádanou) čtveřici funkcí A, B, C, D?</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl"><strong>a)</strong> bez omezení: \(V_4(10)=10\cdot9\cdot8\cdot7\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">a) \(=5040\)</div>
+      <div class="vypocet" style="margin-top:14px;">
+        <div class="vr"><div class="vl"><strong>b)</strong> A, B mají být jeden muž a jedna žena (v libovolném pořadí)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">A muž, B žena: \(6\cdot4\cdot8\cdot7=1344\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">A žena, B muž: \(4\cdot6\cdot8\cdot7=1344\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">b) \(1344+1344=2688\)</div>
+      <div class="vypocet" style="margin-top:14px;">
+        <div class="vr"><div class="vl"><strong>c)</strong> aspoň 1 žena mezi A, B, C, D</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Doplněk: všechny možnosti mínus ty, kde jsou samí muži</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(P_c = V_4(10)-V_4(6) = 5040-360\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">c) \(=4680\)</div>
+    </div>
+
+    <h2 class="blok" id="permutace">Permutace</h2>
+    <div class="rule-box">
+      Permutace je variace, kde \(k=n\) (uspořádáme <strong>všechny</strong> prvky):
+      $$P(n) = V_n(n) = n!$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Kolika způsoby lze seřadit 6 neshodných předmětů?</div>
+      <div class="vysl">\(P(6)=6!=720\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">10 kluků sedí na lavičce.</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl"><strong>a)</strong> Kolik je možností celkem?</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(10!\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl"><strong>b)</strong> Petr sedí na kraji</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">2 volby kraje \(\times\) 9! pro zbytek</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=2\cdot9!\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl"><strong>c)</strong> Petr nesedí na kraji</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=10!-2\cdot9!\)</div><div class="vp">/ doplněk k b)</div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl"><strong>d)</strong> dva vybraní kluci sedí vedle sebe</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Svážeme dvojici do jednoho "bloku": \(9!\) pro rozestavění bloku a 8 ostatních, \(\times2\) pro pořadí uvnitř dvojice</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=2\cdot9!\)</div><div class="vp"></div></div>
+      </div>
+    </div>
+
+    <h2 class="blok" id="faktorial">Faktoriál</h2>
+    <div class="rule-box">
+      $$n! = n(n-1)(n-2)\ldots2\cdot1 \qquad 0!=1$$
+      $$n! = n\cdot(n-1)! \qquad (n+1)\cdot n! = (n+1)!$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · zlomky s faktoriály</div>
+      <div class="zadani">\(\dfrac{3}{(n-3)!}-\dfrac{2}{(n-2)!}-\dfrac{1}{(n-1)!}\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Společný jmenovatel \((n-1)!\): \((n-2)!=(n-2)(n-3)!\), \((n-1)!=(n-1)(n-2)(n-3)!\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=\dfrac{3(n-2)(n-1)-2(n-1)-1}{(n-1)!}\)</div><div class="vp"></div></div>
+      </div>
+      <div class="vysl">\(=\dfrac{3n^2-11n+7}{(n-1)!}\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · rovnice s faktoriály a logaritmy</div>
+      <div class="zadani">\(\log(x+6)!-\log(x+5)! = 2\log x, \qquad x>0\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\log\dfrac{(x+6)!}{(x+5)!}=\log x^2\)</div><div class="vp">/ log podílu = log součinu</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{(x+6)!}{(x+5)!}=x^2\)</div><div class="vp">/ odlogaritmovat</div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{(x+6)(x+5)!}{(x+5)!}=x^2 \Rightarrow x+6=x^2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(x^2-x-6=0 \Rightarrow x=3\) nebo \(x=-2\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Podmínka \(x>0\) vylučuje \(x=-2\).</div>
+      <div class="vysl">\(D=\mathbb{N}, \quad P=\{3\}\)</div>
+    </div>
+
+    <h2 class="blok" id="kombinace">Kombinace</h2>
+    <div class="rule-box">
+      Nezáleží na pořadí, bez opakování:
+      $$C_k(n) = \binom{n}{k} = \frac{V_k(n)}{k!}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Vlastnosti kombinačních čísel</div>
+      $$\binom{n}{0}=1 \qquad \binom{0}{0}=1 \qquad \binom{n}{n}=1 \qquad \binom{n}{1}=n$$
+      $$\binom{n}{k}=\binom{n}{n-k} \qquad \binom{n}{k}+\binom{n}{k+1}=\binom{n+1}{k+1}$$
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Pascalův trojúhelník</div>
+      <div class="pascal">
+        1<br>
+        1&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;2&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;3&nbsp;&nbsp;3&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;<span class="hi">4</span>&nbsp;&nbsp;6&nbsp;&nbsp;<span class="hi">4</span>&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;5&nbsp;&nbsp;<span class="hi">10</span>&nbsp;&nbsp;10&nbsp;&nbsp;5&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;<span class="hi">6</span>&nbsp;&nbsp;15&nbsp;&nbsp;20&nbsp;&nbsp;15&nbsp;&nbsp;<span class="hi">6</span>&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;7&nbsp;&nbsp;<span class="hi">21</span>&nbsp;&nbsp;35&nbsp;&nbsp;<span class="hi">35</span>&nbsp;&nbsp;21&nbsp;&nbsp;7&nbsp;&nbsp;1<br>
+        1&nbsp;&nbsp;8&nbsp;&nbsp;28&nbsp;&nbsp;<span class="hi">56</span>&nbsp;&nbsp;70&nbsp;&nbsp;56&nbsp;&nbsp;28&nbsp;&nbsp;8&nbsp;&nbsp;1
+      </div>
+      <div class="pozn" style="padding-left:0;">Každé číslo je součtem dvou čísel nad ním (\(\binom{n}{k}+\binom{n}{k+1}=\binom{n+1}{k+1}\)) — např. \(4+6=10\).</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · nerovnice s kombinačními čísly, řeš v N</div>
+      <div class="zadani">\(\dbinom{n+1}{n-1}+\dbinom{n+4}{n+2}+\dbinom{n+7}{n+5} < 90\)</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(\dbinom{n+1}{n-1}=\dbinom{n+1}{2}\), podobně pro ostatní</div><div class="vp">/ využít \(\binom{n}{k}=\binom{n}{n-k}\), např. \((n+1)-(n-1)=2\)</div></div>
+        <div class="vr odsad"><div class="vl">\(\dbinom{n+1}{2}+\dbinom{n+4}{2}+\dbinom{n+7}{2} < 90\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(\dfrac{(n+1)n}{2!}+\dfrac{(n+4)(n+3)}{2!}+\dfrac{(n+7)(n+6)}{2!} < 90\ \ /\cdot2\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(3n^2+21n+54 < 180\ \ /:3\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(n^2+7n-42 < 0\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">Kořeny: \(n_{1,2}\approx-10{,}87;\ 3{,}87\)</div><div class="vp"></div></div>
+      </div>
+      <div class="pozn">Podmínka \(n-1\geq0\) vyžaduje \(n\geq1\); nerovnost platí pro \(n<3{,}87\).</div>
+      <div class="vysl">\(P=\{1;2;3\}\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Osud obsahuje 10 modrých, 7 bílých a 5 černých losů (22 celkem).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl"><strong>a)</strong> vytáhneme 5 z nich</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(P_a = \dbinom{22}{5}\)</div><div class="vp"></div></div>
+        <div class="vr" style="padding-top:14px;"><div class="vl"><strong>b)</strong> vytáhneme 5, alespoň 1 bílý</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(P_b = \dbinom{22}{5}-\dbinom{15}{5}\)</div><div class="vp">/ doplněk: mínus případy bez bílého</div></div>
+      </div>
+    </div>
+
+    <h2 class="blok" id="binomicka">Binomická věta</h2>
+    <div class="rule-box">
+      \(\forall a,b\in\mathbb{N},\ n\in\mathbb{N}\):
+      $$(a+b)^n = \binom{n}{0}a^n+\binom{n}{1}a^{n-1}b+\binom{n}{2}a^{n-2}b^2+\ldots+\binom{n}{k}a^{n-k}b^k+\ldots+\binom{n}{n}b^n$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · najdi konkrétní člen rozvoje</div>
+      <div class="zadani">\(\left(5x^3-\dfrac{\sqrt2}{x}\right)^{12}\) — desátý člen</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">Desátý člen odpovídá \(k=9\): \(\dbinom{12}{9}(5x^3)^{3}\left(-\dfrac{\sqrt2}{x}\right)^{9}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(=220\cdot125x^9\cdot\left(-\dfrac{16\sqrt2}{x^9}\right)\)</div><div class="vp">/ \((\sqrt2)^9=16\sqrt2\)</div></div>
+      </div>
+      <div class="pozn">Mocniny \(x\) se přesně vykrátí (\(x^9/x^9=1\)) — je to tzv. <strong>absolutní člen</strong>, neobsahuje \(x\).</div>
+      <div class="vysl">\(=-220\cdot125\cdot16\sqrt2 = -440\,000\sqrt2\)</div>
+    </div>
+
+    <h2 class="blok" id="pravdepodobnost">Pravděpodobnost — základní pojmy</h2>
+    <div class="rule-box">
+      <strong>Náhodný pokus</strong> — např. hod kostkou<br>
+      <strong>Náhodný jev</strong> — např. padne 6; padne více než 3
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Operace s jevy (na příkladu hodu kostkou)</div>
+      \(A\subset B\): např. \(A=\)"padne 2" je podmnožinou \(B=\)"padne sudé číslo"<br><br>
+      \(A\cup B\): \(A=\)"padne sudé" \(=\{2,4,6\}\), \(B=\)"padne \(>4\)"\(=\{5,6\}\) &rArr; \(A\cup B=\{2,4,5,6\}\)<br><br>
+      \(A\cap B\): pro stejná \(A,B\) &rArr; \(A\cap B=\{6\}\)
+    </div>
+
+    <h2 class="blok" id="klasicka">Klasická definice pravděpodobnosti</h2>
+    <div class="rule-box">
+      $$P(A) = \frac{\text{počet příznivých výsledků}}{\text{počet všech výsledků}}$$
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">1000 losů, 100 z nich vyhrává. \(A_1\) = vytažený los vyhrává.</div>
+      <div class="vysl">\(P(A_1)=\dfrac{100}{1000}=10\%=0{,}1\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad</div>
+      <div class="zadani">Ze stejného osudí vytáhneme 5 losů. \(A_2\) = právě 2 z nich vyhrávají.</div>
+      <div class="vysl">\(P(A_2)=\dfrac{\dbinom{100}{2}\cdot\dbinom{900}{3}}{\dbinom{1000}{5}}\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Příklad · sportka</div>
+      <div class="zadani">Ze 49 čísel vybíráme 6. Jaká je pravděpodobnost trefit všech 6?</div>
+      <div class="vysl">\(P(A)=\dfrac{\dbinom{6}{6}}{\dbinom{49}{6}}=\dfrac{1}{\dbinom{49}{6}}\approx7{,}15\cdot10^{-8}\)</div>
+    </div>
+
+    <h2 class="blok" id="statistika">Statistika</h2>
+    <p class="txt">Základní charakteristiky souboru dat na příkladu: \(10,\ 10,\ 20,\ 30,\ 50\)</p>
+    <div class="priklad">
+      <div class="p-label">Aritmetický průměr</div>
+      <div class="vysl">\(\bar x = \dfrac{10+10+20+30+50}{5}=24\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Geometrický průměr</div>
+      <div class="vysl">\(\sqrt[5]{10\cdot10\cdot20\cdot30\cdot50} = \sqrt[5]{3\,000\,000}\approx19{,}74\)</div>
+    </div>
+    <div class="priklad">
+      <div class="p-label">Medián a modus</div>
+      <div class="vysl">medián \(=20\) (prostřední hodnota po seřazení) &nbsp;·&nbsp; modus \(=10\) (nejčastější hodnota)</div>
+    </div>
+
+    <footer>matematika.jasně — kombinatorika a pravděpodobnost</footer>
+  </main>
+</div>
+
+<script>
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+</script>
+
+<script src="../site.js"></script>
+</body>
+</html>

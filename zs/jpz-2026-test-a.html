@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JPZ 2026 — test A | matematika.jasně</title>
+<title>Cvičný test ve stylu JPZ — A | matematika.jasně</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="jpz-exam.css">
 <style>
   :root {
     --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
@@ -42,8 +43,8 @@
   .gap-note {
     font-size: 13.5px;
     color: var(--ink-soft);
-    background: #FBF0EE;
-    border-left: 3px solid var(--brick);
+    background: #EAF2EC;
+    border-left: 3px solid #6B9B7A;
     padding: 12px 16px;
     max-width: 640px;
     margin-bottom: 40px;
@@ -109,6 +110,12 @@
   .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
   .pure-example.revealed .pe-answer-btn { display: none; }
   .pure-example.revealed .pe-answer { display: inline-block; }
+  .task-figure { display: block; width: 100%; max-width: 600px; height: auto; margin: 14px auto 18px; color: var(--ink); }
+  .task-figure text { font-family: 'Inter', sans-serif; fill: var(--ink); font-size: 14px; }
+  .task-figure .shape { fill: #FCF7EC; stroke: var(--ink); stroke-width: 2; }
+  .task-figure .accent { fill: rgba(212,162,78,.38); stroke: var(--gold); stroke-width: 2; }
+  .task-figure .guide { fill: none; stroke: var(--ink-soft); stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .construction-note { color: var(--ink-soft); font-size: 13.5px; line-height: 1.5; margin-top: 8px; }
 
   .nav-tests { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
   .nav-tests a {
@@ -125,22 +132,23 @@
 
   footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
     <a href="prijimacky.html" class="back">← zpět na přijímačky</a>
   </div>
 </header>
 
 <div class="wrap">
   <div class="page-head">
-    <div class="section-title">JPZ 2026 — test A</div>
+    <div class="section-title">Cvičný test ve stylu JPZ — A</div>
     <p class="section-lead">Vlastní verze testu M9A (1. řádný termín) — stejná struktura, stejná obtížnost, jiná čísla a scénáře. Sestaveno podle zadání JPZ 2026, žádná úloha není opsaná doslovně.</p>
     <div class="source-note">vzor: JPZ 2026, 1. řádný termín (M9PAD26C0T01) — 16 úloh, max. 50 bodů</div>
-    <div class="gap-note">Úlohy 8, 9, 10 a 15 vynechány — jde o konstrukční úlohy a úlohy vázané na konkrétní obrázek/těleso z originálu, které se bez přesné reprodukce obrázku nedají spolehlivě přepsat na nová čísla. Zbytek (13 z 16 úloh) je přepsaný na vlastní zadání a každý výsledek ověřený výpočtem.</div>
+    <div class="gap-note"><strong>Kompletní cvičný test:</strong> obsahuje všech 16 typů úloh. Obrazové a konstrukční úlohy 8, 9, 10 a 15 jsou plnohodnotné vlastní varianty s autorskými nákresy.</div>
 
     <div class="nav-tests">
       <a href="jpz-2026-test-a.html" class="active">Test A</a>
@@ -149,6 +157,24 @@
       <a href="jpz-2026-test-d.html">Test D</a>
     </div>
   </div>
+
+  <section class="exam-panel" id="exam-panel" aria-label="Ovládání cvičného testu">
+    <div class="exam-panel-main">
+      <div class="exam-status">
+        <div class="exam-status-label">Stav testu</div>
+        <div class="exam-status-value" id="exam-status-value">Připraveno</div>
+      </div>
+      <div class="exam-timer" id="exam-timer" aria-label="Zbývající čas">70:00</div>
+      <div class="exam-progress" id="exam-progress">Vyplněno 0 z 20 odpovědí</div>
+      <div class="exam-actions">
+        <button class="exam-button" id="exam-start" type="button">Spustit test</button>
+        <button class="exam-button" id="exam-submit" type="button" disabled>Odevzdat</button>
+        <button class="exam-button danger" id="exam-reset" type="button" hidden>Nový pokus</button>
+      </div>
+    </div>
+    <p class="exam-panel-note">Po spuštění máte 70 minut. Odpovědi se průběžně ukládají. Automatické body jsou orientační; konstrukce a postup se po odevzdání hodnotí zvlášť.</p>
+  </section>
+  <section class="exam-result" id="exam-result" aria-live="polite"></section>
 
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">1</div><a href="prijimacky.html#zlomky" class="topic-tag">Zlomky</a><div class="points-tag">max. 3 body</div></div>
@@ -194,7 +220,7 @@
 
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">4.2</div><a href="prijimacky.html#rovnice" class="topic-tag">Soustava rovnic</a><div class="points-tag">max. 4 body</div></div>
-    <div class="pe-q">Řešte soustavu rovnic: \(4x - y = 10\), \(4x + 2y = -4\)</div>
+    <div class="pe-q">Řešte soustavu rovnic: \(4x - y = 10\), \(4x + 2y = 4\)</div>
     <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x = 2,\ y = -2\)</div></div>
   </div>
 
@@ -207,13 +233,53 @@
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">6</div><a href="prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">max. 4 body</div></div>
     <div class="pe-q">Naučná stezka začíná u parkoviště a končí u rozhledny. Jana vyjela od parkoviště na kole, ujela čtyři pětiny délky stezky a zastavila u vyhlídky, kde zjistila, že ztratila mapu. Vrátila se o osminu vzdálenosti, kterou předtím ujela od parkoviště k vyhlídce, mapu našla a pokračovala až k rozhledně. Délku celé stezky označíme \(x\).<br><br>6.1 Vyjádřete výrazem s proměnnou \(x\) délku stezky mezi vyhlídkou a rozhlednou.<br>6.2 Vyjádřete výrazem s proměnnou \(x\) délku stezky mezi vyhlídkou a místem, kde Jana našla mapu.<br>6.3 Ve chvíli, kdy našla mapu, zbývalo Janě k rozhledně ještě 30 km. Vypočtěte, kolik km Jana celkem najela, než se dostala od parkoviště k rozhledně.</div>
-    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6.1 \(\frac{1}{5}x\) &nbsp; 6.2 \(\frac{1}{10}x\) &nbsp; 6.3 110 km (při \(x=100\) km)</div></div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">6.1 \(\frac{1}{5}x\) &nbsp; 6.2 \(\frac{1}{10}x\) &nbsp; 6.3 120 km (při \(x=100\) km)</div></div>
   </div>
 
   <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">7</div><a href="prijimacky.html#slovni-ulohy" class="topic-tag">Slovní úloha</a><div class="points-tag">max. 3 body</div></div>
     <div class="pe-q">Emil běžel 15kilometrový okruh stálým tempem a uběhl jej za 60 minut. Nikola běžela pouze 12kilometrový okruh rovněž stálým tempem (jiným než Emil). Emil i Nikola vyběhli ve stejném okamžiku a po 20 minutách běhu jim oběma zbývala do cíle stejná vzdálenost. Vypočtěte, kolik km uběhla Nikola za 20 minut a za kolik minut uběhla svůj okruh.</div>
     <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">2 km za 20 minut; celý okruh za 120 minut</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">8</div><a href="prijimacky.html#geometrie" class="topic-tag">Planimetrie</a><div class="points-tag">max. 4 body</div></div>
+    <div class="pe-q">Obdélníkový pozemek ABCD má rozměry 20 m a 14 m. V rohu A je pravoúhlý trojúhelníkový záhon AEF, kde AE = 6 m a AF = 8 m. Zbytek pozemku tvoří trávník.<br><br>8.1 Vypočtěte obsah trávníku.<br>8.2 Vypočtěte délku celého obvodu trávníku.</div>
+    <svg class="task-figure" viewBox="0 0 620 300" role="img" aria-label="Obdélník ABCD o rozměrech 20 krát 14 metrů s pravoúhlým trojúhelníkem AEF v levém horním rohu, AE je 6 metrů a AF je 8 metrů">
+      <rect class="shape" x="70" y="35" width="480" height="210" rx="2"/>
+      <polygon class="accent" points="70,35 214,35 70,155"/>
+      <line class="guide" x1="214" y1="35" x2="70" y2="155"/>
+      <text x="52" y="29">A</text><text x="555" y="29">B</text><text x="555" y="264">C</text><text x="52" y="264">D</text>
+      <text x="210" y="28">E</text><text x="50" y="160">F</text>
+      <text x="285" y="285">20 m</text><text x="565" y="145">14 m</text>
+      <text x="132" y="62">6 m</text><text x="82" y="111">8 m</text>
+      <text x="112" y="91">záhon</text><text x="330" y="150">trávník</text>
+    </svg>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">8.1 256 m² &nbsp; 8.2 64 m</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">9</div><a href="prijimacky.html#konstrukcni-ulohy" class="topic-tag">Konstrukce</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Je dána úsečka AB = 6 cm. Sestrojte všechny trojúhelníky ABC, pro které platí AC = 5 cm a BC = 4 cm. Konstrukci proveďte kružítkem a pravítkem a zapište její postup.</div>
+    <svg class="task-figure" viewBox="0 0 620 170" role="img" aria-label="Zadaná vodorovná úsečka AB délky 6 centimetrů">
+      <line x1="120" y1="90" x2="500" y2="90" stroke="currentColor" stroke-width="3"/>
+      <circle cx="120" cy="90" r="5" fill="currentColor"/><circle cx="500" cy="90" r="5" fill="currentColor"/>
+      <text x="104" y="75">A</text><text x="505" y="75">B</text><text x="285" y="122">6 cm</text>
+    </svg>
+    <div class="construction-note">Počet řešení uveďte v jedné polorovině určené přímkou AB i celkem v celé rovině.</div>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit postup</button><div class="pe-answer">Sestrojte kružnici se středem A a poloměrem 5 cm a kružnici se středem B a poloměrem 4 cm. Jejich průsečíky jsou možné vrcholy C. V každé polorovině je jedno řešení, celkem dvě navzájem souměrná řešení.</div></div>
+  </div>
+
+  <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">10</div><a href="prijimacky.html#konstrukcni-ulohy" class="topic-tag">Konstrukce</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Je dána přímka p a bod S, jehož vzdálenost od přímky p je 2 cm. Sestrojte všechny kružnice o poloměru 3 cm, které procházejí bodem S a mají střed na přímce p.</div>
+    <svg class="task-figure" viewBox="0 0 620 220" role="img" aria-label="Vodorovná přímka p a bod S ve vzdálenosti 2 centimetry nad přímkou">
+      <line x1="65" y1="165" x2="555" y2="165" stroke="currentColor" stroke-width="2"/>
+      <text x="565" y="170">p</text><circle cx="310" cy="65" r="6" fill="currentColor"/><text x="323" y="70">S</text>
+      <line class="guide" x1="310" y1="71" x2="310" y2="165"/><path d="M310 150 h15 v15" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="322" y="122">2 cm</text>
+    </svg>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit postup</button><div class="pe-answer">Sestrojte kružnici se středem S a poloměrem 3 cm. Její dva průsečíky s přímkou p označte (O_1,O_2). Hledané kružnice mají středy (O_1,O_2) a poloměr 3 cm. Úloha má dvě řešení.</div></div>
   </div>
 
   <div class="pure-example">
@@ -241,6 +307,17 @@
   </div>
 
   <div class="pure-example">
+    <div class="pe-head"><div class="task-num-badge">15</div><a href="prijimacky.html#objemy" class="topic-tag">Přiřazování · tělesa</a><div class="points-tag">max. 3 body</div></div>
+    <div class="pe-q">Na obrázku jsou tři kvádry. Každému tvrzení přiřaďte těleso A–C.<br><br>15.1 Těleso má objem 64 cm³.<br>15.2 Těleso má povrch 94 cm².<br>15.3 Součet délek všech hran tělesa je 56 cm.</div>
+    <svg class="task-figure" viewBox="0 0 620 250" role="img" aria-label="Tři kvádry: A s hranami 3, 4 a 5 centimetrů, B s hranami 2, 5 a 7 centimetrů a C s hranami 4, 4 a 4 centimetry">
+      <g transform="translate(25,25)"><polygon class="shape" points="35,45 145,45 178,22 68,22"/><polygon class="shape" points="145,45 178,22 178,122 145,145"/><rect class="shape" x="35" y="45" width="110" height="100"/><text x="88" y="175">A</text><text x="78" y="163">5 cm</text><text x="148" y="94">3 cm</text><text x="82" y="40">4 cm</text></g>
+      <g transform="translate(215,25)"><polygon class="shape" points="35,65 155,65 180,45 60,45"/><polygon class="shape" points="155,65 180,45 180,125 155,145"/><rect class="shape" x="35" y="65" width="120" height="80"/><text x="94" y="175">B</text><text x="85" y="163">7 cm</text><text x="158" y="102">2 cm</text><text x="94" y="59">5 cm</text></g>
+      <g transform="translate(410,25)"><polygon class="shape" points="35,45 135,45 170,18 70,18"/><polygon class="shape" points="135,45 170,18 170,118 135,145"/><rect class="shape" x="35" y="45" width="100" height="100"/><text x="85" y="175">C</text><text x="77" y="163">4 cm</text><text x="140" y="92">4 cm</text><text x="88" y="39">4 cm</text></g>
+    </svg>
+    <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">15.1 C &nbsp; 15.2 A &nbsp; 15.3 B</div></div>
+  </div>
+
+  <div class="pure-example">
     <div class="pe-head"><div class="task-num-badge">16</div><a href="prijimacky.html" class="topic-tag">Logická úloha</a><div class="points-tag">max. 4 body</div></div>
     <div class="pe-q">Po spuštění automatu začali dva roboti Els a Fík plnit prázdnou nádobu míčky a třetí robot Vil začal míčky odebírat. Els dal do nádoby v každé sekundě 1 míček, Fík dal do nádoby v každé třetí sekundě 3 míčky najednou a Vil v každé čtvrté sekundě z nádoby 4 míčky najednou odebral.<br><br>16.1 Určete počet míčků v nádobě na konci 16. sekundy po spuštění automatu.<br>16.2 Určete, v kolikáté sekundě po spuštění počet míčků v nádobě poprvé překročil 20.<br>16.3 V některých sekundách se oproti předchozí sekundě změnil počet míčků v nádobě celkem o 3 (úbytkem). Určete počet míčků v nádobě v okamžiku, kdy k této změně došlo právě po třicáté.</div>
     <div class="pe-footer"><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">16.1 15 míčků &nbsp; 16.2 19. sekunda (21 míčků) &nbsp; 16.3 174 míčků (176. sekunda)</div></div>
@@ -250,16 +327,65 @@
 </div>
 
 <script>
-  document.querySelectorAll('.pe-answer-btn').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.pure-example').classList.add('revealed'));
-  });
-  if (window.renderMathInElement) {
-    renderMathInElement(document.body, {
-      delimiters: [{ left: "\\(", right: "\\)", display: false }],
-      throwOnError: false
-    });
+window.JPZ_EXAM_CONFIG = {
+  id: 'jpz-2026-a',
+  durationMinutes: 70,
+  totalPoints: 50,
+  tasks: {
+    '1': { max: 3, fields: [
+      { label: 'A', answers: ['7/12'], points: 1 },
+      { label: 'B', answers: ['5/2', '2.5'], points: 1 },
+      { label: 'C', answers: ['37/24'], points: 1 }
+    ]},
+    '2.1': { max: 1, fields: [{ label: 'Výsledek', answers: ['21/4', '5.25'], points: 1 }]},
+    '2.2': { max: 2, fields: [{ label: 'Výsledek', answers: ['-81/256'], points: 2 }]},
+    '3.1': { max: 1, fields: [{ label: 'Výsledek', answers: ['196'], points: 1 }]},
+    '3.2': { max: 1, fields: [{ label: 'Rozklad', answers: ['(1-3n)(1+3n)', '(1+3n)(1-3n)', '1-9n^2', '1-9n²'], points: 1 }]},
+    '3.3': { max: 2, fields: [{ label: 'Zjednodušený výraz', answers: ['6-x', '-x+6'], points: 2 }]},
+    '4.1': { max: 2, fields: [{ label: 'x', answers: ['3/4', '0.75'], points: 2 }]},
+    '4.2': { max: 2, fields: [
+      { label: 'x', answers: ['2'], points: 1 },
+      { label: 'y', answers: ['-2'], points: 1 }
+    ]},
+    '5': { max: 2, fields: [{ label: 'Objem v litrech', answers: ['320', '320l', '320litru', '320litrů'], points: 2 }]},
+    '6': { max: 4, fields: [
+      { label: '6.1', answers: ['x/5', '1/5x', 'x*1/5'], points: 1 },
+      { label: '6.2', answers: ['x/10', '1/10x', 'x*1/10'], points: 1 },
+      { label: '6.3 (km)', answers: ['120', '120km'], points: 2 }
+    ]},
+    '7': { max: 3, fields: [
+      { label: 'Kilometry za 20 minut', answers: ['2', '2km'], points: 1 },
+      { label: 'Čas celého okruhu v minutách', answers: ['120', '120min'], points: 2 }
+    ]},
+    '8': { max: 4, fields: [
+      { label: '8.1 obsah v m²', answers: ['256', '256m2', '256m²'], points: 2 },
+      { label: '8.2 obvod v m', answers: ['64', '64m'], points: 2 }
+    ]},
+    '9': { max: 3, manual: true, rubric: '3 body za správnou konstrukci obou možností, 2 body za jednu správnou možnost, 1 bod za správně založený postup.' },
+    '10': { max: 3, manual: true, rubric: '3 body za obě správné kružnice, 2 body za jednu správnou kružnici, 1 bod za správné určení středu nebo poloměru.' },
+    '11': { max: 4, fields: [
+      { label: '11.1', type: 'select', options: ['', 'A', 'N'], answers: ['A'], points: 1 },
+      { label: '11.2', type: 'select', options: ['', 'A', 'N'], answers: ['A'], points: 1 },
+      { label: '11.3', type: 'select', options: ['', 'A', 'N'], answers: ['A'], points: 2 }
+    ]},
+    '12': { max: 2, fields: [{ label: 'Možnost', type: 'select', options: ['', 'A', 'B', 'C', 'D', 'E'], answers: ['D'], points: 2 }]},
+    '13': { max: 2, fields: [{ label: 'Možnost', type: 'select', options: ['', 'A', 'B', 'C', 'D', 'E'], answers: ['A'], points: 2 }]},
+    '14': { max: 2, fields: [{ label: 'Možnost', type: 'select', options: ['', 'A', 'B', 'C', 'D', 'E'], answers: ['C'], points: 2 }]},
+    '15': { max: 3, fields: [
+      { label: '15.1', type: 'select', options: ['', 'A', 'B', 'C'], answers: ['C'], points: 1 },
+      { label: '15.2', type: 'select', options: ['', 'A', 'B', 'C'], answers: ['A'], points: 1 },
+      { label: '15.3', type: 'select', options: ['', 'A', 'B', 'C'], answers: ['B'], points: 1 }
+    ]},
+    '16': { max: 4, fields: [
+      { label: '16.1 počet míčků', answers: ['15'], points: 1 },
+      { label: '16.2 sekunda', answers: ['19', '19.sekunda'], points: 1 },
+      { label: '16.3 počet míčků', answers: ['174'], points: 2 }
+    ]}
   }
+};
 </script>
+<script src="jpz-exam.js"></script>
 
+<script src="../site.js"></script>
 </body>
 </html>

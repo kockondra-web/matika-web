@@ -1,0 +1,189 @@
+:root {
+  --ink: #1B2A4A;
+  --ink-soft: #3A4A6B;
+  --paper: #FAF9F6;
+  --paper-dim: #F0EEE7;
+  --gold: #D4A24E;
+  --brick: #B85C4A;
+  --line: rgba(27, 42, 74, 0.12);
+}
+
+/* Jednotný vzhled rozšířených lekcí k přijímačkám. */
+body.jpz-lesson-page {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.65;
+}
+
+.jpz-lesson-page *,
+.jpz-lesson-page *::before,
+.jpz-lesson-page *::after { box-sizing: border-box; }
+
+.jpz-lesson-page h1,
+.jpz-lesson-page h2,
+.jpz-lesson-page h3,
+.jpz-lesson-page .section-title,
+.jpz-lesson-page .title {
+  font-family: 'Fraunces', serif;
+}
+
+.jpz-lesson-page header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 249, 246, 0.97);
+  border-bottom: 1px solid var(--line);
+}
+
+.jpz-lesson-page header .wrap,
+.jpz-lesson-page > .wrap,
+.jpz-lesson-page main.wrap {
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.jpz-lesson-page header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding-top: 22px; padding-bottom: 22px; }
+.jpz-lesson-page .logo { color: var(--ink); font: 600 20px/1.2 'Fraunces', serif; text-decoration: none; }
+.jpz-lesson-page .logo span { color: var(--gold); }
+.jpz-lesson-page .back { color: var(--ink-soft); font: 500 13px/1.3 'JetBrains Mono', monospace; text-decoration: none; }
+.jpz-lesson-page .page { padding-top: 50px; padding-bottom: 90px; }
+.jpz-lesson-page .tag { display: inline-block; margin-bottom: 12px; color: var(--gold); font: 600 12px/1.4 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
+.jpz-lesson-page h1 { max-width: 760px; margin: 0 0 12px; font-size: clamp(34px, 5vw, 44px); line-height: 1.12; letter-spacing: -.02em; }
+.jpz-lesson-page .lead { max-width: 700px; margin: 0 0 34px; color: var(--ink-soft); font-size: 16px; line-height: 1.65; }
+.jpz-lesson-page .box,
+.jpz-lesson-page .tip,
+.jpz-lesson-page .practice,
+.jpz-lesson-page .example { max-width: 700px; padding: 20px 24px; margin: 20px 0; line-height: 1.65; }
+.jpz-lesson-page .box { background: var(--paper-dim); border-left: 3px solid var(--gold); }
+.jpz-lesson-page .tip { background: #FBF0EE; border-left: 3px solid var(--brick); }
+.jpz-lesson-page .practice { background: #FCF7EC; border-left: 3px solid var(--gold); }
+.jpz-lesson-page .example { background: #fff; border: 1px solid var(--line); border-radius: 5px; }
+.jpz-lesson-page .box h2,
+.jpz-lesson-page .tip h2,
+.jpz-lesson-page main > h2 { margin: 34px 0 12px; font-size: 23px; }
+.jpz-lesson-page .box h2:first-child,
+.jpz-lesson-page .tip h2:first-child { margin-top: 0; }
+.jpz-lesson-page .box ul,
+.jpz-lesson-page .practice ol { margin-left: 22px; }
+.jpz-lesson-page .box li,
+.jpz-lesson-page .practice li { margin: 6px 0; }
+.jpz-lesson-page code { padding: 2px 5px; border-radius: 3px; background: var(--paper-dim); font-family: 'JetBrains Mono', monospace; }
+.jpz-lesson-page footer { max-width: 700px; margin-top: 36px; padding: 24px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font: 13px/1.5 'JetBrains Mono', monospace; }
+
+.lesson-nav {
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 10px;
+  margin: 42px 0 18px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.lesson-nav a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 58px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  font: 600 13px/1.35 'Inter', sans-serif;
+}
+
+.lesson-nav a:hover { border-color: var(--gold); }
+.lesson-nav .lesson-nav-main { text-align: center; color: var(--ink-soft); }
+.lesson-nav .lesson-nav-next { text-align: right; }
+.lesson-nav small { display: block; margin-bottom: 3px; color: var(--ink-soft); font: 500 10px/1.2 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
+
+.study-tools {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+}
+
+.study-tools a {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font: 600 14px/1 Inter, sans-serif;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(27,42,74,.2);
+}
+
+.study-tools a:hover { background: var(--brick); }
+
+.lesson-scope {
+  max-width: 700px;
+  margin: 0 0 28px;
+  padding: 14px 17px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--ink-soft);
+  font: 13px/1.55 'Inter', sans-serif;
+}
+
+.lesson-scope strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font: 700 11px/1.4 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.lesson-scope.scope-oral { border-left-color: var(--brick); background: #fbf0ee; }
+.lesson-scope.scope-cermat { border-left-color: #6b9b7a; background: #eaf2ec; }
+
+.cermat-practice-section { max-width:700px; margin:54px 0 34px; padding-top:28px; border-top:1px solid var(--line); }
+.cermat-practice-head { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:18px; }
+.cermat-practice-head h2 { margin:0 0 6px!important; padding:0!important; border:0!important; font:600 27px/1.2 'Fraunces',serif; }
+.cermat-practice-head p { margin:0; color:var(--ink-soft); font:13px/1.55 'Inter',sans-serif; }
+.cermat-xp { flex:0 0 auto; padding:6px 9px; border-radius:4px; background:var(--paper-dim); color:var(--gold); font:700 11px 'JetBrains Mono',monospace; }
+.cermat-task { margin:10px 0; padding:18px 20px; border:1px solid var(--line); border-radius:7px; background:#fff; }
+.cermat-task.is-correct { border-color:#6b9b7a; box-shadow:inset 4px 0 #6b9b7a; }
+.cermat-task-top { display:flex; justify-content:space-between; gap:12px; margin-bottom:9px; color:var(--gold); font:700 10.5px 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.05em; }
+.cermat-difficulty { color:var(--ink-soft); }
+.cermat-question { color:var(--ink); font:15px/1.6 'Inter',sans-serif; }
+.cermat-options { display:grid; gap:6px; margin:12px 0; }
+.cermat-option { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line); border-radius:5px; cursor:pointer; color:var(--ink-soft); font:13px/1.45 'Inter',sans-serif; }
+.cermat-option:has(input:checked) { border-color:var(--ink); background:var(--paper-dim); color:var(--ink); }
+.cermat-check { border:0; border-radius:5px; padding:8px 11px; background:var(--ink); color:#fff; font-weight:700; cursor:pointer; }
+.cermat-feedback { margin-left:9px; color:var(--brick); font:700 11px 'JetBrains Mono',monospace; }
+.cermat-task.is-correct .cermat-feedback { color:#4f7f5f; }
+.cermat-solution { margin-top:11px; color:var(--ink-soft); font:12.5px/1.55 'Inter',sans-serif; }
+.cermat-solution summary { cursor:pointer; font-weight:700; color:var(--ink); }
+@media(max-width:600px){.cermat-practice-head{flex-direction:column}.cermat-task{padding:16px}}
+
+@media (max-width: 600px) {
+  .lesson-nav { grid-template-columns: 1fr 1fr; }
+  .lesson-nav .lesson-nav-main { grid-column: 1 / -1; grid-row: 1; }
+  .jpz-lesson-page .page,
+  .jpz-lesson-page .page-head { padding-top: 34px; }
+  .jpz-lesson-page header .wrap,
+  .jpz-lesson-page > .wrap,
+  .jpz-lesson-page main.wrap { padding-left: 20px !important; padding-right: 20px !important; }
+  .jpz-lesson-page header .back { font-size: 0; }
+  .study-tools { right: 12px; bottom: 12px; }
+  .study-tools a { padding: 9px 11px; font-size: 13px; }
+  header .wrap { padding-left: 20px !important; padding-right: 20px !important; gap: 14px; }
+  header .logo { flex: 0 0 auto; white-space: nowrap; }
+  header .back { min-width: 0; max-width: none; white-space: nowrap; text-align: right; font-size: 0; }
+  header .back::before { content: '← zpět'; font: 500 12px/1.3 'JetBrains Mono', monospace; }
+}

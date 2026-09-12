@@ -111,6 +111,7 @@
 
   footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 70px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
@@ -142,7 +143,7 @@
 
   <main>
     <div class="section-title">Kombinatorika a pravděpodobnost</div>
-    <p class="section-lead">Kombinatorická pravidla součtu a součinu, variace, permutace, kombinace a faktoriály, binomická věta a Pascalův trojúhelník, základní pojmy pravděpodobnosti a klasická definice, základy statistiky.</p>
+    <p class="section-lead">Kombinatorická pravidla, variace, permutace a kombinace, základní pravděpodobnost a statistika včetně četností, percentilů, rozptylu a směrodatné odchylky.</p>
     <div class="source-note">maturitní téma 25 · kombinatorika a pravděpodobnost</div>
 
     <h2 class="blok" id="pravidla">Kombinatorické pravidlo součtu a součinu</h2>
@@ -298,6 +299,7 @@
     </div>
 
     <h2 class="blok" id="binomicka">Binomická věta</h2>
+    <div class="warn-box"><div class="wb-label">Rozšíření k ústní zkoušce</div>Binomická věta a hledání konkrétního členu rozvoje jsou užitečné pro školní ústní otázku, ale pro běžnou cermatovskou přípravu dej přednost kombinatorickým pravidlům, pravděpodobnosti a statistice.</div>
     <div class="rule-box">
       \(\forall a,b\in\mathbb{N},\ n\in\mathbb{N}\):
       $$(a+b)^n = \binom{n}{0}a^n+\binom{n}{1}a^{n-1}b+\binom{n}{2}a^{n-2}b^2+\ldots+\binom{n}{k}a^{n-k}b^k+\ldots+\binom{n}{n}b^n$$
@@ -359,6 +361,39 @@
       <div class="p-label">Medián a modus</div>
       <div class="vysl">medián \(=20\) (prostřední hodnota po seřazení) &nbsp;·&nbsp; modus \(=10\) (nejčastější hodnota)</div>
     </div>
+    <div class="rule-box">
+      <div class="rb-label">Četnost a relativní četnost</div>
+      <strong>Absolutní četnost</strong> říká, kolikrát se hodnota v datech objevila. <strong>Relativní četnost</strong> je její podíl z celkového počtu hodnot; může se zapsat desetinným číslem nebo v procentech. Součet relativních četností je 1 neboli 100 %.
+    </div>
+    <div class="ztab-wrap"><table class="ztab">
+      <tr><th>hodnota</th><th>10</th><th>20</th><th>30</th><th>50</th><th>celkem</th></tr>
+      <tr><th>četnost</th><td>2</td><td>1</td><td>1</td><td>1</td><td>5</td></tr>
+      <tr><th>relativní četnost</th><td>40 %</td><td>20 %</td><td>20 %</td><td>20 %</td><td>100 %</td></tr>
+    </table></div>
+    <div class="rule-box">
+      <div class="rb-label">Percentil</div>
+      Hodnota na \(p\)-tém percentilu odděluje přibližně dolních \(p\,\%\) seřazených dat. Například 90. percentil je hranice, pod níž leží přibližně 90 % hodnot. V konkrétní úloze vždy použij způsob určení popsaný v zadání nebo hodnotu odečti z grafu či tabulky.
+    </div>
+    <div class="rule-box">
+      <div class="rb-label">Rozptyl a směrodatná odchylka</div>
+      Rozptyl měří průměrnou čtvercovou vzdálenost hodnot od průměru:
+      $$s^2=\frac1n\sum_{i=1}^{n}(x_i-\bar x)^2$$
+      Směrodatná odchylka je odmocnina z rozptylu: \(s=\sqrt{s^2}\). Má stejnou jednotku jako původní data.
+    </div>
+    <div class="priklad">
+      <div class="p-label">Rozptyl a směrodatná odchylka</div>
+      <div class="zadani">Pro data \(10,10,20,30,50\) je průměr \(\bar x=24\).</div>
+      <div class="vypocet">
+        <div class="vr"><div class="vl">\(s^2=\frac{(10-24)^2+(10-24)^2+(20-24)^2+(30-24)^2+(50-24)^2}{5}\)</div><div class="vp"></div></div>
+        <div class="vr odsad"><div class="vl">\(s^2=\frac{1120}{5}=224\)</div><div class="vp">/ rozptyl</div></div>
+        <div class="vr odsad"><div class="vl">\(s=\sqrt{224}\approx14{,}97\)</div><div class="vp">/ směrodatná odchylka</div></div>
+      </div>
+      <div class="vysl">Rozptyl je 224 a směrodatná odchylka přibližně 14,97.</div>
+    </div>
+    <div class="warn-box">
+      <div class="wb-label">CERMAT tip</div>
+      U tabulek a grafů nejdřív zkontroluj popisky os, jednotky a to, zda jsou uvedené četnosti absolutní, relativní, nebo kumulativní. Častá chyba vznikne správným výpočtem z nesprávně přečtených dat.
+    </div>
 
     <footer>matematika.jasně — kombinatorika a pravděpodobnost</footer>
   </main>
@@ -376,5 +411,6 @@
   }
 </script>
 
+<script src="../site.js"></script>
 </body>
 </html>

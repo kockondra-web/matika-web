@@ -86,12 +86,13 @@
 
   footer { border-top: 1px solid var(--line); padding: 24px 0; font-size: 13px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
     <a href="rocniky.html" class="back">← zpět na ročníky</a>
   </div>
 </header>
@@ -102,13 +103,15 @@
     <ul>
       <li><a href="#cela">Celá čísla</a></li>
       <li><a href="#racionalni">Racionální čísla</a></li>
+      <li><a href="#desetinna">Desetinná čísla</a></li>
+      <li><a href="#delitelnost">Dělitelnost</a></li>
       <li><a href="#odmocniny">Druhá mocnina a odmocnina</a></li>
       <li><a href="#mocniny">Mocniny s přirozeným exponentem</a></li>
     </ul>
   </nav>
 
   <main>
-    <div class="section-title">Celá a racionální čísla, mocniny</div>
+    <h1 class="section-title">Celá a racionální čísla, mocniny</h1>
     <p class="section-lead">Počítání se zápornými čísly, racionální čísla, druhá mocnina a odmocnina, mocniny s přirozeným exponentem.</p>
     <div class="source-note">7.–8. ročník ZŠ</div>
 
@@ -172,6 +175,18 @@
       <div class="vysl">\(3\,400 = 3{,}4\times10^3\)</div>
     </div>
 
+    <h2 class="blok" id="desetinna">Desetinná čísla</h2>
+    <p class="txt">Při porovnávání doplň nuly tak, aby měla čísla stejný počet desetinných míst. Například (3{,}7=3{,}700), a proto (3{,}7&gt;3{,}68). Při sčítání a odčítání piš desetinné čárky přesně pod sebe.</p>
+    <div class="rule-box"><div class="rb-label">Zaokrouhlování</div>Najdi číslici na požadovaném řádu a podívej se o jedno místo doprava. Číslice 0–4 ji nemění, číslice 5–9 ji zvýší o jedna.</div>
+    <div class="priklad"><div class="p-label">Řešený příklad</div><div class="zadani">Zaokrouhli (18{,}376) na desetiny a vypočítej (4{,}8-1{,}275).</div><p class="txt">Na místě setin je 7, proto (18{,}376\doteq18{,}4). Čárky zarovnáme: (4{,}800-1{,}275=3{,}525).</p><div class="vysl">Výsledky: (18{,}4) a (3{,}525)</div></div>
+    <div class="priklad"><div class="p-label">Zkus sám</div><div class="zadani">Seřaď (2{,}09; 2{,}9; 2{,}099) a potom vypočítej (3{,}6\cdot0{,}25).</div><details><summary>Zobrazit řešení</summary><p class="txt">(2{,}09&lt;2{,}099&lt;2{,}9) a (3{,}6\cdot0{,}25=0{,}9).</p></details></div>
+
+    <h2 class="blok" id="delitelnost">Dělitelnost, NSD a NSN</h2>
+    <div class="rule-box"><div class="rb-label">Rychlá pravidla</div>Číslo je dělitelné 2, když je sudé; 3, když je jeho ciferný součet dělitelný 3; 5, když končí 0 nebo 5; 9, když je ciferný součet dělitelný 9; 10, když končí nulou.</div>
+    <p class="txt"><strong>NSD</strong> je největší číslo, které dělí všechna zadaná čísla. <strong>NSN</strong> je nejmenší kladné číslo, které je násobkem všech zadaných čísel.</p>
+    <div class="priklad"><div class="p-label">Řešený příklad</div><div class="zadani">Urči NSD a NSN čísel 18 a 24.</div><p class="txt">(18=2\cdot3^2), (24=2^3\cdot3). Pro NSD vezmeme společné prvočinitele s menšími exponenty, pro NSN všechny s většími.</p><div class="vysl">(NSD(18,24)=6,quad NSN(18,24)=72)</div></div>
+    <div class="priklad"><div class="p-label">Zkus sám</div><div class="zadani">Dvě světla bliknou současně. První bliká každých 12 s, druhé každých 18 s. Za kolik sekund bliknou znovu společně?</div><details><summary>Zobrazit řešení</summary><p class="txt">Hledáme (NSN(12,18)=36). Společně bliknou za 36 sekund.</p></details></div>
+
     <footer>matematika.jasně — celá a racionální čísla, mocniny</footer>
   </main>
 </div>
@@ -188,5 +203,6 @@
   }
 </script>
 
+<script src="../site.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maturita | matematika.jasně</title>
+<meta name="description" content="Příprava k maturitě z matematiky: studijní plán, rychlá diagnostika, tematické okruhy, teorie a řešené příklady.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -192,38 +193,231 @@
   .t25 .t-num { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--gold); width: 20px; text-align: right; flex-shrink: 0; }
   .t25.hot:hover .t-num { color: white; }
   .t25 .t-nazev { flex: 1; line-height: 1.4; }
-  .t25 .t-ok { font-weight: 700; color: var(--green); flex-shrink: 0; }
+  .t25 .t-ok { font-size:0; font-weight:700; color:var(--green); flex-shrink:0; }
+  .t25 .t-ok::after { content:'otevřít'; font:700 10px 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.04em; }
   .t25.hot:hover .t-ok { color: white; }
+
+  .maturita-hero { display: grid; grid-template-columns: minmax(0,1fr) 290px; gap: 28px; align-items: start; margin-bottom: 26px; }
+  .hero-panel { background: var(--ink); color: white; border-radius: 8px; padding: 24px; box-shadow: 0 18px 38px -28px rgba(27,42,74,.7); }
+  .hero-panel .hp-label, .section-kicker { font: 700 11px 'JetBrains Mono', monospace; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; }
+  .hero-panel h2 { font: 600 23px/1.2 'Fraunces', serif; margin: 10px 0 8px; }
+  .hero-panel p { color: rgba(255,255,255,.76); font-size: 14px; line-height: 1.55; }
+  .hero-actions { display: grid; gap: 9px; margin-top: 18px; }
+  .hero-actions a { padding: 11px 13px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 700; text-align: center; }
+  .hero-actions .primary { background: var(--gold); color: var(--ink); }
+  .hero-actions .secondary { border: 1px solid rgba(255,255,255,.28); color: white; }
+  .jump-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 38px; }
+  .jump-nav a { color: var(--ink-soft); border: 1px solid var(--line); background: white; border-radius: 999px; padding: 8px 13px; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .jump-nav a:hover { color: var(--ink); border-color: var(--gold); }
+  .track-grid { display:grid; grid-template-columns:1.35fr 1fr; gap:14px; margin:22px 0 40px; }
+  .track-card { display:block; padding:22px; border:1px solid var(--line); border-radius:8px; background:white; color:var(--ink); text-decoration:none; }
+  .track-card.primary-track { background:var(--ink); color:white; border-color:var(--ink); }
+  .track-card .track-label { font:700 11px 'JetBrains Mono',monospace; color:var(--gold); letter-spacing:.07em; text-transform:uppercase; }
+  .track-card h2 { font:600 23px/1.2 'Fraunces',serif; margin:9px 0 8px; }
+  .track-card p { color:var(--ink-soft); font-size:13.5px; line-height:1.55; }
+  .track-card.primary-track p { color:rgba(255,255,255,.72); }
+  .track-card:hover { border-color:var(--gold); transform:translateY(-1px); }
+  .exam-facts { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin:20px 0 40px; background:var(--line); border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .exam-fact { background:white; padding:17px; }
+  .exam-fact strong { display:block; font:600 17px 'Fraunces',serif; margin-bottom:5px; }
+  .exam-fact span { color:var(--ink-soft); font-size:12.5px; line-height:1.45; }
+  .section-kicker { margin-bottom: 8px; }
+  .section-kicker + h2.blok { margin-top: 8px; }
+  .section-intro { color: var(--ink-soft); font-size: 15px; line-height: 1.65; max-width: 680px; margin-bottom: 22px; }
+  .diagnostic { background: white; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 20px 0 44px; }
+  .diagnostic-head { display: flex; justify-content: space-between; gap: 18px; align-items: center; padding: 18px 20px; background: var(--paper-dim); border-bottom: 1px solid var(--line); }
+  .diagnostic-head strong { font-family: 'Fraunces', serif; font-size: 20px; }
+  .diagnostic-meta { display:flex; gap:12px; align-items:center; }
+  .diag-toggle { border:1px solid var(--line); background:white; color:var(--ink); border-radius:5px; padding:7px 10px; font-weight:700; cursor:pointer; }
+  .diag-toggle:hover { border-color:var(--gold); }
+  .diagnostic.collapsed .diagnostic-head { border-bottom:0; }
+  .diagnostic.collapsed .diag-body { display:none; }
+  .diag-count { font: 700 12px 'JetBrains Mono', monospace; color: var(--brick); white-space: nowrap; }
+  .diag-progress { height: 4px; background: rgba(27,42,74,.08); }
+  .diag-progress span { display: block; width: 0; height: 100%; background: var(--green); transition: width .25s ease; }
+  .diag-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .diag-item { display: flex; gap: 11px; align-items: flex-start; padding: 15px 18px; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.45; cursor: pointer; }
+  .diag-item:nth-child(odd) { border-right: 1px solid var(--line); }
+  .diag-item input { margin-top: 3px; accent-color: var(--green); width: 17px; height: 17px; flex: 0 0 auto; }
+  .diag-result { padding: 16px 20px; color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .diag-result a { color: var(--ink); font-weight: 700; text-decoration-color: var(--gold); }
+  .diag-question { padding:18px 20px; border-bottom:1px solid var(--line); }
+  .diag-question:last-child { border-bottom:0; }
+  .diag-qhead { display:flex; gap:11px; font-size:14px; line-height:1.5; margin-bottom:12px; }
+  .diag-qnum { font:700 11px 'JetBrains Mono',monospace; color:var(--gold); padding-top:3px; }
+  .diag-options { display:flex; flex-wrap:wrap; gap:8px; margin-left:26px; }
+  .diag-option { position:relative; }
+  .diag-option input { position:absolute; opacity:0; pointer-events:none; }
+  .diag-option span { display:block; border:1px solid var(--line); border-radius:5px; padding:8px 12px; font:600 13px 'JetBrains Mono',monospace; cursor:pointer; background:white; }
+  .diag-option input:checked + span { color:white; background:var(--ink); border-color:var(--ink); }
+  .diag-actions { padding:17px 20px; display:flex; align-items:center; flex-wrap:wrap; gap:12px; background:var(--paper-dim); }
+  .diag-submit { border:0; border-radius:5px; padding:11px 16px; color:var(--ink); background:var(--gold); font-weight:700; cursor:pointer; }
+  .diag-reset { border:0; background:transparent; color:var(--ink-soft); text-decoration:underline; cursor:pointer; }
+  .status-tag { font:700 10.5px 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.04em; padding:4px 8px; border-radius:999px; white-space:nowrap; }
+  .status-ready { color:#3f7350; background:#eaf2ec; }
+  .status-work { color:#8b5b10; background:#fcf2dd; }
+  .practice-overview { display:flex; align-items:center; gap:16px; margin:18px 0 24px; padding:15px 17px; background:white; border:1px solid var(--line); border-radius:7px; }
+  .practice-overview strong { font:600 17px 'Fraunces',serif; white-space:nowrap; }
+  .practice-overview span { color:var(--ink-soft); font:12px 'JetBrains Mono',monospace; white-space:nowrap; }
+  .practice-bar { flex:1; height:7px; min-width:80px; overflow:hidden; border-radius:999px; background:var(--paper-dim); }
+  .practice-bar i { display:block; width:0; height:100%; background:var(--green); transition:width .25s ease; }
+  .resource-box { display:flex; justify-content:space-between; gap:20px; align-items:center; background:var(--ink); color:white; border-radius:8px; padding:21px 23px; margin:18px 0 42px; }
+  .resource-box p { color:rgba(255,255,255,.72); font-size:13.5px; line-height:1.5; margin-top:5px; }
+  .resource-link { flex:0 0 auto; color:var(--ink); background:var(--gold); text-decoration:none; border-radius:5px; padding:11px 14px; font-weight:700; font-size:13px; }
+  .test-library { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:20px 0 26px; }
+  .test-card { display:block; position:relative; background:white; border:1px solid var(--line); border-radius:8px; padding:20px; color:var(--ink); text-decoration:none; }
+  .test-card:hover { border-color:var(--gold); transform:translateY(-1px); }
+  .test-card.primary-test { background:var(--ink); color:white; border-color:var(--ink); }
+  .test-card .test-label { font:700 10.5px 'JetBrains Mono',monospace; color:var(--gold); text-transform:uppercase; letter-spacing:.06em; }
+  .test-card h3 { font:600 21px 'Fraunces',serif; margin:8px 0 7px; }
+  .test-card p { color:var(--ink-soft); font-size:13px; line-height:1.5; }
+  .test-card.primary-test p { color:rgba(255,255,255,.72); }
+  .test-meta { display:flex; gap:7px; flex-wrap:wrap; margin-top:13px; }
+  .test-meta span { padding:4px 7px; border-radius:3px; background:var(--paper-dim); color:var(--ink-soft); font:600 10px 'JetBrains Mono',monospace; }
+  .primary-test .test-meta span { color:white; background:rgba(255,255,255,.12); }
+  .test-progress-summary { display:flex; justify-content:space-between; gap:18px; align-items:center; margin:-10px 0 24px; padding:12px 15px; border:1px solid var(--line); border-radius:6px; background:var(--paper-dim); color:var(--ink-soft); font-size:12.5px; }
+  .test-progress-summary strong { color:var(--ink); }
+  .mock-tool { display:grid; grid-template-columns:230px 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:20px 0 26px; }
+  .timer-panel,.mistake-panel { background:white; padding:21px; }
+  .timer-label,.mistake-label { font:700 11px 'JetBrains Mono',monospace; color:var(--gold); text-transform:uppercase; letter-spacing:.06em; }
+  .timer-display { font:600 36px/1 'JetBrains Mono',monospace; margin:14px 0 16px; letter-spacing:-.04em; }
+  .timer-display.finished { color:var(--brick); }
+  .timer-actions { display:flex; gap:7px; flex-wrap:wrap; }
+  .timer-actions button { border:1px solid var(--line); background:var(--paper-dim); color:var(--ink); border-radius:5px; padding:8px 10px; font-weight:700; cursor:pointer; }
+  .timer-actions .timer-primary { background:var(--gold); border-color:var(--gold); }
+  .mistake-panel p { color:var(--ink-soft); font-size:12.5px; line-height:1.5; margin:7px 0 10px; }
+  .mistake-panel textarea { width:100%; min-height:104px; resize:vertical; border:1px solid var(--line); border-radius:5px; padding:11px 12px; color:var(--ink); background:var(--paper); font:13px/1.55 'Inter',sans-serif; }
+  .save-state { display:block; min-height:17px; margin-top:6px; color:var(--green); font:700 10px 'JetBrains Mono',monospace; }
+  .plan-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 20px 0 44px; }
+  .plan-card { background: white; border: 1px solid var(--line); border-radius: 7px; padding: 20px; }
+  .plan-card.recommended { border-color: var(--gold); box-shadow: inset 0 3px 0 var(--gold); }
+  .plan-time { font: 700 12px 'JetBrains Mono', monospace; color: var(--gold); text-transform: uppercase; letter-spacing: .05em; }
+  .plan-card h3 { font: 600 20px 'Fraunces', serif; margin: 9px 0 12px; }
+  .plan-card ol { margin-left: 18px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; }
+  .plan-card li + li { margin-top: 6px; }
+  .exam-routine { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; margin: 20px 0 42px; }
+  .routine-step { background: white; padding: 18px; }
+  .routine-num { font: 700 11px 'JetBrains Mono', monospace; color: var(--gold); }
+  .routine-step strong { display: block; margin: 7px 0 5px; font-size: 14px; }
+  .routine-step p { color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; }
+  @media (max-width:760px) { .maturita-hero { grid-template-columns:1fr; } .track-grid { grid-template-columns:1fr; } .plan-grid { grid-template-columns:1fr; } .exam-routine { grid-template-columns:1fr 1fr; } .resource-box { align-items:flex-start; flex-direction:column; } .mock-tool { grid-template-columns:1fr; } .test-library { grid-template-columns:1fr; } }
+  @media (max-width:620px) { .exam-facts { grid-template-columns:1fr; } }
+  @media (max-width:540px) { .diag-grid { grid-template-columns:1fr; } .diag-item:nth-child(odd) { border-right:0; } .exam-routine { grid-template-columns:1fr; } .diagnostic-head { align-items:flex-start; flex-direction:column; } .diagnostic-meta { width:100%; justify-content:space-between; } .test-progress-summary { align-items:flex-start; flex-direction:column; gap:5px; } .practice-overview { flex-wrap:wrap; } .practice-overview .practice-bar { flex:1 0 100%; } .layout { padding-left:20px; padding-right:20px; } .ok-head { flex-wrap:wrap; } .ok-nazev { flex:1 1 calc(100% - 44px); } .ok-pct { margin-left:32px; } }
 </style>
+<link rel="stylesheet" href="../site.css">
 </head>
-<body>
+<body data-no-study-tools="true">
 
 <header>
   <div class="wrap">
-    <a href="../index.html" class="logo">matematika<span>.</span>jasně</a>
-    <a href="../index.html" class="back">← zpět na přehled</a>
+    <a href="../INDEX.html" class="logo">matematika<span>.</span>jasně</a>
+    <a href="../INDEX.html" class="back">← zpět na přehled</a>
   </div>
 </header>
 
 <div class="wrap-page">
-  <div class="section-title">Maturita</div>
-  <p class="section-lead">Devět tematických okruhů didaktického testu podle Katalogu požadavků Cermat. Procenta ukazují, jakou část testu okruh přibližně zabírá — podle toho se vyplatí rozvrhnout přípravu.</p>
+  <div class="maturita-hero">
+    <div>
+      <div class="section-kicker">Dvě různé zkoušky, dvě jasné cesty</div>
+      <h1 class="section-title">Maturita z matematiky</h1>
+      <p class="section-lead">Hlavní část tě připraví na didaktický test CERMAT. Níže zůstává oddělená příprava k 25 tématům ústní zkoušky z technického lycea.</p>
+    </div>
+    <aside class="hero-panel">
+      <div class="hp-label">Začni za 2 minuty</div>
+      <h2>Zkus skutečnou diagnostiku</h2>
+      <p>Osmnáct krátkých úloh ve dvou úrovních ti doporučí okruhy, kterými má smysl začít.</p>
+      <div class="hero-actions"><a class="primary" href="#diagnostika">Spustit 18 úloh</a><a class="secondary" href="#okruhy">Projít okruhy</a></div>
+    </aside>
+  </div>
+
+  <nav class="jump-nav" aria-label="Obsah maturitní přípravy">
+    <a href="#cermat">CERMAT</a><a href="#diagnostika">Diagnostika</a><a href="#plan">Studijní plán</a><a href="#okruhy">9 okruhů</a><a href="#nanečisto">Test nanečisto</a><a href="#profilova">25 ústních otázek</a>
+  </nav>
+
+  <div class="track-grid">
+    <a class="track-card primary-track" href="#cermat"><span class="track-label">Hlavní příprava</span><h2>Didaktický test CERMAT</h2><p>Devět oficiálních tematických oblastí, diagnostika, studijní plán a procvičování ve stylu testu.</p></a>
+    <a class="track-card" href="#profilova"><span class="track-label">Samostatná část</span><h2>Ústní zkouška</h2><p>Původních 25 školních témat včetně rozšiřující látky, která v běžném testu CERMAT není.</p></a>
+  </div>
 
   <div class="prehled">
-    <div class="pi"><div class="pn">9/9</div><div class="pl">okruhů rozjeto</div></div>
-    <div class="pi"><div class="pn">26</div><div class="pl">stránek s teorií</div></div>
-    <div class="pi"><div class="pn">200+</div><div class="pl">řešených příkladů</div></div>
+    <div class="pi"><div class="pn">9</div><div class="pl">oblastí CERMAT</div></div>
+    <div class="pi"><div class="pn">25</div><div class="pl">ústních otázek</div></div>
+    <div class="pi"><div class="pn">2</div><div class="pl">oddělené přípravy</div></div>
   </div>
+
+  <section id="cermat">
+    <div class="section-kicker">Hlavní část</div>
+    <h2 class="blok">Didaktický test CERMAT</h2>
+    <p class="section-intro">Tady se učíš pouze látku požadovanou pro společnou část maturity. Rozšiřující témata jako komplexní čísla, derivace, integrály, prostorová analytika a kuželosečky jsou přesunuta do ústní části.</p>
+    <div class="exam-facts">
+      <div class="exam-fact"><strong>9 tematických oblastí</strong><span>Obsah je uspořádaný podle katalogu požadavků.</span></div>
+      <div class="exam-fact"><strong>Výsledek i postup</strong><span>U široce otevřených úloh je důležitý zapsaný postup řešení.</span></div>
+      <div class="exam-fact"><strong>Práce pod časem</strong><span>Po zvládnutí témat následují celé oficiální testy nanečisto.</span></div>
+    </div>
+  </section>
+
+  <section id="diagnostika">
+    <div class="section-kicker">Krok 1</div>
+    <h2 class="blok">Rychlá diagnostika</h2>
+    <p class="section-intro">U každé úlohy vyber jednu odpověď a potom diagnostiku vyhodnoť. Nezískáváš za ni XP — jejím cílem je pouze najít témata, která potřebují procvičit.</p>
+    <div class="diagnostic">
+      <div class="diagnostic-head"><strong>18 úloh · základy i úroveň CERMAT</strong><div class="diagnostic-meta"><span class="diag-count" id="diag-count">0 z 18 zodpovězeno</span><button class="diag-toggle" id="diag-toggle" type="button" aria-expanded="true" aria-controls="diag-body">Sbalit ↑</button></div></div>
+      <div class="diag-body" id="diag-body">
+      <div class="diag-progress" aria-hidden="true"><span id="diag-progress"></span></div>
+      <div id="diag-questions">
+        <div class="diag-question" data-topic="cisla"><div class="diag-qhead"><span class="diag-qnum">01</span><span>Kolik je 15 % z 840?</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d1" value="a"><span>84</span></label><label class="diag-option"><input type="radio" name="d1" value="b"><span>126</span></label><label class="diag-option"><input type="radio" name="d1" value="c"><span>140</span></label></div></div>
+        <div class="diag-question" data-topic="vyrazy"><div class="diag-qhead"><span class="diag-qnum">02</span><span>Pro x ≠ 3 se výraz (x² − 9)/(x − 3) rovná:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d2" value="a"><span>x − 3</span></label><label class="diag-option"><input type="radio" name="d2" value="b"><span>x + 3</span></label><label class="diag-option"><input type="radio" name="d2" value="c"><span>x² + 3</span></label></div></div>
+        <div class="diag-question" data-topic="rovnice"><div class="diag-qhead"><span class="diag-qnum">03</span><span>Řešením rovnice 3(2x − 1) = 15 je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d3" value="a"><span>x = 2</span></label><label class="diag-option"><input type="radio" name="d3" value="b"><span>x = 3</span></label><label class="diag-option"><input type="radio" name="d3" value="c"><span>x = 4</span></label></div></div>
+        <div class="diag-question" data-topic="funkce"><div class="diag-qhead"><span class="diag-qnum">04</span><span>Je-li f(x) = 2x − 3, potom f(4) je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d4" value="a"><span>5</span></label><label class="diag-option"><input type="radio" name="d4" value="b"><span>8</span></label><label class="diag-option"><input type="radio" name="d4" value="c"><span>11</span></label></div></div>
+        <div class="diag-question" data-topic="posloupnosti"><div class="diag-qhead"><span class="diag-qnum">05</span><span>Aritmetická posloupnost má a₁ = 5 a diferenci 3. Kolik je a₆?</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d5" value="a"><span>18</span></label><label class="diag-option"><input type="radio" name="d5" value="b"><span>20</span></label><label class="diag-option"><input type="radio" name="d5" value="c"><span>23</span></label></div></div>
+        <div class="diag-question" data-topic="planimetrie"><div class="diag-qhead"><span class="diag-qnum">06</span><span>Odvěsny pravoúhlého trojúhelníku měří 6 cm a 8 cm. Přepona měří:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d6" value="a"><span>10 cm</span></label><label class="diag-option"><input type="radio" name="d6" value="b"><span>12 cm</span></label><label class="diag-option"><input type="radio" name="d6" value="c"><span>14 cm</span></label></div></div>
+        <div class="diag-question" data-topic="stereometrie"><div class="diag-qhead"><span class="diag-qnum">07</span><span>Objem kvádru s hranami 2 cm, 3 cm a 4 cm je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d7" value="a"><span>9 cm³</span></label><label class="diag-option"><input type="radio" name="d7" value="b"><span>18 cm³</span></label><label class="diag-option"><input type="radio" name="d7" value="c"><span>24 cm³</span></label></div></div>
+        <div class="diag-question" data-topic="analytika"><div class="diag-qhead"><span class="diag-qnum">08</span><span>Pro A[1; −2] a B[4; 2] má vektor AB souřadnice:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d8" value="a"><span>(3; 4)</span></label><label class="diag-option"><input type="radio" name="d8" value="b"><span>(5; 0)</span></label><label class="diag-option"><input type="radio" name="d8" value="c"><span>(−3; −4)</span></label></div></div>
+        <div class="diag-question" data-topic="pravdepodobnost"><div class="diag-qhead"><span class="diag-qnum">09</span><span>Medián dat 2, 3, 3, 10, 12 je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d9" value="a"><span>3</span></label><label class="diag-option"><input type="radio" name="d9" value="b"><span>6</span></label><label class="diag-option"><input type="radio" name="d9" value="c"><span>10</span></label></div></div>
+        <div class="diag-question" data-topic="cisla"><div class="diag-qhead"><span class="diag-qnum">10</span><span>Cena po slevě 20 % je 960 Kč. Původní cena byla:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d10" value="a"><span>1 152 Kč</span></label><label class="diag-option"><input type="radio" name="d10" value="b"><span>1 200 Kč</span></label><label class="diag-option"><input type="radio" name="d10" value="c"><span>1 280 Kč</span></label></div></div>
+        <div class="diag-question" data-topic="vyrazy"><div class="diag-qhead"><span class="diag-qnum">11</span><span>Roznásobení (2x − 3)² je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d11" value="a"><span>4x² − 9</span></label><label class="diag-option"><input type="radio" name="d11" value="b"><span>4x² − 12x + 9</span></label><label class="diag-option"><input type="radio" name="d11" value="c"><span>2x² − 12x + 9</span></label></div></div>
+        <div class="diag-question" data-topic="rovnice"><div class="diag-qhead"><span class="diag-qnum">12</span><span>Kořeny rovnice x² − 7x + 12 = 0 jsou:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d12" value="a"><span>−3 a −4</span></label><label class="diag-option"><input type="radio" name="d12" value="b"><span>2 a 6</span></label><label class="diag-option"><input type="radio" name="d12" value="c"><span>3 a 4</span></label></div></div>
+        <div class="diag-question" data-topic="funkce"><div class="diag-qhead"><span class="diag-qnum">13</span><span>Vrchol paraboly y = x² − 6x + 5 je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d13" value="a"><span>V[3; −4]</span></label><label class="diag-option"><input type="radio" name="d13" value="b"><span>V[−3; 5]</span></label><label class="diag-option"><input type="radio" name="d13" value="c"><span>V[6; 5]</span></label></div></div>
+        <div class="diag-question" data-topic="posloupnosti"><div class="diag-qhead"><span class="diag-qnum">14</span><span>Geometrická posloupnost má a₁ = 3 a q = 2. Kolik je a₅?</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d14" value="a"><span>24</span></label><label class="diag-option"><input type="radio" name="d14" value="b"><span>48</span></label><label class="diag-option"><input type="radio" name="d14" value="c"><span>96</span></label></div></div>
+        <div class="diag-question" data-topic="planimetrie"><div class="diag-qhead"><span class="diag-qnum">15</span><span>Při koeficientu podobnosti k = 3 se obsah obrazce zvětší:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d15" value="a"><span>3krát</span></label><label class="diag-option"><input type="radio" name="d15" value="b"><span>6krát</span></label><label class="diag-option"><input type="radio" name="d15" value="c"><span>9krát</span></label></div></div>
+        <div class="diag-question" data-topic="stereometrie"><div class="diag-qhead"><span class="diag-qnum">16</span><span>Zdvojnásobíme všechny hrany krychle. Její objem bude:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d16" value="a"><span>2krát větší</span></label><label class="diag-option"><input type="radio" name="d16" value="b"><span>4krát větší</span></label><label class="diag-option"><input type="radio" name="d16" value="c"><span>8krát větší</span></label></div></div>
+        <div class="diag-question" data-topic="analytika"><div class="diag-qhead"><span class="diag-qnum">17</span><span>Skalární součin vektorů (2; −1) a (3; 4) je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d17" value="a"><span>2</span></label><label class="diag-option"><input type="radio" name="d17" value="b"><span>5</span></label><label class="diag-option"><input type="radio" name="d17" value="c"><span>10</span></label></div></div>
+        <div class="diag-question" data-topic="pravdepodobnost"><div class="diag-qhead"><span class="diag-qnum">18</span><span>Pravděpodobnost, že na běžné kostce padne číslo větší než 4, je:</span></div><div class="diag-options"><label class="diag-option"><input type="radio" name="d18" value="a"><span>1/6</span></label><label class="diag-option"><input type="radio" name="d18" value="b"><span>1/3</span></label><label class="diag-option"><input type="radio" name="d18" value="c"><span>1/2</span></label></div></div>
+      </div>
+      <div class="diag-actions"><button class="diag-submit" id="diag-submit" type="button">Vyhodnotit diagnostiku</button><button class="diag-reset" id="diag-reset" type="button">Vymazat odpovědi</button></div>
+      <div class="diag-result" id="diag-result" aria-live="polite">Odpověz na úlohy a potom diagnostiku vyhodnoť.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="section-kicker">Krok 2</div>
+    <h2 class="blok">Vyber si plán podle času</h2>
+    <p class="section-intro">Začni slabými základy, potom procvičuj celé tematické bloky a poslední část přípravy věnuj práci pod časem.</p>
+    <div class="plan-grid">
+      <article class="plan-card"><div class="plan-time">14 dní</div><h3>Záchranný plán</h3><ol><li>Rovnice, výrazy a funkce</li><li>Planimetrie a stereometrie</li><li>Posloupnosti a pravděpodobnost</li><li>Tři časované simulace</li></ol></article>
+      <article class="plan-card recommended"><div class="plan-time">4–6 týdnů</div><h3>Rozumné tempo</h3><ol><li>Dva až tři okruhy týdně</li><li>Po každém okruhu smíšené příklady</li><li>Každý týden návrat k chybám</li><li>Poslední týden testy nanečisto</li></ol></article>
+      <article class="plan-card"><div class="plan-time">2–3 měsíce</div><h3>Poctivá příprava</h3><ol><li>Nejdřív doplnit teorii</li><li>Procvičit lehké i těžší úlohy</li><li>Vést si seznam opakovaných chyb</li><li>Pravidelně psát celý test</li></ol></article>
+    </div>
+  </section>
+
+  <section id="okruhy">
+    <div class="section-kicker">Krok 3</div>
+    <h2 class="blok">Okruhy didaktického testu</h2>
+    <p class="section-intro">Devět tematických okruhů podle katalogu požadavků. U každého najdeš přímé odkazy na stávající teorii a řešené příklady.</p>
+    <div class="practice-overview"><strong>Kontrolní úlohy</strong><div class="practice-bar" aria-hidden="true"><i id="cermat-practice-bar"></i></div><span id="cermat-practice-count">0 z 44 bez nápovědy</span></div>
 
   <div class="okruhy">
       <div class="okruh hotovy">
         <div class="ok-head">
           <div class="ok-num">1</div>
           <div class="ok-nazev">Číselné obory</div>
+          <span class="status-tag status-ready">nově doplněno</span>
           <div class="ok-pct">4–12 %</div>
         </div>
-        <div class="ok-popis">Množiny a logika, číselné obory N/Z/Q/R, mocniny a odmocniny, absolutní hodnota</div>
+        <div class="ok-popis">Číselné obory N/Z/Q/R, procenta, poměr a úměrnost, mocniny, odmocniny a absolutní hodnota</div>
         <div class="ok-links">
+          <a class="ok-link" href="prakticke-pocitani.html">Procenta, poměr a jednotky →</a>
           <a class="ok-link" href="logika-mnoziny.html">Logika a množiny →</a>
           <a class="ok-link" href="mocniny.html">Mocniny a odmocniny →</a>
         </div>
@@ -232,10 +426,12 @@
         <div class="ok-head">
           <div class="ok-num">2</div>
           <div class="ok-nazev">Algebraické výrazy</div>
+          <span class="status-tag status-ready">nově doplněno</span>
           <div class="ok-pct">8–18 %</div>
         </div>
         <div class="ok-popis">Úpravy výrazů, mnohočleny, vzorce, rozklad na součin, lomené výrazy</div>
         <div class="ok-links">
+          <a class="ok-link" href="algebraicke-vyrazy.html">Algebraické a lomené výrazy →</a>
           <a class="ok-link" href="mocniny.html">Mocniny a odmocniny →</a>
           <a class="ok-link" href="kvadraticke.html">Kvadratické výrazy →</a>
         </div>
@@ -244,18 +440,22 @@
         <div class="ok-head">
           <div class="ok-num">3</div>
           <div class="ok-nazev">Rovnice a nerovnice</div>
+          <span class="status-tag status-ready">materiály dostupné</span>
           <div class="ok-pct">12–20 %</div>
         </div>
-        <div class="ok-popis">Lineární i kvadratické, soustavy, s neznámou ve jmenovateli, s parametrem</div>
+        <div class="ok-popis">Lineární a kvadratické rovnice a nerovnice, soustavy a rovnice s neznámou ve jmenovateli</div>
         <div class="ok-links">
           <a class="ok-link" href="funkce.html#obory-rce">Lineární rovnice a nerovnice →</a>
           <a class="ok-link" href="kvadraticke.html#rovnice">Kvadratické →</a>
+          <a class="ok-link" href="soustavy.html">Soustavy rovnic →</a>
+          <a class="ok-link" href="absolutni-hodnoty.html">Absolutní hodnota →</a>
         </div>
       </div>
       <div class="okruh hotovy">
         <div class="ok-head">
           <div class="ok-num">4</div>
           <div class="ok-nazev">Funkce</div>
+          <span class="status-tag status-ready">materiály dostupné</span>
           <div class="ok-pct">10–20 %</div>
         </div>
         <div class="ok-popis">Vlastnosti funkcí, lineární, kvadratická, mocninná, exponenciální, logaritmická, goniometrická</div>
@@ -263,12 +463,17 @@
           <a class="ok-link" href="funkce.html">Vlastnosti funkcí + lineární →</a>
           <a class="ok-link" href="kvadraticke.html">Kvadratická →</a>
           <a class="ok-link" href="mocniny.html#funkce-graf">Mocninné funkce →</a>
+          <a class="ok-link" href="exp-log-funkce.html">Exponenciální a logaritmické →</a>
+          <a class="ok-link" href="exp-log-rovnice.html">Exp. a log. rovnice →</a>
+          <a class="ok-link" href="goniometrie.html">Goniometrické →</a>
+          <a class="ok-link" href="gon-vzorce.html">Goniometrické rovnice →</a>
         </div>
       </div>
       <div class="okruh hotovy">
         <div class="ok-head">
           <div class="ok-num">5</div>
           <div class="ok-nazev">Posloupnosti a finanční matematika</div>
+          <span class="status-tag status-ready">materiály dostupné</span>
           <div class="ok-pct">4–14 %</div>
         </div>
         <div class="ok-popis">Aritmetická a geometrická posloupnost, finanční matematika, nekonečná geometrická řada</div>
@@ -280,6 +485,7 @@
         <div class="ok-head">
           <div class="ok-num">6</div>
           <div class="ok-nazev">Planimetrie</div>
+          <span class="status-tag status-ready">nově doplněno</span>
           <div class="ok-pct">8–18 %</div>
         </div>
         <div class="ok-popis">Trojúhelníky, čtyřúhelníky, kružnice, obsahy a obvody, shodnost a podobnost</div>
@@ -291,6 +497,7 @@
         <div class="ok-head">
           <div class="ok-num">7</div>
           <div class="ok-nazev">Stereometrie</div>
+          <span class="status-tag status-ready">materiály dostupné</span>
           <div class="ok-pct">4–12 %</div>
         </div>
         <div class="ok-popis">Tělesa, objemy a povrchy, polohové a metrické vztahy v prostoru</div>
@@ -302,30 +509,59 @@
         <div class="ok-head">
           <div class="ok-num">8</div>
           <div class="ok-nazev">Analytická geometrie</div>
+          <span class="status-tag status-ready">rovina a přímka</span>
           <div class="ok-pct">4–14 %</div>
         </div>
-        <div class="ok-popis">Vektory, přímka v rovině i prostoru, vzdálenosti a úhly, kuželosečky</div>
+        <div class="ok-popis">Souřadnice bodů, vektory, skalární součin, vzdálenosti, úhly a přímka v rovině</div>
         <div class="ok-links">
           <a class="ok-link" href="analyticka-geometrie-rovina.html">Přímka v rovině →</a>
-          <a class="ok-link" href="analyticka-geometrie-prostor.html">V prostoru →</a>
-          <a class="ok-link" href="kruznice.html">Kuželosečky →</a>
         </div>
       </div>
       <div class="okruh hotovy">
         <div class="ok-head">
           <div class="ok-num">9</div>
           <div class="ok-nazev">Kombinatorika, pravděpodobnost a statistika</div>
+          <span class="status-tag status-ready">nově doplněno</span>
           <div class="ok-pct">4–14 %</div>
         </div>
-        <div class="ok-popis">Variace, kombinace, permutace, náhodné jevy, průměr, medián, modus</div>
+        <div class="ok-popis">Kombinatorika, náhodné jevy, pravděpodobnost, tabulky a grafy, průměr, medián, modus, percentily, rozptyl a směrodatná odchylka</div>
         <div class="ok-links">
           <a class="ok-link" href="kombinatorika-pravdepodobnost.html">Kombinatorika a pravděpodobnost →</a>
         </div>
       </div>
   </div>
+  </section>
 
-  <h2 class="blok" id="profilova">Profilová část — ústní zkouška</h2>
-  <p class="txt">Kromě didaktického testu má maturita ještě ústní část, kde si <strong>každá škola určuje vlastní seznam témat</strong>. Níže je ukázka takového seznamu (technické lyceum) — na tvé škole se může lišit, vždy si ověř ten svůj. Obsah je ale stejný, jen jinak rozdělený: když se učíš podle okruhů výše, připravuješ se zároveň i na ústní.</p>
+  <section id="nanečisto">
+    <div class="section-kicker">Krok 4</div>
+    <h2 class="blok">Test nanečisto</h2>
+    <p class="section-intro">Nejdřív si můžeš ověřit základy, potom přejdi na náročnější simulace. V obou případech pracuj bez nápovědy a po testu rozeber chyby.</p>
+    <div class="test-library">
+      <a class="test-card" href="maturita-test-1.html"><span class="test-label">Lehčí rozjezd</span><h3>Ověření základů 1 →</h3><p>Kontrola početní jistoty před náročnou simulací.</p><div class="test-meta"><span>25 úloh</span><span>lehčí</span><span>50 bodů</span></div></a>
+      <a class="test-card" href="maturita-test-2.html"><span class="test-label">Lehčí rozjezd</span><h3>Ověření základů 2 →</h3><p>Druhá sada pro nalezení mezer v základních postupech.</p><div class="test-meta"><span>25 úloh</span><span>lehčí</span><span>50 bodů</span></div></a>
+      <a class="test-card primary-test" href="cermat-simulace-1.html"><span class="test-label">Doporučeno · náročnější</span><h3>CERMAT simulace 1 →</h3><p>Vícekrokové úlohy, dílčí body, slovní zadání a reálnější časový tlak.</p><div class="test-meta"><span>25 úloh</span><span>135 minut</span><span>50 bodů</span></div></a>
+      <a class="test-card primary-test" href="cermat-simulace-2.html"><span class="test-label">Náročnější varianta</span><h3>CERMAT simulace 2 →</h3><p>Jiná plná sada ve stylu didaktického testu se smíšeným bodováním.</p><div class="test-meta"><span>25 úloh</span><span>135 minut</span><span>50 bodů</span></div></a>
+      <a class="test-card" href="https://maturita.cermat.cz/menu/testy-a-zadani-z-predchozich-obdobi/matematika/testy-a-zadani-matematika.html" target="_blank" rel="noopener"><span class="test-label">Oficiální zadání</span><h3>Archiv testů CERMAT ↗</h3><p>Zadání, záznamové archy, klíče správných řešení a vzorová řešení z minulých období.</p><div class="test-meta"><span>PDF</span><span>oficiální zdroj</span></div></a>
+    </div>
+    <div class="test-progress-summary"><span>Základy 1: <strong id="test-1-best">zatím nespuštěno</strong></span><span>Základy 2: <strong id="test-2-best">zatím nespuštěno</strong></span><span>Simulace 1: <strong id="sim-1-best">zatím nespuštěna</strong></span><span>Simulace 2: <strong id="sim-2-best">zatím nespuštěna</strong></span><span>Celkem: <strong id="maturita-xp">0 XP</strong></span><span>Poslední slabiny: <strong id="maturita-weak">zatím neznámé</strong></span></div>
+    <h3 class="pod">Časovač a poznámky k oficiálnímu PDF testu</h3>
+    <div class="mock-tool">
+      <div class="timer-panel"><div class="timer-label">Čas na test</div><div class="timer-display" id="timer-display">02:15:00</div><div class="timer-actions"><button class="timer-primary" id="timer-start" type="button">Spustit</button><button id="timer-pause" type="button">Pozastavit</button><button id="timer-reset" type="button">Obnovit</button></div></div>
+      <div class="mistake-panel"><label class="mistake-label" for="mistake-notes">Deník chyb</label><p>Zapiš číslo úlohy a důvod: neznalost, chybný postup, nepozornost nebo nedostatek času.</p><textarea id="mistake-notes" placeholder="Např. Úloha 14 — zapomněl jsem převést cm² na m²…"></textarea><span class="save-state" id="notes-state" aria-live="polite"></span></div>
+    </div>
+    <div class="exam-routine">
+      <div class="routine-step"><span class="routine-num">01</span><strong>Připrav podmínky</strong><p>Klid, povolené pomůcky a přesně stanovený čas.</p></div>
+      <div class="routine-step"><span class="routine-num">02</span><strong>Piš bez nápovědy</strong><p>Nepřerušuj test kvůli teorii nebo hledání postupu.</p></div>
+      <div class="routine-step"><span class="routine-num">03</span><strong>Roztřiď chyby</strong><p>Neznalost, chybný postup, nepozornost nebo nedostatek času.</p></div>
+      <div class="routine-step"><span class="routine-num">04</span><strong>Oprav slabiny</strong><p>Vrať se ke konkrétní lekci a podobnou úlohu spočítej znovu.</p></div>
+    </div>
+    <div class="rule-box"><div class="rb-label">Praktické pravidlo</div>Po každém testu si zapiš tři chyby, které nechceš zopakovat. Před dalším testem si tento krátký seznam přečti.</div>
+  </section>
+
+  <div class="section-kicker">Samostatná příprava</div>
+  <h2 class="blok" id="profilova">Ústní zkouška — 25 školních otázek</h2>
+  <p class="section-intro">Toto je původní seznam z technického lycea. Obsahuje společnou středoškolskou látku i rozšiřující témata, která v běžném didaktickém testu CERMAT nejsou. Pořadí na webu se může později změnit podle návaznosti učiva.</p>
+  <div class="rule-box"><div class="rb-label">Bezpečná původní verze</div>Neměnnou kopii současných materiálů najdeš v <a href="../ustni-otazky-puvodni/seznam-25-otazek.html">archivu původních 25 otázek</a>.</div>
 
   <div class="t25-list">
       <a class="t25 hot" href="logika-mnoziny.html"><span class="t-num">1</span><span class="t-nazev">Základní poznatky z matematické logiky a teorie množin</span><span class="t-ok">✓</span></a>
@@ -355,8 +591,185 @@
       <a class="t25 hot" href="kombinatorika-pravdepodobnost.html"><span class="t-num">25</span><span class="t-nazev">Kombinatorika a pravděpodobnost</span><span class="t-ok">✓</span></a>
   </div>
 
-  <footer>matematika.jasně — přehled maturitní matematiky</footer>
+  <footer>matematika.jasně — CERMAT i ústní maturita přehledně oddělené</footer>
 </div>
 
+<script src="../site.js"></script>
+<script>
+  (() => {
+    const questions = [...document.querySelectorAll('.diag-question')];
+    const count = document.getElementById('diag-count');
+    const progress = document.getElementById('diag-progress');
+    const result = document.getElementById('diag-result');
+    const submit = document.getElementById('diag-submit');
+    const reset = document.getElementById('diag-reset');
+    const diagnostic = document.querySelector('.diagnostic');
+    const toggle = document.getElementById('diag-toggle');
+    const answers = ['b', 'b', 'b', 'a', 'b', 'a', 'c', 'a', 'a', 'b', 'b', 'c', 'a', 'b', 'c', 'c', 'a', 'b'];
+    const recommendations = {
+      cisla: ['Procenta, poměr a jednotky', 'prakticke-pocitani.html'],
+      vyrazy: ['Algebraické a lomené výrazy', 'algebraicke-vyrazy.html'],
+      rovnice: ['Rovnice a nerovnice', 'funkce.html#obory-rce'],
+      funkce: ['Funkce a grafy', 'funkce.html'],
+      planimetrie: ['Planimetrie', 'planimetrie.html'],
+      stereometrie: ['Stereometrie', 'stereometrie.html'],
+      analytika: ['Analytická geometrie', 'analyticka-geometrie-rovina.html'],
+      posloupnosti: ['Posloupnosti', 'posloupnosti.html'],
+      pravdepodobnost: ['Kombinatorika a pravděpodobnost', 'kombinatorika-pravdepodobnost.html']
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem('maturita-diagnostika-v2') || '{}');
+      Object.entries(saved).forEach(([name, value]) => {
+        const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+        if (input) input.checked = true;
+      });
+    } catch (_) {}
+    function selectedAnswers() {
+      return Object.fromEntries(questions.map((_, index) => {
+        const checked = document.querySelector(`input[name="d${index + 1}"]:checked`);
+        return [`d${index + 1}`, checked ? checked.value : ''];
+      }));
+    }
+    function updateProgress() {
+      const selected = selectedAnswers();
+      const done = Object.values(selected).filter(Boolean).length;
+      count.textContent = `${done} z ${questions.length} zodpovězeno`;
+      progress.style.width = `${done / questions.length * 100}%`;
+      try {
+        localStorage.setItem('maturita-diagnostika-v2', JSON.stringify(selected));
+      } catch (_) {}
+    }
+    document.querySelectorAll('.diag-option input').forEach(input => input.addEventListener('change', updateProgress));
+    function setCollapsed(collapsed) {
+      diagnostic.classList.toggle('collapsed', collapsed);
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.textContent = collapsed ? 'Rozbalit ↓' : 'Sbalit ↑';
+      try { localStorage.setItem('maturita-diagnostika-sbalena', collapsed ? '1' : '0'); } catch (_) {}
+    }
+    try { setCollapsed(localStorage.getItem('maturita-diagnostika-sbalena') === '1'); } catch (_) {}
+    toggle.addEventListener('click', () => setCollapsed(!diagnostic.classList.contains('collapsed')));
+    submit.addEventListener('click', () => {
+      const selected = selectedAnswers();
+      const unanswered = Object.values(selected).filter(value => !value).length;
+      if (unanswered) {
+        result.innerHTML = `<strong>Ještě chybí ${unanswered} ${unanswered === 1 ? 'odpověď' : unanswered < 5 ? 'odpovědi' : 'odpovědí'}.</strong> Pro přesnější doporučení dokonči všechny úlohy.`;
+        return;
+      }
+      const wrong = questions.filter((question, index) => selected[`d${index + 1}`] !== answers[index]);
+      const score = questions.length - wrong.length;
+      if (!wrong.length) {
+        result.innerHTML = `<strong>${score} z ${questions.length} správně.</strong> Základy vypadají dobře. Pokračuj tematickými úlohami a potom celým testem pod časem.`;
+        return;
+      }
+      const links = wrong.slice(0, 4).map(question => {
+        const item = recommendations[question.dataset.topic];
+        return `<a href="${item[1]}">${item[0]}</a>`;
+      }).join(' · ');
+      result.innerHTML = `<strong>${score} z ${questions.length} správně.</strong> Jako první procvič: ${links}.`;
+    });
+    reset.addEventListener('click', () => {
+      document.querySelectorAll('.diag-option input').forEach(input => input.checked = false);
+      try { localStorage.removeItem('maturita-diagnostika-v2'); } catch (_) {}
+      result.textContent = 'Odpověz na úlohy a potom diagnostiku vyhodnoť.';
+      updateProgress();
+    });
+    updateProgress();
+  })();
+  (() => {
+    const display = document.getElementById('timer-display');
+    const start = document.getElementById('timer-start');
+    const pause = document.getElementById('timer-pause');
+    const reset = document.getElementById('timer-reset');
+    const notes = document.getElementById('mistake-notes');
+    const notesState = document.getElementById('notes-state');
+    const fullTime = 135 * 60;
+    let timerState = { remaining: fullTime, running: false, endAt: 0 };
+    try {
+      const saved = JSON.parse(localStorage.getItem('maturita-test-timer') || 'null');
+      if (saved && Number.isFinite(saved.remaining)) timerState = saved;
+      notes.value = localStorage.getItem('maturita-denik-chyb') || '';
+    } catch (_) {}
+    function currentRemaining() {
+      return timerState.running ? Math.max(0, Math.ceil((timerState.endAt - Date.now()) / 1000)) : timerState.remaining;
+    }
+    function persistTimer() {
+      try { localStorage.setItem('maturita-test-timer', JSON.stringify(timerState)); } catch (_) {}
+    }
+    function renderTimer() {
+      const seconds = currentRemaining();
+      if (timerState.running) timerState.remaining = seconds;
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor(seconds % 3600 / 60);
+      const secs = seconds % 60;
+      display.textContent = [hours, minutes, secs].map(value => String(value).padStart(2, '0')).join(':');
+      display.classList.toggle('finished', seconds === 0);
+      start.textContent = timerState.running ? 'Běží…' : seconds === fullTime ? 'Spustit' : 'Pokračovat';
+      start.disabled = timerState.running || seconds === 0;
+      pause.disabled = !timerState.running;
+      if (seconds === 0 && timerState.running) {
+        timerState.running = false;
+        timerState.remaining = 0;
+        persistTimer();
+      }
+    }
+    start.addEventListener('click', () => {
+      timerState.running = true;
+      timerState.endAt = Date.now() + timerState.remaining * 1000;
+      persistTimer();
+      renderTimer();
+    });
+    pause.addEventListener('click', () => {
+      timerState.remaining = currentRemaining();
+      timerState.running = false;
+      persistTimer();
+      renderTimer();
+    });
+    reset.addEventListener('click', () => {
+      timerState = { remaining: fullTime, running: false, endAt: 0 };
+      persistTimer();
+      renderTimer();
+    });
+    let noteTimeout;
+    notes.addEventListener('input', () => {
+      try { localStorage.setItem('maturita-denik-chyb', notes.value); } catch (_) {}
+      notesState.textContent = 'uloženo';
+      clearTimeout(noteTimeout);
+      noteTimeout = setTimeout(() => { notesState.textContent = ''; }, 1400);
+    });
+    renderTimer();
+    setInterval(renderTimer, 500);
+  })();
+  (() => {
+    const best = document.getElementById('test-1-best');
+    const best2 = document.getElementById('test-2-best');
+    const sim1 = document.getElementById('sim-1-best');
+    const sim2 = document.getElementById('sim-2-best');
+    const xp = document.getElementById('maturita-xp');
+    const weak = document.getElementById('maturita-weak');
+    try {
+      const savedBest = Number(localStorage.getItem('maturita-test-1-best') || 0);
+      const savedXp = Number(localStorage.getItem('maturita-xp') || 0);
+      const savedBest2 = Number(localStorage.getItem('maturita-test-2-best') || 0);
+      const savedSim1 = Number(localStorage.getItem('maturita-simulace-1-best') || 0);
+      const savedSim2 = Number(localStorage.getItem('maturita-simulace-2-best') || 0);
+      best.textContent = savedBest ? `${savedBest} z 25 (${savedBest * 2} bodů)` : 'zatím nespuštěn';
+      best2.textContent = savedBest2 ? `${savedBest2} z 25 (${savedBest2 * 2} bodů)` : 'zatím nespuštěn';
+      sim1.textContent = savedSim1 ? `${savedSim1} z 50 bodů` : 'zatím nespuštěna';
+      sim2.textContent = savedSim2 ? `${savedSim2} z 50 bodů` : 'zatím nespuštěna';
+      xp.textContent = `${savedXp} XP`;
+      const last = JSON.parse(localStorage.getItem('maturita-posledni-vysledek') || 'null');
+      if (last) weak.textContent = last.topics?.length ? last.topics.join(', ') : 'žádné v posledním testu';
+    } catch (_) {}
+  })();
+  (() => {
+    const files = ['prakticke-pocitani.html','logika-mnoziny.html','mocniny.html','algebraicke-vyrazy.html','funkce.html','kvadraticke.html','soustavy.html','exp-log-funkce.html','exp-log-rovnice.html','goniometrie.html','gon-vzorce.html','posloupnosti.html','planimetrie.html','stereometrie.html','analyticka-geometrie-rovina.html','kombinatorika-pravdepodobnost.html','absolutni-hodnoty.html'];
+    let done = 0;
+    try {
+      files.forEach(file => { done += Object.keys(JSON.parse(localStorage.getItem(`maturita-cermat-xp:${file}`) || '{}')).length; });
+    } catch (_) {}
+    document.getElementById('cermat-practice-count').textContent = `${done} z 44 bez nápovědy`;
+    document.getElementById('cermat-practice-bar').style.width = `${done / 44 * 100}%`;
+  })();
+</script>
 </body>
 </html>
