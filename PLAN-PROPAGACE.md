@@ -21,8 +21,8 @@ Do začátku hlavní přijímačkové sezóny přivádět na web pravidelně dev
 - [x] Vytvořit hlavní obrázek pro sdílení o rozměru 1200 × 630 px.
 - [x] Doplnit `og:image` a odpovídající údaje pro sociální sítě na hlavní vstupní stránky.
 - [x] Připravit samostatné sdílecí obrázky pro přijímačky, maturitu a testy nanečisto.
-- [ ] Přidat na lekce a testy tlačítko „Sdílet“ s využitím systémového sdílení telefonu a náhradním zkopírováním odkazu.
-- [ ] Přidat tlačítko „Nahlásit chybu“. E-mail se má otevřít s předvyplněným názvem a adresou aktuální stránky.
+- [x] Přidat na veřejné stránky tlačítko „Sdílet stránku“ s využitím systémového sdílení telefonu a náhradním zkopírováním odkazu.
+- [x] Přidat tlačítko „Nahlásit chybu“. E-mail se otevře s předvyplněným názvem a adresou aktuální stránky.
 - [ ] Přidat krátkou stránku „Pro rodiče“: jak web používat, co znamenají výsledky, jak často procvičovat a jak se ukládá postup.
 - [ ] Přidat krátkou stránku „Pro učitele“: možnosti použití ve výuce, domácí procvičování, testy a kontakt na autora.
 - [ ] Na hlavní stránku doplnit jasnou větu „Zdarma · bez registrace · výsledky zůstávají v zařízení“.

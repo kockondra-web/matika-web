@@ -289,13 +289,70 @@
   const current = location.pathname.replace(/\\/g, '/').toLowerCase();
   const position = pages.findIndex(([path]) => current.endsWith('/' + path) || current.endsWith(path));
   const pageFooter = document.querySelector('footer');
-  if (pageFooter && !pageFooter.querySelector('.site-footer-links')) {
+  if (pageFooter && !pageFooter.querySelector('.site-footer-links') && !pageFooter.querySelector('a[href*="o-webu.html"]')) {
     const rootPrefix = current.includes('/zs/') || current.includes('/ss/') ? '../' : '';
     const footerLinks = document.createElement('nav');
     footerLinks.className = 'site-footer-links';
     footerLinks.setAttribute('aria-label', 'Spodní navigace');
     footerLinks.innerHTML = `<a href="${rootPrefix}index.html">Hlavní stránka</a><a href="${rootPrefix}vyhledavani.html">Vyhledávání</a><a href="${rootPrefix}o-webu.html">O webu a ukládání dat</a>`;
     pageFooter.append(footerLinks);
+  }
+
+  if (!document.querySelector('.page-actions')) {
+    if (!document.querySelector('#page-actions-style')) {
+      const actionStyle = document.createElement('style');
+      actionStyle.id = 'page-actions-style';
+      actionStyle.textContent = `
+        .page-actions{width:min(760px,calc(100% - 40px));margin:48px auto 28px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:22px;border:1px solid rgba(27,42,74,.14);border-left:4px solid #D4A24E;border-radius:8px;background:#fff;color:#1B2A4A;font-family:Inter,Arial,sans-serif}
+        .page-actions strong{display:block;margin-bottom:5px;font:600 19px/1.25 Fraunces,Georgia,serif}.page-actions p{margin:0;color:#3A4A6B;font-size:13px;line-height:1.5}
+        .page-actions-buttons{display:flex;flex:0 0 auto;gap:8px}.page-actions button,.page-actions a{min-height:42px;padding:11px 14px;border-radius:6px;font:700 13px/1 Inter,Arial,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+        .page-share-button{border:0;background:#1B2A4A;color:#fff}.page-share-button:hover{background:#B85C4A}.page-report-link{display:inline-flex;align-items:center;border:1px solid rgba(27,42,74,.18);background:#FAF9F6;color:#1B2A4A}.page-report-link:hover{border-color:#D4A24E}
+        @media(max-width:650px){.page-actions{align-items:stretch;flex-direction:column}.page-actions-buttons{width:100%}.page-actions button,.page-actions a{flex:1;justify-content:center;text-align:center}}
+        @media(max-width:400px){.page-actions-buttons{flex-direction:column}}
+      `;
+      document.head.append(actionStyle);
+    }
+    const canonicalUrl = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
+    const pageTitle = document.querySelector('h1')?.textContent.trim() || document.title;
+    const pageDescription = document.querySelector('meta[name="description"]')?.content || 'Matematika jasně – výklady, procvičování a testy zdarma.';
+    const actions = document.createElement('section');
+    actions.className = 'page-actions';
+    actions.setAttribute('aria-label', 'Sdílení a zpětná vazba');
+    actions.innerHTML = `<div><strong>Pomoz web zlepšit</strong><p>Pošli stránku spolužákovi nebo upozorni na chybu.</p></div><div class="page-actions-buttons"><button type="button" class="page-share-button">Sdílet stránku</button><a class="page-report-link">Nahlásit chybu</a></div>`;
+    const reportSubject = `Chyba na stránce: ${pageTitle}`;
+    const reportBody = `Dobrý den,\n\nnašel/našla jsem chybu nebo mám připomínku ke stránce:\n${canonicalUrl}\n\nPopis chyby nebo návrhu:\n`;
+    actions.querySelector('.page-report-link').href = `mailto:ondrakock@seznam.cz?subject=${encodeURIComponent(reportSubject)}&body=${encodeURIComponent(reportBody)}`;
+    const shareButton = actions.querySelector('.page-share-button');
+    shareButton.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: pageTitle, text: pageDescription, url: canonicalUrl });
+          return;
+        }
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(canonicalUrl);
+        else {
+          const helper = document.createElement('textarea');
+          helper.value = canonicalUrl;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.append(helper);
+          helper.select();
+          document.execCommand('copy');
+          helper.remove();
+        }
+        const original = shareButton.textContent;
+        shareButton.textContent = 'Odkaz zkopírován ✓';
+        setTimeout(() => { shareButton.textContent = original; }, 2200);
+      } catch (error) {
+        if (error?.name !== 'AbortError') {
+          shareButton.textContent = 'Sdílení se nepodařilo';
+          setTimeout(() => { shareButton.textContent = 'Sdílet stránku'; }, 2200);
+        }
+      }
+    });
+    if (pageFooter) pageFooter.before(actions);
+    else document.body.append(actions);
   }
   if (position < 0 || document.body.dataset.noStudyTools === 'true') return;
 
