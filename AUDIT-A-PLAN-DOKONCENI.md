@@ -19,3 +19,5 @@ V tomto souboru zůstávají jen kroky, které ještě nejsou hotové. Příprav
 ## Podmínka dokončení
 
 Všechny body tohoto plánu jsou dokončené. Před dalším zveřejněním stačí zkopírovat aktuální soubory do Git repozitáře, odeslat je na větev `master` a ověřit zelenou kontrolu GitHub Actions.
+
+Další etapa projektu je popsaná samostatně v souboru `PLAN-PROPAGACE.md`.

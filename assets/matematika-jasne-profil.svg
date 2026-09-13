@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title description">
+  <title id="title">Profilový znak matematika.jasně</title>
+  <desc id="description">Tmavě modrý kruh se světlým písmenem m a zlatou tečkou na krémovém pozadí.</desc>
+  <rect width="1080" height="1080" fill="#FAF9F6"/>
+  <circle cx="540" cy="540" r="438" fill="#1B2A4A"/>
+  <circle cx="540" cy="540" r="462" fill="none" stroke="#D4A24E" stroke-width="18"/>
+  <text x="486" y="704" text-anchor="middle" fill="#FAF9F6" font-family="Georgia, 'Times New Roman', serif" font-size="540" font-weight="700" letter-spacing="-28">m</text>
+  <circle cx="785" cy="664" r="55" fill="#D4A24E"/>
+</svg>

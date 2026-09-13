@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1B2A4A"/><rect width="1200" height="18" fill="#D4A24E"/>
+  <text x="82" y="108" fill="#F1D29A" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="4">MATEMATIKA.JASNĚ</text>
+  <text x="82" y="267" fill="#FAF9F6" font-family="Georgia,serif" font-size="88" font-weight="700">Přijímačky na SŠ</text>
+  <text x="82" y="353" fill="#D9DFEB" font-family="Arial,sans-serif" font-size="36">Vysvětlení · procvičování · celé testy nanečisto</text>
+  <rect x="82" y="451" width="450" height="94" rx="30" fill="#D4A24E"/><text x="307" y="510" text-anchor="middle" fill="#1B2A4A" font-family="Arial,sans-serif" font-size="29" font-weight="700">Připrav se krok za krokem</text>
+  <circle cx="1033" cy="331" r="158" fill="#314265" stroke="#D4A24E" stroke-width="10"/><text x="1033" y="314" text-anchor="middle" fill="#FAF9F6" font-family="Georgia,serif" font-size="58" font-weight="700">50 bodů</text><text x="1033" y="374" text-anchor="middle" fill="#F1D29A" font-family="Arial,sans-serif" font-size="30" font-weight="700">70 MINUT</text>
+</svg>

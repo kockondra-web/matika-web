@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FAF9F6"/><rect width="1200" height="18" fill="#B85C4A"/>
+  <text x="82" y="108" fill="#B85C4A" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="4">MATEMATIKA.JASNĚ</text>
+  <text x="82" y="266" fill="#1B2A4A" font-family="Georgia,serif" font-size="72" font-weight="700">Maturita z matematiky</text>
+  <text x="82" y="352" fill="#34425F" font-family="Arial,sans-serif" font-size="36">Diagnostika · tematická příprava · testy</text>
+  <rect x="82" y="448" width="600" height="96" rx="30" fill="#1B2A4A"/><text x="382" y="508" text-anchor="middle" fill="#FAF9F6" font-family="Arial,sans-serif" font-size="32" font-weight="700">Od základů až k celému testu</text>
+  <path d="M1010 154 L1125 495 H895 Z" fill="#E9DFC8" stroke="#D4A24E" stroke-width="10"/><path d="M917 461 H956 V422" fill="none" stroke="#1B2A4A" stroke-width="8"/><text x="1010" y="395" text-anchor="middle" fill="#1B2A4A" font-family="Georgia,serif" font-size="54" font-weight="700">a²+b²</text>
+</svg>

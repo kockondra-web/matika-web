@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1B2A4A"/><rect width="1200" height="18" fill="#D4A24E"/>
+  <text x="82" y="108" fill="#F1D29A" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="4">MATEMATIKA.JASNĚ</text>
+  <text x="82" y="250" fill="#FAF9F6" font-family="Georgia,serif" font-size="70" font-weight="700">Celé testy nanečisto</text>
+  <text x="82" y="337" fill="#D9DFEB" font-family="Arial,sans-serif" font-size="31">Vlastní úlohy · měření času · okamžité vyhodnocení</text>
+  <g font-family="Arial,sans-serif" font-weight="700"><rect x="82" y="441" width="250" height="98" rx="28" fill="#D4A24E"/><text x="207" y="502" text-anchor="middle" fill="#1B2A4A" font-size="33">PŘIJÍMAČKY</text><rect x="356" y="441" width="230" height="98" rx="28" fill="#FAF9F6"/><text x="471" y="502" text-anchor="middle" fill="#1B2A4A" font-size="33">MATURITA</text></g>
+  <rect x="890" y="130" width="230" height="370" rx="28" fill="#FAF9F6" transform="rotate(5 1005 315)"/><line x1="935" y1="220" x2="1072" y2="232" stroke="#B85C4A" stroke-width="12"/><line x1="925" y1="284" x2="1062" y2="296" stroke="#D8D2C4" stroke-width="10"/><line x1="917" y1="348" x2="1054" y2="360" stroke="#D8D2C4" stroke-width="10"/><circle cx="1024" cy="437" r="38" fill="#D4A24E"/><path d="M1005 438 L1019 452 L1045 420" fill="none" stroke="#1B2A4A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
