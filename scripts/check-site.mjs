@@ -23,6 +23,7 @@ for (const file of htmlFiles) {
   const short = relative(root, file).replaceAll('\\', '/');
   const isPreservedArchive = short.startsWith('ustni-otazky-puvodni/');
   if (!isPreservedArchive) {
+    if (/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(html)) warnings.push(`${short}: obsahuje neplatný řídicí znak`);
     const h1Count = (html.match(/<h1\b/gi) || []).length;
     if (!/<title>[^<]+<\/title>/i.test(html)) warnings.push(`${short}: chybí neprázdný <title>`);
     if (h1Count !== 1) warnings.push(`${short}: počet <h1> je ${h1Count}`);
@@ -65,7 +66,7 @@ if (warnings.length) {
 if (broken.length) {
   console.error(`\nNefunkční interní odkazy nebo soubory (${broken.length}):`);
   broken.forEach(item => console.error(`- ${item}`));
-  process.exitCode = 1;
 } else {
   console.log('\nNefunkční interní odkazy nebo soubory: 0');
 }
+if (warnings.length || broken.length) process.exitCode = 1;

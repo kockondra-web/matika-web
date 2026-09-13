@@ -90,6 +90,14 @@
 .task-score { margin-left: 10px; color: var(--ink-soft); font: 700 12px 'JetBrains Mono', monospace; }
 .exam-mode:not(.exam-submitted) .pe-answer-btn { display: none !important; }
 
+.jpz-visual { max-height: 320px; }
+.jpz-table-wrap { margin: 14px 0 18px; overflow-x: auto; }
+.jpz-data-table { width: min(100%, 620px); border-collapse: collapse; background: #fff; color: var(--ink); font-size: 14px; }
+.jpz-data-table caption { padding: 8px 10px; background: var(--paper-dim); border: 1px solid var(--line); border-bottom: 0; font-weight: 700; text-align: left; }
+.jpz-data-table th,
+.jpz-data-table td { padding: 9px 12px; border: 1px solid var(--line); text-align: center; }
+.jpz-data-table th { background: #FCF7EC; font-weight: 700; }
+
 @media (max-width: 700px) {
   .exam-panel { top: 70px; padding: 13px 14px; }
   .exam-panel-main { gap: 10px; }
