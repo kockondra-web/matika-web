@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Vyhledávání témat matematiky pro ZŠ a SŠ.">
+<link rel="canonical" href="https://kockondra-web.github.io/matika-web/vyhledavani.html">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="matematika.jasně">
+<meta property="og:title" content="Hledat téma | matematika.jasně">
+<meta property="og:description" content="Vyhledávání témat matematiky pro ZŠ a SŠ.">
+<meta property="og:url" content="https://kockondra-web.github.io/matika-web/vyhledavani.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hledat téma | matematika.jasně">
+<meta name="twitter:description" content="Vyhledávání témat matematiky pro ZŠ a SŠ.">
   <title>Hledat téma | matematika.jasně</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,7 +38,7 @@
     <p id="summary" aria-live="polite"></p>
     <ul id="results"></ul>
   </main>
-  <script src="site.js"></script>
+  <script src="site.js?v=3"></script>
   <script>
     const input = document.getElementById('search'); const results = document.getElementById('results'); const summary = document.getElementById('summary');
     const initial = new URLSearchParams(location.search).get('q') || '';

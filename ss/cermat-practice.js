@@ -27,7 +27,9 @@
       ['cermat','Pro x≠0,2 je (x²−2x)/(x²−4x+4):',['x/(x−2)','x/(x+2)','(x−2)/x'],0,'Čitatel x(x−2), jmenovatel (x−2)²; po krácení x/(x−2).'],
       ['cermat','Pro x = −2 má výraz 2x² − 3x − 1 hodnotu:',['1','9','13'],2,'Dosadíme: 2 · 4 − 3 · (−2) − 1 = 13.'],
       ['cermat','Výraz (a/b − b/a) : (a²−b²)/(ab) pro nenulová a, b a a²≠b² je:',['−1','1','a−b'],1,'První závorka je (a²−b²)/(ab), takže dělíme výraz sebou samým.'],
-      ['cermat','Je-li x+1/x=5, potom x²+1/x² se rovná:',['21','23','25'],1,'Umocníme vztah: (x+1/x)²=x²+2+1/x²=25, tedy hledaný výraz je 23.']],
+      ['cermat','Je-li x+1/x=5, potom x²+1/x² se rovná:',['21','23','25'],1,'Umocníme vztah: (x+1/x)²=x²+2+1/x²=25, tedy hledaný výraz je 23.'],
+      ['cermat','Pro x≠−3,3 uprav výraz (x²−9)/(x²+6x+9) · (x+3)/(x−3).',['1','(x−3)/(x+3)','x²−9'],0,'Rozložíme x²−9=(x−3)(x+3) a x²+6x+9=(x+3)². Všechny povolené společné činitele se vykrátí a zůstane 1.','Nejdřív rozlož oba kvadratické výrazy na součin.'],
+      ['cermat','Platí a+b=7 a ab=10. Hodnota a²+b² je:',['19','29','39'],1,'Ze vztahu (a+b)²=a²+2ab+b² dostaneme a²+b²=7²−2·10=29.','Použij druhou mocninu součtu a dosaď známý součet i součin.']],
     'funkce.html': [
       ['easy','Pro f(x)=2x−5 je f(4):',['3','8','13'],0,'f(4)=8−5=3.'],
       ['cermat','Lineární funkce prochází body [0;3] a [2;7]. Její směrnice je:',['2','3','5'],0,'Směrnice je (7−3)/(2−0)=2.'],
@@ -83,35 +85,45 @@
       ['cermat','Vklad 20 000 Kč po roce při úroku 5 % vzroste na:',['20 500 Kč','21 000 Kč','25 000 Kč'],1,'20 000·1,05=21 000.'],
       ['cermat','Aritmetická posloupnost má a₄=11 a a₉=26. Její diference je:',['2','3','5'],1,'Mezi členy je pět kroků, proto d=(26−11)/5=3.'],
       ['cermat','Geometrická posloupnost má a₁=2 a kvocient 3. Součet prvních pěti členů je:',['162','242','486'],1,'S₅=2·(3⁵−1)/(3−1)=242.'],
-      ['cermat','V aritmetické posloupnosti platí a₃=8 a a₇=20. Součet prvních deseti členů je:',['145','155','165'],1,'Diference je 3 a a₁=2. Potom a₁₀=29 a S₁₀=10·(2+29)/2=155.']],
+      ['cermat','V aritmetické posloupnosti platí a₃=8 a a₇=20. Součet prvních deseti členů je:',['145','155','165'],1,'Diference je 3 a a₁=2. Potom a₁₀=29 a S₁₀=10·(2+29)/2=155.'],
+      ['cermat','V geometrické posloupnosti s kladným kvocientem platí a₃=12 a a₅=48. Součet prvních šesti členů je:',['93','189','192'],1,'Z a₅/a₃=q²=4 a q>0 plyne q=2. Potom a₁=3 a S₆=3·(2⁶−1)/(2−1)=189.','Nejprve vyděl a₅ členem a₃. Získáš q².'],
+      ['cermat','Vklad 50 000 Kč se dva roky úročí sazbou 4 % ročně. Úroky se připisují vždy na konci roku. Konečná částka je:',['54 000 Kč','54 080 Kč','58 000 Kč'],1,'Každý rok násobíme 1,04: 50 000·1,04²=54 080 Kč.','Jde o dvě po sobě jdoucí procentní změny, ne o jednorázových 8 % z původní částky.']],
     'planimetrie.html': [
       ['easy','Obsah trojúhelníku s a=10 cm a vₐ=6 cm je:',['30 cm²','60 cm²','16 cm²'],0,'S=a·vₐ/2=30 cm².'],
       ['cermat','Pravoúhlý trojúhelník má odvěsny 5 a 12. Přepona je:',['13','15','17'],0,'√(25+144)=13.'],
       ['cermat','Obsahy podobných obrazců při měřítku k=3 jsou v poměru:',['1:3','1:6','1:9'],2,'Obsah se mění s druhou mocninou měřítka.'],
       ['cermat','Lichoběžník má základny 8 cm a 14 cm a obsah 66 cm². Jeho výška je:',['3 cm','6 cm','11 cm'],1,'Z rovnice 66=(8+14)·v/2 vyjde v=6 cm.'],
       ['cermat','Kruh má stejný obvod jako čtverec se stranou 6 cm. Poloměr kruhu je:',['6/π cm','12/π cm','24/π cm'],1,'Obvod čtverce je 24 cm. Z 2πr=24 plyne r=12/π cm.'],
-      ['cermat','Pravidelný šestiúhelník má stranu 4 cm. Jeho obsah je:',['12√3 cm²','24√3 cm²','48√3 cm²'],1,'Šestiúhelník tvoří šest rovnostranných trojúhelníků. Obsah je 6·(4²√3/4)=24√3 cm².']],
+      ['cermat','Pravidelný šestiúhelník má stranu 4 cm. Jeho obsah je:',['12√3 cm²','24√3 cm²','48√3 cm²'],1,'Šestiúhelník tvoří šest rovnostranných trojúhelníků. Obsah je 6·(4²√3/4)=24√3 cm².'],
+      ['cermat','Výška na přeponu rozdělí přeponu pravoúhlého trojúhelníku na úseky 4 cm a 9 cm. Délka této výšky je:',['6 cm','6,5 cm','13 cm'],0,'Pro výšku na přeponu platí v²=4·9=36, tedy v=6 cm.','Použij Eukleidovu větu o výšce.'],
+      ['cermat','Dva podobné trojúhelníky mají obsahy 25 cm² a 64 cm². Strana menšího má 10 cm. Odpovídající strana většího měří:',['12,8 cm','16 cm','25,6 cm'],1,'Poměr obsahů je 64/25, poměr délek je jeho odmocnina 8/5. Hledaná strana je 10·8/5=16 cm.','Poměr obsahů je druhou mocninou poměru odpovídajících délek.']],
     'stereometrie.html': [
       ['easy','Objem kvádru 2×3×5 je:',['10','30','60'],1,'V=abc=30.'],
       ['cermat','Objem válce s r=2 a v=5 je:',['10π','20π','40π'],1,'V=πr²v=π·4·5=20π.'],
       ['cermat','Zdvojnásobíme všechny hrany krychle. Objem bude:',['2× větší','4× větší','8× větší'],2,'Objem se mění s třetí mocninou měřítka.'],
       ['cermat','Kužel má poloměr podstavy 3 cm a výšku 8 cm. Jeho objem je:',['24π cm³','48π cm³','72π cm³'],0,'V=(1/3)πr²v=(1/3)·π·9·8=24π cm³.'],
       ['cermat','Tělesová úhlopříčka krychle má délku 6√3 cm. Povrch krychle je:',['36 cm²','144 cm²','216 cm²'],2,'Pro úhlopříčku platí u=a√3, takže a=6 cm a povrch 6a²=216 cm².'],
-      ['cermat','Koule má objem 288π cm³. Její poloměr je:',['4 cm','6 cm','8 cm'],1,'Z 4/3·πr³=288π plyne r³=216, tedy r=6 cm.']],
+      ['cermat','Koule má objem 288π cm³. Její poloměr je:',['4 cm','6 cm','8 cm'],1,'Z 4/3·πr³=288π plyne r³=216, tedy r=6 cm.'],
+      ['cermat','Kvádr se stranami 3 cm, 4 cm a x cm má povrch 94 cm². Jeho objem je:',['48 cm³','60 cm³','72 cm³'],1,'Z 2(3·4+3x+4x)=94 dostaneme 24+14x=94, tedy x=5. Objem je 3·4·5=60 cm³.','Nejdřív sestav rovnici pro povrch kvádru a dopočítej třetí hranu.'],
+      ['cermat','Válec a kužel mají shodný poloměr podstavy i výšku. Objem válce 150 cm³ odpovídá objemu kužele:',['50 cm³','150 cm³','450 cm³'],0,'Kužel se stejnou podstavou a výškou má třetinový objem válce: 150:3=50 cm³.','Porovnej vzorce πr²v a (1/3)πr²v.']],
     'analyticka-geometrie-rovina.html': [
       ['easy','Vektor AB pro A[1;2], B[4;6] je:',['(3;4)','(5;8)','(−3;−4)'],0,'Odečteme souřadnice B−A.'],
       ['cermat','Délka vektoru (6;8) je:',['10','12','14'],0,'√(6²+8²)=10.'],
       ['cermat','Přímka y=−3x+2 má směrnici:',['−3','2','3'],0,'Ve tvaru y=kx+q je směrnice koeficient k.'],
       ['cermat','Střed úsečky s krajními body A[−3;5] a B[7;−1] je:',['[2;2]','[4;4]','[5;−3]'],0,'Souřadnice středu jsou průměry souřadnic krajních bodů: [2;2].'],
       ['cermat','Přímka procházející bodem [2;−1] a rovnoběžná s přímkou y=3x+4 má rovnici:',['y=3x−7','y=−3x+5','y=3x+5'],0,'Rovnoběžná přímka má směrnici 3. Z −1=3·2+q dostaneme q=−7.'],
-      ['cermat','Vzdálenost bodu A[2;−1] od přímky x−2y+4=0 je:',['4/√5','8/√5','√5'],1,'Dosadíme do vzorce: |2−2·(−1)+4|/√(1²+(−2)²)=8/√5.']],
+      ['cermat','Vzdálenost bodu A[2;−1] od přímky x−2y+4=0 je:',['4/√5','8/√5','√5'],1,'Dosadíme do vzorce: |2−2·(−1)+4|/√(1²+(−2)²)=8/√5.'],
+      ['cermat','Průsečík přímek y=2x−1 a y=−x+8 je:',['[2;3]','[3;5]','[5;3]'],1,'Položíme pravé strany sobě rovné: 2x−1=−x+8, tedy x=3. Dosazením y=5.','V průsečíku mají obě rovnice stejnou hodnotu y.'],
+      ['cermat','Která přímka prochází bodem [2;3] a je kolmá k přímce 3x−y+4=0?',['x+3y−11=0','3x−y−3=0','x−3y+7=0'],0,'Daná přímka má směrnici 3, kolmá tedy −1/3. Rovnice x+3y−11=0 po úpravě dává y=−x/3+11/3 a bod [2;3] ji splňuje.','Směrnice kolmých přímek mají součin −1; potom ověř zadaný bod.']],
     'kombinatorika-pravdepodobnost.html': [
       ['easy','Kolik je 5!?',['25','60','120'],2,'5!=5·4·3·2·1=120.'],
       ['cermat','Pravděpodobnost hodit na kostce číslo větší než 4 je:',['1/6','1/3','1/2'],1,'Vyhovují 5 a 6: dva výsledky ze šesti.'],
       ['cermat','Medián dat 1,3,3,8,10 je:',['3','5','8'],0,'Po seřazení je prostřední hodnota 3.'],
       ['cermat','Kolik různých tříčlenných týmů lze vybrat z 8 lidí?',['24','56','336'],1,'Na pořadí nezáleží, proto počítáme C(8,3)=56.'],
       ['cermat','V osudí jsou 3 bílé a 2 černé koule. Dvě taháme bez vracení. Pravděpodobnost, že budou stejné barvy, je:',['2/5','1/2','3/5'],0,'Příznivé dvojice: C(3,2)+C(2,2)=4, všech dvojic C(5,2)=10. Pravděpodobnost je 4/10=2/5.'],
-      ['cermat','Z číslic 1, 2, 3, 4, 5 tvoříme trojciferná čísla bez opakování. Kolik z nich je sudých?',['12','24','36'],1,'Na posledním místě jsou 2 možnosti (2 nebo 4), na prvním 4 a na prostředním 3. Celkem 2·4·3=24.']],
+      ['cermat','Z číslic 1, 2, 3, 4, 5 tvoříme trojciferná čísla bez opakování. Kolik z nich je sudých?',['12','24','36'],1,'Na posledním místě jsou 2 možnosti (2 nebo 4), na prvním 4 a na prostředním 3. Celkem 2·4·3=24.'],
+      ['cermat','Čtyřikrát hodíme mincí. Pravděpodobnost, že padnou právě dva líce, je:',['1/4','3/8','1/2'],1,'Všech výsledků je 2⁴=16. Dvě pozice pro líc lze vybrat C(4,2)=6 způsoby, takže pravděpodobnost je 6/16=3/8.','Spočítej všechny stejně pravděpodobné výsledky a vyber dvě pozice pro líc.'],
+      ['cermat','Pět studentů se řadí do řady. Kolika způsoby se mohou seřadit, jestliže Adam a Bára nesmějí stát vedle sebe?',['48','72','96'],1,'Celkem je 5!=120 pořadí. Adam s Bárou stojí vedle sebe ve 2·4!=48 pořadích. Vyhovuje 120−48=72 pořadí.','Od všech uspořádání odečti ta, kde Adam a Bára tvoří jeden dvoučlenný blok.']],
     'absolutni-hodnoty.html': [
       ['easy','Hodnota |−7| je:',['−7','0','7'],2,'Absolutní hodnota je vzdálenost od nuly.'],
       ['cermat','Rovnice |x−2|=3 má řešení:',['−1 a 5','1 a 5','−1 a 3'],0,'x−2=3 nebo x−2=−3.'],
@@ -151,16 +163,16 @@
   const awardedKey = `maturita-cermat-xp:${file}`;
   let awarded = {};
   try { awarded = JSON.parse(localStorage.getItem(awardedKey) || '{}'); } catch (_) {}
-  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Procvičování CERMAT</h2><p>Nejdřív lehčí rozjezd, potom úlohy blízké testu. XP dostaneš jen za správnou odpověď bez otevřeného řešení.</p></div><span class="cermat-xp">${Object.keys(awarded).length * 10} XP</span></div>` + bank.map((q,i)=>`<article class="cermat-task ${awarded[i]?'is-correct':''}" data-index="${i}"><div class="cermat-task-top"><span>Úloha ${i+1}</span><span class="cermat-difficulty">${q[0]==='easy'?'lehčí rozjezd':'úroveň CERMAT'}</span></div><div class="cermat-question">${q[1]}</div><div class="cermat-options">${q[2].map((o,j)=>`<label class="cermat-option"><input type="radio" name="cp-${file}-${i}" value="${j}"> ${o}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${awarded[i]?'splněno':''}</span><details class="cermat-solution"><summary>Zobrazit řešení</summary>${q[4]}</details></article>`).join('');
+  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Procvičování CERMAT</h2><p>Nejdřív lehčí rozjezd, potom úlohy blízké testu. XP dostaneš jen za správnou odpověď bez otevřené nápovědy nebo řešení.</p></div><span class="cermat-xp">${Object.keys(awarded).length * 10} XP</span></div>` + bank.map((q,i)=>`<article class="cermat-task ${awarded[i]?'is-correct':''}" data-index="${i}"><div class="cermat-task-top"><span>Úloha ${i+1}</span><span class="cermat-difficulty">${q[0]==='easy'?'lehčí rozjezd':'úroveň CERMAT'}</span></div><div class="cermat-question">${q[1]}</div><div class="cermat-options">${q[2].map((o,j)=>`<label class="cermat-option"><input type="radio" name="cp-${file}-${i}" value="${j}"> ${o}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${awarded[i]?'splněno':''}</span>${q[5]?`<details class="cermat-hint"><summary>Nápověda</summary>${q[5]}</details>`:''}<details class="cermat-solution"><summary>Zobrazit řešení</summary>${q[4]}</details></article>`).join('');
   const main = document.querySelector('main');
   const footer = main?.querySelector('footer');
   if (!main) return;
   main.insertBefore(guide, footer || null);
   main.insertBefore(section, footer || null);
   section.querySelectorAll('.cermat-task').forEach(task => {
-    const i = Number(task.dataset.index), feedback = task.querySelector('.cermat-feedback'), details = task.querySelector('details');
+    const i = Number(task.dataset.index), feedback = task.querySelector('.cermat-feedback'), details = task.querySelectorAll('details');
     let usedHelp = false;
-    details.addEventListener('toggle', () => { if (details.open) usedHelp = true; });
+    details.forEach(detail => detail.addEventListener('toggle', () => { if (detail.open) usedHelp = true; }));
     task.querySelector('.cermat-check').addEventListener('click', () => {
       const selected = task.querySelector('input:checked');
       if (!selected) { feedback.textContent = 'vyber odpověď'; return; }

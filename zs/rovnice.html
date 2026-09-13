@@ -5,85 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rovnice a nerovnice | matematika.jasně</title>
 <meta name="description" content="Lineární rovnice a nerovnice s vysvětlením a řešenými příklady pro druhý stupeň ZŠ.">
+<link rel="canonical" href="https://kockondra-web.github.io/matika-web/zs/rovnice.html">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="matematika.jasně">
+<meta property="og:title" content="Rovnice a nerovnice | matematika.jasně">
+<meta property="og:description" content="Lineární rovnice a nerovnice s vysvětlením a řešenými příklady pro druhý stupeň ZŠ.">
+<meta property="og:url" content="https://kockondra-web.github.io/matika-web/zs/rovnice.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rovnice a nerovnice | matematika.jasně">
+<meta name="twitter:description" content="Lineární rovnice a nerovnice s vysvětlením a řešenými příklady pro druhý stupeň ZŠ.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
-<style>
-  :root {
-    --ink: #1B2A4A; --ink-soft: #3A4A6B; --paper: #FAF9F6; --paper-dim: #F0EEE7;
-    --gold: #D4A24E; --brick: #B85C4A; --line: rgba(27, 42, 74, 0.12);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-
-  header { padding: 24px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 100; }
-  header .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
-  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; text-decoration: none; color: var(--ink); }
-  .logo span { color: var(--gold); }
-  .back { font-size: 14px; color: var(--ink-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
-  .back:hover { color: var(--ink); }
-
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
-
-  .page-head { padding: 50px 0 10px; }
-  .section-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
-  .section-lead { color: var(--ink-soft); font-size: 16px; max-width: 640px; line-height: 1.6; margin-bottom: 10px; }
-  .source-note {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    color: var(--gold);
-    background: var(--paper-dim);
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 4px;
-    margin-bottom: 40px;
-  }
-
-  .examples-heading {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
-    margin: 36px 0 16px;
-  }
-
-  .pure-example {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    margin-bottom: 14px;
-    max-width: 700px;
-    padding: 18px 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .pure-example .pe-q { font-size: 15.5px; font-weight: 500; }
-  .pure-example .pe-answer-btn {
-    background: var(--paper-dim);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 7px 14px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-  }
-  .pure-example .pe-answer-btn:hover { background: var(--ink); color: white; }
-  .pure-example .pe-answer { display: none; font-weight: 600; color: var(--ink); }
-  .pure-example.revealed .pe-answer-btn { display: none; }
-  .pure-example.revealed .pe-answer { display: inline-block; }
-
-  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
-</style>
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="basic-practice.css">
+<link rel="stylesheet" href="../site.css?v=3">
 </head>
 <body>
 
@@ -97,16 +35,16 @@
 <div class="wrap">
   <div class="page-head">
     <h1 class="section-title">Rovnice a nerovnice</h1>
-    <p class="section-lead">Čisté příklady bez teorie — přímo ze skutečných zadání jednotné přijímací zkoušky. Klikni na "Zobrazit výsledek", až budeš mít svůj vlastní.</p>
-    <div class="source-note">zdroj: JPZ 2024, 1. řádný termín (M9PAD24C0T01), Cermat</div>
+    <p class="section-lead">Vlastní rovnice a slovní zadání v obtížnosti přijímací zkoušky. Výsledek zobraz až po vlastním výpočtu a kontrole.</p>
+    <div class="source-note">vlastní úlohy · rovnice ve stylu JPZ</div>
   </div>
 
   <div class="examples-heading">Příklady</div>
 
-  <div class="pure-example"><div class="pe-q">1. Řeš rovnici: \(6 - \dfrac{3-2y}{5}\cdot 2 = 4y\)</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(y = 1\tfrac{1}{2}\)</div></div>
-  <div class="pure-example"><div class="pe-q">2. Vynásobíme-li neznámé číslo dvěma a odečteme-li od výsledku 135, získáme polovinu hodnoty neznámého čísla. Jaká je hodnota čísla?</div><button class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">90</div></div>
+  <div class="pure-example"><div class="pe-q">1. Vyřeš rovnici a proveď zkoušku: \(5-\dfrac{4-3y}{2}=2y\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(y=6\)</div></div>
+  <div class="pure-example"><div class="pe-q">2. Od trojnásobku neznámého čísla odečteme 80. Výsledek se rovná polovině původního čísla. Urči toto číslo.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">32</div></div>
 
-  <footer>matematika.jasně — příklady ze skutečných zadání JPZ, zdroj: prijimacky.cermat.cz</footer>
+  <footer>matematika.jasně — vlastní procvičování rovnic a nerovnic pro JPZ</footer>
 </div>
 
 <script>
@@ -121,6 +59,6 @@
   }
 </script>
 
-<script src="../site.js"></script>
+<script src="../site.js?v=3"></script>
 </body>
 </html>

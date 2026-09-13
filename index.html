@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matematika jasně | Přehled k přijímačkám a maturitě</title>
 <meta name="description" content="Srozumitelná matematika pro ZŠ a SŠ: teorie, řešené příklady, přijímačky a maturita.">
+<link rel="canonical" href="https://kockondra-web.github.io/matika-web/">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="matematika.jasně">
+<meta property="og:title" content="Matematika jasně | Přehled k přijímačkám a maturitě">
+<meta property="og:description" content="Srozumitelná matematika pro ZŠ a SŠ: teorie, řešené příklady, přijímačky a maturita.">
+<meta property="og:url" content="https://kockondra-web.github.io/matika-web/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Matematika jasně | Přehled k přijímačkám a maturitě">
+<meta name="twitter:description" content="Srozumitelná matematika pro ZŠ a SŠ: teorie, řešené příklady, přijímačky a maturita.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -19,6 +29,8 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { max-width: 100%; overflow-x: clip; }
 
   body {
     background: var(--paper);
@@ -46,7 +58,7 @@
   }
   .header-search:focus { outline: none; border-color: var(--gold); background: white; }
   .header-search::placeholder { color: var(--ink-soft); }
-  @media (max-width: 600px) { .header-search { width: 140px; } }
+  @media (max-width: 600px) { header .wrap { padding-left: 16px; padding-right: 16px; gap: 12px; } .header-search { width: min(140px, 42vw); } }
   .logo {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -314,7 +326,7 @@
 <header>
   <div class="wrap header-inner">
     <div class="logo">matematika<span>.</span>jasně</div>
-    <input type="text" class="header-search" id="header-search" placeholder="Hledat téma… (Enter)">
+    <input type="search" class="header-search" id="header-search" aria-label="Hledat matematické téma" placeholder="Hledat téma… (Enter)">
   </div>
 </header>
 

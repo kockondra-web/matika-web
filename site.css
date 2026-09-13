@@ -4,7 +4,9 @@
   --paper: #FAF9F6;
   --paper-dim: #F0EEE7;
   --gold: #D4A24E;
+  --gold-text: #96691E;
   --brick: #B85C4A;
+  --brick-text: #9A4437;
   --line: rgba(27, 42, 74, 0.12);
 }
 
@@ -53,7 +55,7 @@ body.jpz-lesson-page {
 .jpz-lesson-page .logo span { color: var(--gold); }
 .jpz-lesson-page .back { color: var(--ink-soft); font: 500 13px/1.3 'JetBrains Mono', monospace; text-decoration: none; }
 .jpz-lesson-page .page { padding-top: 50px; padding-bottom: 90px; }
-.jpz-lesson-page .tag { display: inline-block; margin-bottom: 12px; color: var(--gold); font: 600 12px/1.4 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
+.jpz-lesson-page .tag { display: inline-block; margin-bottom: 12px; color: var(--gold-text); font: 600 12px/1.4 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
 .jpz-lesson-page h1 { max-width: 760px; margin: 0 0 12px; font-size: clamp(34px, 5vw, 44px); line-height: 1.12; letter-spacing: -.02em; }
 .jpz-lesson-page .lead { max-width: 700px; margin: 0 0 34px; color: var(--ink-soft); font-size: 16px; line-height: 1.65; }
 .jpz-lesson-page .box,
@@ -76,11 +78,14 @@ body.jpz-lesson-page {
 .jpz-lesson-page code { padding: 2px 5px; border-radius: 3px; background: var(--paper-dim); font-family: 'JetBrains Mono', monospace; }
 .jpz-lesson-page footer { max-width: 700px; margin-top: 36px; padding: 24px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font: 13px/1.5 'JetBrains Mono', monospace; }
 
-.lesson-study-path{max-width:700px;margin:22px 0 34px;padding:17px 18px;display:grid;grid-template-columns:1fr auto;gap:14px 20px;align-items:center;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:7px}.lesson-study-copy span{display:block;color:var(--gold);font:700 10px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em}.lesson-study-copy strong{display:block;margin:4px 0 3px;font:600 18px 'Fraunces',serif}.lesson-study-copy small{color:var(--ink-soft);font:12px/1.45 'Inter',sans-serif}.lesson-study-path nav{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap}.lesson-study-path nav a{padding:7px 10px;border:1px solid var(--line);border-radius:99px;background:var(--paper);color:var(--ink-soft);font:600 12px 'Inter',sans-serif;text-decoration:none}.lesson-study-path nav a:hover{border-color:var(--gold);color:var(--ink)}.lesson-study-path button{border:1px solid var(--line);border-radius:5px;padding:9px 11px;background:var(--ink);color:#fff;font-weight:700;cursor:pointer}.lesson-study-path.is-complete{border-left-color:#6b9b7a;background:#f4f8f5}.lesson-study-path.is-complete button{background:#6b9b7a;border-color:#6b9b7a}
+.lesson-study-path{max-width:700px;margin:22px 0 34px;padding:17px 18px;display:grid;grid-template-columns:1fr auto;gap:14px 20px;align-items:center;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:7px}.lesson-study-copy span{display:block;color:var(--gold-text);font:700 10px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em}.lesson-study-copy strong{display:block;margin:4px 0 3px;font:600 18px 'Fraunces',serif}.lesson-study-copy small{color:var(--ink-soft);font:12px/1.45 'Inter',sans-serif}.lesson-study-path nav{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap}.lesson-study-path nav a{padding:7px 10px;border:1px solid var(--line);border-radius:99px;background:var(--paper);color:var(--ink-soft);font:600 12px 'Inter',sans-serif;text-decoration:none}.lesson-study-path nav a:hover{border-color:var(--gold);color:var(--ink)}.lesson-study-path button{border:1px solid var(--line);border-radius:5px;padding:9px 11px;background:var(--ink);color:#fff;font-weight:700;cursor:pointer}.lesson-study-path.is-complete{border-left-color:#6b9b7a;background:#f4f8f5}.lesson-study-path.is-complete button{background:#6b9b7a;border-color:#6b9b7a}
 
 .lesson-cermat,.lesson-summary{max-width:700px;margin:38px 0 24px}.lesson-cermat{padding:24px;background:#f7f3e8;border:1px solid rgba(212,162,78,.35);border-radius:8px}.lesson-section-label{margin-bottom:5px;color:var(--gold);font:700 10px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em}.lesson-cermat>h2,.lesson-summary>h2{margin:0 0 8px;font:600 26px 'Fraunces',serif}.lesson-cermat>p,.lesson-summary>p{color:var(--ink-soft);font:14px/1.6 'Inter',sans-serif}.lesson-challenge-list{display:grid;gap:12px;margin-top:18px}.lesson-challenge{padding:17px 18px;background:#fff;border:1px solid var(--line);border-radius:6px}.lesson-challenge>div{display:flex;align-items:center;gap:8px;margin-bottom:8px}.lesson-challenge>div span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font:700 11px 'JetBrains Mono',monospace}.lesson-challenge>div strong{color:var(--gold);font:700 11px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em}.lesson-challenge>p{font:15px/1.6 'Inter',sans-serif}.lesson-challenge details{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}.lesson-challenge summary{cursor:pointer;color:var(--ink);font:700 12px 'Inter',sans-serif}.lesson-challenge details p{margin-top:9px;color:var(--ink-soft);font:13px/1.6 'Inter',sans-serif}.lesson-summary{padding:20px 22px;border-left:4px solid #6b9b7a;background:#f4f8f5}.lesson-summary ul{margin:12px 0 12px 20px;color:var(--ink-soft);font:14px/1.6 'Inter',sans-serif}.lesson-summary li{margin:5px 0}
 
+html,body{max-width:100%;overflow-x:clip}
 :where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid rgba(212,162,78,.55);outline-offset:3px}
+.lesson-section-label,.lesson-challenge>div strong,.cermat-lesson-guide span,.cermat-xp,.cermat-task-top{color:var(--gold-text)}
+.cermat-feedback{color:var(--brick-text)}
 .katex-display{max-width:100%;overflow-x:auto;overflow-y:hidden;padding-bottom:3px}.katex-display>.katex{min-width:max-content}html,body{max-width:100%;overflow-x:hidden}main,.rule-box,.box,.example,.priklad{min-width:0}.rule-box,.box,.example,.priklad{max-width:100%;overflow-x:auto}
 .site-footer-links{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:12px}.site-footer-links a{color:inherit;font:600 12px 'Inter',sans-serif;text-underline-offset:3px}.site-footer-links a:hover{color:var(--gold)}
 
@@ -199,4 +204,6 @@ body.jpz-lesson-page {
   header .logo { flex: 0 0 auto; white-space: nowrap; }
   header .back { min-width: 0; max-width: none; white-space: nowrap; text-align: right; font-size: 0; }
   header .back::before { content: '← zpět'; font: 500 12px/1.3 'JetBrains Mono', monospace; }
+  header .back[href*="maturita"]::before { content: '← maturita'; }
+  header .back[href*="rocniky"]::before { content: '← ročníky'; }
 }

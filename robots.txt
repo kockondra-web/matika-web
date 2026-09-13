@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /matika-web/ustni-otazky-puvodni/
+
+Sitemap: https://kockondra-web.github.io/matika-web/sitemap.xml

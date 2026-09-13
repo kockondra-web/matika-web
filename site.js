@@ -128,19 +128,19 @@
     ],
     [
       "zs/jpz-2026-test-a.html",
-      "JPZ 2026 — test A"
+      "Vlastní cvičný test A"
     ],
     [
       "zs/jpz-2026-test-b.html",
-      "JPZ 2026 — test B"
+      "Vlastní cvičný test B"
     ],
     [
       "zs/jpz-2026-test-c.html",
-      "JPZ 2026 — test C"
+      "Vlastní cvičný test C"
     ],
     [
       "zs/jpz-2026-test-d.html",
-      "JPZ 2026 — test D"
+      "Vlastní cvičný test D"
     ],
     [
       "zs/konstrukcni-ulohy-vice.html",
@@ -522,6 +522,86 @@
     const links = unique.length
       ? `<ul>${unique.map(topic => `<li><a href="${lessonFor(topic)}">${topic} → procvičit</a></li>`).join('')}</ul>`
       : '<p>Ve všech tématech máš plný počet bodů.</p>';
-    result.insertAdjacentHTML('beforeend', `<div class="result-next"><strong>Co dál</strong><p>${message}</p>${links}</div>`);
+    const full = document.querySelectorAll('.task.correct').length;
+    const partial = document.querySelectorAll('.task.partial').length;
+    const zero = document.querySelectorAll('.task.wrong').length;
+    result.insertAdjacentHTML('beforeend', `<div class="result-next"><strong>Rozbor bodů</strong><p class="result-breakdown">Plný počet: ${full} úloh · dílčí body: ${partial} · bez bodu: ${zero}</p><strong>Co dál</strong><p>${message}</p>${links}</div>`);
   }, 0));
+})();
+
+// Vizuální podklady k vybraným úlohám v obou celých maturitních simulacích.
+(() => {
+  if (!location.pathname.includes('cermat-simulace-')) return;
+  const tasks = [...document.querySelectorAll('#tasks .task')];
+  const variant = Number(document.body.dataset.variant);
+  const finish = document.querySelector('.finish');
+  if (finish && !document.querySelector('.scoring-guide')) {
+    finish.insertAdjacentHTML('beforebegin', `<section class="scoring-guide" aria-labelledby="scoring-title"><h2 id="scoring-title">Jak se test boduje</h2><ul><li>U uzavřené nebo číselné úlohy získáš uvedený počet bodů pouze za správnou odpověď.</li><li>U svazku tvrzení získáš jeden bod za každé správné rozhodnutí, takže můžeš získat i dílčí body.</li><li>Po odevzdání se u každé úlohy zobrazí dosažené body i řešení. XP se přidají jen za zlepšení nejlepšího výsledku.</li></ul></section>`);
+  }
+  const addFigure = (index, label, svg) => {
+    const question = tasks[index]?.querySelector('.question');
+    if (!question) return;
+    question.insertAdjacentHTML('beforeend', `<figure class="task-visual" role="img" aria-label="${label}">${svg}</figure>`);
+  };
+  if (variant === 1) {
+    addFigure(9, 'Graf přímky procházející body minus jedna tři, nula jedna a dva minus tři', `
+      <svg viewBox="0 0 300 190" aria-hidden="true">
+        <line x1="25" y1="105" x2="280" y2="105" stroke="currentColor" stroke-width="2"/><line x1="150" y1="12" x2="150" y2="178" stroke="currentColor" stroke-width="2"/>
+        <path d="M110 45L230 165" fill="none" stroke="#b85c4a" stroke-width="4"/>
+        <circle cx="110" cy="45" r="5"/><circle cx="150" cy="85" r="5"/><circle cx="230" cy="165" r="5"/>
+        <text x="91" y="37">[−1;3]</text><text x="158" y="80">[0;1]</text><text x="236" y="160">[2;−3]</text><text x="282" y="100">x</text><text x="157" y="18">y</text>
+      </svg>`);
+    addFigure(15, 'Obdélník o rozměrech 12 krát 8 centimetrů s vyříznutým půlkruhem o průměru 8 centimetrů', `
+      <svg viewBox="0 0 300 190" aria-hidden="true">
+        <path d="M35 25H265V165H35Z" fill="#f8f5ed" stroke="currentColor" stroke-width="3"/>
+        <path d="M105 165A45 45 0 0 1 195 165Z" fill="#fff" stroke="currentColor" stroke-width="3"/>
+        <text x="150" y="18" text-anchor="middle">12 cm</text>
+        <text x="16" y="100" text-anchor="middle" transform="rotate(-90 16 100)">8 cm</text>
+        <text x="150" y="153" text-anchor="middle">průměr 8 cm</text>
+      </svg>`);
+  }
+  if (variant === 2) {
+    addFigure(9, 'Graf přímky procházející body minus jedna pět, jedna jedna a tři minus tři', `
+      <svg viewBox="0 0 300 190" aria-hidden="true">
+        <line x1="25" y1="105" x2="285" y2="105" stroke="currentColor" stroke-width="2"/><line x1="150" y1="12" x2="150" y2="178" stroke="currentColor" stroke-width="2"/>
+        <path d="M110 5L270 165" fill="none" stroke="#b85c4a" stroke-width="4"/>
+        <circle cx="110" cy="5" r="5"/><circle cx="190" cy="85" r="5"/><circle cx="270" cy="165" r="5"/>
+        <text x="116" y="18">[−1;5]</text><text x="198" y="80">[1;1]</text><text x="220" y="158">[3;−3]</text><text x="282" y="100">x</text><text x="157" y="18">y</text>
+      </svg>`);
+    addFigure(17, 'Kružnice s poloměrem 5 centimetrů a tětivou vzdálenou 3 centimetry od středu', `
+      <svg viewBox="0 0 300 210" aria-hidden="true">
+        <circle cx="150" cy="105" r="82" fill="#f8f5ed" stroke="currentColor" stroke-width="3"/>
+        <line x1="84" y1="154" x2="216" y2="154" stroke="currentColor" stroke-width="4"/>
+        <line x1="150" y1="105" x2="150" y2="154" stroke="#b85c4a" stroke-width="3" stroke-dasharray="5 4"/>
+        <line x1="150" y1="105" x2="216" y2="154" stroke="#d4a24e" stroke-width="3"/>
+        <circle cx="150" cy="105" r="4" fill="currentColor"/>
+        <text x="137" y="134">3 cm</text><text x="190" y="122">5 cm</text>
+      </svg>`);
+    const stats = tasks[24]?.querySelector('.question');
+    if (stats) stats.innerHTML = `Výsledky pěti měření jsou zapsány v tabulce:
+      <table class="task-data"><thead><tr><th>Měření</th><th>1.</th><th>2.</th><th>3.</th><th>4.</th><th>5.</th></tr></thead>
+      <tbody><tr><th>Hodnota</th><td>2</td><td>4</td><td>4</td><td>5</td><td>10</td></tr></tbody></table>`;
+  }
+})();
+
+// Společná pojistka pro starší interaktivní stránky.
+(() => {
+  const repairControls = root => {
+    if (!(root instanceof Element || root instanceof Document)) return;
+    root.querySelectorAll('button:not([type])').forEach(button => button.type = 'button');
+    root.querySelectorAll('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby]), select:not([aria-label]):not([aria-labelledby]), textarea:not([aria-label]):not([aria-labelledby])').forEach((input, index) => {
+      if (input.labels?.length || ['radio', 'checkbox'].includes(input.type)) return;
+      const task = input.closest('.task, .question, .q, .exercise, .practice-item, article');
+      const number = task?.querySelector('.task-num, .q-num, .question-number, h3')?.textContent?.trim();
+      input.setAttribute('aria-label', number ? `Odpověď – ${number}` : `Odpověď ${index + 1}`);
+    });
+  };
+  repairControls(document);
+  const observer = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
+    if (node instanceof Element) {
+      if (node.matches('button:not([type])')) node.type = 'button';
+      repairControls(node);
+    }
+  })));
+  observer.observe(document.body, { childList: true, subtree: true });
 })();

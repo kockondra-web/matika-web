@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maturita | matematika.jasně</title>
 <meta name="description" content="Příprava k maturitě z matematiky: studijní plán, rychlá diagnostika, tematické okruhy, teorie a řešené příklady.">
+<link rel="canonical" href="https://kockondra-web.github.io/matika-web/ss/maturita.html">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="matematika.jasně">
+<meta property="og:title" content="Maturita | matematika.jasně">
+<meta property="og:description" content="Příprava k maturitě z matematiky: studijní plán, rychlá diagnostika, tematické okruhy, teorie a řešené příklady.">
+<meta property="og:url" content="https://kockondra-web.github.io/matika-web/ss/maturita.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maturita | matematika.jasně">
+<meta name="twitter:description" content="Příprava k maturitě z matematiky: studijní plán, rychlá diagnostika, tematické okruhy, teorie a řešené příklady.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -313,7 +323,7 @@
   @media (max-width:620px) { .exam-facts { grid-template-columns:1fr; } }
   @media (max-width:540px) { .diag-grid { grid-template-columns:1fr; } .diag-item:nth-child(odd) { border-right:0; } .exam-routine { grid-template-columns:1fr; } .diagnostic-head { align-items:flex-start; flex-direction:column; } .diagnostic-meta { width:100%; justify-content:space-between; } .test-progress-summary { align-items:flex-start; flex-direction:column; gap:5px; } .practice-overview { flex-wrap:wrap; } .practice-overview .practice-bar { flex:1 0 100%; } .layout { padding-left:20px; padding-right:20px; } .ok-head { flex-wrap:wrap; } .ok-nazev { flex:1 1 calc(100% - 44px); } .ok-pct { margin-left:32px; } }
 </style>
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../site.css?v=3">
 </head>
 <body data-no-study-tools="true">
 
@@ -422,7 +432,7 @@
     <div class="section-kicker">Krok 3</div>
     <h2 class="blok">Okruhy didaktického testu</h2>
     <p class="section-intro">Devět tematických okruhů podle katalogu požadavků. U každého najdeš přímé odkazy na stávající teorii a řešené příklady.</p>
-    <div class="practice-overview"><strong>Kontrolní úlohy</strong><div class="practice-bar" aria-hidden="true"><i id="cermat-practice-bar"></i></div><span id="cermat-practice-count">0 z 44 bez nápovědy</span></div>
+    <div class="practice-overview"><strong>Kontrolní úlohy</strong><div class="practice-bar" aria-hidden="true"><i id="cermat-practice-bar"></i></div><span id="cermat-practice-count">0 ze 114 bez nápovědy</span></div>
 
   <div class="okruhy">
       <div class="okruh hotovy">
@@ -612,7 +622,7 @@
   <footer>matematika.jasně — CERMAT i ústní maturita přehledně oddělené</footer>
 </div>
 
-<script src="../site.js"></script>
+<script src="../site.js?v=3"></script>
 <script>
   (() => {
     const questions = [...document.querySelectorAll('.diag-question')];
@@ -838,8 +848,9 @@
     try {
       files.forEach(file => { done += Object.keys(JSON.parse(localStorage.getItem(`maturita-cermat-xp:${file}`) || '{}')).length; });
     } catch (_) {}
-    document.getElementById('cermat-practice-count').textContent = `${done} z 44 bez nápovědy`;
-    document.getElementById('cermat-practice-bar').style.width = `${done / 44 * 100}%`;
+    const totalPractice = 114;
+    document.getElementById('cermat-practice-count').textContent = `${done} ze ${totalPractice} bez nápovědy`;
+    document.getElementById('cermat-practice-bar').style.width = `${Math.min(done / totalPractice * 100, 100)}%`;
   })();
 </script>
 </body>
