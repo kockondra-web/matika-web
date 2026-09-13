@@ -108,15 +108,20 @@
   }
 
   .legend {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap;
     font-size: 13px; color: var(--ink-soft);
     margin-bottom: 32px;
     font-family: 'JetBrains Mono', monospace;
   }
+  .legend span::before { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .legend { align-items: flex-start; flex-direction: column; gap: 7px; line-height: 1.5; }
+  }
 
   footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
-<link rel="stylesheet" href="../site.css?v=3">
+<link rel="stylesheet" href="../site.css?v=4">
 </head>
 <body>
 
@@ -130,8 +135,8 @@
 <div class="wrap">
   <div class="page-head">
     <h1 class="section-title">Podle ročníku</h1>
-    <p class="section-lead">Kompletní učivo matematiky pro 2. stupeň ZŠ (6.–9. ročník), sestavené podle školního vzdělávacího programu. Témata označená ★ jsou zároveň klíčová pro jednotnou přijímací zkoušku na SŠ.</p>
-    <div class="legend">★ <span>= téma je klíčové i pro přijímačky na SŠ</span> &nbsp;·&nbsp; <span>kliknutím otevřeš konkrétní výklad a příklady</span></div>
+    <p class="section-lead">Vyber si svůj ročník a postupuj tématy v doporučeném pořadí. Každá lekce nabízí stručný výklad, řešený vzor a procvičení s kontrolou. Konkrétní pořadí učiva se může podle školy mírně lišit.</p>
+    <div class="legend"><span>★ téma je klíčové i pro přijímačky na SŠ</span><span>Otevřením karty přejdeš na výklad a procvičení</span></div>
     <input type="search" class="page-search" id="page-search" aria-label="Hledat téma pro základní školu" placeholder="Hledat téma napříč všemi ročníky…">
     <div class="grade-nav">
       <a href="#g6">6. ročník</a>
@@ -144,10 +149,10 @@
 
   <div class="grade-block" id="g6">
     <div class="grade-head"><div class="grade-num">6.</div><h2>ročník</h2></div>
-    <div class="grade-sub">4 hodiny týdně</div>
+    <div class="grade-sub">Doporučené pořadí · od početních základů ke geometrii</div>
     <div class="topic-grid">
       <div class="topic-card linked">
-        <a class="card-link" href="prijimacky.html#zlomky">
+        <a class="card-link" href="cisla-zs.html#prirozena">
           <span class="prijimacky-star">★</span>
           <h3>Přirozená čísla</h3>
           <p>Číselná osa, porovnávání, zaokrouhlování, početní operace</p>
@@ -155,7 +160,7 @@
       </div>
 <div class="topic-card linked"><a class="card-link" href="cisla-zs.html#desetinna"><span class="prijimacky-star">★</span><h3>Desetinná čísla</h3><p>Zápis, porovnávání, zaokrouhlování na daný řád →</p></a></div>
       <div class="topic-card linked">
-        <a class="card-link" href="prijimacky.html#zlomky">
+        <a class="card-link" href="zlomky-odmocniny.html?from=rocniky#uvod">
           <span class="prijimacky-star">★</span>
           <h3>Zlomky (úvod)</h3>
           <p>Znázornění, sčítání a odčítání se stejným jmenovatelem</p>
@@ -167,17 +172,17 @@
       <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#uhly"><h3>Úhel</h3><p>Druhy úhlů, sčítání/odčítání, vedlejší a vrcholové úhly →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#osova"><h3>Osová souměrnost</h3><p>Konstrukce obrazu v osové souměrnosti →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#trojuhelnik"><span class="prijimacky-star">★</span><h3>Trojúhelník</h3><p>Druhy, výšky, těžnice, kružnice opsaná/vepsaná →</p></a></div>
-      <div class="topic-card linked"><a class="card-link" href="prevody-jednotek.html"><span class="prijimacky-star">★</span><h3>Převody jednotek</h3><p>Délka, obsah, objem, hmotnost a čas krok za krokem →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="prevody-jednotek.html?from=rocniky"><span class="prijimacky-star">★</span><h3>Převody jednotek</h3><p>Délka, obsah, objem, hmotnost a čas krok za krokem →</p></a></div>
     </div>
   </div>
 
   <div class="grade-block" id="g7">
     <div class="grade-head"><div class="grade-num">7.</div><h2>ročník</h2></div>
-    <div class="grade-sub">4 hodiny týdně</div>
+    <div class="grade-sub">Doporučené pořadí · zlomky, poměry, procenta a geometrie</div>
     <div class="topic-grid">
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#objemy"><h3>Objem a povrch těles</h3><p>Kvádr a krychle — objem, povrch, jednotky →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="telesa.html#kvadr-krychle"><h3>Objem a povrch těles</h3><p>Kvádr a krychle — objem, povrch, jednotky →</p></a></div>
       <div class="topic-card linked">
-        <a class="card-link" href="prijimacky.html#zlomky">
+        <a class="card-link" href="zlomky-odmocniny.html?from=rocniky#scitani">
           <span class="prijimacky-star">★</span>
           <h3>Zlomky (plná verze)</h3>
           <p>Krácení, násobení, dělení, smíšená čísla, převod na desetinná</p>
@@ -187,23 +192,23 @@
       <div class="topic-card linked"><a class="card-link" href="cisla-zs.html#cela"><span class="prijimacky-star">★</span><h3>Celá čísla</h3><p>Kladná/záporná čísla, početní operace →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="cisla-zs.html#racionalni"><h3>Racionální čísla</h3><p>Porovnávání a početní operace →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#ctyruhelniky"><span class="prijimacky-star">★</span><h3>Čtyřúhelníky</h3><p>Rovnoběžníky, lichoběžníky — obsah, obvod →</p></a></div>
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#slovni-ulohy-pomer-umernost"><span class="prijimacky-star">★</span><h3>Poměr a úměra</h3><p>Přímá a nepřímá úměrnost, měřítko, trojčlenka →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="slovni-ulohy-pomer-umernost-vice.html?from=rocniky"><span class="prijimacky-star">★</span><h3>Poměr a úměra</h3><p>Přímá a nepřímá úměrnost, měřítko, trojčlenka →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="telesa.html#hranoly"><h3>Hranoly</h3><p>Objem a povrch základních hranolů →</p></a></div>
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#procenta-uloha-8"><span class="prijimacky-star">★</span><h3>Procenta</h3><p>Procentová část, základ a jednoduché slovní úlohy →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="procenta-uloha-8-vice.html?from=rocniky"><span class="prijimacky-star">★</span><h3>Procenta</h3><p>Procentová část, základ a jednoduché slovní úlohy →</p></a></div>
     </div>
   </div>
 
   <div class="grade-block" id="g8">
     <div class="grade-head"><div class="grade-num">8.</div><h2>ročník</h2></div>
-    <div class="grade-sub">5 hodin týdně</div>
+    <div class="grade-sub">Doporučené pořadí · mocniny, algebra, rovnice a aplikace</div>
     <div class="topic-grid">
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#procenta-uloha-8"><span class="prijimacky-star">★</span><h3>Procenta</h3><p>Základ, procentová část, úroky, promile →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="procenta-uloha-8-vice.html?from=rocniky"><span class="prijimacky-star">★</span><h3>Procenta</h3><p>Základ, procentová část, úroky, promile →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="cisla-zs.html#odmocniny"><span class="prijimacky-star">★</span><h3>Druhá mocnina a odmocnina</h3><p>Praktické použití, tabulky, kalkulačka →</p></a></div>
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#geometrie"><span class="prijimacky-star">★</span><h3>Pythagorova věta</h3><p>Výpočet stran pravoúhlého trojúhelníku →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="geometrie.html"><span class="prijimacky-star">★</span><h3>Pythagorova věta</h3><p>Výpočet stran pravoúhlého trojúhelníku →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="cisla-zs.html#mocniny"><h3>Mocniny</h3><p>Mocniny s přirozeným exponentem, zápis pomocí mocnin deseti →</p></a></div>
 <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#kruznice"><h3>Kružnice a kruh</h3><p>Thaletova věta, délka kružnice, obsah kruhu →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="telesa.html#valec"><h3>Válec</h3><p>Povrch a objem válce →</p></a></div>
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#vyrazy"><span class="prijimacky-star">★</span><h3>Výrazy</h3><p>Proměnná, mnohočleny, vzorce, dělení jednočlenem →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="vyrazy.html"><span class="prijimacky-star">★</span><h3>Výrazy</h3><p>Proměnná, mnohočleny, vzorce, dělení jednočlenem →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="konstrukcni-ulohy.html"><h3>Konstrukční úlohy</h3><p>Množiny bodů dané vlastnosti →</p></a></div>
 <div class="topic-card linked"><a class="card-link" href="statistika-funkce-zs.html#statistika"><h3>Základy statistiky</h3><p>Průměr, modus, medián, diagramy →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="rovnice.html"><span class="prijimacky-star">★</span><h3>Lineární rovnice</h3><p>Rovnice se závorkami, zlomky a kontrolou řešení →</p></a></div>
@@ -212,9 +217,9 @@
 
   <div class="grade-block" id="g9">
     <div class="grade-head"><div class="grade-num">9.</div><h2>ročník</h2></div>
-    <div class="grade-sub">5 hodin týdně</div>
+    <div class="grade-sub">Doporučené pořadí · rovnice, funkce, podobnost a finanční matematika</div>
     <div class="topic-grid">
-      <div class="topic-card linked"><a class="card-link" href="prijimacky.html#rovnice"><span class="prijimacky-star">★</span><h3>Lineární rovnice</h3><p>Vč. neznámé ve jmenovateli, slovní úlohy →</p></a></div>
+      <div class="topic-card linked"><a class="card-link" href="rovnice.html"><span class="prijimacky-star">★</span><h3>Lineární rovnice</h3><p>Rovnice se zlomky a navazující slovní úlohy →</p></a></div>
 <div class="topic-card linked"><a class="card-link" href="rovinne-utvary.html#podobnost"><h3>Podobnost trojúhelníků</h3><p>Poměr podobnosti, měřítko a obsahy →</p></a></div>
 <div class="topic-card linked"><a class="card-link" href="statistika-funkce-zs.html#funkce"><span class="prijimacky-star">★</span><h3>Funkce</h3><p>Lineární, kvadratická, nepřímá úměrnost →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="soustavy-rovnic-zs.html"><span class="prijimacky-star">★</span><h3>Soustavy rovnic</h3><p>Dosazovací, sčítací, grafické řešení →</p></a></div>
@@ -225,7 +230,7 @@
     </div>
   </div>
 
-  <footer>matematika.jasně — učivo sestaveno podle ŠVP pro 2. stupeň ZŠ</footer>
+  <footer>matematika.jasně — přehled učiva pro 2. stupeň ZŠ</footer>
 </div>
 
 <script>
@@ -257,6 +262,6 @@
   }
 </script>
 
-<script src="../site.js?v=3"></script>
+<script src="../site.js?v=4"></script>
 </body>
 </html>

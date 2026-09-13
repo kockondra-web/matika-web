@@ -325,9 +325,136 @@
   ];
   if (current.includes('/ss/') && cermatPracticePages.includes(current.split('/').pop())) {
     const practiceScript = document.createElement('script');
-    practiceScript.src = 'cermat-practice.js';
+    practiceScript.src = 'cermat-practice.js?v=4';
     practiceScript.async = false;
     document.body.append(practiceScript);
+  }
+
+  const gradeLessonCatalog = {
+    zs: {
+      'cisla-zs.html': ['Čísla a dělitelnost', '6.–8. ročník'],
+      'zlomky-odmocniny.html': ['Zlomky a odmocniny', '6.–8. ročník'],
+      'rovinne-utvary.html': ['Rovinné útvary', '6.–9. ročník'],
+      'telesa.html': ['Tělesa', '6.–9. ročník'],
+      'prevody-jednotek.html': ['Převody jednotek', '6.–9. ročník'],
+      'slovni-ulohy-pomer-umernost-vice.html': ['Poměr a úměrnost', '7.–9. ročník'],
+      'procenta-uloha-8-vice.html': ['Procenta', '7.–9. ročník'],
+      'geometrie.html': ['Obvod, obsah a Pythagorova věta', '8.–9. ročník'],
+      'vyrazy.html': ['Algebraické výrazy', '8.–9. ročník'],
+      'konstrukcni-ulohy.html': ['Konstrukční úlohy', '8.–9. ročník'],
+      'statistika-funkce-zs.html': ['Statistika a funkce', '8.–9. ročník'],
+      'rovnice.html': ['Rovnice a nerovnice', '8.–9. ročník'],
+      'soustavy-rovnic-zs.html': ['Soustavy rovnic', '9. ročník'],
+      'financni-matematika-zs.html': ['Finanční matematika', '9. ročník'],
+      'rysovani.html': ['Základy rýsování', '9. ročník']
+    },
+    ss: {
+      'logika-mnoziny.html': ['Základní poznatky a množiny', '1. ročník'],
+      'mocniny.html': ['Mocniny a odmocniny', '1. ročník'],
+      'kvadraticke.html': ['Kvadratické rovnice a funkce', '1.–2. ročník'],
+      'algebraicke-vyrazy.html': ['Algebraické a lomené výrazy', '1. ročník'],
+      'soustavy.html': ['Rovnice a soustavy', '1. ročník'],
+      'planimetrie.html': ['Planimetrie', '1.–2. ročník'],
+      'funkce.html': ['Funkce', '2. ročník'],
+      'goniometrie.html': ['Goniometrie a trigonometrie', '2. ročník'],
+      'gon-vzorce.html': ['Goniometrické vzorce a rovnice', '2. ročník'],
+      'exp-log-funkce.html': ['Exponenciální a logaritmické funkce', '2. ročník'],
+      'exp-log-rovnice.html': ['Exponenciální a logaritmické rovnice', '2. ročník'],
+      'stereometrie.html': ['Stereometrie', '3. ročník'],
+      'analyticka-geometrie-rovina.html': ['Analytická geometrie v rovině', '3. ročník'],
+      'analyticka-geometrie-prostor.html': ['Analytická geometrie v prostoru', '3. ročník'],
+      'kruznice.html': ['Kružnice', '3. ročník'],
+      'elipsa.html': ['Elipsa', '3. ročník'],
+      'hyperbola-parabola.html': ['Hyperbola a parabola', '3. ročník'],
+      'vzajemna-poloha-kuzelosecky.html': ['Přímka a kuželosečka', '3. ročník'],
+      'kombinatorika-pravdepodobnost.html': ['Kombinatorika, pravděpodobnost a statistika', '4. ročník'],
+      'posloupnosti.html': ['Posloupnosti', '4. ročník'],
+      'prakticke-pocitani.html': ['Praktická a finanční matematika', '4. ročník'],
+      'komplexni-cisla.html': ['Komplexní čísla', '4. ročník'],
+      'komplexni-rovnice.html': ['Rovnice v komplexních číslech', '4. ročník'],
+      'derivace.html': ['Limity a derivace', 'seminář'],
+      'uziti-derivaci.html': ['Užití derivací', 'seminář'],
+      'neurcity-integral.html': ['Neurčitý integrál', 'seminář'],
+      'urcity-integral.html': ['Určitý integrál', 'seminář']
+    }
+  };
+  const gradeProgressKey = 'mj_rocniky_progress_v1';
+  const readGradeProgress = () => {
+    try { return JSON.parse(localStorage.getItem(gradeProgressKey) || '{}'); } catch (_) { return {}; }
+  };
+  const normalizeLessonKey = (section, href) => `${section}/${href.replace(/^\.\//, '').replace(/\?[^#]*/, '')}`;
+  const fileName = current.split('/').pop();
+  const gradeSection = current.includes('/ss/') ? 'ss' : 'zs';
+  const gradeLesson = gradeLessonCatalog[gradeSection][fileName];
+
+  const enhanceGradeOverview = sectionName => {
+    const progress = readGradeProgress();
+    document.querySelectorAll('.grade-block').forEach(block => {
+      const cards = [...block.querySelectorAll('.topic-card.linked')];
+      cards.forEach(card => {
+        const link = card.querySelector('a.card-link');
+        if (!link || link.href.includes('prijimacky.html') || link.href.includes('maturita.html')) return;
+        const href = link.getAttribute('href');
+        const key = normalizeLessonKey(sectionName, href);
+        const pageKey = normalizeLessonKey(sectionName, href.split('#')[0]);
+        const isComplete = Boolean(progress[key] || progress[pageKey]);
+        const status = document.createElement('span');
+        status.className = `topic-status${isComplete ? ' is-complete' : ''}`;
+        status.textContent = isComplete ? '✓ zvládnuto' : 'čeká na procvičení';
+        card.append(status);
+      });
+      const trackable = cards.filter(card => card.querySelector('.topic-status'));
+      if (!trackable.length) return;
+      const done = trackable.filter(card => card.querySelector('.topic-status.is-complete')).length;
+      const progressBox = document.createElement('div');
+      progressBox.className = 'grade-progress';
+      progressBox.innerHTML = `<div><strong>${done} z ${trackable.length} témat</strong><span> označeno jako zvládnuté</span></div><div class="grade-progress-track"><i style="width:${Math.round(done / trackable.length * 100)}%"></i></div>`;
+      block.querySelector('.grade-sub')?.insertAdjacentElement('afterend', progressBox);
+    });
+  };
+  if (current.endsWith('/zs/rocniky.html')) enhanceGradeOverview('zs');
+  if (current.endsWith('/ss/ss-rocniky.html')) enhanceGradeOverview('ss');
+
+  if (gradeLesson) {
+    document.body.classList.add('grade-lesson-page');
+    const content = document.querySelector('main') || document.querySelector('body > .wrap');
+    if (content && !content.querySelector('.lesson-study-path')) {
+      const headings = [...content.querySelectorAll('h2[id], h2, h3[id]')];
+      headings.forEach((heading, index) => { if (!heading.id) heading.id = `cast-${index + 1}`; });
+      const solved = content.querySelector('.priklad, .example, .worked-example');
+      if (solved && !solved.id) solved.id = 'reseny-vzor';
+      let progress = readGradeProgress();
+      const guide = document.createElement('section');
+      guide.className = 'lesson-study-path grade-study-path';
+      guide.setAttribute('aria-label', 'Doporučený postup lekce');
+      guide.innerHTML = `<div class="lesson-study-copy"><span>${gradeLesson[1]}</span><strong>${gradeLesson[0]}</strong><small>1. pochop pravidlo → 2. projdi řešený vzor → 3. počítej sám → 4. zkontroluj odpovědi</small></div><nav>${headings[0] ? `<a href="#${headings[0].id}">Výklad</a>` : ''}${solved?.id ? `<a href="#${solved.id}">Řešený vzor</a>` : ''}<a href="#rocnik-procvicovani">Procvičování</a></nav><button type="button">Označit jako zvládnuté</button>`;
+      const button = guide.querySelector('button');
+      const refreshButton = () => {
+        const key = normalizeLessonKey(gradeSection, `${fileName}${location.hash || ''}`);
+        const done = Boolean(progress[key] || progress[normalizeLessonKey(gradeSection, fileName)]);
+        button.dataset.lessonKey = key;
+        button.setAttribute('aria-pressed', String(done));
+        button.textContent = done ? '✓ Téma zvládnuto' : 'Označit jako zvládnuté';
+        guide.classList.toggle('is-complete', done);
+      };
+      button.addEventListener('click', () => {
+        const key = button.dataset.lessonKey;
+        progress[key] = !progress[key];
+        try { localStorage.setItem(gradeProgressKey, JSON.stringify(progress)); } catch (_) {}
+        refreshButton();
+      });
+      addEventListener('hashchange', refreshButton);
+      refreshButton();
+      const intro = content.querySelector('.source-note') || content.querySelector('.section-lead, .lead');
+      if (intro) intro.insertAdjacentElement('afterend', guide);
+      else content.prepend(guide);
+    }
+    if (gradeSection === 'zs' || !cermatPracticePages.includes(fileName)) {
+      const gradePracticeScript = document.createElement('script');
+      gradePracticeScript.src = '../grade-practice.js?v=4';
+      gradePracticeScript.async = false;
+      document.body.append(gradePracticeScript);
+    }
   }
 
   const lessonPages = [
@@ -351,9 +478,14 @@
   if (lessonPosition >= 0) {
     document.body.classList.add('jpz-lesson-page');
     const [file, anchor, lessonTitle] = lessonPages[lessonPosition];
-    const previous = lessonPages[lessonPosition - 1];
-    const next = lessonPages[lessonPosition + 1];
+    const fromGrades = new URLSearchParams(location.search).get('from') === 'rocniky';
+    const previous = fromGrades ? null : lessonPages[lessonPosition - 1];
+    const next = fromGrades ? null : lessonPages[lessonPosition + 1];
     const content = document.querySelector('main') || document.querySelector('body > .wrap');
+    if (fromGrades) {
+      const back = document.querySelector('header .back');
+      if (back) { back.href = 'rocniky.html'; back.textContent = '← zpět na ročníky'; }
+    }
     const lessonEnhancements = {
       'slovni-ulohy.html': [
         ['Rozjezd', 'Vypočítej: 3,6 + 4 · (2,5 − 1,2).', 'Nejprve závorka a násobení: 3,6 + 4 · 1,3 = 3,6 + 5,2 = 8,8.'],
@@ -459,7 +591,9 @@
     lessonNav.setAttribute('aria-label', 'Navigace mezi tématy přijímaček');
     if (previous) lessonNav.innerHTML += `<a href="${previous[0]}"><small>předchozí téma</small>← ${previous[2]}</a>`;
     else lessonNav.append(document.createElement('span'));
-    lessonNav.innerHTML += `<a class="lesson-nav-main" href="prijimacky.html#${anchor}"><small>přehled</small>Všechna témata</a>`;
+    lessonNav.innerHTML += fromGrades
+      ? '<a class="lesson-nav-main" href="rocniky.html"><small>přehled</small>Výuka podle ročníků</a>'
+      : `<a class="lesson-nav-main" href="prijimacky.html#${anchor}"><small>přehled</small>Všechna témata</a>`;
     if (next) lessonNav.innerHTML += `<a class="lesson-nav-next" href="${next[0]}"><small>další téma</small>${next[2]} →</a>`;
     else lessonNav.append(document.createElement('span'));
     const footer = content?.querySelector('footer');
@@ -467,14 +601,18 @@
     return;
   }
 
+  if (current.endsWith('/zs/rocniky.html') || current.endsWith('/ss/ss-rocniky.html')) return;
+
   const section = current.includes('/ss/') ? 'ss' : 'zs';
-  const withinSection = pages.filter(([path]) => path.startsWith(section + '/'));
+  const withinSection = gradeLesson
+    ? Object.keys(gradeLessonCatalog[section]).map(file => [`${section}/${file}`, gradeLessonCatalog[section][file][0]])
+    : pages.filter(([path]) => path.startsWith(section + '/'));
   const withinPosition = withinSection.findIndex(([path]) => current.endsWith('/' + path));
-  const up = section === 'ss' ? 'maturita.html' : 'rocniky.html';
+  const up = gradeLesson ? (section === 'ss' ? 'ss-rocniky.html' : 'rocniky.html') : (section === 'ss' ? 'maturita.html' : 'rocniky.html');
   const tools = document.createElement('nav');
   tools.className = 'study-tools';
   tools.setAttribute('aria-label', 'Navigace ve studiu');
-  tools.innerHTML = `<a href="${up}">${section === 'ss' ? 'Maturita' : 'Přehled témat'}</a>` +
+  tools.innerHTML = `<a href="${up}">${gradeLesson ? 'Ročníky' : (section === 'ss' ? 'Maturita' : 'Přehled témat')}</a>` +
     (withinSection[withinPosition - 1] ? `<a href="${withinSection[withinPosition - 1][0].split('/')[1]}" aria-label="Předchozí téma">←</a>` : '') +
     (withinSection[withinPosition + 1] ? `<a href="${withinSection[withinPosition + 1][0].split('/')[1]}" aria-label="Další téma">→</a>` : '');
   document.body.append(tools);

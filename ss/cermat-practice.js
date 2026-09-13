@@ -169,6 +169,12 @@
   if (!main) return;
   main.insertBefore(guide, footer || null);
   main.insertBefore(section, footer || null);
+  if (!main.querySelector('.grade-next-step')) {
+    const nextStep = document.createElement('section');
+    nextStep.className = 'grade-next-step';
+    nextStep.innerHTML = '<div><span>Co dál</span><strong>Oprav chyby a vrať se k nim bez nápovědy.</strong><p>Potom pokračuj následující kartou ve svém ročníku nebo si téma označ jako zvládnuté.</p></div><a href="ss-rocniky.html">Zpět na svůj ročník →</a>';
+    main.insertBefore(nextStep, footer || null);
+  }
   section.querySelectorAll('.cermat-task').forEach(task => {
     const i = Number(task.dataset.index), feedback = task.querySelector('.cermat-feedback'), details = task.querySelectorAll('details');
     let usedHelp = false;

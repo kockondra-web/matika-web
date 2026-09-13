@@ -100,7 +100,7 @@
   .topic-card a.card-link { text-decoration: none; color: inherit; display: block; }
 
   .legend {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     font-size: 13px; color: var(--ink-soft);
     margin-bottom: 32px;
     font-family: 'JetBrains Mono', monospace;
@@ -108,7 +108,7 @@
 
   footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 13.5px; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; margin-top: 60px; }
 </style>
-<link rel="stylesheet" href="../site.css?v=3">
+<link rel="stylesheet" href="../site.css?v=4">
 </head>
 <body>
 
@@ -122,8 +122,8 @@
 <div class="wrap">
   <div class="page-head">
     <h1 class="section-title">Podle ročníku (SŠ)</h1>
-    <p class="section-lead">Kompletní učivo matematiky pro střední školu (1.–4. ročník), sestavené podle tematických celků. Témata označená ★ se zároveň testují u společné části maturitní zkoušky — najdeš je i v sekci Maturita, seřazená podle důležitosti v testu.</p>
-    <div class="legend">★ <span>= téma je součástí Katalogu požadavků k maturitě</span></div>
+    <p class="section-lead">Vyber si ročník a projdi témata v doporučeném pořadí. Každá lekce obsahuje výklad, řešené příklady a závěrečné procvičení s kontrolou. Rozložení učiva se může podle školy a oboru lišit.</p>
+    <div class="legend"><span>★ téma patří také do přípravy na didaktický test CERMAT</span></div>
     <input type="search" class="page-search" id="page-search" aria-label="Hledat středoškolské téma" placeholder="Hledat téma napříč všemi ročníky…">
     <div class="grade-nav">
       <a href="#r1">1. ročník</a>
@@ -137,7 +137,7 @@
 
   <div class="grade-block" id="r1">
     <div class="grade-head"><div class="grade-num">1.</div><h2>ročník</h2></div>
-    <div class="grade-sub">4 hodiny týdně (132 hodin ročně)</div>
+    <div class="grade-sub">Doporučené pořadí · základy, algebra, rovnice a planimetrie</div>
     <div class="topic-grid">
       <div class="topic-card linked"><a class="card-link" href="logika-mnoziny.html"><span class="prijimacky-star">★</span><h3>Základní poznatky, číselné obory</h3><p>Množiny, výroky, důkazy, obor N/Z/Q/R →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="mocniny.html"><span class="prijimacky-star">★</span><h3>Mocniny a odmocniny</h3><p>Exponenty N/Z/Q, n-tá odmocnina, usměrňování, mocninné funkce →</p></a></div>
@@ -150,7 +150,7 @@
 
   <div class="grade-block" id="r2">
     <div class="grade-head"><div class="grade-num">2.</div><h2>ročník</h2></div>
-    <div class="grade-sub">4 hodiny týdně (132 hodin ročně)</div>
+    <div class="grade-sub">Doporučené pořadí · funkce, goniometrie a logaritmy</div>
     <div class="topic-grid">
       <div class="topic-card linked"><a class="card-link" href="planimetrie.html"><span class="prijimacky-star">★</span><h3>Planimetrie (dokončení)</h3><p>Kružnice, podobnost, Pythagorova věta, shodná zobrazení →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="funkce.html"><span class="prijimacky-star">★</span><h3>Funkce</h3><p>Lineární, kvadratická, mocninné funkce a jejich vlastnosti →</p></a></div>
@@ -163,7 +163,7 @@
 
   <div class="grade-block" id="r3">
     <div class="grade-head"><div class="grade-num">3.</div><h2>ročník</h2></div>
-    <div class="grade-sub">3 hodiny týdně (96 hodin ročně)</div>
+    <div class="grade-sub">Doporučené pořadí · prostor a analytická geometrie</div>
     <div class="topic-grid">
       <div class="topic-card linked"><a class="card-link" href="stereometrie.html"><span class="prijimacky-star">★</span><h3>Stereometrie</h3><p>Vzájemná poloha v prostoru, objemy a povrchy těles →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="analyticka-geometrie-rovina.html"><span class="prijimacky-star">★</span><h3>Analytická geometrie v rovině</h3><p>Vektory, přímka, odchylky a vzdálenosti →</p></a></div>
@@ -174,7 +174,7 @@
 
   <div class="grade-block" id="r4">
     <div class="grade-head"><div class="grade-num">4.</div><h2>ročník</h2></div>
-    <div class="grade-sub">3 hodiny týdně (90 hodin ročně)</div>
+    <div class="grade-sub">Doporučené pořadí · kombinatorika, posloupnosti a opakování</div>
     <div class="topic-grid">
       <div class="topic-card linked"><a class="card-link" href="kombinatorika-pravdepodobnost.html"><span class="prijimacky-star">★</span><h3>Kombinatorika, pravděpodobnost, statistika</h3><p>Variace, kombinace, permutace, náhodné jevy, statistické charakteristiky →</p></a></div>
       <div class="topic-card linked"><a class="card-link" href="posloupnosti.html"><span class="prijimacky-star">★</span><h3>Posloupnosti</h3><p>Aritmetická a geometrická posloupnost, finanční matematika, limita posloupnosti →</p></a></div>
@@ -196,7 +196,7 @@
     </div>
   </div>
 
-  <footer>matematika.jasně — učivo sestaveno podle tematických celků pro SŠ a Katalogu požadavků Cermat</footer>
+  <footer>matematika.jasně — přehled středoškolského učiva podle tematických celků</footer>
 </div>
 <script>
   const pageSearch = document.getElementById('page-search');
@@ -227,6 +227,6 @@
   }
 </script>
 
-<script src="../site.js?v=3"></script>
+<script src="../site.js?v=4"></script>
 </body>
 </html>
