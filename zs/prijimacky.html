@@ -208,22 +208,6 @@
   }
 
   main { min-width: 0; display: flex; flex-direction: column; }
-  main > .topic { order: 1; }
-  main > #slovni-ulohy { order: 1; }
-  main > #prevody { order: 2; }
-  main > #zlomky { order: 3; }
-  main > #mocniny { order: 4; }
-  main > #rovnice { order: 6; }
-  main > #slovni-ulohy-rovnice { order: 7; }
-  main > #slovni-ulohy-pomer-umernost { order: 8; }
-  main > #procenta-uloha-8 { order: 9; }
-  main > #konstrukcni-ulohy { order: 11; }
-  main > #geometrie { order: 12; }
-  main > #objemy { order: 13; }
-  main > #ano-ne { order: 14; }
-  main > #vyber-a-e { order: 15; }
-  main > #procenta { order: 16; }
-  main > #logicka-uloha { order: 17; }
 
   .section-title {
     font-family: 'Fraunces', serif;
@@ -713,7 +697,6 @@
   }
   .topic-content-block { display: none; scroll-margin-top: 110px; }
   .topic-content-block.active { display: block; }
-  .year-topic { display: none; }
   .topic-back-link {
     display: inline-block;
     margin-bottom: 24px;
@@ -1224,41 +1207,6 @@
       </div>
     </div>
 
-    <div class="topic" id="mocniny">
-      <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
-      <h2>Mocniny, odmocniny a algebraické výrazy</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">U přijímaček</div>
-        Často se objevují společně se zlomky ve složeném výrazu. Klíčové je znát nazpaměť druhé mocniny čísel do 20 (a jejich odmocniny) — bez kalkulačky to jinak zabere zbytečně moc času.
-      </div>
-
-      <div class="topic-menu" id="mocniny-menu" aria-label="Možnosti pro mocniny a odmocniny">
-        <div class="topic-menu-card" data-open="pure"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Rychlé příklady na mocniny, odmocniny a výpočty bez kalkulačky.</p></div>
-        <a class="topic-menu-card" href="vyrazy-vice.html?view=solutions"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Ukázky úprav výrazů a výpočtů rozepsané krok za krokem.</p></a>
-        <a class="topic-menu-card" href="vyrazy-vice.html?view=theory"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Pravidla pro mocniny, odmocniny, vzorce a algebraické výrazy.</p></a>
-        <div class="topic-menu-card topic-complete" data-complete-topic="mocniny" role="button" tabindex="0"><div class="tmc-icon">04 · dokončení</div><h3>Označit téma jako zvládnuté</h3><p>Až příklady vyřešíš bez nápovědy, ulož si dokončené téma a získej 25 XP.</p></div>
-      </div>
-
-<div class="examples-heading" id="mocniny-priklady">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Vypočítej: \(\sqrt{144} + \sqrt{81}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">21</div></div>
-  <div class="pure-example"><div class="pe-q">2. Vypočítej: \(3^2 + 4^2\), a pak z výsledku spočítej druhou odmocninu.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">25, odmocnina = 5</div></div>
-  <div class="pure-example"><div class="pe-q">3. Vypočítej: \((2^3)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">64</div></div>
-  <div class="pure-example"><div class="pe-q">4. Vypočítej: \(5^2 - \sqrt{64}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">17</div></div>
-  <div class="pure-example"><div class="pe-q">5. Vypočítej: \(\sqrt{0{,}09}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">0,3</div></div>
-  <div class="pure-example"><div class="pe-q">6. Umocněte: \((5-3x)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(9x^2-30x+25\)</div></div>
-  <div class="pure-example"><div class="pe-q">7. Zjednodušte (výsledek nesmí obsahovat závorky): \((2x+3)^2 - 3x^2 - (x-2)(x+6)\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(8x+21\)</div></div>
-  <div class="pure-example"><div class="pe-q">8. Rozložte na součin podle vzorce: \(25b^2-9\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((5b-3)(5b+3)\)</div></div>
-  <div class="pure-example"><div class="pe-q">9. Z výrazu vytkněte \(5x\): \(5x^2-15x+10xy\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(5x(x+2y-3)\)</div></div>
-  <div class="pure-example"><div class="pe-q">10. Umocněte a zjednodušte (bez závorek): \(\left(x+\frac{5}{2}\right)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x^2+5x+\frac{25}{4}\)</div></div>
-  <div class="pure-example"><div class="pe-q">11. Zjednodušte (bez závorek): \((3+2n)\cdot(2n-n) - (n-2)\cdot4n\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-2n^2+11n\)</div></div>
-  <div class="pure-example"><div class="pe-q">12. Doplňte: \((a+\_\,)^2 = a^2+14a+\_\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7; 49</div></div>
-  <div class="pure-example"><div class="pe-q">13. Upravte a rozložte na součin: \(x\cdot(14-x)+7\cdot(28-2x)\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((14-x)(14+x)\)</div></div>
-  <div class="pure-example"><div class="pe-q">14. Umocněte: \((2x-3)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(4x^2-12x+9\)</div></div>
-  <div class="pure-example"><div class="pe-q">15. Rozložte na součin podle vzorce: \(4a^2-25\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((2a-5)(2a+5)\)</div></div>
-    </div>
-
     <div class="topic" id="zlomky">
       <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
       <h2>Zlomky</h2>
@@ -1505,6 +1453,41 @@
       </div>
     </div>
 
+    <div class="topic" id="mocniny">
+      <div class="topic-label">úloha 2–3 · max. 3–4 body</div>
+      <h2>Mocniny, odmocniny a algebraické výrazy</h2>
+
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Často se objevují společně se zlomky ve složeném výrazu. Klíčové je znát nazpaměť druhé mocniny čísel do 20 (a jejich odmocniny) — bez kalkulačky to jinak zabere zbytečně moc času.
+      </div>
+
+      <div class="topic-menu" id="mocniny-menu" aria-label="Možnosti pro mocniny a odmocniny">
+        <div class="topic-menu-card" data-open="pure"><div class="tmc-icon">01 · jen zadání</div><h3>Příklady</h3><p>Rychlé příklady na mocniny, odmocniny a výpočty bez kalkulačky.</p></div>
+        <a class="topic-menu-card" href="vyrazy-vice.html?view=solutions"><div class="tmc-icon">02 · krok za krokem</div><h3>Příklady s řešením</h3><p>Ukázky úprav výrazů a výpočtů rozepsané krok za krokem.</p></a>
+        <a class="topic-menu-card" href="vyrazy-vice.html?view=theory"><div class="tmc-icon">03 · vysvětlení</div><h3>Vysvětlení látky</h3><p>Pravidla pro mocniny, odmocniny, vzorce a algebraické výrazy.</p></a>
+        <div class="topic-menu-card topic-complete" data-complete-topic="mocniny" role="button" tabindex="0"><div class="tmc-icon">04 · dokončení</div><h3>Označit téma jako zvládnuté</h3><p>Až příklady vyřešíš bez nápovědy, ulož si dokončené téma a získej 25 XP.</p></div>
+      </div>
+
+<div class="examples-heading" id="mocniny-priklady">Příklady</div>
+
+  <div class="pure-example"><div class="pe-q">1. Vypočítej: \(\sqrt{144} + \sqrt{81}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">21</div></div>
+  <div class="pure-example"><div class="pe-q">2. Vypočítej: \(3^2 + 4^2\), a pak z výsledku spočítej druhou odmocninu.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">25, odmocnina = 5</div></div>
+  <div class="pure-example"><div class="pe-q">3. Vypočítej: \((2^3)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">64</div></div>
+  <div class="pure-example"><div class="pe-q">4. Vypočítej: \(5^2 - \sqrt{64}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">17</div></div>
+  <div class="pure-example"><div class="pe-q">5. Vypočítej: \(\sqrt{0{,}09}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">0,3</div></div>
+  <div class="pure-example"><div class="pe-q">6. Umocněte: \((5-3x)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(9x^2-30x+25\)</div></div>
+  <div class="pure-example"><div class="pe-q">7. Zjednodušte (výsledek nesmí obsahovat závorky): \((2x+3)^2 - 3x^2 - (x-2)(x+6)\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(8x+21\)</div></div>
+  <div class="pure-example"><div class="pe-q">8. Rozložte na součin podle vzorce: \(25b^2-9\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((5b-3)(5b+3)\)</div></div>
+  <div class="pure-example"><div class="pe-q">9. Z výrazu vytkněte \(5x\): \(5x^2-15x+10xy\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(5x(x+2y-3)\)</div></div>
+  <div class="pure-example"><div class="pe-q">10. Umocněte a zjednodušte (bez závorek): \(\left(x+\frac{5}{2}\right)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(x^2+5x+\frac{25}{4}\)</div></div>
+  <div class="pure-example"><div class="pe-q">11. Zjednodušte (bez závorek): \((3+2n)\cdot(2n-n) - (n-2)\cdot4n\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(-2n^2+11n\)</div></div>
+  <div class="pure-example"><div class="pe-q">12. Doplňte: \((a+\_\,)^2 = a^2+14a+\_\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7; 49</div></div>
+  <div class="pure-example"><div class="pe-q">13. Upravte a rozložte na součin: \(x\cdot(14-x)+7\cdot(28-2x)\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((14-x)(14+x)\)</div></div>
+  <div class="pure-example"><div class="pe-q">14. Umocněte: \((2x-3)^2\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(4x^2-12x+9\)</div></div>
+  <div class="pure-example"><div class="pe-q">15. Rozložte na součin podle vzorce: \(4a^2-25\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\((2a-5)(2a+5)\)</div></div>
+    </div>
+
     <div class="topic" id="rovnice">
       <div class="topic-label">úloha 4–5 · max. 4 body</div>
       <h2>Lineární rovnice</h2>
@@ -1686,34 +1669,6 @@
   </div>
     </div>
 
-    <div class="topic" id="ano-ne">
-      <div class="topic-label">úloha 13 · max. 4 body</div>
-      <h2>Úlohy ano/ne</h2>
-
-      <div class="exam-info">
-        <div class="ei-label">U přijímaček</div>
-        Čtyři nezávislá tvrzení k posouzení. Nejrychlejší cesta je vždy dopočítat obě strany tvrzení nebo najít protipříklad, ne odhadovat od oka. <a href="ano-ne-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
-      </div>
-
-<div class="examples-heading">Příklady</div>
-
-  <div class="pure-example"><div class="pe-q">1. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): Tři pětiny ze 40 jsou větší než polovina ze 45.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A (24 &gt; 22,5)</div></div>
-  <div class="pure-example"><div class="pe-q">2. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): 15 % z 200 je totéž jako 30 % ze 100.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A (30 = 30)</div></div>
-  <div class="pure-example"><div class="pe-q">3. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): Součet čísel 12 a 8 je menší než součin čísel 5 a 4.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">N (20 = 20, nejsou různé)</div></div>
-    </div>
-
-    <div class="topic" id="vyber-a-e">
-      <div class="topic-label">úloha 14 · výběr A–E</div>
-      <h2>Výběr z možností A–E</h2>
-      <div class="exam-info">
-        <div class="ei-label">U přijímaček</div>
-        Vyber právě jednu správnou odpověď z pěti možností. Pomáhá eliminace nesmyslných výsledků, zpětné dosazení a kontrola jednotek. <a href="vyber-a-e-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. V láhvi je 600 ml nápoje v poměru džus : voda = 1 : 2. Kolik čistého džusu přilijeme, aby poměr byl 1 : 1? A) 100 ml B) 150 ml C) 200 ml D) 300 ml E) 400 ml</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 200 ml</div></div>
-      <div class="pure-example"><div class="pe-q">2. Autobus jel rychlostí 60 km/h po dobu 15 minut. Kolik kilometrů ujel? A) 10 B) 12 C) 15 D) 20 E) 25</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 15 km</div></div>
-    </div>
-
     <div class="topic" id="objemy">
       <div class="topic-label">úloha 12 · stereometrie</div>
       <h2>Objemy a povrchy těles</h2>
@@ -1749,24 +1704,32 @@
   </div>
     </div>
 
-    <div class="topic" id="logicka-uloha">
-      <div class="topic-label">úloha 16 · max. 4 body</div>
-      <h2>Netradiční logická úloha</h2>
+    <div class="topic" id="ano-ne">
+      <div class="topic-label">úloha 13 · max. 4 body</div>
+      <h2>Úlohy ano/ne</h2>
 
       <div class="exam-info">
         <div class="ei-label">U přijímaček</div>
-        Poslední úloha testu bývá nejtěžší a nejvíc "netypická" — často jde o posloupnost obrazců nebo čísel podle nějakého pravidla, ne o standardní výpočet. Klíč je najít vzorec/pravidlo, ne počítat ručně kolo po kole. <a href="nestandardni-ulohy-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+        Čtyři nezávislá tvrzení k posouzení. Nejrychlejší cesta je vždy dopočítat obě strany tvrzení nebo najít protipříklad, ne odhadovat od oka. <a href="ano-ne-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
 
 <div class="examples-heading">Příklady</div>
 
-  <div class="pure-example">
-    <div class="pe-q">1. Tři kamarádi přidávají mince do společného klobouku podle pravidla: Adam přidá 2 mince každé kolo, Beta přidá 3 mince po každém 3. kole, Cyril přidá 6 mincí po každém 6. kole. Kolik mincí je v klobouku dohromady po 30 kolech?</div>
-    <div class="pe-footer">
-      <button type="button" class="pe-answer-btn">Zobrazit výsledek</button>
-      <div class="pe-answer">120 mincí (Adam 60, Beta 30, Cyril 30)</div>
+  <div class="pure-example"><div class="pe-q">1. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): Tři pětiny ze 40 jsou větší než polovina ze 45.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A (24 &gt; 22,5)</div></div>
+  <div class="pure-example"><div class="pe-q">2. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): 15 % z 200 je totéž jako 30 % ze 100.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">A (30 = 30)</div></div>
+  <div class="pure-example"><div class="pe-q">3. Rozhodni, zda je tvrzení pravdivé (A), nebo ne (N): Součet čísel 12 a 8 je menší než součin čísel 5 a 4.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">N (20 = 20, nejsou různé)</div></div>
     </div>
-  </div>
+
+    <div class="topic" id="vyber-a-e">
+      <div class="topic-label">úloha 14 · výběr A–E</div>
+      <h2>Výběr z možností A–E</h2>
+      <div class="exam-info">
+        <div class="ei-label">U přijímaček</div>
+        Vyber právě jednu správnou odpověď z pěti možností. Pomáhá eliminace nesmyslných výsledků, zpětné dosazení a kontrola jednotek. <a href="vyber-a-e-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
+      </div>
+      <div class="examples-heading">Příklady</div>
+      <div class="pure-example"><div class="pe-q">1. V láhvi je 600 ml nápoje v poměru džus : voda = 1 : 2. Kolik čistého džusu přilijeme, aby poměr byl 1 : 1? A) 100 ml B) 150 ml C) 200 ml D) 300 ml E) 400 ml</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 200 ml</div></div>
+      <div class="pure-example"><div class="pe-q">2. Autobus jel rychlostí 60 km/h po dobu 15 minut. Kolik kilometrů ujel? A) 10 B) 12 C) 15 D) 20 E) 25</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">C) 15 km</div></div>
     </div>
 
     <div class="topic" id="procenta">
@@ -1994,158 +1957,24 @@
       </div>
     </div>
 
-    <div class="topic year-topic" id="shodnost-soumernost">
-      <div class="topic-label">7. ročník</div>
-      <h2>Shodnost a středová souměrnost</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Věty o shodnosti trojúhelníků (sss, sus, usu) a středová souměrnost — otočení o 180° kolem bodu.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Dva trojúhelníky mají shodné všechny tři strany. Podle které věty o shodnosti jsou shodné?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">sss (strana-strana-strana)</div></div>
-      <div class="pure-example"><div class="pe-q">2. Dva trojúhelníky mají shodné dvě strany a úhel mezi nimi. Podle které věty jsou shodné?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">sus (strana-úhel-strana)</div></div>
-      <div class="pure-example"><div class="pe-q">3. Bod A[2,3] zobrazíme středovou souměrností podle počátku [0,0]. Jaké jsou souřadnice obrazu?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">[-2,-3] (obě souřadnice změní znaménko)</div></div>
-    </div>
+    <div class="topic" id="logicka-uloha">
+      <div class="topic-label">úloha 16 · max. 4 body</div>
+      <h2>Netradiční logická úloha</h2>
 
-    <div class="topic year-topic" id="cela-cisla">
-      <div class="topic-label">7. ročník</div>
-      <h2>Celá čísla</h2>
       <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Kladná a záporná čísla a početní operace s nimi. Nejčastější chyba: mizející nebo přibývající znaménko při násobení/dělení záporných čísel.
+        <div class="ei-label">U přijímaček</div>
+        Poslední úloha testu bývá nejtěžší a nejvíc "netypická" — často jde o posloupnost obrazců nebo čísel podle nějakého pravidla, ne o standardní výpočet. Klíč je najít vzorec/pravidlo, ne počítat ručně kolo po kole. <a href="nestandardni-ulohy-vice.html" style="color:var(--gold); font-weight:600;">→ více příkladů a vysvětlení</a>
       </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Vypočti: −8 + 15</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">7</div></div>
-      <div class="pure-example"><div class="pe-q">2. Vypočti: −12 − (−5)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−7</div></div>
-      <div class="pure-example"><div class="pe-q">3. Vypočti: (−6) · 4</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−24</div></div>
-      <div class="pure-example"><div class="pe-q">4. Ráno bylo −5 °C, odpoledne 8 °C. O kolik stupňů se oteplilo?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">o 13 °C</div></div>
-    </div>
 
-    <div class="topic year-topic" id="racionalni-cisla">
-      <div class="topic-label">7. ročník</div>
-      <h2>Racionální čísla</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Všechna čísla zapsatelná zlomkem — celá, desetinná i záporná dohromady. Porovnávání jde nejsnáz přes společný tvar (vše na des. číslo, nebo vše na zlomek).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Co je menší: −3/4, nebo −0,7?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−3/4 (= −0,75, což je menší než −0,7)</div></div>
-      <div class="pure-example"><div class="pe-q">2. Vypočti: −1/2 + 3/4</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">1/4</div></div>
-      <div class="pure-example"><div class="pe-q">3. Seřaď od nejmenšího: 0,3;  −1;  1/2;  −0,5</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−1 &lt; −0,5 &lt; 0,3 &lt; 1/2</div></div>
-    </div>
+<div class="examples-heading">Příklady</div>
 
-    <div class="topic year-topic" id="ctyruhelniky">
-      <div class="topic-label">7. ročník</div>
-      <h2>Čtyřúhelníky</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Rovnoběžníky a lichoběžníky, jejich obsahy. Obsah rovnoběžníku je strana krát příslušná výška, obsah lichoběžníku je průměr základen krát výška.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Rovnoběžník má stranu 10 cm a příslušnou výšku 6 cm. Jaký je jeho obsah?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">60 cm²</div></div>
-      <div class="pure-example"><div class="pe-q">2. Lichoběžník má základny 14 cm a 8 cm, výšku 5 cm. Jaký je jeho obsah?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">55 cm²</div></div>
-      <div class="pure-example"><div class="pe-q">3. Co mají společné všechny rovnoběžníky (obdélník, čtverec, kosodélník, kosoctverec)?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Protější strany jsou rovnoběžné a stejně dlouhé</div></div>
+  <div class="pure-example">
+    <div class="pe-q">1. Tři kamarádi přidávají mince do společného klobouku podle pravidla: Adam přidá 2 mince každé kolo, Beta přidá 3 mince po každém 3. kole, Cyril přidá 6 mincí po každém 6. kole. Kolik mincí je v klobouku dohromady po 30 kolech?</div>
+    <div class="pe-footer">
+      <button type="button" class="pe-answer-btn">Zobrazit výsledek</button>
+      <div class="pe-answer">120 mincí (Adam 60, Beta 30, Cyril 30)</div>
     </div>
-
-    <div class="topic year-topic" id="hranoly-7">
-      <div class="topic-label">7. ročník</div>
-      <h2>Hranoly</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Objem a povrch základních hranolů — nejjednodušší případ je kvádr, kde V = a·b·c.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Kvádr má hrany 6 cm, 4 cm a 3 cm. Jaký je jeho objem a povrch?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">V = 72 cm³, S = 108 cm²</div></div>
-      <div class="pure-example"><div class="pe-q">2. Krychle má hranu 5 cm. Jaký je její objem?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">125 cm³</div></div>
-    </div>
-
-    <div class="topic year-topic" id="druha-mocnina">
-      <div class="topic-label">8. ročník</div>
-      <h2>Druhá mocnina a odmocnina</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Prakticky využitelné pro Pythagorovu větu a povrchy/obsahy. Odmocniny, které nevyjdou přesně, stačí umět odhadnout mezi kterými dvěma celými čísly leží.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Vypočti: 13²</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">169</div></div>
-      <div class="pure-example"><div class="pe-q">2. Vypočti: √196</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">14</div></div>
-      <div class="pure-example"><div class="pe-q">3. Mezi kterými dvěma celými čísly leží √150?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">Mezi 12 a 13 (12²=144, 13²=169)</div></div>
-    </div>
-
-    <div class="topic year-topic" id="mocniny-prirozeny-exponent">
-      <div class="topic-label">8. ročník</div>
-      <h2>Mocniny</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Mocniny s přirozeným exponentem a zápis velkých čísel pomocí mocnin deseti (standardní tvar).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Vypočti: 2⁵</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">32</div></div>
-      <div class="pure-example"><div class="pe-q">2. Vypočti: (−3)³</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">−27</div></div>
-      <div class="pure-example"><div class="pe-q">3. Zapiš pomocí mocniny deseti: 45 000</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">4,5 × 10⁴</div></div>
-      <div class="pure-example"><div class="pe-q">4. Vypočti: 3² · 3⁴</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">3⁶ = 729 (exponenty se při násobení stejného základu sčítají)</div></div>
-    </div>
-
-    <div class="topic year-topic" id="valec">
-      <div class="topic-label">8. ročník</div>
-      <h2>Válec</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Povrch a objem válce. Povrch = 2 podstavy (kruhy) + plášť (obdélník, který vznikne "rozbalením" boku).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Válec má poloměr podstavy 5 cm a výšku 10 cm. Jaký je jeho objem? Použij π ≈ 3,14.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 785 cm³</div></div>
-      <div class="pure-example"><div class="pe-q">2. Pro stejný válec (r=5, v=10) vypočti povrch.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 471 cm²</div></div>
-    </div>
-
-    <div class="topic year-topic" id="soustavy-rovnic-zs">
-      <div class="topic-label">9. ročník</div>
-      <h2>Soustavy rovnic</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Dvě rovnice o dvou neznámých — dosazovací metoda (vyjádřím jednu neznámou a dosadím) nebo sčítací (rovnice sečtu/odečtu tak, aby se jedna neznámá vyrušila).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Vyřeš soustavu: x + y = 10, x − y = 2</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">x = 6, y = 4</div></div>
-      <div class="pure-example"><div class="pe-q">2. Vyřeš soustavu: 2x + y = 11, x + 3y = 18</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">x = 3, y = 5</div></div>
-    </div>
-
-    <div class="topic year-topic" id="jehlan-kuzel-koule">
-      <div class="topic-label">9. ročník</div>
-      <h2>Jehlan, kužel, koule</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Objem jehlanu a kužele je vždy třetina objemu odpovídajícího hranolu/válce se stejnou podstavou a výškou.
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Jehlan má obsah podstavy 36 cm² a výšku 9 cm. Jaký je jeho objem?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">108 cm³</div></div>
-      <div class="pure-example"><div class="pe-q">2. Kužel má poloměr podstavy 3 cm a výšku 8 cm. Jaký je jeho objem? Použij π ≈ 3,14.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 75,4 cm³</div></div>
-      <div class="pure-example"><div class="pe-q">3. Koule má poloměr 3 cm. Jaký je její objem? Použij π ≈ 3,14.</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">≈ 113,1 cm³</div></div>
-    </div>
-
-    <div class="topic year-topic" id="financni-matematika-zs">
-      <div class="topic-label">9. ročník</div>
-      <h2>Finanční matematika</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Složené úrokování, měny a směnárna — základ, který se pak na SOŠ a při přijímačkách rozvíjí dál (viz úlohu 15 výše).
-      </div>
-      <div class="examples-heading">Příklady</div>
-      <div class="pure-example"><div class="pe-q">1. Uložím 5 000 Kč na 1 rok při úroku 2 %. Kolik korun úroku dostanu?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">100 Kč</div></div>
-      <div class="pure-example"><div class="pe-q">2. Ve směnárně je kurz 25 Kč za 1 EUR. Kolik korun dostanu za 100 EUR?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">2 500 Kč</div></div>
-    </div>
-
-    <div class="topic year-topic" id="rysovani">
-      <div class="topic-label">9. ročník</div>
-      <h2>Základy rýsování</h2>
-      <div class="exam-info">
-        <div class="ei-label">Kde se to učí</div>
-        Kótování (značení rozměrů na výkresu) a pravoúhlé promítání (nákres, bokorys, půdorys) — základ technického kreslení pro střední školy technického zaměření.
-      </div>
-      <div class="rule-box">
-        <div class="rb-label">Pravoúhlé promítání</div>
-        Těleso se zobrazuje třemi pohledy: <strong>nákres</strong> (pohled zepředu), <strong>bokorys</strong> (pohled ze strany), <strong>půdorys</strong> (pohled shora). Všechny tři pohledy dohromady jednoznačně určují tvar tělesa.
-      </div>
+  </div>
     </div>
 
   </main>
