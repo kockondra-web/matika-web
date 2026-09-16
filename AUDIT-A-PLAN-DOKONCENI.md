@@ -1,42 +1,105 @@
-# Plán dokončení webu Matika pro každého
+# Souhrn a plán dokončení webu matematika.jasně
 
-Aktualizováno: 14. září 2026
+Aktualizováno: 16. září 2026
 
-V tomto souboru jsou dokončené hlavní etapy a zbývající dlouhodobé technické práce. Příprava na přijímačky, hlavní příprava k maturitě CERMAT, vlastní testy, SEO metadata, přístupnost hlavních cest a automatická kontrola webu jsou v pracovní složce dokončené. Také všechny čtyři přijímačkové testy A–D jsou přepracované jako samostatné původní testy se 16 úlohami za 50 bodů, vlastními nákresy a tabulkami.
+Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji vedená zvlášť v souboru `PLAN-PROPAGACE.md`.
 
-## 1. Výuka podle ročníků
+## Co už je hotové
 
-- [x] Sjednotit zbývající starší lekce na stejnou strukturu: stručné vysvětlení, řešený příklad, procvičení, kontrola odpovědi a doporučený další krok.
-- [x] Zkontrolovat, že obtížnost úloh roste postupně a že lehké úvodní úlohy nepřevažují nad úlohami odpovídajícími danému ročníku.
+### 1. Přijímačky na SŠ
 
-## 2. Dokončit zveřejnění aktuální verze
+- Všechna hlavní témata přijímaček mají vlastní výklad, řešené příklady a procvičování.
+- Úlohy začínají lehčím rozcvičením a pokračují obtížností odpovídající přijímačkám CERMAT.
+- Sjednotilo se vyhodnocení odpovědí, nápovědy, dokončení úloh a získávání XP.
+- XP se nepřidělí jen za označení úlohy jako vyřešené; žák nejdřív dostane kontrolu odpovědi.
+- Rychlý start jde sbalit a stránka si ukládá postup v zařízení.
+- Vznikly čtyři vlastní testy nanečisto A–D se 16 úlohami a 50 body.
+- Úlohy příliš podobné oficiálním zadáním byly přepracované do původní podoby.
+- Starý obsah JPZ 2024 byl odstraněn.
+- Z hlavní stránky přijímaček byly odstraněny skryté a duplicitní bloky podle ročníků.
+- Témata jsou v obsahu stránky seřazená stejně jako v nabídce.
+- Kontrola po úpravách: všech 15 tematických bloků zůstalo dostupných a interní odkazy fungují.
 
-- [x] V Git repozitáři odstranit starý sledovaný soubor `zs/jpz-2024-test1.html`, kvůli kterému selhávala kontrola na GitHubu.
-- [x] Odstranění potvrdit a odeslat na větev `master`.
-- [x] Počkat, až kontrola v GitHub Actions skončí zeleně.
-- [x] Na adrese `https://kockondra-web.github.io/matika-web/` ověřit poslední veřejnou verzi.
+### 2. Maturita CERMAT
 
-## 3. Dlouhodobě zmenšit stránku Přijímačky
+- Hlavní část je zaměřená na didaktický test CERMAT, ne na ústní zkoušku.
+- Původních 25 ústních otázek je zachovaných zvlášť ve složce `ustni-otazky-puvodni` a nejsou hlavní cestou webu.
+- Doplnila se diagnostika, studijní plán, témata, procvičování a vlastní testy nanečisto.
+- Obtížnost úloh byla zvýšená tak, aby lépe odpovídala skutečné maturitě.
+- Diagnostika se dá sbalit a stránka vede žáka k dalšímu kroku.
+- Dlouhá maturitní stránka byla rozdělena na krátký rozcestník a čtyři samostatné kroky: diagnostiku, studijní plán, okruhy a testy nanečisto.
+- Kroky lze procházet v doporučeném pořadí i libovolně přeskakovat; dokončené nebo zahájené části se označují z uloženého postupu.
 
-- [ ] Přeměnit `zs/prijimacky.html` na lehčí rozcestník s diagnostikou, studijním plánem, testy, seznamem 15 témat a jejich stavem dokončení.
-- [ ] Přesunout plný výklad, řešené příklady a procvičování každého tématu na jeho samostatnou podstránku, aby stejný obsah nebyl současně na rozcestníku i na podstránce.
-- [ ] U všech témat zachovat stejnou strukturu: vysvětlení, řešený vzor, lehký rozjezd, úlohy na úrovni JPZ, kontrolu odpovědí, práci s chybami a dokončení tématu.
-- [ ] Při přesunu zachovat současné ukládání XP, dokončených témat, chyb a výsledků v zařízení uživatele.
-- [ ] Zachovat nebo bezpečně převést existující odkazy na konkrétní témata, aby staré sdílené odkazy nepřestaly fungovat.
-- [ ] Po každé části přesunu ověřit mobilní zobrazení, interní odkazy, návrat na rozcestník a automatickou kontrolu webu.
+### 3. Výuka podle ročníku
 
-## 4. Návod pro žáky a rodiče
+- Dokončené a sjednocené jsou stránky pro 6.–9. ročník ZŠ i 1.–4. ročník SŠ.
+- Lekce mají jednotnější strukturu: co se žák naučí, stručný výklad, řešený příklad, procvičení, kontrolu a další krok.
+- Funguje ukládání postupu a společné chování procvičování.
 
-- [ ] Vytvořit společnou stránku `Jak web používat – pro žáky a rodiče`.
-- [ ] V části pro žáka vysvětlit, kde začít, jak postupovat od výkladu k procvičování, jak pracovat s chybami a kdy zopakovat celý test.
-- [ ] V části pro rodiče vysvětlit doporučený režim přípravy, význam bodů a XP, práci se slabými tématy a způsob ukládání výsledků v zařízení.
-- [ ] Přidat přímé odkazy na přijímačky, maturitu, výuku podle ročníků a celé testy nanečisto.
-- [ ] Doplnit odkaz na tuto stránku na hlavní stránku a do spodní navigace veřejných stránek.
-- [ ] Na hlavní stránce viditelně uvést: `Zdarma · bez registrace · výsledky zůstávají v zařízení`.
-- [ ] Samostatnou stránku pro učitele zatím nevytvářet; vrátit se k ní až při cíleném oslovování škol.
+### 4. Technická část a zveřejnění
 
-## Podmínka dokončení
+- Web je veřejný přes GitHub Pages na `https://kockondra-web.github.io/matika-web/`.
+- Automatická kontrola GitHub Actions ověřuje HTML a interní odkazy.
+- Místní kontrola aktuálně prochází 98 HTML stránek a hlásí 0 nefunkčních interních odkazů.
+- Web má sitemapu, `robots.txt`, canonical adresy a základní SEO metadata.
+- Veřejné stránky mají faviconu; hlavní stránky také náhledové obrázky pro sdílení.
+- Na veřejných stránkách funguje „Sdílet stránku“ a „Nahlásit chybu“.
+- Existuje stránka „O webu“ s autorem, e-mailem `ondrakock@seznam.cz` a telefonem.
+- Materiály pro Instagram jsou uložené mimo složku webu, takže se zbytečně nenahrávají na GitHub Pages.
 
-Hlavní obsah webu je dokončený a použitelný. Bod 3 je dlouhodobé technické zpřehlednění a není podmínkou běžného používání ani propagace současné verze. Bod 4 je vhodné dokončit dříve, protože pomůže novým žákům a rodičům správně začít. Při technických přesunech se musí zachovat uložený postup uživatelů a funkčnost starších odkazů.
+### 5. Propagace, která už začala
 
-Další etapa projektu je popsaná samostatně v souboru `PLAN-PROPAGACE.md`.
+- Založený Instagram `@matematika.jasne` s názvem „Matematika jasně | CERMAT“.
+- Připravených je 10 příspěvků včetně popisků.
+- První tři příspěvky jsou zveřejněné, úvodní je připnutý a účet je nastavený jako profesionální profil tvůrce.
+- YouTube a placená vlastní doména se zatím vědomě neřeší.
+
+## Na čem pracovat teď — doporučené pořadí
+
+### 1. Stránka „Jak web používat – pro žáky a rodiče“
+
+Tohle je nejdůležitější bezprostřední doplnění webu.
+
+- [ ] Vytvořit jednu společnou stránku pro žáky a rodiče.
+- [ ] Pro žáka stručně vysvětlit, kde začít, jak používat výklad, procvičování, chyby a testy.
+- [ ] Pro rodiče vysvětlit doporučený režim přípravy, význam bodů/XP, sledování slabších témat a ukládání výsledků v zařízení.
+- [ ] Přidat přímé odkazy na Přijímačky, Maturitu, Výuku podle ročníku a Testy nanečisto.
+- [ ] Přidat odkaz na tuto stránku z hlavní stránky a patičky webu.
+- [ ] Na hlavní stránku doplnit krátkou větu: „Zdarma · bez registrace · výsledky zůstávají v zařízení.“
+- [ ] Samostatnou stránku pro učitele zatím nevytvářet; web teď komunikuje hlavně k žákům a rodičům.
+
+### 2. Zveřejnit a ověřit poslední úpravy
+
+- [ ] Zkontrolovat, že poslední vyčištění a seřazení stránky Přijímačky i aktuální plány jsou zkopírované do Git repozitáře.
+- [ ] Po nahrání ověřit zelenou kontrolu GitHub Actions.
+- [ ] Otevřít veřejný web na telefonu a ověřit hlavní cestu žáka: titulní stránka → téma → procvičování → kontrola → další krok.
+
+### 3. Závěrečná kontrola sdílení a kontaktu
+
+- [ ] Na veřejném webu zkusit „Sdílet stránku“ na počítači i telefonu.
+- [ ] Ověřit náhled odkazu při poslání do zprávy nebo na sociální síť.
+- [ ] Vyzkoušet „Nahlásit chybu“ a zkontrolovat, že se předvyplní správná adresa a název stránky.
+- [ ] Ověřit čitelnost nejdůležitějších stránek na malém displeji.
+
+### 4. Dlouhodobě zmenšit `zs/prijimacky.html`
+
+Hlavní stránka přijímaček stále obsahuje příliš mnoho plného učiva. Dlouhodobým cílem je udělat z ní přehledný rozcestník a výuku držet na tematických podstránkách.
+
+- [ ] Přesouvat témata postupně, nejvýše jedno až dvě v jedné úpravě.
+- [ ] Začít nejdelšími částmi, například zlomky, procenty a finanční matematikou.
+- [ ] Na `zs/prijimacky.html` ponechat jen krátký popis, stav postupu a tlačítko „Pokračovat v tématu“.
+- [ ] Na podstránce zachovat výklad, řešené příklady, procvičování, kontrolu a XP.
+- [ ] Zachovat staré adresy s kotvami, aby fungovaly uložené a sdílené odkazy.
+- [ ] Zachovat existující klíče v `localStorage`, aby žáci nepřišli o postup.
+- [ ] Po každém přesunu spustit automatickou kontrolu a ručně ověřit návrat zpět na rozcestník.
+
+## Co teď není priorita
+
+- Samostatná stránka pro učitele — až bude cílem oslovování škol.
+- Vlastní placená doména — GitHub Pages je zatím dostačující.
+- YouTube — dokud nevznikne plán na pravidelná videa.
+- Další velké rozšiřování ústní maturity — hlavní produkt je teď příprava na CERMAT.
+
+## Pravidlo pro další práci
+
+Každá nová úprava má pomoci žákovi nebo rodiči rychleji pochopit, kde začít, co právě trénuje, zda odpověděl správně a co má dělat dál. Po každé větší změně se ověří automatická kontrola, telefon a alespoň jedna celá cesta skutečného uživatele.

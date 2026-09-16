@@ -1,8 +1,8 @@
 # Plán propagace webu matematika.jasně
 
-Aktualizováno: 13. září 2026
+Aktualizováno: 15. září 2026
 
-Web je obsahově a technicky připravený. Propagace začne až po dokončení první fáze níže, aby šlo odkazy dobře sdílet, měřit návštěvnost a zachytit případné chyby.
+Web je zveřejněný na `https://kockondra-web.github.io/matika-web/` a propagace už začala prvními třemi příspěvky na Instagramu.
 
 ## Hlavní cíl
 
@@ -24,7 +24,7 @@ Do začátku hlavní přijímačkové sezóny přivádět na web pravidelně dev
 - [x] Přidat na veřejné stránky tlačítko „Sdílet stránku“ s využitím systémového sdílení telefonu a náhradním zkopírováním odkazu.
 - [x] Přidat tlačítko „Nahlásit chybu“. E-mail se otevře s předvyplněným názvem a adresou aktuální stránky.
 - [ ] Přidat společnou stránku „Jak web používat – pro žáky a rodiče“: kde začít, jak pracovat s chybami, co znamenají výsledky, jak často procvičovat a jak se ukládá postup.
-- [ ] Samostatnou stránku pro učitele zatím nevytvářet; vrátit se k ní až při cíleném oslovování škol.
+- [x] Rozhodnuto: samostatnou stránku pro učitele zatím nevytvářet; vrátit se k ní až při cíleném oslovování škol.
 - [ ] Na hlavní stránku doplnit jasnou větu „Zdarma · bez registrace · výsledky zůstávají v zařízení“.
 - [ ] Ověřit vzhled sdílených odkazů, mobilní zobrazení, funkčnost tlačítek a interní odkazy.
 
@@ -50,7 +50,7 @@ Oficiální návody: [základní úkoly v Search Console](https://support.google
 - [x] Na Instagramu použít logo webu, stručný popis a odkaz na web.
 - [x] Do popisu profilu napsat: „Přijímačky a maturita z matematiky. Vysvětlení, procvičování a testy zdarma.“
 - [x] Připravit nejméně 10 příspěvků pro první zásobu obsahu.
-- [ ] Videa nahrávat svisle, s dobře čitelným zadáním a titulky.
+- [x] Rozhodnuto: YouTube ani pravidelná videa teď nepřipravovat; soustředit se na statické příspěvky.
 - [ ] V každém příspěvku použít jedinou výzvu: otevřít konkrétní lekci nebo test přes odkaz v profilu.
 - [ ] Nepoužívat převzatá zadání CERMATu. Propagovat vlastní úlohy a označovat je jako úlohy ve stylu nebo na úrovni zkoušky.
 
@@ -83,8 +83,7 @@ Oficiální návody: [základní úkoly v Search Console](https://support.google
 - [ ] Pondělí: lehký rozjezd nebo úloha týdne.
 - [ ] Středa: typická chyba nebo matematický chyták.
 - [ ] Pátek: těžší úloha a odkaz na příslušnou lekci či test.
-- [ ] Jednou za jeden až dva týdny zveřejnit delší video s rozborem tématu nebo testu.
-- [ ] Jednou týdně odpovědět videem nebo příspěvkem na nejzajímavější dotaz z komentářů.
+- [ ] Jednou týdně odpovědět příspěvkem nebo Stories na nejzajímavější dotaz z komentářů.
 - [ ] Natáčet příspěvky po více kusech, aby jejich tvorba nezabrala každý den.
 - [ ] Každý odkaz směřovat na konkrétní relevantní stránku, ne automaticky jen na homepage.
 
@@ -107,7 +106,7 @@ Náměty na stálé série: „Úloha týdne“, „Najdi chybu“, „Lehká, n
 
 ## 6. Podpora doporučování přímo na webu
 
-- [ ] Přidat možnost zkopírovat odkaz na konkrétní lekci jedním kliknutím.
+- [x] Přidat možnost sdílet nebo zkopírovat odkaz na konkrétní stránku jedním kliknutím.
 - [ ] Přidat QR kód ke čtyřem celým přijímačkovým testům a maturitním simulacím.
 - [ ] Připravit sdílitelný výsledek bez jména a bez citlivých údajů, například „V testu A jsem získal 38/50“.
 - [ ] Přidat výzvu „Pošli test spolužákovi“ po dokončení testu.
@@ -170,7 +169,8 @@ Náměty na stálé série: „Úloha týdne“, „Najdi chybu“, „Lehká, n
 
 ### Dny 1–3
 
-- [ ] Dokončit celou fázi 0 a 1: identita autora, obrázky, favicon, sdílení, hlášení chyby a stránky pro rodiče a učitele.
+- [x] Dokončit identitu autora, obrázky, favicon, sdílení a hlášení chyby.
+- [ ] Dokončit společnou stránku „Jak web používat – pro žáky a rodiče“ a krátké sdělení na hlavní stránce.
 
 ### Dny 4–5
 
@@ -178,7 +178,8 @@ Náměty na stálé série: „Úloha týdne“, „Najdi chybu“, „Lehká, n
 
 ### Dny 6–10
 
-- [ ] Založit sociální profily a připravit prvních 10 příspěvků bez jejich okamžitého hromadného zveřejnění.
+- [x] Založit instagramový profil a připravit prvních 10 příspěvků bez jejich okamžitého hromadného zveřejnění.
+- [x] Zveřejnit první tři příspěvky a připnout úvodní příspěvek.
 
 ### Dny 11–24
 
@@ -194,4 +195,7 @@ Náměty na stálé série: „Úloha týdne“, „Najdi chybu“, „Lehká, n
 
 ## Co udělat teď
 
-Začít fází 0 a 1. První konkrétní práce na webu je doplnění jména autora, favicon, hlavního obrázku pro sdílení, metadat `og:image`, tlačítek „Sdílet“ a „Nahlásit chybu“ a stránek pro rodiče a učitele. Teprve po jejich kontrole následuje Search Console a zveřejňování příspěvků.
+1. Dokončit společnou stránku „Jak web používat – pro žáky a rodiče“ a přidat na hlavní stránku větu „Zdarma · bez registrace · výsledky zůstávají v zařízení“.
+2. Na telefonu ověřit sdílení, hlášení chyby a vzhled odkazu po zveřejnění posledních úprav.
+3. Připojit web ke Google Search Console a odeslat sitemapu.
+4. Pokračovat v udržitelném rytmu instagramových příspěvků; další připravený příspěvek zveřejnit ve středu.
