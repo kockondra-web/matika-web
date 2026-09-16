@@ -158,7 +158,7 @@ Náměty na stálé série: „Úloha týdne“, „Najdi chybu“, „Lehká, n
 
 ## 11. Ochrana soukromí a důvěryhodnost
 
-- [ ] Bez jasné potřeby nepřidávat sledovací a reklamní nástroje třetích stran.
+- [x] Přidat Cloudflare Web Analytics pro základní měření návštěvnosti a transparentně ho uvést na stránce „O webu“; studijní výsledky ani XP se do analytiky neposílají.
 - [ ] Pokud se později začne sbírat e-mail, připravit souhlas, zásady zpracování údajů a snadné odhlášení.
 - [ ] Nesbírat jména, výsledky ani kontakty nezletilých pro veřejné žebříčky.
 - [ ] Nepoužívat personalizovanou reklamu zaměřenou na děti.

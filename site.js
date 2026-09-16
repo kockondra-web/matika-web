@@ -676,6 +676,16 @@
 
 })();
 
+// Anonymní měření návštěvnosti přes Cloudflare Web Analytics.
+(() => {
+  if (document.querySelector('script[data-cf-beacon]')) return;
+  const analytics = document.createElement('script');
+  analytics.type = 'module';
+  analytics.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  analytics.dataset.cfBeacon = JSON.stringify({ token: '65618c88d7144387aa769c52fdfab372' });
+  document.head.appendChild(analytics);
+})();
+
 // Po vyhodnocení celé maturitní simulace nabídne návrat do slabých témat.
 (() => {
   if (!document.body.dataset.variant || !location.pathname.includes('cermat-simulace-')) return;
