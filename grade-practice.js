@@ -55,7 +55,7 @@
       ['Rozklad x² − 25 je:', ['(x − 5)²', '(x − 5)(x + 5)', '(x − 25)(x + 1)'], 1, 'Použijeme rozdíl čtverců a² − b² = (a − b)(a + b).']
     ],
     'konstrukcni-ulohy.html': [
-      ['Kterým nástrojem přenášíme délku?', ['Kružítkem', 'Úhloměrem', 'Pravítkem s měřítkem pouze odhadem'], 0, 'Přesnou délku při konstrukci přenášíme kružítkem.'],
+      ['Kterým nástrojem při konstrukci přesně přenášíme délku?', ['Kružítkem', 'Úhloměrem', 'Pouhým odhadem podle pravítka'], 0, 'Přesnou délku při konstrukci přenášíme kružítkem.'],
       ['Množinu bodů stejně vzdálených od A a B tvoří:', ['přímka AB', 'osa úsečky AB', 'kružnice se středem A'], 1, 'Každý bod osy úsečky má od obou krajních bodů stejnou vzdálenost.'],
       ['Vrchol pravého úhlu nad úsečkou AB leží na:', ['Thaletově kružnici nad AB', 'ose úsečky AB', 'libovolné rovnoběžce s AB'], 0, 'Podle Thaletovy věty je úhel ACB pravý právě pro C na kružnici s průměrem AB.'],
       ['Kolik řešení může mít průsečík přímky s kružnicí?', ['jen jedno', 'jen dvě', '0, 1 nebo 2'], 2, 'Přímka může kružnici minout, být tečnou nebo sečnou.']
@@ -76,7 +76,7 @@
       ['Řešení x + y = 7 a x − y = 1 je:', ['[3; 4]', '[4; 3]', '[6; 1]'], 1, 'Sečtením rovnic dostaneme 2x = 8, tedy x = 4 a y = 3.'],
       ['Soustava y = 2x a x + y = 12 má řešení:', ['[3; 6]', '[4; 8]', '[6; 12]'], 1, 'Dosadíme y = 2x: 3x = 12, x = 4 a y = 8.'],
       ['Soustava 2x + 2y = 6 a x + y = 3 má:', ['žádné řešení', 'jedno řešení', 'nekonečně mnoho řešení'], 2, 'První rovnice je dvojnásobkem druhé, popisují stejnou přímku.'],
-      ['V pokladně je 18 mincí po 10 Kč a 20 Kč za celkem 250 Kč. Dvacetikorun je:', ['7', '9', '11'], 0, '20x + 10(18 − x) = 250, tedy 10x = 70 a x = 7.']
+      ['V pokladně je 18 desetikorunových a dvacetikorunových mincí v celkové hodnotě 250 Kč. Kolik je mezi nimi dvacetikorun?', ['7', '9', '11'], 0, '20x + 10(18 − x) = 250, tedy 10x = 70 a x = 7.']
     ],
     'financni-matematika-zs.html': [
       ['Roční úrok 5 % z 10 000 Kč je:', ['50 Kč', '500 Kč', '5 000 Kč'], 1, '10 000 · 0,05 = 500 Kč.'],
@@ -86,7 +86,7 @@
     ],
     'rysovani.html': [
       ['Kóta ve výkresu vyjadřuje:', ['barvu objektu', 'skutečný rozměr', 'pouze rozměr na papíře'], 1, 'Kóta uvádí skutečný rozměr bez ohledu na měřítko výkresu.'],
-      ['Rovnoběžky mají:', ['všude stejnou vzdálenost', 'jeden společný bod', 'vždy kolmý směr'], 0, 'Dvě různé rovnoběžky se neprotínají a jejich vzdálenost je stálá.'],
+      ['Dvě různé rovnoběžky mají:', ['všude stejnou vzdálenost', 'jeden společný bod', 'vždy navzájem kolmý směr'], 0, 'Dvě různé rovnoběžky se neprotínají a jejich vzdálenost je stálá.'],
       ['V pravoúhlém promítání se běžně používá:', ['nárys, půdorys a bokorys', 'jen perspektivní obrázek', 'pouze síť tělesa'], 0, 'Tři základní pohledy jsou nárys, půdorys a bokorys.'],
       ['Výkres v měřítku 1 : 20 zobrazuje délku 6 cm. Skutečná délka je:', ['30 cm', '120 cm', '12 m'], 1, '6 · 20 = 120 cm.']
     ],

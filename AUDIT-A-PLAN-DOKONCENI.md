@@ -1,6 +1,6 @@
 # Souhrn a plán dokončení webu matematika.jasně
 
-Aktualizováno: 16. září 2026
+Aktualizováno: 19. září 2026
 
 Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji vedená zvlášť v souboru `PLAN-PROPAGACE.md`.
 
@@ -35,6 +35,7 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 - Dokončené a sjednocené jsou stránky pro 6.–9. ročník ZŠ i 1.–4. ročník SŠ.
 - Lekce mají jednotnější strukturu: co se žák naučí, stručný výklad, řešený příklad, procvičení, kontrolu a další krok.
 - Funguje ukládání postupu a společné chování procvičování.
+- ZŠ část prošla úplnou jazykovou, matematickou a vizuální kontrolou: byly opraveny chybné závorky a zápisy, nepřesné definice, popisy neodpovídající obsahu i chybějící výklad nerovnic.
 
 ### 4. Technická část a zveřejnění
 

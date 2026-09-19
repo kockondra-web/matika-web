@@ -789,6 +789,15 @@
   }
 })();
 
+// Při otevření sdílené lekce z přehledu ročníků vrať žáka zpět do stejné části webu.
+(() => {
+  if (new URLSearchParams(location.search).get('from') !== 'rocniky') return;
+  const back = document.querySelector('header .back');
+  if (!back) return;
+  back.href = 'rocniky.html';
+  back.textContent = '← zpět na ročníky';
+})();
+
 // Společná pojistka pro starší interaktivní stránky.
 (() => {
   const repairControls = root => {
