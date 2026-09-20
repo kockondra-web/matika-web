@@ -291,6 +291,26 @@
   };
 
   const current = location.pathname.replace(/\\/g, '/').toLowerCase();
+  const cermatScopeNotes = {
+    '/ss/logika-mnoziny.html': ['Jádro k didaktickému testu', 'Pro maturitu se soustřeď hlavně na číselné obory, intervaly a operace s množinami. Výroky, implikace a pravdivostní tabulky jsou zde jako rozšíření.'],
+    '/ss/funkce.html': ['Jádro k didaktickému testu', 'Prioritou jsou definiční obor a obor hodnot, čtení grafů, průsečíky, monotonie a lineární, kvadratická a lineární lomená funkce. Inverzní funkce, konvexnost a úlohy s parametrem ber jako rozšíření.'],
+    '/ss/soustavy.html': ['Jádro k didaktickému testu', 'Pro běžnou maturitu procvič hlavně lineární soustavy a jejich použití ve slovních úlohách. Soustavy s kvadratickými rovnicemi jsou rozšiřující látka.'],
+    '/ss/posloupnosti.html': ['Jádro k didaktickému testu', 'Nejdůležitější jsou aritmetická a geometrická posloupnost a finanční matematika. Limity a nekonečná geometrická řada přesahují hlavní požadavky běžného didaktického testu.'],
+    '/ss/exp-log-rovnice.html': ['Jádro k didaktickému testu', 'Prioritou jsou definice logaritmu, věty o logaritmech a jednoduché exponenciální a logaritmické rovnice. Složitější substituce a nerovnice ber jako rozšíření.'],
+    '/ss/gon-vzorce.html': ['Jádro k didaktickému testu', 'Pro běžnou maturitu procvič hlavně základní vztahy a jednoduché goniometrické rovnice. Rovnice se substitucí a goniometrické nerovnice jsou rozšiřující.'],
+    '/ss/kombinatorika-pravdepodobnost.html': ['Jádro k didaktickému testu', 'Prioritou jsou kombinatorická pravidla, variace, permutace, kombinace, pravděpodobnost a základní statistika. Binomická věta je na této stránce navíc.']
+  };
+  const scopeEntry = Object.entries(cermatScopeNotes).find(([path]) => current.endsWith(path));
+  if (scopeEntry && !document.querySelector('.cermat-scope-note')) {
+    const scopeStyle = document.createElement('style');
+    scopeStyle.textContent = '.cermat-scope-note{margin:20px 0 30px;padding:16px 18px;border-left:4px solid #D4A24E;border-radius:6px;background:#F0EEE7;color:#3A4A6B;font:14px/1.55 Inter,Arial,sans-serif}.cermat-scope-note strong{display:block;margin-bottom:4px;color:#1B2A4A;font-size:15px}';
+    document.head.append(scopeStyle);
+    const scopeNote = document.createElement('aside');
+    scopeNote.className = 'cermat-scope-note';
+    scopeNote.innerHTML = `<strong>${scopeEntry[1][0]}</strong>${scopeEntry[1][1]}`;
+    const scopeAnchor = document.querySelector('.section-lead, .lead, h1');
+    scopeAnchor?.insertAdjacentElement('afterend', scopeNote);
+  }
   const position = pages.findIndex(([path]) => current.endsWith('/' + path) || current.endsWith(path));
   const pageFooter = document.querySelector('footer');
   if (pageFooter && !pageFooter.querySelector('.site-footer-links') && !pageFooter.querySelector('a[href*="o-webu.html"]')) {
@@ -784,8 +804,9 @@
   const variant = Number(document.body.dataset.variant);
   const finish = document.querySelector('.finish');
   if (finish && !document.querySelector('.scoring-guide')) {
-    finish.insertAdjacentHTML('beforebegin', `<section class="scoring-guide" aria-labelledby="scoring-title"><h2 id="scoring-title">Jak se test boduje</h2><ul><li>U uzavřené nebo číselné úlohy získáš uvedený počet bodů pouze za správnou odpověď.</li><li>U svazku tvrzení získáš jeden bod za každé správné rozhodnutí, takže můžeš získat i dílčí body.</li><li>Po odevzdání se u každé úlohy zobrazí dosažené body i řešení. XP se přidají jen za zlepšení nejlepšího výsledku.</li></ul></section>`);
+    finish.insertAdjacentHTML('beforebegin', `<section class="scoring-guide" aria-labelledby="scoring-title"><h2 id="scoring-title">Jak se test boduje</h2><ul><li>U samostatné otevřené nebo uzavřené úlohy získáš uvedený počet bodů za správnou odpověď.</li><li>U vícedílných úloh, svazku tvrzení a přiřazování získáš jeden bod za každou správnou část.</li><li>U úloh vyžadujících postup web kontroluje odpověď; svůj zápis na papíře po odevzdání porovnej se vzorovým řešením.</li><li>XP se přidají pouze za zlepšení nejlepšího výsledku.</li></ul></section>`);
   }
+  return;
   const addFigure = (index, label, svg) => {
     const question = tasks[index]?.querySelector('.question');
     if (!question) return;

@@ -30,6 +30,8 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 - Diagnostika se dá sbalit a stránka vede žáka k dalšímu kroku.
 - Dlouhá maturitní stránka byla rozdělena na krátký rozcestník a čtyři samostatné kroky: diagnostiku, studijní plán, okruhy a testy nanečisto.
 - Kroky lze procházet v doporučeném pořadí i libovolně přeskakovat; dokončené nebo zahájené části se označují z uloženého postupu.
+- Devět tematických okruhů odpovídá katalogu CERMAT. U starších lekcí je označené maturitní jádro a rozšiřující látka.
+- Dvě plné simulace používají vlastní zadání v rozložení 14 otevřených a 11 uzavřených úloh, mají 50 bodů, částečné bodování vícedílných úloh a po odevzdání doporučují nejslabší okruhy.
 
 ### 3. Výuka podle ročníku
 
