@@ -4,7 +4,11 @@
   const pages = [
     [
       "o-webu.html",
-      "O webu a ukládání studijních výsledků"
+      "O webu"
+    ],
+    [
+      "ukladani-dat.html",
+      "Ukládání studijních výsledků a soukromí"
     ],
     [
       "zs/cisla-zs.html",
@@ -294,7 +298,7 @@
     const footerLinks = document.createElement('nav');
     footerLinks.className = 'site-footer-links';
     footerLinks.setAttribute('aria-label', 'Spodní navigace');
-    footerLinks.innerHTML = `<a href="${rootPrefix}index.html">Hlavní stránka</a><a href="${rootPrefix}vyhledavani.html">Vyhledávání</a><a href="${rootPrefix}o-webu.html">O webu a ukládání dat</a>`;
+    footerLinks.innerHTML = `<a href="${rootPrefix}index.html">Hlavní stránka</a><a href="${rootPrefix}vyhledavani.html">Vyhledávání</a><a href="${rootPrefix}o-webu.html">O webu</a><a href="${rootPrefix}ukladani-dat.html">Ukládání dat</a>`;
     pageFooter.append(footerLinks);
   }
 
@@ -307,6 +311,7 @@
         .page-actions strong{display:block;margin-bottom:5px;font:600 19px/1.25 Fraunces,Georgia,serif}.page-actions p{margin:0;color:#3A4A6B;font-size:13px;line-height:1.5}
         .page-actions-buttons{display:flex;flex:0 0 auto;gap:8px}.page-actions button,.page-actions a{min-height:42px;padding:11px 14px;border-radius:6px;font:700 13px/1 Inter,Arial,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
         .page-share-button{border:0;background:#1B2A4A;color:#fff}.page-share-button:hover{background:#B85C4A}.page-report-link{display:inline-flex;align-items:center;border:1px solid rgba(27,42,74,.18);background:#FAF9F6;color:#1B2A4A}.page-report-link:hover{border-color:#D4A24E}
+        .report-dialog{width:min(590px,calc(100% - 32px));padding:0;border:0;border-radius:10px;background:#FAF9F6;color:#1B2A4A;box-shadow:0 28px 70px rgba(27,42,74,.3)}.report-dialog::backdrop{background:rgba(27,42,74,.48)}.report-dialog-inner{padding:24px}.report-dialog h2{margin:0 0 8px;font:600 26px Fraunces,Georgia,serif}.report-dialog p{margin:0 0 16px;color:#3A4A6B;font-size:14px;line-height:1.55}.report-dialog label{display:block;margin-bottom:7px;font-weight:700;font-size:13px}.report-dialog textarea{width:100%;min-height:120px;resize:vertical;padding:11px;border:1px solid rgba(27,42,74,.18);border-radius:6px;background:#fff;color:#1B2A4A;font:14px/1.5 Inter,Arial,sans-serif}.report-dialog-email{margin-top:10px!important;font-size:12px!important}.report-dialog-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.report-dialog-actions button,.report-dialog-actions a{min-height:42px;padding:11px 14px;border-radius:6px;font:700 13px/1 Inter,Arial,sans-serif;text-decoration:none;cursor:pointer}.report-copy{border:0;background:#1B2A4A;color:#fff}.report-mail{display:inline-flex;align-items:center;border:1px solid rgba(27,42,74,.18);background:#fff;color:#1B2A4A}.report-close{border:0;background:transparent;color:#3A4A6B}.report-status{min-height:20px;margin-top:12px!important;color:#6B9B7A!important;font-weight:700}
         @media(max-width:650px){.page-actions{align-items:stretch;flex-direction:column}.page-actions-buttons{width:100%}.page-actions button,.page-actions a{flex:1;justify-content:center;text-align:center}}
         @media(max-width:400px){.page-actions-buttons{flex-direction:column}}
       `;
@@ -318,10 +323,48 @@
     const actions = document.createElement('section');
     actions.className = 'page-actions';
     actions.setAttribute('aria-label', 'Sdílení a zpětná vazba');
-    actions.innerHTML = `<div><strong>Pomoz web zlepšit</strong><p>Pošli stránku spolužákovi nebo upozorni na chybu.</p></div><div class="page-actions-buttons"><button type="button" class="page-share-button">Sdílet stránku</button><a class="page-report-link">Nahlásit chybu</a></div>`;
+    actions.innerHTML = `<div><strong>Pomoz web zlepšit</strong><p>Pošli stránku spolužákovi nebo upozorni na chybu.</p></div><div class="page-actions-buttons"><button type="button" class="page-share-button">Sdílet stránku</button><button type="button" class="page-report-link">Nahlásit chybu</button></div>`;
     const reportSubject = `Chyba na stránce: ${pageTitle}`;
     const reportBody = `Dobrý den,\n\nnašel/našla jsem chybu nebo mám připomínku ke stránce:\n${canonicalUrl}\n\nPopis chyby nebo návrhu:\n`;
-    actions.querySelector('.page-report-link').href = `mailto:ondrakock@seznam.cz?subject=${encodeURIComponent(reportSubject)}&body=${encodeURIComponent(reportBody)}`;
+    const reportDialog = document.createElement('dialog');
+    reportDialog.className = 'report-dialog';
+    reportDialog.innerHTML = `<div class="report-dialog-inner"><h2>Nahlásit chybu</h2><p>Napiš stručně, co na stránce nesedí. Hlášení můžeš zkopírovat a poslat na uvedený e-mail, takže funguje i bez nastavené e-mailové aplikace.</p><label for="report-description">Popis chyby nebo návrhu</label><textarea id="report-description" placeholder="Například: Ve třetí úloze je podle mě špatný výsledek…"></textarea><p class="report-dialog-email">Příjemce: <strong>ondrakock@seznam.cz</strong></p><div class="report-dialog-actions"><button type="button" class="report-copy">Zkopírovat hlášení</button><a class="report-mail">Otevřít e-mail</a><button type="button" class="report-close">Zavřít</button></div><p class="report-status" role="status" aria-live="polite"></p></div>`;
+    document.body.append(reportDialog);
+    const reportDescription = reportDialog.querySelector('textarea');
+    const reportMail = reportDialog.querySelector('.report-mail');
+    const reportStatus = reportDialog.querySelector('.report-status');
+    const reportMessage = () => `${reportBody}${reportDescription.value.trim() || '[doplň popis chyby]'}`;
+    const updateReportMail = () => { reportMail.href = `mailto:ondrakock@seznam.cz?subject=${encodeURIComponent(reportSubject)}&body=${encodeURIComponent(reportMessage())}`; };
+    reportDescription.addEventListener('input', updateReportMail);
+    updateReportMail();
+    actions.querySelector('.page-report-link').addEventListener('click', () => {
+      reportStatus.textContent = '';
+      if (typeof reportDialog.showModal === 'function') reportDialog.showModal();
+      else reportDialog.setAttribute('open', '');
+      reportDescription.focus();
+    });
+    reportDialog.querySelector('.report-close').addEventListener('click', () => reportDialog.close());
+    reportDialog.addEventListener('click', event => { if (event.target === reportDialog) reportDialog.close(); });
+    reportDialog.querySelector('.report-copy').addEventListener('click', async () => {
+      const text = `Komu: ondrakock@seznam.cz\nPředmět: ${reportSubject}\n\n${reportMessage()}`;
+      try {
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
+        else {
+          const helper = document.createElement('textarea');
+          helper.value = text;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.append(helper);
+          helper.select();
+          document.execCommand('copy');
+          helper.remove();
+        }
+        reportStatus.textContent = 'Hlášení je zkopírované. Pošli ho na ondrakock@seznam.cz.';
+      } catch (_) {
+        reportStatus.textContent = 'Kopírování se nepodařilo. Napiš prosím na ondrakock@seznam.cz.';
+      }
+    });
     const shareButton = actions.querySelector('.page-share-button');
     shareButton.addEventListener('click', async () => {
       try {

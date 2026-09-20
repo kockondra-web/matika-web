@@ -47,6 +47,7 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 - Veřejné stránky mají faviconu; hlavní stránky také náhledové obrázky pro sdílení.
 - Na veřejných stránkách funguje „Sdílet stránku“ a „Nahlásit chybu“.
 - Existuje stránka „O webu“ s autorem, e-mailem `ondrakock@seznam.cz` a telefonem.
+- „O webu“ a „Ukládání dat“ jsou oddělené stránky. Hlášení chyby lze zkopírovat a poslat i bez nastaveného e-mailového programu.
 - Materiály pro Instagram jsou uložené mimo složku webu, takže se zbytečně nenahrávají na GitHub Pages.
 
 ### 5. Propagace, která už začala
