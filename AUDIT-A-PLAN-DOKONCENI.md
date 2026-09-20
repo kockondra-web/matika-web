@@ -1,6 +1,6 @@
 # Souhrn a plán dokončení webu matematika.jasně
 
-Aktualizováno: 19. září 2026
+Aktualizováno: 20. září 2026
 
 Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji vedená zvlášť v souboru `PLAN-PROPAGACE.md`.
 
@@ -19,6 +19,7 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 - Z hlavní stránky přijímaček byly odstraněny skryté a duplicitní bloky podle ročníků.
 - Témata jsou v obsahu stránky seřazená stejně jako v nabídce.
 - Kontrola po úpravách: všech 15 tematických bloků zůstalo dostupných a interní odkazy fungují.
+- Přijímačky mají krátký rozcestník a čtyři navazující kroky stejně jako maturita: diagnostiku, studijní plán, témata a testy nanečisto. Původní tematický obsah, XP i uložený postup zůstaly zachované.
 
 ### 2. Maturita CERMAT
 
@@ -81,18 +82,6 @@ Tohle je nejdůležitější bezprostřední doplnění webu.
 - [ ] Ověřit náhled odkazu při poslání do zprávy nebo na sociální síť.
 - [ ] Vyzkoušet „Nahlásit chybu“ a zkontrolovat, že se předvyplní správná adresa a název stránky.
 - [ ] Ověřit čitelnost nejdůležitějších stránek na malém displeji.
-
-### 4. Dlouhodobě zmenšit `zs/prijimacky.html`
-
-Hlavní stránka přijímaček stále obsahuje příliš mnoho plného učiva. Dlouhodobým cílem je udělat z ní přehledný rozcestník a výuku držet na tematických podstránkách.
-
-- [ ] Přesouvat témata postupně, nejvýše jedno až dvě v jedné úpravě.
-- [ ] Začít nejdelšími částmi, například zlomky, procenty a finanční matematikou.
-- [ ] Na `zs/prijimacky.html` ponechat jen krátký popis, stav postupu a tlačítko „Pokračovat v tématu“.
-- [ ] Na podstránce zachovat výklad, řešené příklady, procvičování, kontrolu a XP.
-- [ ] Zachovat staré adresy s kotvami, aby fungovaly uložené a sdílené odkazy.
-- [ ] Zachovat existující klíče v `localStorage`, aby žáci nepřišli o postup.
-- [ ] Po každém přesunu spustit automatickou kontrolu a ručně ověřit návrat zpět na rozcestník.
 
 ## Co teď není priorita
 
