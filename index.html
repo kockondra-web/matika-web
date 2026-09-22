@@ -66,7 +66,10 @@
   }
   .header-search:focus { outline: none; border-color: var(--gold); background: white; }
   .header-search::placeholder { color: var(--ink-soft); }
-  @media (max-width: 600px) { header .wrap { padding-left: 16px; padding-right: 16px; gap: 12px; } .header-search { width: min(140px, 42vw); } }
+  .header-tools { display: flex; align-items: center; gap: 12px; }
+  .progress-link { color: var(--ink); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .progress-link:hover { color: var(--gold); }
+  @media (max-width: 600px) { header .wrap { padding-left: 16px; padding-right: 16px; gap: 12px; } .header-tools { gap: 8px; } .header-search { width: min(118px, 32vw); } .progress-link { font-size: 12px; } }
   .logo {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -136,7 +139,7 @@
   }
 
   .gates {
-    padding: 20px 0 120px;
+    padding: 20px 0 72px;
   }
   .gates-group-label {
     font-family: 'JetBrains Mono', monospace;
@@ -275,6 +278,48 @@
   .why-point strong { color: var(--ink); }
 
   .about { padding: 0 0 100px; }
+  .guide { padding: 0 0 72px; }
+  .guide-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 28px 32px;
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: 6px;
+  }
+  .guide-eyebrow {
+    margin-bottom: 7px;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .guide-card h2 {
+    margin-bottom: 7px;
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .guide-card p { max-width: 670px; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .guide-link {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 3px;
+  }
+  .guide-link:hover { color: var(--gold); }
+  @media (max-width: 700px) {
+    .guide-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    .guide-link { justify-self: start; white-space: normal; }
+  }
   .about-card {
     background: white;
     border: 1px solid var(--line);
@@ -334,7 +379,7 @@
 <header>
   <div class="wrap header-inner">
     <div class="logo">matematika<span>.</span>jasně</div>
-    <input type="search" class="header-search" id="header-search" aria-label="Hledat matematické téma" placeholder="Hledat téma… (Enter)">
+    <div class="header-tools"><a class="progress-link" href="muj-pokrok.html">Můj pokrok</a><input type="search" class="header-search" id="header-search" aria-label="Hledat matematické téma" placeholder="Hledat téma… (Enter)"></div>
   </div>
 </header>
 
@@ -397,6 +442,19 @@
   </div>
 </section>
 
+<section class="guide" aria-labelledby="guide-title">
+  <div class="wrap">
+    <div class="guide-card">
+      <div>
+        <div class="guide-eyebrow">První návštěva</div>
+        <h2 id="guide-title">Nevíš, jak web používat?</h2>
+        <p>Krátký návod pro žáky i rodiče: kde začít, jak procvičovat a co skutečně ukazuje pokrok. Zdarma · bez registrace · výsledky zůstávají v zařízení.</p>
+      </div>
+      <a class="guide-link" href="jak-web-pouzivat.html">Otevřít stručný návod →</a>
+    </div>
+  </div>
+</section>
+
 <section class="about">
   <div class="wrap">
     <div class="about-card">
@@ -413,7 +471,7 @@
 </section>
 
 <footer>
-  <div class="wrap">matematika.jasně — přehled pro přijímačky a maturitu · <a href="vyhledavani.html">Vyhledávání</a> · <a href="o-webu.html">O webu</a> · <a href="ukladani-dat.html">Ukládání dat</a></div>
+  <div class="wrap">matematika.jasně — přehled pro přijímačky a maturitu · <a href="muj-pokrok.html">Můj pokrok</a> · <a href="vyhledavani.html">Vyhledávání</a> · <a href="jak-web-pouzivat.html">Jak web používat</a> · <a href="o-webu.html">O webu</a> · <a href="ukladani-dat.html">Ukládání dat</a></div>
 </footer>
 
 <script>
@@ -426,6 +484,6 @@
     });
   }
 </script>
-<script src="site.js?v=7"></script>
+<script src="site.js?v=9"></script>
 </body>
 </html>

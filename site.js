@@ -3,6 +3,14 @@
   window.__mathJasneSiteLoaded = true;
   const pages = [
     [
+      "muj-pokrok.html",
+      "Můj pokrok – úrovně, výsledky a další krok"
+    ],
+    [
+      "jak-web-pouzivat.html",
+      "Jak web používat – pro žáky a rodiče"
+    ],
+    [
       "o-webu.html",
       "O webu"
     ],
@@ -318,7 +326,7 @@
     const footerLinks = document.createElement('nav');
     footerLinks.className = 'site-footer-links';
     footerLinks.setAttribute('aria-label', 'Spodní navigace');
-    footerLinks.innerHTML = `<a href="${rootPrefix}index.html">Hlavní stránka</a><a href="${rootPrefix}vyhledavani.html">Vyhledávání</a><a href="${rootPrefix}o-webu.html">O webu</a><a href="${rootPrefix}ukladani-dat.html">Ukládání dat</a>`;
+    footerLinks.innerHTML = `<a href="${rootPrefix}index.html">Hlavní stránka</a><a href="${rootPrefix}muj-pokrok.html">Můj pokrok</a><a href="${rootPrefix}vyhledavani.html">Vyhledávání</a><a href="${rootPrefix}jak-web-pouzivat.html">Jak web používat</a><a href="${rootPrefix}o-webu.html">O webu</a><a href="${rootPrefix}ukladani-dat.html">Ukládání dat</a>`;
     pageFooter.append(footerLinks);
   }
 

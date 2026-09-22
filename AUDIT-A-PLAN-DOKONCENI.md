@@ -1,6 +1,6 @@
 # Souhrn a plán dokončení webu matematika.jasně
 
-Aktualizováno: 20. září 2026
+Aktualizováno: 22. září 2026
 
 Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji vedená zvlášť v souboru `PLAN-PROPAGACE.md`.
 
@@ -44,12 +44,14 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 
 - Web je veřejný přes GitHub Pages na `https://kockondra-web.github.io/matika-web/`.
 - Automatická kontrola GitHub Actions ověřuje HTML a interní odkazy.
-- Místní kontrola aktuálně prochází 98 HTML stránek a hlásí 0 nefunkčních interních odkazů.
+- Místní kontrola aktuálně prochází 105 HTML stránek a hlásí 0 nefunkčních interních odkazů.
 - Web má sitemapu, `robots.txt`, canonical adresy a základní SEO metadata.
 - Veřejné stránky mají faviconu; hlavní stránky také náhledové obrázky pro sdílení.
 - Na veřejných stránkách funguje „Sdílet stránku“ a „Nahlásit chybu“.
 - Existuje stránka „O webu“ s autorem, e-mailem `ondrakock@seznam.cz` a telefonem.
 - „O webu“ a „Ukládání dat“ jsou oddělené stránky. Hlášení chyby lze zkopírovat a poslat i bez nastaveného e-mailového programu.
+- Vznikla stručná stránka „Jak web používat“ pro žáky a rodiče. Vysvětluje první kroky, doporučený režim, význam XP a bodů i ukládání postupu. Odkaz je nenápadně na hlavní stránce a v patičce webu.
+- Vznikla první verze stránky „Můj pokrok“. Odděleně ukazuje cestu k přijímačkám a maturitě, pět smysluplných levelů, diagnostiku, procvičování, nejlepší celý test a doporučený další krok. Nejvyšší level vyžaduje také dostatečný výsledek testu, ne pouze XP.
 - Materiály pro Instagram jsou uložené mimo složku webu, takže se zbytečně nenahrávají na GitHub Pages.
 
 ### 5. Propagace, která už začala
@@ -61,17 +63,13 @@ Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji veden�
 
 ## Na čem pracovat teď — doporučené pořadí
 
-### 1. Stránka „Jak web používat – pro žáky a rodiče“
+### 1. Dokončit nový systém pokroku
 
-Tohle je nejdůležitější bezprostřední doplnění webu.
-
-- [ ] Vytvořit jednu společnou stránku pro žáky a rodiče.
-- [ ] Pro žáka stručně vysvětlit, kde začít, jak používat výklad, procvičování, chyby a testy.
-- [ ] Pro rodiče vysvětlit doporučený režim přípravy, význam bodů/XP, sledování slabších témat a ukládání výsledků v zařízení.
-- [ ] Přidat přímé odkazy na Přijímačky, Maturitu, Výuku podle ročníku a Testy nanečisto.
-- [ ] Přidat odkaz na tuto stránku z hlavní stránky a patičky webu.
-- [ ] Na hlavní stránku doplnit krátkou větu: „Zdarma · bez registrace · výsledky zůstávají v zařízení.“
-- [ ] Samostatnou stránku pro učitele zatím nevytvářet; web teď komunikuje hlavně k žákům a rodičům.
+- [ ] Ukládat chybné úlohy také z maturitních testů a procvičování, ne jen z přijímačkových testů.
+- [ ] Vytvořit na stránce „Můj pokrok“ samostatný trénink dřívějších chyb.
+- [ ] Přidat bonusové XP za opravení vlastní chyby a zabránit opakovanému získávání odměny.
+- [ ] Doplnit několik smysluplných odznaků za skutečné milníky, ne za pouhé návštěvy stránek.
+- [ ] Po ověření systému rozhodnout, zda přidat krátké týdenní mise.
 
 ### 2. Zveřejnit a ověřit poslední úpravy
 
@@ -92,6 +90,7 @@ Tohle je nejdůležitější bezprostřední doplnění webu.
 - Vlastní placená doména — GitHub Pages je zatím dostačující.
 - YouTube — dokud nevznikne plán na pravidelná videa.
 - Další velké rozšiřování ústní maturity — hlavní produkt je teď příprava na CERMAT.
+- Samostatná aplikace pro obchody s aplikacemi — případným prvním krokem má být instalovatelná PWA verze současného webu.
 
 ## Pravidlo pro další práci
 
