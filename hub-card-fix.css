@@ -1,0 +1,19 @@
+/* Akce zůstává na spodním okraji karty i při delším popisu. */
+body[data-page="hub"] .step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+body[data-page="hub"] .step-card p {
+  margin: 0 0 20px;
+}
+body[data-page="hub"] .step-card .card-action {
+  position: static;
+  display: block;
+  margin-top: auto;
+  padding-top: 8px;
+  line-height: 1.35;
+}
+@media (max-width: 480px) {
+  body[data-page="hub"] .step-card { min-height: 220px; }
+}

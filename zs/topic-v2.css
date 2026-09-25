@@ -1,0 +1,26 @@
+/* Společný vzhled doplňkových témat přijímaček. */
+body { background: radial-gradient(circle at 100% 0, rgba(212,162,78,.08), transparent 25%), #f8f7f3; }
+header { background: rgba(250,249,246,.9); backdrop-filter: blur(18px); }
+header .back { padding: 9px 13px; border: 1px solid rgba(27,42,74,.1); border-radius: 999px; background: #fff; color: #1b2a4a; font-weight: 700; }
+.page-head { padding-top: 58px; }
+.page-head h1, .page-head .title, .page-head .section-title, main.wrap > h1, main.page > h1 {
+  max-width: 760px; font-size: clamp(40px, 6vw, 58px); line-height: 1.08; letter-spacing: -.03em;
+}
+.page-head .lead, .page-head .section-lead, main.wrap > .lead, main.page > .lead { max-width: 740px; font-size: 16px; line-height: 1.65; }
+.tag, .source-note { border-radius: 999px; }
+.box, .info-box, .rule-box { border-radius: 0 12px 12px 0; }
+.tip, .tip-box { border-radius: 0 12px 12px 0; }
+.practice, .practice-box { border-radius: 0 12px 12px 0; }
+.example, .solved-example, .priklad, .pure-example {
+  border: 1px solid rgba(27,42,74,.09); border-radius: 13px; box-shadow: 0 13px 36px rgba(20,33,61,.055);
+}
+.example, .solved-example, .priklad { padding: 23px 26px; }
+.pure-example { padding: 22px 25px; }
+.pure-example .pe-answer-btn, .example button, .practice button { border-radius: 7px; }
+.pure-example .pe-answer-btn:hover, .example button:hover, .practice button:hover { background: #1b2a4a; color: #fff; }
+footer { margin-top: 70px; }
+@media (max-width: 700px) {
+  .page-head { padding-top: 36px; }
+  .page-head h1, .page-head .title, .page-head .section-title, main.wrap > h1, main.page > h1 { font-size: clamp(37px, 10vw, 45px); }
+  .example, .solved-example, .priklad, .pure-example { padding: 19px; }
+}

@@ -170,7 +170,14 @@
   section.className = 'cermat-practice-section grade-practice-section';
   section.id = 'rocnik-procvicovani';
   const score = () => Object.keys(solved).filter(key => solved[key]).length;
-  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Kontrolní procvičování</h2><p>První úloha je lehčí rozjezd, další odpovídají úrovni tématu. Nejdřív odpověz, potom použij kontrolu.</p></div><span class="cermat-xp">${score()} / ${bank.length} správně</span></div>` + bank.map((item, index) => `<article class="cermat-task ${solved[index] ? 'is-correct' : ''}" data-index="${index}"><div class="cermat-task-top"><span>Úloha ${index + 1}</span><span class="cermat-difficulty">${index ? 'úroveň ročníku' : 'lehký rozjezd'}</span></div><div class="cermat-question">${item[0]}</div><div class="cermat-options">${item[1].map((option, optionIndex) => `<label class="cermat-option"><input type="radio" name="gp-${file}-${index}" value="${optionIndex}"> ${option}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${solved[index] ? 'správně' : ''}</span><details class="cermat-solution"><summary>Zobrazit postup</summary>${item[3]}</details></article>`).join('');
+  if (score() === bank.length) {
+    try {
+      const verified = JSON.parse(localStorage.getItem('mj_grade_verified_v1') || '{}');
+      verified[`${sectionName}/${file}`] = true;
+      localStorage.setItem('mj_grade_verified_v1', JSON.stringify(verified));
+    } catch (_) {}
+  }
+  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Kontrolní procvičování</h2><p>První úloha je lehčí rozjezd, další odpovídají úrovni tématu. Pro započítání odpověz správně na první pokus bez otevření postupu a potom použij kontrolu.</p></div><span class="cermat-xp">${score()} / ${bank.length} správně na první pokus</span></div>` + bank.map((item, index) => `<article class="cermat-task ${solved[index] ? 'is-correct' : ''}" data-index="${index}"><div class="cermat-task-top"><span>Úloha ${index + 1}</span><span class="cermat-difficulty">${index ? 'úroveň ročníku' : 'lehký rozjezd'}</span></div><div class="cermat-question">${item[0]}</div><div class="cermat-options">${item[1].map((option, optionIndex) => `<label class="cermat-option"><input type="radio" name="gp-${file}-${index}" value="${optionIndex}"> ${option}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${solved[index] ? 'správně' : ''}</span><details class="cermat-solution"><summary>Zobrazit postup</summary>${item[3]}</details></article>`).join('');
   const main = document.querySelector('main') || document.querySelector('body > .wrap');
   const footer = main?.querySelector('footer');
   if (!main) return;
@@ -194,22 +201,29 @@
   const nextStep = document.createElement('section');
   nextStep.className = 'grade-next-step';
   const overview = sectionName === 'ss' ? 'ss-rocniky.html' : 'rocniky.html';
-  nextStep.innerHTML = `<div><span>Co dál</span><strong>${score() === bank.length ? 'Téma máš procvičené.' : 'Nejdřív oprav všechny chyby.'}</strong><p>Po správném vyřešení všech úloh se téma uloží jako zvládnuté. Potom pokračuj následující kartou ve svém ročníku.</p></div><a href="${overview}">Zpět na svůj ročník →</a>`;
+  nextStep.innerHTML = `<div><span>Co dál</span><strong>${score() === bank.length ? 'Téma máš procvičené.' : 'Nejdřív oprav všechny chyby.'}</strong><p>Po správném vyřešení všech úloh na první pokus bez otevření postupu se téma uloží jako zvládnuté. Potom pokračuj následující kartou ve svém ročníku.</p></div><a href="${overview}">Zpět na svůj ročník →</a>`;
   main.insertBefore(nextStep, footer || null);
   const updateScore = () => {
-    section.querySelector('.cermat-xp').textContent = `${score()} / ${bank.length} správně`;
+    section.querySelector('.cermat-xp').textContent = `${score()} / ${bank.length} správně na první pokus`;
     const headline = nextStep.querySelector('strong');
     if (headline) headline.textContent = score() === bank.length ? 'Téma máš procvičené.' : 'Nejdřív oprav všechny chyby.';
   };
   section.querySelectorAll('.cermat-task').forEach(task => {
     const index = Number(task.dataset.index);
     const feedback = task.querySelector('.cermat-feedback');
+    const solution = task.querySelector('.cermat-solution');
+    let usedSolution = false, hadWrongAttempt = false;
+    solution.addEventListener('toggle', () => { if (solution.open) usedSolution = true; });
     task.querySelector('.cermat-check').addEventListener('click', () => {
       const selected = task.querySelector('input:checked');
       if (!selected) { feedback.textContent = 'nejdřív vyber odpověď'; return; }
       if (Number(selected.value) !== bank[index][2]) {
         task.classList.remove('is-correct');
-        feedback.textContent = 'zatím ne — zkus to znovu';
+        hadWrongAttempt = true; feedback.textContent = 'Zatím ne. Zkus jinou možnost; tato úloha se teď do zvládnutí nezapočítá.';
+        return;
+      }
+      if ((usedSolution || solution.open || hadWrongAttempt) && !solved[index]) {
+        feedback.textContent = 'Správná možnost, ale po chybě nebo nápovědě bez započítání. Vrať se k úloze později a vyřeš ji samostatně.';
         return;
       }
       solved[index] = true;
@@ -223,7 +237,12 @@
         const exactKey = `${sectionName}/${file}${location.hash && location.hash !== '#rocnik-procvicovani' ? location.hash : ''}`;
         progress[exactKey] = true;
         progress[`${sectionName}/${file}`] = true;
-        try { localStorage.setItem(progressKey, JSON.stringify(progress)); } catch (_) {}
+        try {
+          localStorage.setItem(progressKey, JSON.stringify(progress));
+          const verified = JSON.parse(localStorage.getItem('mj_grade_verified_v1') || '{}');
+          verified[`${sectionName}/${file}`] = true;
+          localStorage.setItem('mj_grade_verified_v1', JSON.stringify(verified));
+        } catch (_) {}
         const guide = document.querySelector('.grade-study-path');
         const button = guide?.querySelector('button');
         guide?.classList.add('is-complete');

@@ -49,6 +49,42 @@
     return value === 1 ? 'bod' : value >= 2 && value <= 4 ? 'body' : 'bodů';
   }
 
+  function confirmAction(message, confirmLabel) {
+    if (typeof HTMLDialogElement === 'undefined') return Promise.resolve(window.confirm(message));
+    return new Promise(resolve => {
+      const dialog = document.createElement('dialog');
+      dialog.className = 'exam-confirm-dialog';
+      const heading = document.createElement('h2');
+      heading.textContent = 'Potvrdit akci';
+      const description = document.createElement('p');
+      description.textContent = message;
+      const actions = document.createElement('div');
+      actions.className = 'exam-confirm-actions';
+      const cancel = document.createElement('button');
+      cancel.type = 'button';
+      cancel.textContent = 'Vrátit se k testu';
+      const confirm = document.createElement('button');
+      confirm.type = 'button';
+      confirm.className = 'exam-confirm-primary';
+      confirm.textContent = confirmLabel;
+      actions.append(cancel, confirm);
+      dialog.append(heading, description, actions);
+      document.body.append(dialog);
+      const finish = accepted => {
+        dialog.close();
+        dialog.remove();
+        resolve(accepted);
+      };
+      cancel.addEventListener('click', () => finish(false));
+      confirm.addEventListener('click', () => finish(true));
+      dialog.addEventListener('cancel', event => {
+        event.preventDefault();
+        finish(false);
+      });
+      dialog.showModal();
+    });
+  }
+
   function normalize(value) {
     return String(value || '')
       .trim()
@@ -327,15 +363,16 @@
     first?.focus({ preventScroll: true });
   }
 
-  function submitExam(automatic) {
+  async function submitExam(automatic) {
     if (state.status !== 'running') return;
     if (!automatic) {
       const unanswered = unansweredTaskCount();
       const message = unanswered
         ? `Nemáte vyplněno ${unanswered} ${unanswered === 1 ? 'úlohu' : unanswered >= 2 && unanswered <= 4 ? 'úlohy' : 'úloh'}. Opravdu chcete test odevzdat?`
         : 'Opravdu chcete test odevzdat? Po odevzdání už odpovědi nepůjdou změnit.';
-      if (!window.confirm(message)) return;
+      if (!await confirmAction(message, 'Odevzdat test')) return;
     }
+    if (state.status !== 'running') return;
     document.querySelectorAll('.exam-answer-area input, .exam-answer-area select:not([data-manual-task]), .exam-answer-area textarea')
       .forEach(control => {
         const taskId = control.dataset.taskId;
@@ -457,6 +494,20 @@
       });
     });
     localStorage.setItem(progressKey, JSON.stringify(progressState));
+    let correctedXp = 0;
+    details.forEach(detail => {
+      const card = cards.get(detail.taskId);
+      if (card) card.id = `test-uloha-${detail.taskId}`;
+      const review = { id: `intake-test:${config.id}:${detail.taskId}`, track: 'intake', source: 'Celý test', title: summary.title, question: card?.querySelector('.pe-q')?.textContent.trim() || `Úloha ${detail.taskId}`, href: `zs/${location.pathname.split('/').pop()}#test-uloha-${detail.taskId}` };
+      if (detail.classification === 'wrong' || detail.classification === 'blank') window.MJReview?.wrong(review);
+      else if (detail.classification === 'correct') correctedXp += window.MJReview?.correct(review) || 0;
+    });
+    if (correctedXp) {
+      const note = document.createElement('p');
+      note.className = 'exam-result-note';
+      note.textContent = `Navíc ${correctedXp} XP za opravené dřívější chyby.`;
+      resultBox.append(note);
+    }
   }
 
   function formatUsedTime(seconds) {
@@ -543,8 +594,8 @@
     updateProgress();
   }
 
-  function resetExam() {
-    if (!window.confirm('Začít nový pokus? Dosavadní odpovědi a výsledek se smažou.')) return;
+  async function resetExam() {
+    if (!await confirmAction('Začít nový pokus? Dosavadní odpovědi a výsledek se smažou.', 'Začít nový pokus')) return;
     localStorage.removeItem(storageKey);
     window.location.reload();
   }

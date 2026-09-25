@@ -1,0 +1,8 @@
+# Pracovní podklady a vygenerované výstupy nejsou součástí veřejného webu.
+/tmp/
+/output/
+
+# Lokální pomocné soubory.
+.DS_Store
+Thumbs.db
+node_modules/

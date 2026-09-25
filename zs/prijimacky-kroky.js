@@ -4,8 +4,8 @@
   const diagnosticScore=()=>Number(storage.get('mj_prijimacky_diagnostika_score_v2','0'));
   const topicCount=()=>{try{return Object.values(JSON.parse(storage.get('mj_progress_v1','{}')).topicDone||{}).filter(Boolean).length}catch(_){return 0}};
   const attempts=()=>{try{const data=JSON.parse(storage.get('mj_exam_history_v1','{}'));return Array.isArray(data.attempts)?data.attempts:[]}catch(_){return []}};
-  const states=()=>[diagnosticScore()>0,storage.get('mj_prijimacky_plan_hotov')==='1',topicCount()>0,attempts().length>0];
-  function renderSteps(){const values=states(),doneCount=values.filter(Boolean).length;$$('.flow-step').forEach((step,index)=>{step.classList.toggle('done',values[index]);const state=step.querySelector('.state');if(state)state.textContent=values[index]?'✓':''});const done=$('#flow-done');if(done)done.textContent=`${doneCount} ze 4 kroků zahájeny`;const bar=$('.practice-bar i');if(bar)bar.style.width=`${doneCount*25}%`}
+  const states=()=>[storage.get('mj_prijimacky_diagnostika_score_v2')!=='',storage.get('mj_prijimacky_plan_hotov')==='1',topicCount()>0,attempts().length>0];
+  function renderSteps(){const values=states(),doneCount=values.filter(Boolean).length;$$('.flow-step').forEach((step,index)=>{step.classList.toggle('done',values[index]);const state=step.querySelector('.state');if(state)state.textContent=values[index]?'✓':''});const done=$('#flow-done');if(done)done.textContent=`Zahájené kroky: ${doneCount} ze 4`;const bar=$('.practice-bar i');if(bar)bar.style.width=`${doneCount*25}%`}
   renderSteps();
 
   if(document.body.dataset.page==='hub'){
@@ -14,7 +14,7 @@
     if(hash==='cele-testy'){location.replace('prijimacky-testy.html');return}
     if(hash==='rychly-start'||hash==='diagnostic'){location.replace('prijimacky-diagnostika.html');return}
     if(oldHashes.includes(hash)){location.replace(`prijimacky-temata.html#${hash}`);return}
-    const diag=$('#hub-diag');if(diag)diag.textContent=diagnosticScore()?`${diagnosticScore()} z 12 správně`:'zatím nevyplněná';
+    const diag=$('#hub-diag');if(diag)diag.textContent=storage.get('mj_prijimacky_diagnostika_score_v2')!==''?`${diagnosticScore()} z 12 správně`:'zatím nevyplněná';
     const topics=$('#hub-topics');if(topics)topics.textContent=`${topicCount()} z 15 témat`;
     const tests=$('#hub-tests');if(tests)tests.textContent=attempts().length?`${attempts().length} dokončených pokusů`:'zatím bez výsledku';
   }

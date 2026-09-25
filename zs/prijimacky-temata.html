@@ -916,7 +916,7 @@
 </style>
 <link rel="stylesheet" href="prijimacky-kroky.css">
 <link rel="stylesheet" href="../site.css?v=4">
-</head>
+<link rel="stylesheet" href="prijimacky-v2.css?v=1"><link rel="stylesheet" href="intake-polish.css?v=1"></head>
 <body class="legacy-topic-page" data-page="temata" data-no-study-tools="true">
 <a class="skip-link" href="#main-content">Přeskočit na hlavní obsah</a>
 
@@ -929,7 +929,7 @@
         <div class="level-badge" id="level-badge">1</div>
         <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
       </div>
-      <button type="button" class="reset-btn" id="reset-progress" title="Vynulovat postup, XP a odznaky">↺ reset</button>
+      <button type="button" class="reset-btn" id="reset-progress" title="Vynulovat postup a XP" aria-label="Vynulovat postup a XP">↺ reset</button>
     </div>
     <a href="prijimacky.html" class="back">← přehled přijímaček</a>
   </div>
@@ -970,6 +970,7 @@
   <main id="main-content">
     <h1 class="section-title">Témata k přijímačkám</h1>
     <p class="section-lead">Témata jsou seřazená <strong>podle čísla úlohy</strong>, podobně jako v přijímacím testu. Vyber si oblast doporučenou diagnostikou, nebo pokračuj postupně od první úlohy.</p>
+    <a class="topic-jump" href="#slovni-ulohy">Přejít rovnou na první téma ↓</a>
     <nav class="flow-nav" aria-label="Kroky přípravy"><a class="flow-step" href="prijimacky-diagnostika.html"><span class="state"></span><span class="step-number">Krok 1</span><strong>Diagnostika</strong><small>Najdi slabá témata</small></a><a class="flow-step" href="prijimacky-plan.html"><span class="state"></span><span class="step-number">Krok 2</span><strong>Studijní plán</strong><small>Rozvrhni přípravu</small></a><a class="flow-step active" href="prijimacky-temata.html"><span class="state"></span><span class="step-number">Krok 3</span><strong>Témata</strong><small>Právě jsi zde</small></a><a class="flow-step" href="prijimacky-testy.html"><span class="state"></span><span class="step-number">Krok 4</span><strong>Test nanečisto</strong><small>Výsledek pod časem</small></a></nav>
 
     <section class="continue-card" id="continue-card" aria-labelledby="continue-title">
@@ -1242,7 +1243,7 @@
       </div>
 
       <div class="topic-content-block" data-block="solutions">
-        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="zlomky">← zpět na výběr tématu</button>
         <div class="examples-heading">Všechny příklady s řešením</div>
 
         <div class="example">
@@ -1308,7 +1309,7 @@
       </div>
 
       <div class="topic-content-block" data-block="pure">
-        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="zlomky">← zpět na výběr tématu</button>
         <div class="examples-heading">Čisté příklady — zadání a výsledek</div>
 
         <div class="pure-example"><div class="pe-q">1. \(\frac{2}{3} + \frac{1}{4}\)</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">\(\frac{11}{12}\)</div></div>
@@ -1331,7 +1332,7 @@
       </div>
 
       <div class="topic-content-block" data-block="practice">
-        <a class="topic-back-link" data-back="zlomky">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="zlomky">← zpět na výběr tématu</button>
 
         <div class="examples-heading">Řešené příklady podle obtížnosti</div>
 
@@ -1365,7 +1366,7 @@
             <div class="step"><div class="snum">4</div><div class="stext">Sečteme čitatele, jmenovatel necháme: <span class="math">\(\frac{8}{12} + \frac{3}{12} = \frac{11}{12}\)</span></div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{11}{12}\)</span> — dál se už krátit nedá.</div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
 
         <div class="example" data-id="zlomky-easy-2" data-answers="[&quot;3/8&quot;]" data-xp="10">
@@ -1381,7 +1382,7 @@
             <div class="step"><div class="snum">3</div><div class="stext">Odečteme čitatele: <span class="math">\(\frac{5}{8} − \frac{2}{8} = \frac{3}{8}\)</span></div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{3}{8}\)</span></div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
       </div>
 
@@ -1399,7 +1400,7 @@
             <div class="step"><div class="snum">3</div><div class="stext">Po zkrácení: <span class="math">\(\frac{3}{5} \to 1\)</span> (děleno 3 s devítkou), <span class="math">\(\frac{10}{9} \to \frac{2}{3}\)</span> (děleno 5 s pětkou)</div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1 · \frac{2}{3} = \frac{2}{3}\)</span></div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
 
         <div class="example" data-id="zlomky-medium-2" data-answers="[&quot;4 1/12&quot;,&quot;49/12&quot;]" data-xp="20">
@@ -1415,7 +1416,7 @@
             <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(\frac{28}{12} + \frac{21}{12} = \frac{49}{12}\)</span></div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(\frac{49}{12} = 4 \frac{1}{12}\)</span></div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
       </div>
 
@@ -1433,7 +1434,7 @@
             <div class="step"><div class="snum">3</div><div class="stext">Celkové množství teď je zbytek plus přítok: <span class="math">\(\frac{3}{5} + \frac{3}{20}\)</span>. Společný jmenovatel je 20: <span class="math">\(\frac{12}{20} + \frac{3}{20} = \frac{15}{20}\)</span></div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Po zkrácení: <span class="math">\(\frac{15}{20} = \frac{3}{4}\)</span> původního množství vody.</div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
 
         <div class="example" data-id="zlomky-hard-2" data-answers="[&quot;1/4&quot;]" data-xp="30">
@@ -1449,7 +1450,7 @@
             <div class="step"><div class="snum">3</div><div class="stext">Sečteme: <span class="math">\(4x = 1\)</span></div></div>
             <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(x = \frac{1}{4}\)</span></div></div>
           </div>
-          <a class="reveal-link">Nevím, ukázat řešení</a>
+          <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
         </div>
       </div>
       </div>
@@ -1767,7 +1768,7 @@
       </div>
 
       <div class="topic-content-block" data-block="solutions">
-        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="procenta">← zpět na výběr tématu</button>
         <div class="examples-heading">Všechny příklady s řešením</div>
 
         <div class="example">
@@ -1825,7 +1826,7 @@
       </div>
 
       <div class="topic-content-block" data-block="practice">
-        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="procenta">← zpět na výběr tématu</button>
         <div class="examples-heading">Řešené příklady podle obtížnosti</div>
 
         <div class="diff-tabs" data-topic="procenta">
@@ -1856,7 +1857,7 @@
               <div class="step"><div class="snum">2</div><div class="stext">Vypočítáme: <span class="math">\(\frac{3000}{100} = 30\)</span></div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(30\)</span></div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
 
           <div class="example" data-id="procenta-easy-2" data-answers="[&quot;36&quot;]" data-xp="10">
@@ -1870,7 +1871,7 @@
               <div class="step"><div class="snum">1</div><div class="stext"><span class="math">\(\frac{80 \cdot 45}{100} = \frac{3600}{100}\)</span></div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(36\)</span></div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
         </div>
 
@@ -1887,7 +1888,7 @@
               <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{2760 \cdot 100}{115}\)</span></div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(2400\)</span> Kč</div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
 
           <div class="example" data-id="procenta-medium-2" data-answers="[&quot;28&quot;]" data-xp="20">
@@ -1902,7 +1903,7 @@
               <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{25 \cdot 112}{100} = \frac{2800}{100}\)</span></div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(28\)</span> žáků</div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
         </div>
 
@@ -1919,7 +1920,7 @@
               <div class="step"><div class="snum">2</div><div class="stext">Za 2 roky: <span class="math">\(240 \cdot 2 = 480\)</span> Kč</div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(8000 + 480 = 8480\)</span> Kč</div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
 
           <div class="example" data-id="procenta-hard-2" data-answers="[&quot;1200&quot;]" data-xp="30">
@@ -1934,13 +1935,13 @@
               <div class="step"><div class="snum">2</div><div class="stext"><span class="math">\(\frac{960 \cdot 100}{80}\)</span></div></div>
               <div class="step result"><div class="snum">✓</div><div class="stext">Výsledek: <span class="math">\(1200\)</span> Kč</div></div>
             </div>
-            <a class="reveal-link">Nevím, ukázat řešení</a>
+            <button class="reveal-link" type="button">Nevím, ukázat řešení</button>
           </div>
         </div>
       </div>
 
       <div class="topic-content-block" data-block="pure">
-        <a class="topic-back-link" data-back="procenta">← zpět na výběr tématu</a>
+        <button class="topic-back-link" type="button" data-back="procenta">← zpět na výběr tématu</button>
         <div class="examples-heading">Čisté příklady — zadání a výsledek</div>
 
         <div class="pure-example"><div class="pe-q">1. Kolik je 20 % z 150?</div><button type="button" class="pe-answer-btn">Zobrazit výsledek</button><div class="pe-answer">30</div></div>
@@ -2036,7 +2037,8 @@
     const block = document.createElement('div');
     block.className = 'topic-content-block';
     block.setAttribute('data-block', 'pure');
-    const back = document.createElement('a');
+    const back = document.createElement('button');
+    back.type = 'button';
     back.className = 'topic-back-link';
     back.setAttribute('data-back', topic.id);
     back.textContent = '← zpět na výběr tématu';
@@ -2336,7 +2338,8 @@
     block = document.createElement('div');
     block.className = 'topic-content-block';
     block.dataset.block = 'pure';
-    const back = document.createElement('a');
+    const back = document.createElement('button');
+    back.type = 'button';
     back.className = 'topic-back-link';
     back.dataset.back = topic.id;
     back.textContent = '← zpět na výběr tématu';
@@ -2401,7 +2404,8 @@
   }
 
   function makeBack(topicId) {
-    const back = document.createElement('a');
+    const back = document.createElement('button');
+    back.type = 'button';
     back.className = 'topic-back-link';
     back.dataset.back = topicId;
     back.textContent = '← zpět na výběr tématu';
@@ -2805,6 +2809,7 @@
     document.getElementById('level-badge').textContent = level;
     document.getElementById('xp-fill').style.width = Math.round((into / need) * 100) + '%';
     document.getElementById('streak-num').textContent = state.streak;
+    document.querySelector('.streak-unit').textContent = state.streak === 1 ? 'den' : state.streak >= 2 && state.streak <= 4 ? 'dny' : 'dní';
     renderProgressSummary();
     renderErrorSummary();
     renderExamOverview();
@@ -2912,6 +2917,11 @@
       .replace(/,/g, '.');
   }
 
+  function reviewDataFor(ex, id) {
+    const topic = ex.closest('.topic');
+    return { id: `intake-example:${id}`, track: 'intake', source: 'Téma přijímaček', title: topic?.querySelector('h2')?.textContent.trim() || 'Přijímačková úloha', question: ex.querySelector('.example-q, .pe-q')?.textContent.trim().slice(0, 240) || `Příklad ${id}`, href: `zs/prijimacky-temata.html#${topic?.id || 'slovni-ulohy'}`, selfChecked: !ex.matches('.example[data-answers]') };
+  }
+
   function addErrorChoices(ex, id) {
     if (ex.querySelector('.error-reasons')) return;
     const choices = document.createElement('div');
@@ -2932,6 +2942,7 @@
         reason: button.dataset.reason,
         at: Date.now()
       });
+      window.MJReview?.wrong(reviewDataFor(ex, id));
       saveState(state);
       renderErrorSummary();
       choices.remove();
@@ -2948,6 +2959,7 @@
     const checkBtn = ex.querySelector('.check-btn');
     const feedback = ex.querySelector('.answer-feedback');
     const revealLink = ex.querySelector('.reveal-link');
+    let usedSolution = false, hadWrongAttempt = false;
 
     function markSolved(awardXp) {
       ex.classList.add('solved');
@@ -2970,19 +2982,22 @@
       if (!input.value.trim()) return;
       const val = normalizeAnswer(input.value);
       if (accepted.includes(val)) {
-        feedback.textContent = '✓ Správně!';
+        feedback.textContent = usedSolution || hadWrongAttempt ? '✓ Správná možnost. Do pokroku se započítá až nový samostatný pokus.' : '✓ Správně!';
         feedback.className = 'answer-feedback correct';
-        markSolved(true);
+        markSolved(!usedSolution && !hadWrongAttempt);
+        const bonus = window.MJReview?.correct(reviewDataFor(ex, id), !usedSolution && !hadWrongAttempt) || 0;
+        if (bonus) { state.xp += bonus; render(); showToast('+5 XP', 'Opravil jsi dřívější chybu.'); }
       } else {
-        feedback.textContent = 'Zkus to znovu';
+        hadWrongAttempt = true; feedback.textContent = 'Zkus to znovu. Po chybné první odpovědi už tento pokus nedá XP.';
         feedback.className = 'answer-feedback wrong';
+        window.MJReview?.wrong(reviewDataFor(ex, id));
         addErrorChoices(ex, id);
       }
     }
 
     if (checkBtn) checkBtn.addEventListener('click', checkAnswer);
     if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
-    if (revealLink) revealLink.addEventListener('click', () => markSolved(false));
+    if (revealLink) revealLink.addEventListener('click', () => { usedSolution = true; markSolved(false); });
 
     // pokud byl příklad už dřív vyřešen (uloženo v localStorage), rovnou ukázat jako hotový
     if (state.done[id]) {
@@ -3057,19 +3072,11 @@
     });
   });
   document.querySelectorAll('.topic-back-link').forEach(link => {
-    link.setAttribute('role', 'button');
-    link.setAttribute('tabindex', '0');
     link.addEventListener('click', () => {
       const topicId = link.getAttribute('data-back');
       showTopicMenu(topicId);
       const topic = document.getElementById(topicId);
       if (topic) requestAnimationFrame(() => topic.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-    });
-    link.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        link.click();
-      }
     });
   });
   // při vstupu na stránku (nebo kliku v postranním menu) se vždy nejdřív ukáže výběr tématu
@@ -3217,10 +3224,18 @@
   const resetBtn = document.getElementById('reset-progress');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (confirm('Opravdu chceš vynulovat celý postup, XP, historii testů a odemčené obtížnosti? Tohle nejde vzít zpět.')) {
+      if (confirm('Opravdu chceš vynulovat postup k přijímačkám včetně XP, diagnostiky, plánů, testů a chyb? Maturitní pokrok zůstane. Tohle nejde vzít zpět.')) {
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(EXAM_HISTORY_KEY);
         Object.keys(examPages).forEach(testId => localStorage.removeItem(`mj_exam_${testId}_v1`));
+        ['mj_prijimacky_diagnostika_v1', 'mj_prijimacky_diagnostika_v2', 'mj_prijimacky_diagnostika_score_v2', 'mj_prijimacky_plan_hotov', 'mj_prijimacky_datum_zkousky'].forEach(key => localStorage.removeItem(key));
+        try {
+          const reviews = JSON.parse(localStorage.getItem('mj_review_v1') || '{}');
+          if (reviews && typeof reviews === 'object' && !Array.isArray(reviews)) {
+            Object.keys(reviews).forEach(id => { if (reviews[id]?.track === 'intake' || id.startsWith('intake-')) delete reviews[id]; });
+            localStorage.setItem('mj_review_v1', JSON.stringify(reviews));
+          }
+        } catch (_) {}
         state = { xp: 0, done: {}, topicDone: {}, errors: [], lastVisit: new Date().toDateString(), streak: 1 };
         saveState(state);
         document.querySelectorAll('.example.solved').forEach(ex => {
@@ -3241,6 +3256,7 @@
         document.querySelectorAll('.pure-example > .error-reasons').forEach(choices => choices.remove());
         render();
         showToast('Hotovo', 'Postup byl vynulován.');
+        setTimeout(() => location.reload(), 700);
       }
     });
   }
@@ -3365,7 +3381,7 @@
 })();
 </script>
 
-<script src="prijimacky-kroky.js"></script>
-<script src="../site.js?v=9"></script>
+<script src="prijimacky-kroky.js?v=2"></script>
+<script src="../site.js?v=14"></script>
 </body>
 </html>

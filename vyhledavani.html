@@ -29,9 +29,11 @@
     input:focus { outline:2px solid var(--gold); outline-offset:2px; } #summary { font-size:14px; } ul { list-style:none; margin:24px 0 0; padding:0; display:grid; gap:10px; }
     a.result { display:block; padding:18px 20px; background:#fff; border:1px solid var(--line); border-radius:5px; color:var(--ink); font-weight:700; text-decoration:none; } a.result:hover { border-color:var(--gold); } .meta { margin-top:5px; color:var(--soft); font-size:14px; font-weight:400; }
   </style>
+  <link rel="stylesheet" href="site.css?v=4">
+  <link rel="stylesheet" href="secondary-v2.css?v=1">
 </head>
 <body data-no-study-tools="true">
-  <header><div class="wrap"><a class="logo" href="index.html">matematika<span>.</span>jasně</a></div></header>
+  <header><div class="wrap search-header"><a class="logo" href="index.html">matematika<span>.</span>jasně</a><a class="back" href="index.html">← hlavní stránka</a></div></header>
   <main class="wrap">
     <h1>Najdi své téma</h1>
     <p>Hledej napříč učivem základní i střední školy.</p>
@@ -40,7 +42,8 @@
     <p id="summary" aria-live="polite"></p>
     <ul id="results"></ul>
   </main>
-  <script src="site.js?v=9"></script>
+  <footer><div class="wrap">matematika.jasně</div></footer>
+  <script src="site.js?v=14"></script>
   <script>
     const input = document.getElementById('search'); const results = document.getElementById('results'); const summary = document.getElementById('summary');
     const initial = new URLSearchParams(location.search).get('q') || '';

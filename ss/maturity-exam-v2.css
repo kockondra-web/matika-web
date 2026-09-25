@@ -1,0 +1,25 @@
+/* Maturitní testy a simulace: čitelnější zadání, odpovědi a výsledky. */
+body { background: radial-gradient(circle at 96% 0, rgba(212,162,78,.08), transparent 28%), #faf9f6; }
+header { background: rgba(250,249,246,.93); backdrop-filter: blur(18px); }
+header .back { padding: 9px 13px; border: 1px solid rgba(27,42,74,.12); border-radius: 999px; background: #fff; color: #1b2a4a; }
+.page h1 { font-size: clamp(42px, 6vw, 60px); letter-spacing: -.035em; }
+.page .lead { line-height: 1.7; }
+.test-info { border-radius: 12px; }
+.notice, .scoring-guide { border-radius: 0 9px 9px 0; }
+.sticky-bar { border-radius: 10px; box-shadow: 0 15px 40px rgba(27,42,74,.18); }
+.sticky-bar button, .submit { border-radius: 7px; min-height: 39px; }
+.task { border-radius: 13px; padding: 23px 26px; box-shadow: 0 14px 38px rgba(27,42,74,.055); scroll-margin-top: 155px; }
+.task-num { font-size: 13px; }
+.option, .statement-row, .match-row { border-radius: 8px; }
+.option { padding: 11px 13px; }
+.option:hover { border-color: #d4a24e; background: #fffaf0; }
+.answer-input { border-radius: 7px; min-height: 43px; }
+.finish { border-radius: 13px; }
+.result { border-radius: 0 12px 12px 0; box-shadow: 0 15px 40px rgba(27,42,74,.07); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid rgba(212,162,78,.45); outline-offset: 3px; }
+@media (max-width: 620px) {
+  .page h1 { font-size: clamp(38px, 10vw, 46px); }
+  .task { padding: 19px; scroll-margin-top: 185px; }
+  .back { font-size: 12px; }
+  .back::before { content: none; }
+}

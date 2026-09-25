@@ -1,0 +1,24 @@
+/* Navazující veřejné stránky v novém vizuálním směru. */
+body { background: radial-gradient(circle at 95% 0, rgba(212,162,78,.09), transparent 29%), #faf9f6; }
+header { background: rgba(250,249,246,.91); backdrop-filter: blur(18px); }
+header .back, header a.back { padding: 9px 13px; border: 1px solid rgba(27,42,74,.11); border-radius: 999px; background: #fff; color: #1b2a4a; }
+.search-header { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.search-header .back { font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+main h1, .page-head .section-title { font-size: clamp(41px, 6vw, 61px); line-height: 1.07; letter-spacing: -.035em; }
+.lead, .section-lead { line-height: 1.7; }
+.overview-card, .track, .start-link, .audience, .grade-card, .topic-card, .card { border-radius: 13px; box-shadow: 0 15px 42px rgba(27,42,74,.055); }
+.overview-card.primary, .routine { background: linear-gradient(135deg, #1b2a4a, #273d65); border-radius: 13px; }
+.track { padding: 30px; }
+.track.intake { border-top-color: #d4a24e; }
+.track.maturity { border-top-color: #b85c4a; }
+.stat, .meaning { border-radius: 9px; }
+.next, .promise { border-radius: 0 9px 9px 0; }
+.start-link { transition: transform .18s ease, box-shadow .18s ease; }
+.start-link:hover { box-shadow: 0 20px 45px rgba(27,42,74,.1); }
+.button { border-radius: 7px; }
+footer { margin-top: 40px; padding: 28px 0; border-top: 1px solid rgba(27,42,74,.12); color: #3a4a6b; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid rgba(212,162,78,.45); outline-offset: 3px; }
+@media (max-width: 480px) {
+  .track { padding: 22px; }
+  .overview-card { padding: 20px; }
+}

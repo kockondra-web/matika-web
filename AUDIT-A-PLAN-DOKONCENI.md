@@ -1,97 +1,102 @@
-# Souhrn a plán dokončení webu matematika.jasně
+# Plán dokončení webu matematika.jasně
 
-Aktualizováno: 22. září 2026
+Aktualizováno: 25. září 2026
 
-Tento soubor je hlavní přehled práce na webu. Propagace je podrobněji vedená zvlášť v souboru `PLAN-PROPAGACE.md`.
+Toto je hlavní plán pro pracovní složku „web - kopie“. Původní složka „web“ a veřejná verze zůstávají beze změny, dokud kopii neověříme a vědomě nepřeneseme do Git repozitáře. Web je určen hlavně žákům a rodičům. Propagace má vlastní soubor PLAN-PROPAGACE.md.
 
-## Co už je hotové
+Základní cesta už existuje: diagnostika, výklad, procvičování, vlastní celé testy a přehled pokroku. Největší další přínos nepřinese nový obecný vzhled, ale propojení těchto částí do jasné odpovědi na otázku „Co mám udělat dnes a proč?“
 
-### 1. Přijímačky na SŠ
+## Co udělat dál — doporučené pořadí
 
-- Všechna hlavní témata přijímaček mají vlastní výklad, řešené příklady a procvičování.
-- Úlohy začínají lehčím rozcvičením a pokračují obtížností odpovídající přijímačkám CERMAT.
-- Sjednotilo se vyhodnocení odpovědí, nápovědy, dokončení úloh a získávání XP.
-- XP se nepřidělí jen za označení úlohy jako vyřešené; žák nejdřív dostane kontrolu odpovědi.
-- Rychlý start jde sbalit a stránka si ukládá postup v zařízení.
-- Vznikly čtyři vlastní testy nanečisto A–D se 16 úlohami a 50 body.
-- Úlohy příliš podobné oficiálním zadáním byly přepracované do původní podoby.
-- Starý obsah JPZ 2024 byl odstraněn.
-- Z hlavní stránky přijímaček byly odstraněny skryté a duplicitní bloky podle ročníků.
-- Témata jsou v obsahu stránky seřazená stejně jako v nabídce.
-- Kontrola po úpravách: všech 15 tematických bloků zůstalo dostupných a interní odkazy fungují.
-- Přijímačky mají krátký rozcestník a čtyři navazující kroky stejně jako maturita: diagnostiku, studijní plán, témata a testy nanečisto. Původní tematický obsah, XP i uložený postup zůstaly zachované.
+### 1. Konkrétní další krok pro každého žáka
 
-### 2. Maturita CERMAT
+- [ ] Na obou zkouškových rozcestnících a na „Můj pokrok“ vytvořit kartu „Dnes pokračuj tady“. Nabídne konkrétní téma nebo několik úloh, odhad času a stručný důvod doporučení. Přijímačky a maturita se nesmějí míchat.
+- [ ] Doporučení odvozovat z dostupných údajů: diagnostiky, opakovaných chyb, dokončených témat, posledního celého testu a zbývajícího času. Nový žák musí dostat dobrý první krok i bez diagnostiky.
+- [ ] Tři obecné studijní plány změnit v použitelný týdenní rozvrh s malými bloky, kontrolou splnění a plánovaným návratem ke starší chybě. Žák může doporučení přeskočit a vybrat si sám.
+- [ ] Ověřit logiku na případech: nový žák, nulová diagnostika, slabá geometrie, dobrý test, mnoho neopravených chyb a zkouška za dva týdny. Neoznačovat obecnou radu za osobní doporučení.
 
-- Hlavní část je zaměřená na didaktický test CERMAT, ne na ústní zkoušku.
-- Původních 25 ústních otázek je zachovaných zvlášť ve složce `ustni-otazky-puvodni` a nejsou hlavní cestou webu.
-- Doplnila se diagnostika, studijní plán, témata, procvičování a vlastní testy nanečisto.
-- Obtížnost úloh byla zvýšená tak, aby lépe odpovídala skutečné maturitě.
-- Diagnostika se dá sbalit a stránka vede žáka k dalšímu kroku.
-- Dlouhá maturitní stránka byla rozdělena na krátký rozcestník a čtyři samostatné kroky: diagnostiku, studijní plán, okruhy a testy nanečisto.
-- Kroky lze procházet v doporučeném pořadí i libovolně přeskakovat; dokončené nebo zahájené části se označují z uloženého postupu.
-- Devět tematických okruhů odpovídá katalogu CERMAT. U starších lekcí je označené maturitní jádro a rozšiřující látka.
-- Dvě plné simulace používají vlastní zadání v rozložení 14 otevřených a 11 uzavřených úloh, mají 50 bodů, částečné bodování vícedílných úloh a po odevzdání doporučují nejslabší okruhy.
+Hotovo poznáme tak, že deváťák i maturant do několika sekund vidí, co se má dnes učit, jak dlouho to zabere a proč.
 
-### 3. Výuka podle ročníku
+### 2. Učení z chyb a spolehlivé zvládnutí
 
-- Dokončené a sjednocené jsou stránky pro 6.–9. ročník ZŠ i 1.–4. ročník SŠ.
-- Lekce mají jednotnější strukturu: co se žák naučí, stručný výklad, řešený příklad, procvičení, kontrolu a další krok.
-- Funguje ukládání postupu a společné chování procvičování.
-- ZŠ část prošla úplnou jazykovou, matematickou a vizuální kontrolou: byly opraveny chybné závorky a zápisy, nepřesné definice, popisy neodpovídající obsahu i chybějící výklad nerovnic.
+- [ ] U klíčových úloh doplnit postupnou zpětnou vazbu: malá nápověda, vysvětlení typické chybné úvahy a až potom celý postup. Nesprávná odpověď nemá vést jen k dalšímu hádání.
+- [ ] Připravit více původních variant nejdůležitějších principů: procenta, rovnice, slovní úlohy, geometrie a maturitní grafy a funkce. Znalost konkrétního výsledku nesmí stačit ke „zvládnutí“ tématu.
+- [ ] Přidat krátké opakování s odstupem několika dní. Rozlišit první úspěch od opakovaně ověřeného zvládnutí na jiné variantě.
+- [ ] Propojit seznam chyb s dnešním tréninkem. Opakující se chyby mají vyšší prioritu; opravené se nemají donekonečna vracet. Přístup k libovolnému tématu musí zůstat volný.
+- [ ] Žákovi jednoduše vysvětlit rozdíl mezi XP, vyřešenou úlohou, ověřeným tématem a výsledkem celého testu. XP nejsou předpověď přijetí ani maturity.
 
-### 4. Technická část a zveřejnění
+### 3. Pestřejší odpovědi a poctivější výsledky testů
 
-- Web je veřejný přes GitHub Pages na `https://kockondra-web.github.io/matika-web/`.
-- Automatická kontrola GitHub Actions ověřuje HTML a interní odkazy.
-- Místní kontrola aktuálně prochází 105 HTML stránek a hlásí 0 nefunkčních interních odkazů.
-- Web má sitemapu, `robots.txt`, canonical adresy a základní SEO metadata.
-- Veřejné stránky mají faviconu; hlavní stránky také náhledové obrázky pro sdílení.
-- Na veřejných stránkách funguje „Sdílet stránku“ a „Nahlásit chybu“.
-- Existuje stránka „O webu“ s autorem, e-mailem `ondrakock@seznam.cz` a telefonem.
-- „O webu“ a „Ukládání dat“ jsou oddělené stránky. Hlášení chyby lze zkopírovat a poslat i bez nastaveného e-mailového programu.
-- Vznikla stručná stránka „Jak web používat“ pro žáky a rodiče. Vysvětluje první kroky, doporučený režim, význam XP a bodů i ukládání postupu. Odkaz je nenápadně na hlavní stránce a v patičce webu.
-- Vznikla první verze stránky „Můj pokrok“. Odděleně ukazuje cestu k přijímačkám a maturitě, pět smysluplných levelů, diagnostiku, procvičování, nejlepší celý test a doporučený další krok. Nejvyšší level vyžaduje také dostatečný výsledek testu, ne pouze XP.
-- Materiály pro Instagram jsou uložené mimo složku webu, takže se zbytečně nenahrávají na GitHub Pages.
+- [ ] Vedle výběru z možností zavést alespoň tři pečlivě ověřené formy tréninku: vlastní číselnou odpověď, doplnění mezikroku a práci s grafem nebo hledání chyby v cizím řešení. Začít na několika tématech, nepřepisovat všechny stávající úlohy najednou.
+- [ ] U celých testů výrazně označit automaticky vypočtené body jako orientační tam, kde zkouška hodnotí i písemný postup. Po odevzdání nabídnout jednoduchou kontrolu postupu podle jasných kritérií. Správný výsledek sám nemusí znamenat plný počet bodů.
+- [ ] Srovnat skladbu typů úloh, čas a bodování vlastních simulací s aktuálními oficiálními podklady CERMAT. Zadání zůstanou původní, bez kopírování oficiálních formulací.
+- [ ] Nové celé testy přidávat teprve po matematické a jazykové kontrole, kontrole řešení a pilotním vyzkoušení. Vedle skóre zobrazit vývoj v čase a nejčastější typ ztracených bodů.
+- [ ] Ověřit zdroj a význam procentních „vah“ maturitních okruhů. Pokud jsou jen orientačním odhadem, výslovně je tak označit nebo odstranit.
 
-### 5. Propagace, která už začala
+### 4. Snadnější výběr témat a smysluplné odměny
 
-- Založený Instagram `@matematika.jasne` s názvem „Matematika jasně | CERMAT“.
-- Připravených je 10 příspěvků včetně popisků.
-- První tři příspěvky jsou zveřejněné, úvodní je připnutý a účet je nastavený jako profesionální profil tvůrce.
-- YouTube a placená vlastní doména se zatím vědomě neřeší.
+- [ ] U přijímaček zachovat pohled podle pořadí úloh JPZ, ale přidat přepnutí na pohled podle znalostí: početní základy, rovnice, slovní úlohy, geometrie a práce s daty. Obě cesty vedou na stejný obsah bez duplicit.
+- [ ] U tématu před vstupem ukázat obtížnost, typ úloh, přibližný čas, stav zvládnutí a doporučený další krok. Ve vyhledávání počítat i s běžnými názvy a synonymy.
+- [ ] Na malém displeji ověřit čitelnost zadání a pohodlí při zadávání odpovědi, otevírání nápovědy a kontrole. Velkou přijímačkovou stránku dále technicky dělit jen tam, kde to skutečně pomůže orientaci nebo údržbě.
+- [ ] Levely a odznaky navázat více na skutečný posun: lepší výsledek testu, méně opakovaných chyb a úspěch při opakování s odstupem. Neodměňovat pouhé klikání.
+- [ ] Po použití nové verze se žáky vyhodnotit týdenní mise. Pokud nepomáhají vracet se k učení, zjednodušit nebo odstranit. Virtuální měnu, obchod a soutěžení zatím nestavět.
 
-## Na čem pracovat teď — doporučené pořadí
+### 5. Rodiče, důvěra a odlišení projektu
 
-### 1. Dokončit nový systém pokroku
+- [ ] Připravit na stejném zařízení stručný rodičovský přehled: co žák prošel, kde se zlepšil, kde chybuje opakovaně a co zkusit příští týden. Bez účtu, vzdáleného sledování a přehnaných závěrů z několika úloh.
+- [ ] Důsledně rozlišovat „vlastní úlohu ve stylu zkoušky“ od „oficiálního materiálu CERMAT“. Přidat odkazy na oficiální testy pro závěrečné ověření.
+- [ ] Lidsky vysvětlit, kdo web vytváří, jak kontroluje zadání a řešení, co automatika neumí hodnotit a kam poslat chybu či návrh. Nevymýšlet recenze ani sliby o přijetí.
+- [ ] Zachovat přednosti webu: volně dostupná výuka, klidné prostředí, jasný postup a minimum nutných údajů. Nekopírovat množství her, účtů a platebních funkcí velkých služeb.
 
-- [ ] Ukládat chybné úlohy také z maturitních testů a procvičování, ne jen z přijímačkových testů.
-- [ ] Vytvořit na stránce „Můj pokrok“ samostatný trénink dřívějších chyb.
-- [ ] Přidat bonusové XP za opravení vlastní chyby a zabránit opakovanému získávání odměny.
-- [ ] Doplnit několik smysluplných odznaků za skutečné milníky, ne za pouhé návštěvy stránek.
-- [ ] Po ověření systému rozhodnout, zda přidat krátké týdenní mise.
+### 6. Ověření s lidmi a vydání pracovní kopie
 
-### 2. Zveřejnit a ověřit poslední úpravy
+- [ ] Dát kopii bez vysvětlování vyzkoušet alespoň deváťákovi, maturantovi a rodiči. Ať najdou dnešní úkol, vyřeší úlohu, opraví chybu, pochopí další krok a výsledek celého testu. Zapsat místa, kde se zastaví.
+- [ ] Na skutečném telefonu projít obě celé cesty: hlavní stránka → téma → procvičování → kontrola → pokrok → test. Ověřit čitelnost, ovládání prstem i chování po obnovení stránky.
+- [ ] Na veřejném webu po vydání vyzkoušet „Sdílet stránku“ na počítači i telefonu, náhled odkazu ve zprávě a „Nahlásit chybu“ včetně předvyplněné adresy a názvu stránky.
+- [ ] Před přenosem spustit kontrolu HTML, odkazů a skriptů. Do Git repozitáře zkopírovat obsah pracovní kopie, nikoli složku „web - kopie“ jako další úroveň. Pracovní složky tmp/ a output/ nenahrávat.
+- [ ] Po nahrání potvrdit zelenou kontrolu GitHub Actions a veřejnou adresu https://kockondra-web.github.io/matika-web/. Teprve potom označit pracovní kopii jako nasazenou.
 
-- [ ] Zkontrolovat, že poslední vyčištění a seřazení stránky Přijímačky i aktuální plány jsou zkopírované do Git repozitáře.
-- [ ] Po nahrání ověřit zelenou kontrolu GitHub Actions.
-- [ ] Otevřít veřejný web na telefonu a ověřit hlavní cestu žáka: titulní stránka → téma → procvičování → kontrola → další krok.
+## Co teď vědomě nedělat
 
-### 3. Závěrečná kontrola sdílení a kontaktu
+- Export a import pokroku zatím nepřidávat podle rozhodnutí autora. Pokrok zůstává jen v daném prohlížeči a web to má jasně říkat.
+- Rodičovské a učitelské účty, žebříčky a velkou herní ekonomiku nestavět před ověřením základní učební cesty.
+- YouTube a placenou doménu neřešit bez samostatného plánu; GitHub Pages zatím stačí.
+- Ústní maturitu teď ve velkém nerozšiřovat. Hlavním maturitním produktem je příprava na didaktický test.
+- Aplikaci pro obchod s mobilními aplikacemi odložit; případným menším krokem může být instalovatelná verze webu.
 
-- [ ] Na veřejném webu zkusit „Sdílet stránku“ na počítači i telefonu.
-- [ ] Ověřit náhled odkazu při poslání do zprávy nebo na sociální síť.
-- [ ] Vyzkoušet „Nahlásit chybu“ a zkontrolovat, že se předvyplní správná adresa a název stránky.
-- [ ] Ověřit čitelnost nejdůležitějších stránek na malém displeji.
+## Pravidlo pro další úpravy
 
-## Co teď není priorita
+Každá nová funkce má pomoci žákovi nebo rodiči pochopit, kde začít, co právě trénuje, zda odpověděl správně a co dělat dál. Po větší změně ověřit automatické kontroly a alespoň jednu celou cestu skutečného uživatele.
 
-- Samostatná stránka pro učitele — až bude cílem oslovování škol.
-- Vlastní placená doména — GitHub Pages je zatím dostačující.
-- YouTube — dokud nevznikne plán na pravidelná videa.
-- Další velké rozšiřování ústní maturity — hlavní produkt je teď příprava na CERMAT.
-- Samostatná aplikace pro obchody s aplikacemi — případným prvním krokem má být instalovatelná PWA verze současného webu.
+Srovnání veřejně dostupných stránek provedeno 25. září 2026: Umíme matiku (umimematiku.cz), Přijat.com (prijat.com), Nad Čarou (nadcarou.cz) a procvičování CERMAT (procvicprijimacky.cermat.cz). U placených aplikací jde o veřejně popsané funkce, ne o kontrolu obsahu za přihlášením.
 
-## Pravidlo pro další práci
+## Hotové — archiv dosavadní práce
 
-Každá nová úprava má pomoci žákovi nebo rodiči rychleji pochopit, kde začít, co právě trénuje, zda odpověděl správně a co má dělat dál. Po každé větší změně se ověří automatická kontrola, telefon a alespoň jedna celá cesta skutečného uživatele.
+### Přijímačky
+
+- [x] Hlavní témata mají výklad, řešené příklady a procvičování od lehčích úloh k obtížnosti JPZ. Patnáct tematických bloků zůstalo dostupných; pořadí obsahu a nabídky je sjednocené.
+- [x] Přijímačky mají rozcestník a čtyři přeskakovatelné kroky: diagnostiku, plán, témata a testy. Rychlý start lze sbalit.
+- [x] Existují čtyři vlastní celé testy A–D, každý se 16 úlohami a 50 body. Příliš podobná zadání byla přepracována a starý obsah JPZ 2024 odstraněn.
+- [x] XP a dokončení tématu jsou navázané na kontrolu odpovědi; hádání dalších možností po první chybě nedává XP. Chyby se ukládají pro návrat.
+- [x] Odstranily se duplicitní skryté bloky podle ročníků a neplatné odkazy bez cíle byly změněny na tlačítka ovladatelná klávesnicí.
+
+### Maturita a výuka podle ročníku
+
+- [x] Hlavní maturitní cesta je zaměřená na didaktický test. Původních 25 ústních otázek je odděleně zachováno ve složce ustni-otazky-puvodni.
+- [x] Maturita má diagnostiku, plán, devět katalogových okruhů, procvičování a vlastní testy; dlouhá vstupní stránka byla rozdělena do čtyř přeskakovatelných kroků.
+- [x] Dvě plné vlastní simulace mají 25 úloh, 50 bodů a doporučení slabších okruhů. Starší lekce rozlišují maturitní jádro a rozšíření.
+- [x] Sjednocené jsou lekce pro 6.–9. ročník ZŠ a 1.–4. ročník SŠ. Obsahují výklad, příklad, kontrolu a další krok; ZŠ prošla jazykovou a matematickou opravou.
+- [x] Zvládnutí lekce se počítá až po správné první odpovědi bez otevřeného postupu. Strukturálně bylo prověřeno 26 sad se 104 úlohami podle ročníku a 17 maturitních sad se 114 úlohami.
+
+### Vzhled, pokrok a technika
+
+- [x] V pracovní kopii je jednotný vzhled hlavní stránky, obou zkouškových cest, témat, lekcí, testů, výsledků, „Můj pokrok“ a pomocných stránek. Opravené jsou překryté odkazy, mobilní navigace i patičky.
+- [x] „Můj pokrok“ odděluje přijímačky, maturitu a ověřená školní témata; ukazuje levely, odznaky, výsledky a návrat k chybám. Nulový výsledek se neplete s nevyplněným.
+- [x] Za opravu chyby lze získat jednorázových 5 XP jen po správné první odpovědi bez nápovědy. Reset přijímaček maže jejich pokrok a chyby, ale zachovává maturitu.
+- [x] Veřejný web běží na GitHub Pages. Má SEO metadata, sitemapu, robots.txt, faviconu, obrázky pro sdílení, „O webu“, „Ukládání dat“ a návod „Jak web používat“.
+- [x] V pracovní kopii přibyl README.md a .gitignore pro tmp/ a output/. Kontrola prochází 105 HTML stránek, 80 veřejných záznamů sitemapy, vložené skripty, interní odkazy a odkazy bez cíle; naposledy hlásila 0 nefunkčních interních souborů.
+- [x] V místním náhledu už prošly obě hlavní cesty včetně testů, výsledků, oprav chyb a resetu. Na simulované šířce 390 px byly vybrané stránky bez vodorovného posouvání. Skutečný telefon a veřejná kopie tím ještě ověřené nejsou.
+
+### Propagace
+
+- [x] Založen Instagram @matematika.jasne; připravené jsou příspěvky a první tři byly zveřejněny. Další kroky vede samostatný plán propagace.

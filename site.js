@@ -299,6 +299,52 @@
   };
 
   const current = location.pathname.replace(/\\/g, '/').toLowerCase();
+  const reviewScript = document.createElement('script');
+  reviewScript.src = `${current.includes('/zs/') || current.includes('/ss/') ? '../' : ''}review-progress.js?v=2`;
+  reviewScript.async = false;
+  document.body.append(reviewScript);
+  if (current.endsWith('/ss/maturita-okruhy.html')) {
+    document.querySelectorAll('.topic-links a[href]').forEach(link => {
+      const url = new URL(link.href, location.href);
+      if (url.origin === location.origin && url.pathname.endsWith('.html')) {
+        url.searchParams.set('from', 'maturita');
+        link.href = url.href;
+      }
+    });
+  }
+  if (/\/ss\/(maturita-test-[12]|cermat-simulace-[12])\.html$/.test(current)) {
+    const submit = document.querySelector('#test-submit');
+    let submittedThisPage = false;
+    document.querySelector('#test-clear')?.addEventListener('click', () => { submittedThisPage = false; });
+    submit?.addEventListener('click', () => {
+      const eligibleForCorrection = !submittedThisPage;
+      submittedThisPage = true;
+      setTimeout(() => {
+      if (document.querySelector('#test-result')?.classList.contains('show')) {
+        try {
+          const attempts = JSON.parse(localStorage.getItem('maturita-test-attempts-v1') || '{}');
+          attempts[current.split('/').pop()] = true;
+          localStorage.setItem('maturita-test-attempts-v1', JSON.stringify(attempts));
+        } catch (_) {}
+      }
+      let bonus = 0;
+      document.querySelectorAll('.task').forEach((task, index) => {
+        const status = task.classList.contains('correct') ? 'correct' : task.classList.contains('wrong') || task.classList.contains('partial') ? 'wrong' : '';
+        if (!status) return;
+        task.id = `test-uloha-${index+1}`;
+        const data = { id: `maturity-test:${current.split('/').pop()}:${index+1}`, track: 'maturity', source: 'Celý test', title: document.querySelector('h1')?.textContent.trim() || 'Maturitní test', question: task.querySelector('.question')?.textContent.trim() || `Úloha ${index+1}`, href: `ss/${current.split('/').pop()}#test-uloha-${index+1}` };
+        if (status === 'wrong') window.MJReview?.wrong(data);
+        else bonus += window.MJReview?.correct(data, eligibleForCorrection) || 0;
+      });
+      if (bonus) {
+        const result = document.querySelector('#test-result');
+        const note = document.createElement('p');
+        note.textContent = `Navíc ${bonus} XP za opravené dřívější chyby.`;
+        result?.append(note);
+      }
+      }, 0);
+    });
+  }
   const cermatScopeNotes = {
     '/ss/logika-mnoziny.html': ['Jádro k didaktickému testu', 'Pro maturitu se soustřeď hlavně na číselné obory, intervaly a operace s množinami. Výroky, implikace a pravdivostní tabulky jsou zde jako rozšíření.'],
     '/ss/funkce.html': ['Jádro k didaktickému testu', 'Prioritou jsou definiční obor a obor hodnot, čtení grafů, průsečíky, monotonie a lineární, kvadratická a lineární lomená funkce. Inverzní funkce, konvexnost a úlohy s parametrem ber jako rozšíření.'],
@@ -439,7 +485,7 @@
     scope.className = `lesson-scope ${onlyOral ? 'scope-oral' : 'scope-cermat'}`;
     scope.innerHTML = onlyOral
       ? '<strong>Ústní zkouška · rozšiřující látka</strong>Toto téma není součástí běžné přípravy na didaktický test CERMAT. Uč se ho podle požadavků své školy k ústní zkoušce.'
-      : '<strong>CERMAT + ústní zkouška</strong>Základní části tohoto tématu využiješ v didaktickém testu. Pokročilejší odstavce a odvození jsou navíc pro školní ústní zkoušku.';
+      : '<strong>Didaktický test CERMAT</strong>Procvič hlavně označené minimum a úlohy níže. Pokročilejší odstavce můžeš zatím přeskočit.';
     const main = document.querySelector('main');
     const marker = main?.querySelector('.source-note');
     if (main) marker ? marker.insertAdjacentElement('afterend', scope) : main.insertBefore(scope, main.firstChild);
@@ -453,7 +499,7 @@
   ];
   if (current.includes('/ss/') && cermatPracticePages.includes(current.split('/').pop())) {
     const practiceScript = document.createElement('script');
-    practiceScript.src = 'cermat-practice.js?v=4';
+    practiceScript.src = 'cermat-practice.js?v=6';
     practiceScript.async = false;
     document.body.append(practiceScript);
   }
@@ -506,7 +552,7 @@
       'urcity-integral.html': ['Určitý integrál', 'seminář']
     }
   };
-  const gradeProgressKey = 'mj_rocniky_progress_v1';
+  const gradeProgressKey = 'mj_grade_verified_v1';
   const readGradeProgress = () => {
     try { return JSON.parse(localStorage.getItem(gradeProgressKey) || '{}'); } catch (_) { return {}; }
   };
@@ -555,31 +601,14 @@
       const guide = document.createElement('section');
       guide.className = 'lesson-study-path grade-study-path';
       guide.setAttribute('aria-label', 'Doporučený postup lekce');
-      guide.innerHTML = `<div class="lesson-study-copy"><span>${gradeLesson[1]}</span><strong>${gradeLesson[0]}</strong><small>1. pochop pravidlo → 2. projdi řešený vzor → 3. počítej sám → 4. zkontroluj odpovědi</small></div><nav>${headings[0] ? `<a href="#${headings[0].id}">Výklad</a>` : ''}${solved?.id ? `<a href="#${solved.id}">Řešený vzor</a>` : ''}<a href="#rocnik-procvicovani">Procvičování</a></nav><button type="button">Označit jako zvládnuté</button>`;
-      const button = guide.querySelector('button');
-      const refreshButton = () => {
-        const key = normalizeLessonKey(gradeSection, `${fileName}${location.hash || ''}`);
-        const done = Boolean(progress[key] || progress[normalizeLessonKey(gradeSection, fileName)]);
-        button.dataset.lessonKey = key;
-        button.setAttribute('aria-pressed', String(done));
-        button.textContent = done ? '✓ Téma zvládnuto' : 'Označit jako zvládnuté';
-        guide.classList.toggle('is-complete', done);
-      };
-      button.addEventListener('click', () => {
-        const key = button.dataset.lessonKey;
-        progress[key] = !progress[key];
-        try { localStorage.setItem(gradeProgressKey, JSON.stringify(progress)); } catch (_) {}
-        refreshButton();
-      });
-      addEventListener('hashchange', refreshButton);
-      refreshButton();
+      guide.innerHTML = `<div class="lesson-study-copy"><span>${gradeLesson[1]}</span><strong>${gradeLesson[0]}</strong><small>1. pochop pravidlo → 2. projdi řešený vzor → 3. počítej sám → 4. zkontroluj odpovědi</small></div><nav>${headings[0] ? `<a href="#${headings[0].id}">Výklad</a>` : ''}${solved?.id ? `<a href="#${solved.id}">Řešený vzor</a>` : ''}<a href="#rocnik-procvicovani">Procvičování</a></nav><small>Téma se označí jako zvládnuté až po správném vyřešení kontrolních úloh.</small>`;
       const intro = content.querySelector('.source-note') || content.querySelector('.section-lead, .lead');
       if (intro) intro.insertAdjacentElement('afterend', guide);
       else content.prepend(guide);
     }
     if (gradeSection === 'zs' || !cermatPracticePages.includes(fileName)) {
       const gradePracticeScript = document.createElement('script');
-      gradePracticeScript.src = '../grade-practice.js?v=4';
+      gradePracticeScript.src = '../grade-practice.js?v=7';
       gradePracticeScript.async = false;
       document.body.append(gradePracticeScript);
     }
@@ -701,12 +730,12 @@
       const guide = document.createElement('section');
       guide.className = 'lesson-study-path';
       guide.setAttribute('aria-label', 'Doporučený postup lekcí');
-      guide.innerHTML = `<div class="lesson-study-copy"><span>Jak projít tuto lekci</span><strong>${lessonTitle}</strong><small>Výklad → řešený vzor → samostatné procvičení → úroveň CERMAT</small></div><nav>${first ? `<a href="#${first.id}">1. Výklad</a>` : ''}${solved ? `<a href="#${solved.id}">2. Řešený vzor</a>` : ''}${practice ? `<a href="#${practice.id}">3. Zkus sám</a>` : ''}<a href="#uroven-cermat">4. CERMAT</a></nav><button type="button" aria-pressed="${Boolean(completed[file])}">${completed[file] ? '✓ Téma zvládnuto' : 'Označit jako zvládnuté'}</button>`;
+      guide.innerHTML = `<div class="lesson-study-copy"><span>Jak projít tuto lekci</span><strong>${lessonTitle}</strong><small>Výklad → řešený vzor → samostatné procvičení → úroveň CERMAT</small></div><nav>${first ? `<a href="#${first.id}">1. Výklad</a>` : ''}${solved ? `<a href="#${solved.id}">2. Řešený vzor</a>` : ''}${practice ? `<a href="#${practice.id}">3. Zkus sám</a>` : ''}<a href="#uroven-cermat">4. CERMAT</a></nav><button type="button" aria-pressed="${Boolean(completed[file])}">${completed[file] ? '✓ Lekce projita' : 'Označit lekci jako projitou'}</button>`;
       guide.querySelector('button').addEventListener('click', event => {
         completed[file] = !completed[file];
         try { localStorage.setItem(progressKey, JSON.stringify(completed)); } catch (_) {}
         event.currentTarget.setAttribute('aria-pressed', String(Boolean(completed[file])));
-        event.currentTarget.textContent = completed[file] ? '✓ Téma zvládnuto' : 'Označit jako zvládnuté';
+        event.currentTarget.textContent = completed[file] ? '✓ Lekce projita' : 'Označit lekci jako projitou';
         guide.classList.toggle('is-complete', Boolean(completed[file]));
       });
       guide.classList.toggle('is-complete', Boolean(completed[file]));
@@ -732,17 +761,21 @@
   if (current.endsWith('/zs/rocniky.html') || current.endsWith('/ss/ss-rocniky.html')) return;
 
   const section = current.includes('/ss/') ? 'ss' : 'zs';
-  const withinSection = gradeLesson
+  const intakeExam = section === 'zs' && /^jpz-2026-test-[a-d]\.html$/.test(fileName);
+  const withinSection = intakeExam
+    ? ['a', 'b', 'c', 'd'].map(variant => [`zs/jpz-2026-test-${variant}.html`, `Test ${variant.toUpperCase()}`])
+    : gradeLesson
     ? Object.keys(gradeLessonCatalog[section]).map(file => [`${section}/${file}`, gradeLessonCatalog[section][file][0]])
     : pages.filter(([path]) => path.startsWith(section + '/'));
   const withinPosition = withinSection.findIndex(([path]) => current.endsWith('/' + path));
-  const up = gradeLesson ? (section === 'ss' ? 'ss-rocniky.html' : 'rocniky.html') : (section === 'ss' ? 'maturita.html' : 'rocniky.html');
+  const maturityContext = section === 'ss' && new URLSearchParams(location.search).get('from') === 'maturita';
+  const up = intakeExam ? 'prijimacky-testy.html' : maturityContext ? 'maturita-okruhy.html' : gradeLesson ? (section === 'ss' ? 'ss-rocniky.html' : 'rocniky.html') : (section === 'ss' ? 'maturita.html' : 'rocniky.html');
   const tools = document.createElement('nav');
   tools.className = 'study-tools';
   tools.setAttribute('aria-label', 'Navigace ve studiu');
-  tools.innerHTML = `<a href="${up}">${gradeLesson ? 'Ročníky' : (section === 'ss' ? 'Maturita' : 'Přehled témat')}</a>` +
-    (withinSection[withinPosition - 1] ? `<a href="${withinSection[withinPosition - 1][0].split('/')[1]}" aria-label="Předchozí téma">←</a>` : '') +
-    (withinSection[withinPosition + 1] ? `<a href="${withinSection[withinPosition + 1][0].split('/')[1]}" aria-label="Další téma">→</a>` : '');
+  tools.innerHTML = `<a href="${up}">${intakeExam ? 'Testy přijímaček' : maturityContext ? 'Okruhy maturity' : gradeLesson ? 'Ročníky' : (section === 'ss' ? 'Maturita' : 'Přehled témat')}</a>` +
+    (!maturityContext && withinSection[withinPosition - 1] ? `<a href="${withinSection[withinPosition - 1][0].split('/')[1]}" aria-label="Předchozí téma">←</a>` : '') +
+    (!maturityContext && withinSection[withinPosition + 1] ? `<a href="${withinSection[withinPosition + 1][0].split('/')[1]}" aria-label="Další téma">→</a>` : '');
   document.body.append(tools);
 
 })();

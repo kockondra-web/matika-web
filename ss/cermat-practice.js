@@ -163,34 +163,39 @@
   const awardedKey = `maturita-cermat-xp:${file}`;
   let awarded = {};
   try { awarded = JSON.parse(localStorage.getItem(awardedKey) || '{}'); } catch (_) {}
-  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Procvičování CERMAT</h2><p>Nejdřív lehčí rozjezd, potom úlohy blízké testu. XP dostaneš jen za správnou odpověď bez otevřené nápovědy nebo řešení.</p></div><span class="cermat-xp">${Object.keys(awarded).length * 10} XP</span></div>` + bank.map((q,i)=>`<article class="cermat-task ${awarded[i]?'is-correct':''}" data-index="${i}"><div class="cermat-task-top"><span>Úloha ${i+1}</span><span class="cermat-difficulty">${q[0]==='easy'?'lehčí rozjezd':'úroveň CERMAT'}</span></div><div class="cermat-question">${q[1]}</div><div class="cermat-options">${q[2].map((o,j)=>`<label class="cermat-option"><input type="radio" name="cp-${file}-${i}" value="${j}"> ${o}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${awarded[i]?'splněno':''}</span>${q[5]?`<details class="cermat-hint"><summary>Nápověda</summary>${q[5]}</details>`:''}<details class="cermat-solution"><summary>Zobrazit řešení</summary>${q[4]}</details></article>`).join('');
+  section.innerHTML = `<div class="cermat-practice-head"><div><h2>Procvičování CERMAT</h2><p>Nejdřív lehčí rozjezd, potom úlohy blízké testu. XP dostaneš jen za správnou odpověď na první pokus bez otevřené nápovědy nebo řešení.</p></div><span class="cermat-xp">${Object.keys(awarded).length * 10} XP</span></div>` + bank.map((q,i)=>`<article class="cermat-task ${awarded[i]?'is-correct':''}" data-index="${i}"><div class="cermat-task-top"><span>Úloha ${i+1}</span><span class="cermat-difficulty">${q[0]==='easy'?'lehčí rozjezd':'úroveň CERMAT'}</span></div><div class="cermat-question">${q[1]}</div><div class="cermat-options">${q[2].map((o,j)=>`<label class="cermat-option"><input type="radio" name="cp-${file}-${i}" value="${j}"> ${o}</label>`).join('')}</div><button class="cermat-check" type="button">Zkontrolovat</button><span class="cermat-feedback">${awarded[i]?'splněno':''}</span>${q[5]?`<details class="cermat-hint"><summary>Nápověda</summary>${q[5]}</details>`:''}<details class="cermat-solution"><summary>Zobrazit řešení</summary>${q[4]}</details></article>`).join('');
   const main = document.querySelector('main');
   const footer = main?.querySelector('footer');
   if (!main) return;
-  main.insertBefore(guide, footer || null);
-  main.insertBefore(section, footer || null);
+  const afterStudy = main.querySelector('.page-actions') || footer;
+  main.insertBefore(guide, afterStudy || null);
+  main.insertBefore(section, afterStudy || null);
   if (!main.querySelector('.grade-next-step')) {
     const nextStep = document.createElement('section');
     nextStep.className = 'grade-next-step';
-    nextStep.innerHTML = '<div><span>Co dál</span><strong>Oprav chyby a vrať se k nim bez nápovědy.</strong><p>Potom pokračuj následující kartou ve svém ročníku nebo si téma označ jako zvládnuté.</p></div><a href="ss-rocniky.html">Zpět na svůj ročník →</a>';
-    main.insertBefore(nextStep, footer || null);
+    const fromMaturity = new URLSearchParams(location.search).get('from') === 'maturita';
+    nextStep.innerHTML = `<div><span>Co dál</span><strong>Oprav chyby a vrať se k nim bez nápovědy.</strong><p>Potom pokračuj dalším okruhem nebo si zkus celý test nanečisto.</p></div><a href="${fromMaturity ? 'maturita-okruhy.html' : 'ss-rocniky.html'}">${fromMaturity ? 'Zpět na okruhy maturity' : 'Zpět na svůj ročník'} →</a>`;
+    main.insertBefore(nextStep, afterStudy || null);
   }
   section.querySelectorAll('.cermat-task').forEach(task => {
     const i = Number(task.dataset.index), feedback = task.querySelector('.cermat-feedback'), details = task.querySelectorAll('details');
-    let usedHelp = false;
+    task.id = `cermat-uloha-${i+1}`;
+    let usedHelp = false, hadWrongAttempt = false;
     details.forEach(detail => detail.addEventListener('toggle', () => { if (detail.open) usedHelp = true; }));
     task.querySelector('.cermat-check').addEventListener('click', () => {
       const selected = task.querySelector('input:checked');
       if (!selected) { feedback.textContent = 'vyber odpověď'; return; }
-      if (Number(selected.value) !== bank[i][3]) { feedback.textContent = 'zatím ne — zkus znovu'; return; }
+      const reviewData = { id: `maturity-practice:${file}:${i}`, track: 'maturity', source: 'Procvičování maturity', title: document.querySelector('h1')?.textContent.trim() || file, question: task.querySelector('.cermat-question')?.textContent.trim() || `Úloha ${i+1}`, options: bank[i][2].map(String), answerIndex: bank[i][3], href: `ss/${file}#cermat-uloha-${i+1}` };
+      if (Number(selected.value) !== bank[i][3]) { hadWrongAttempt = true; window.MJReview?.wrong(reviewData); feedback.textContent = 'Zatím ne. Zkus jinou možnost; tento pokus už XP nedá.'; return; }
       task.classList.add('is-correct');
-      if (!awarded[i] && !usedHelp) {
+      const correctionXp = window.MJReview?.correct(reviewData, !usedHelp && !hadWrongAttempt) || 0;
+      if (!awarded[i] && !usedHelp && !hadWrongAttempt) {
         awarded[i] = true;
         let total = 0;
         try { total = Number(localStorage.getItem('maturita-xp') || 0) + 10; localStorage.setItem('maturita-xp', String(total)); localStorage.setItem(awardedKey, JSON.stringify(awarded)); } catch (_) {}
-        feedback.textContent = 'správně · +10 XP';
+        feedback.textContent = `správně · +${10 + correctionXp} XP`;
         section.querySelector('.cermat-xp').textContent = `${Object.keys(awarded).length * 10} XP`;
-      } else feedback.textContent = usedHelp && !awarded[i] ? 'správně · po řešení bez XP' : 'správně · už započítáno';
+      } else feedback.textContent = correctionXp ? 'správně · +5 XP za opravu chyby' : (usedHelp || hadWrongAttempt) && !awarded[i] ? 'správná možnost · po chybě nebo nápovědě bez XP; zkus úlohu později znovu' : 'správně · už započítáno';
     });
   });
 })();

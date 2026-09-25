@@ -373,22 +373,34 @@
   footer a { color: var(--ink-soft); text-decoration-color: var(--gold); text-underline-offset: 3px; }
   footer a:hover { color: var(--ink); }
 </style>
+<link rel="stylesheet" href="design-v2.css?v=1">
 </head>
 <body>
 
 <header>
   <div class="wrap header-inner">
-    <div class="logo">matematika<span>.</span>jasně</div>
-    <div class="header-tools"><a class="progress-link" href="muj-pokrok.html">Můj pokrok</a><input type="search" class="header-search" id="header-search" aria-label="Hledat matematické téma" placeholder="Hledat téma… (Enter)"></div>
+    <a class="logo" href="index.html">matematika<span>.</span>jasně</a>
+    <nav class="main-nav" aria-label="Hlavní navigace"><a href="zs/prijimacky.html">Přijímačky</a><a href="ss/maturita.html">Maturita</a><a href="jak-web-pouzivat.html">Jak začít</a></nav>
+    <div class="header-tools"><a class="progress-link" href="muj-pokrok.html"><span class="progress-dot"></span>Můj pokrok</a><input type="search" class="header-search" id="header-search" aria-label="Hledat matematické téma" placeholder="Hledat téma…"></div>
   </div>
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div class="hero-eyebrow">přehled · postupy · řešené příklady</div>
-    <h1>Matematika pro ZŠ a SŠ</h1>
-    <p class="lead">Žádné strohé vzorečky bez kontextu. Přehled teorie a stovky řešených příkladů — tak, jak to funguje na doučování, jen zdarma a pro každého.</p>
-    <div class="start-hint">Nevíš, kde začít? <a href="zs/prijimacky.html">Připravuješ se na přijímačky</a> · <a href="ss/maturita.html">čeká tě maturita</a></div>
+  <div class="wrap hero-layout">
+    <div class="hero-copy">
+      <div class="hero-eyebrow"><span></span> pochopit · procvičit · zvládnout</div>
+      <h1>Matematika, ve které <em>víš, co dál.</em></h1>
+      <p class="lead">Srozumitelný výklad, vlastní úlohy a testy nanečisto pro žáky ZŠ i SŠ. Bez registrace, zdarma a krok za krokem.</p>
+      <div class="hero-actions"><a class="hero-button primary" href="zs/prijimacky.html">Připravit se na přijímačky <span>→</span></a><a class="hero-button primary" href="ss/maturita.html">Připravit se na maturitu <span>→</span></a></div>
+      <div class="hero-trust"><span>✓ bez registrace</span><span>✓ vlastní tempo</span><span>✓ výsledky v zařízení</span></div>
+    </div>
+    <aside class="hero-dashboard" aria-label="Ukázka studijního postupu">
+      <div class="dash-top"><div><small>Ukázka studijní cesty</small><strong>Dnes stačí jeden krok</strong></div><a href="muj-pokrok.html">Přehled →</a></div>
+      <div class="dash-level"><div class="level-ring"><span>3</span><small>level</small></div><div><strong>Zvládám běžné úlohy</strong><p>Další milník: celý test pod časem</p></div></div>
+      <div class="dash-progress"><span style="width:58%"></span></div>
+      <a class="dash-task" href="zs/prijimacky-diagnostika.html"><span class="task-icon">01</span><span><small>Doporučený začátek</small><strong>Najdi své slabší téma</strong></span><b>→</b></a>
+      <a class="dash-task" href="muj-pokrok.html"><span class="task-icon muted">↗</span><span><small>Pokračovat</small><strong>Otevřít můj pokrok</strong></span><b>→</b></a>
+    </aside>
   </div>
 </section>
 
@@ -442,6 +454,17 @@
   </div>
 </section>
 
+<section class="how">
+  <div class="wrap">
+    <div class="section-heading"><div><span class="section-kicker">Jednoduchý systém</span><h2>Neuč se všechno najednou.</h2></div><p>Web tě vede od zjištění slabin až k celému testu. Vždy vidíš, co má smysl udělat jako další krok.</p></div>
+    <div class="how-grid">
+      <article><span>01</span><div><h3>Najdi slabiny</h3><p>Krátká diagnostika ukáže témata, která ti berou nejvíc bodů.</p></div></article>
+      <article><span>02</span><div><h3>Procvičuj chytře</h3><p>Začni lehčeji, pochop postup a pokračuj k úrovni skutečného testu.</p></div></article>
+      <article><span>03</span><div><h3>Ověř výsledek</h3><p>Napiš celý vlastní test pod časem a vrať se jen k opakovaným chybám.</p></div></article>
+    </div>
+  </div>
+</section>
+
 <section class="guide" aria-labelledby="guide-title">
   <div class="wrap">
     <div class="guide-card">
@@ -471,7 +494,7 @@
 </section>
 
 <footer>
-  <div class="wrap">matematika.jasně — přehled pro přijímačky a maturitu · <a href="muj-pokrok.html">Můj pokrok</a> · <a href="vyhledavani.html">Vyhledávání</a> · <a href="jak-web-pouzivat.html">Jak web používat</a> · <a href="o-webu.html">O webu</a> · <a href="ukladani-dat.html">Ukládání dat</a></div>
+  <div class="wrap footer-inner"><div><strong>matematika<span>.</span>jasně</strong><small>Matematika krok za krokem.</small></div><nav><a href="muj-pokrok.html">Můj pokrok</a><a href="vyhledavani.html">Vyhledávání</a><a href="jak-web-pouzivat.html">Jak web používat</a><a href="o-webu.html">O webu</a><a href="ukladani-dat.html">Ukládání dat</a></nav></div>
 </footer>
 
 <script>
@@ -484,6 +507,6 @@
     });
   }
 </script>
-<script src="site.js?v=9"></script>
+<script src="site.js?v=14"></script>
 </body>
 </html>

@@ -19,4 +19,4 @@ jobs:
         run: node scripts/check-site.mjs
       - name: Kontrola syntaxe JavaScriptu
         shell: bash
-        run: find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -n1 node --check
+        run: find . -type f -name '*.js' -not -path './.git/*' -not -path './tmp/*' -not -path './output/*' -print0 | xargs -0 -n1 node --check

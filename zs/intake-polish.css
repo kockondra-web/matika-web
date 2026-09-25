@@ -1,0 +1,2 @@
+.topic-jump{display:inline-flex;align-items:center;min-height:44px;margin:0 0 22px;padding:10px 15px;border-radius:5px;background:#1b2a4a;color:#fff!important;font:700 13px Inter,Arial,sans-serif;text-decoration:none}.topic-jump:hover{background:#b85c4a}
+@media(max-width:650px){.stats-bar .reset-btn{width:auto;min-width:72px;min-height:44px;padding:8px 10px;font-size:12px}.stats-bar .reset-btn::before{content:none}.stats-bar .stat-chip{min-height:44px;display:flex;align-items:center}}
